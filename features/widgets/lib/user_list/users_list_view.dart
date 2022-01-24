@@ -6,10 +6,14 @@ import 'user_list_item/user_list_item.dart';
 
 class UsersListView extends StatelessWidget {
   final List<User> usersList;
-  final Function(String?) onUserClicked;
+  final Function(String) onUserClicked;
+  final Function(User)? onLongTap;
 
   const UsersListView(
-      {Key? key, required this.usersList, required this.onUserClicked})
+      {Key? key,
+      required this.usersList,
+      required this.onUserClicked,
+      this.onLongTap})
       : super(key: key);
 
   @override
@@ -26,6 +30,7 @@ class UsersListView extends StatelessWidget {
               child: UserListItem(
                 user: usersList[index],
                 onTap: onUserClicked,
+                onLongTap: onLongTap,
               ),
             ),
           ),

@@ -113,4 +113,14 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   Future<Result<List<User>>> getAllDelivery() {
     return _remoteDataSource.getAllDelivery();
   }
+
+  @override
+  Future<void> saveCurrentUserId(String id) {
+    return _sharedPreferencesManager.saveUserId(id);
+  }
+
+  @override
+  Future<Result> removeUserById(String id) {
+    return _remoteDataSource.removeUserById(id);
+  }
 }

@@ -7,9 +7,11 @@ import 'package:core/domain/user_type.dart';
 
 class UserListItem extends StatelessWidget {
   final User user;
-  final Function(String?) onTap;
+  final Function(String) onTap;
+  final Function(User)? onLongTap;
 
-  const UserListItem({Key? key, required this.user, required this.onTap})
+  const UserListItem(
+      {Key? key, required this.user, required this.onTap, this.onLongTap})
       : super(key: key);
 
   ImageProvider _imageProvider() {
@@ -29,7 +31,8 @@ class UserListItem extends StatelessWidget {
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         child: ListTile(
-          onTap: () => onTap(user.id),
+          onLongPress: onLongTap != null ? () => onLongTap!(user) : null,
+          onTap: () => onTap(user.id ?? ""),
           leading: Hero(
             tag: user.id!,
             child: CircleAvatar(

@@ -67,7 +67,7 @@ Map<String, String> arJson = {
   "reminder_title": "ذكير الدواء",
   "open_whats_app": "اضغط لفتح الواتساب",
   "are_you_sure": "هل انت متأكد",
-  "do_you_to_remove_item_cart": "هل تريد حذف هذا الدواء",
+  "do_you_to_remove_delivery": "هل تريد حذف هذا الطيار",
   "yes": "نعم",
   "time": "اوقات العمل",
   "save": "حفظ",

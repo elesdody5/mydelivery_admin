@@ -19,4 +19,6 @@ abstract class DeliveryApiService {
       String deliveryId);
 
   Future<ApiResponse<List<User>>> getAllDelivery();
+
+  Future<ApiResponse>removeUserById(String id) ;
 }

@@ -75,4 +75,10 @@ class DeliveryRemoteDataSourceImp implements DeliveryRemoteDataSource {
     var response = await _deliveryApiService.getAllDelivery();
     return _getResultFromResponse(response);
   }
+
+  @override
+  Future<Result> removeUserById(String id) async {
+    var response = await _deliveryApiService.removeUserById(id);
+    return _getResultFromResponse(response);
+  }
 }

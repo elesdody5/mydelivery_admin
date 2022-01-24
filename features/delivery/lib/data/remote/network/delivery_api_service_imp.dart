@@ -120,4 +120,15 @@ class DeliveryApiServiceImp implements DeliveryApiService {
     response.data["users"].forEach((json) => deliveryList.add(User.fromJson(json)));
     return ApiResponse(responseData: deliveryList);
   }
+
+  @override
+  Future<ApiResponse> removeUserById(String id) async{
+    final response = await _dio.delete(userUrl,
+        queryParameters: {"userId": id});
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print("error message is ${response.data['message']}");
+      return ApiResponse(errorMessage: response.data['message']);
+    }
+       return ApiResponse(responseData: true);
+  }
 }

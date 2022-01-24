@@ -9,6 +9,10 @@ dependencies:
 
   core:
     path: features/core/
+
+  authentication:
+    path: features/authentication
+
   delivery:
       path: features/delivery
   dashboard:

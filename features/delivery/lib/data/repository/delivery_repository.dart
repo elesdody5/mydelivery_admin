@@ -28,4 +28,8 @@ abstract class DeliveryRepository {
   Future<Result<List<QuickOrder>>> getDeliveredQuickOrders();
 
   Future<Result<List<User>>> getAllDelivery();
+
+  Future<void> saveCurrentUserId(String id);
+
+  Future<Result> removeUserById(String id);
 }

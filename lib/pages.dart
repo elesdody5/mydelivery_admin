@@ -1,3 +1,4 @@
+import 'package:authentication/signup/signup_screen.dart';
 import 'package:core/screens.dart';
 import 'package:core/utils/custom_transition.dart';
 import 'package:dashboard/home_page/home_page.dart';
@@ -6,12 +7,20 @@ import 'package:delivery/delivery_list/delivery_list_screen.dart';
 import 'package:delivery/home_screen/delivery_home_screen.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:authentication/signup/signup_provider.dart';
 
 List<GetPage> appPages = [
   GetPage(
+      name: signupScreenRouteName,
+      page: () => ChangeNotifierProvider.value(
+            value: SignUpProvider(),
+            child: SignupScreen(),
+          )),
+  GetPage(
     name: homeScreen,
     page: () => const HomePage(),
-  ),GetPage(
+  ),
+  GetPage(
     name: deliveryHomeScreen,
     page: () => const DeliveryHomeScreen(),
   ),
