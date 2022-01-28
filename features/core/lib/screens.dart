@@ -11,6 +11,7 @@ const String currentDeliveryOrdersScreen = '/delivery_orders';
 const String deliveryDeliveredOrdersScreen = '/delivery_delivered_orders';
 const String vendorShopsScreen = "/vendor_shops_screen";
 const String vendorHomeScreen = "/vendor_home_screen";
+const String vendorsListScreen = "/vendor_list_screen";
 const String vendorShopAvailableOrderScreen =
     "/vendor_shops_available_orders_screen";
 const String vendorShopDeliveredOrderScreen =

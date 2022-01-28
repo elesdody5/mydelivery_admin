@@ -45,6 +45,7 @@ Map<String, String> arJson = {
   "cart": "عربة التسوق ",
   "email_phone": "البريد الالكترونى او رقم الهاتف",
   "empty_delivery_title": "لايوجد طيارين",
+  "empty_vendor_title": "لايوجد اصحاب محلات",
   "pharmacies": "الصيدليات",
   "available": "متاح",
   "whatsapp": "واتس اب",

@@ -124,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                               fontSize: 24.0)),
                     ]),
               ),
-              onTap: () => Get.toNamed(""),
+              onTap: () => Get.toNamed(vendorsListScreen),
             ),
             _buildTile(
               Padding(
