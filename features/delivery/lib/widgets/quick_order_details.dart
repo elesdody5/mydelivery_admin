@@ -65,23 +65,6 @@ class QuickOrderDetails extends StatelessWidget {
               ),
             ),
           ),
-          if (pickOrder != null)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                  onPressed: () => pickOrder!(quickOrder),
-                  child: Text("pick_order".tr)),
-            ),
-          if (deliverOrder != null)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                  onPressed: () {
-                    Get.back();
-                    deliverOrder!(quickOrder);
-                  },
-                  child: Text("delivered".tr)),
-            )
         ],
       ),
     );

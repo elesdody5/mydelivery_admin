@@ -32,4 +32,8 @@ abstract class DeliveryRepository {
   Future<void> saveCurrentUserId(String id);
 
   Future<Result> removeUserById(String id);
+
+  Future<void> removeDeliveryOrders(List<String> ordersId);
+
+  Future<void> removeDeliveryQuickOrders(List<String> ordersId);
 }

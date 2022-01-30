@@ -54,8 +54,8 @@ class _HomePageState extends State<HomePage> {
                         Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const <Widget>[
-                              Material(
+                            children:  <Widget>[
+                              const Material(
                                   color: Colors.blue,
                                   shape: CircleBorder(),
                                   child: Padding(
@@ -63,15 +63,15 @@ class _HomePageState extends State<HomePage> {
                                     child: Icon(Icons.timeline,
                                         color: Colors.white, size: 30.0),
                                   )),
-                              Padding(padding: EdgeInsets.only(bottom: 16.0)),
-                              Text('Users',
-                                  style: TextStyle(
+                              const Padding(padding: EdgeInsets.only(bottom: 16.0)),
+                              Text('users'.tr,
+                                  style: const TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w700,
                                       fontSize: 24.0)),
                             ]),
                       ])),
-              onTap: () => Get.toNamed("UsersScreen.routeName"),
+              onTap: () => Get.toNamed(usersScreen),
             ),
             _buildTile(
               Padding(
@@ -174,7 +174,7 @@ class _HomePageState extends State<HomePage> {
                               fontSize: 24.0)),
                     ]),
               ),
-              onTap: () => Get.toNamed(""),
+              onTap: () => Get.toNamed(offersScreenRouteName),
             ),
             _buildTile(
               Padding(
@@ -199,7 +199,7 @@ class _HomePageState extends State<HomePage> {
                               fontSize: 24.0)),
                     ]),
               ),
-              onTap: () => Get.toNamed(""),
+              onTap: () => Get.toNamed(availableOrdersScreen),
             ),
           ],
           // staggeredTiles: const [

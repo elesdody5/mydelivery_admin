@@ -34,17 +34,8 @@ class UserRepositoryImp implements UserRepository {
 
   @override
   Future<Result<User>> getUserDetails() async {
-    User? user = await _sharedPreferencesManager.getUserDetails();
-    if (user != null) {
-      return Success(user);
-    } else {
-      Result<User> user = await _getRemoteUserDetails();
-      if (user.succeeded()) {
-        await _sharedPreferencesManager
-            .saveUserDetails(user.getDataIfSuccess());
-      }
-      return user;
-    }
+    Result<User> user = await _getRemoteUserDetails();
+    return user;
   }
 
   Future<Result<User>> _getRemoteUserDetails() async {

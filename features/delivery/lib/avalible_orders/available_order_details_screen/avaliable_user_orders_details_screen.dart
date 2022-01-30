@@ -49,20 +49,8 @@ class AvailableUserOrdersDetailsScreen extends StatelessWidget {
     _setupListener();
     return Scaffold(
         appBar: AppBar(),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-                child: OrdersListView(
-              orders: provider.orders,
-            )),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                  onPressed: () => provider.addDeliveryToOrders(),
-                  child: Text("pick_order".tr)),
-            )
-          ],
+        body: OrdersListView(
+          orders: provider.orders,
         ));
   }
 }

@@ -117,18 +117,30 @@ class DeliveryApiServiceImp implements DeliveryApiService {
       return ApiResponse(errorMessage: response.data['message']);
     }
     List<User> deliveryList = [];
-    response.data["users"].forEach((json) => deliveryList.add(User.fromJson(json)));
+    response.data["users"]
+        .forEach((json) => deliveryList.add(User.fromJson(json)));
     return ApiResponse(responseData: deliveryList);
   }
 
   @override
-  Future<ApiResponse> removeUserById(String id) async{
-    final response = await _dio.delete(userUrl,
-        queryParameters: {"userId": id});
+  Future<ApiResponse> removeUserById(String id) async {
+    final response =
+        await _dio.delete(userUrl, queryParameters: {"userId": id});
     if (response.statusCode != 200 && response.statusCode != 201) {
       print("error message is ${response.data['message']}");
       return ApiResponse(errorMessage: response.data['message']);
     }
-       return ApiResponse(responseData: true);
+    return ApiResponse(responseData: true);
+  }
+
+  @override
+  Future<ApiResponse> removeQuickOrders(List<String> ordersId) async {
+    final response =
+        await _dio.delete(deleteQuickOrders, data: {"quickOrders": ordersId});
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print("error message is ${response.data['message']}");
+      return ApiResponse(errorMessage: response.data['message']);
+    }
+    return ApiResponse(responseData: true);
   }
 }

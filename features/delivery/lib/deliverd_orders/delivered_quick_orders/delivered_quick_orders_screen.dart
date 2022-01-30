@@ -31,8 +31,25 @@ class DeliveredQuickOrdersScreen extends StatelessWidget {
                     icon: Image.asset('assets/images/notification.png'),
                   ),
                 )
-              : QuickOrdersListView(
-                  orders: provider.orders,
+              : Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Expanded(
+                        child: QuickOrdersListView(
+                          orders: provider.orders,
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: provider.removeOrders,
+                        child: Text("delete".tr),
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.red)),
+                      ),
+                    ],
+                  ),
                 )),
     );
   }

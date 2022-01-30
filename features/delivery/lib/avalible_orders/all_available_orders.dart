@@ -55,7 +55,7 @@ class AllAvailableOrdersScreen extends StatelessWidget {
                 child: const AvailableOrdersScreen(),
               ),
               ChangeNotifierProvider.value(
-                value: AvailableQuickOrderProvider(),
+                value: AvailableQuickOrderProvider(updateAvailableQuickOrderCount: provider.setAvailableQuickOrdersCount),
                 child: const AvailableQuickOrders(),
               ),
             ],

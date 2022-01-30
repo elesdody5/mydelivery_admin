@@ -19,4 +19,24 @@ class DeliveredOrdersProvider extends BaseProvider {
     }
     notifyListeners();
   }
+
+  int get totalDeliveryPrice {
+    int total = 0;
+    for (var order in orders) {
+      total += order.deliveryPrice ?? 0;
+    }
+    return total;
+  }
+
+  void removeOrders() async {
+    isLoading.value = true;
+    List<String> ordersId = orders.map((order) => order.id ?? "").toList();
+    await _repository.removeDeliveryOrders(ordersId);
+    isLoading.value = false;
+    orders.clear();
+    if (updateDeliveredOrderCount != null) {
+      updateDeliveredOrderCount!(orders.length);
+    }
+    notifyListeners();
+  }
 }

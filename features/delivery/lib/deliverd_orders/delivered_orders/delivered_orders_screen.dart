@@ -1,3 +1,4 @@
+import 'package:core/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,7 @@ class DeliveredOrdersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider =
         Provider.of<DeliveredOrdersProvider>(context, listen: false);
+    setupLoadingListener(provider.isLoading);
     return FutureWithLoadingProgress(
       future: provider.getDeliveredOrders,
       child: Consumer<DeliveredOrdersProvider>(
@@ -22,8 +24,30 @@ class DeliveredOrdersScreen extends StatelessWidget {
                   title: "empty_orders".tr,
                   icon: Image.asset('assets/images/delivery-man.png'),
                 )
-              : OrdersListView(
-                  orders: provider.orders,
+              : Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Expanded(
+                        child: OrdersListView(
+                          orders: provider.orders,
+                        ),
+                      ),
+                      OutlinedButton(
+                        onPressed: null,
+                        child: Text(
+                            "${"total".tr} ${provider.totalDeliveryPrice} ${"le".tr}"),
+                      ),
+                      ElevatedButton(
+                        onPressed: provider.removeOrders,
+                        child: Text("delete".tr),
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.red)),
+                      ),
+                    ],
+                  ),
                 )),
     );
   }

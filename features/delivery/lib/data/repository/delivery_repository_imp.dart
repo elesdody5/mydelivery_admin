@@ -123,4 +123,14 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   Future<Result> removeUserById(String id) {
     return _remoteDataSource.removeUserById(id);
   }
+
+  @override
+  Future<void> removeDeliveryOrders(List<String> ordersId) {
+    return _fireStoreService.removeOrdersIds(ordersId);
+  }
+
+  @override
+  Future<void> removeDeliveryQuickOrders(List<String> ordersId) {
+    return _remoteDataSource.removeQuickOrders(ordersId);
+  }
 }

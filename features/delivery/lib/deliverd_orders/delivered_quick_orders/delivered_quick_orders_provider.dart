@@ -25,4 +25,16 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
       notifyListeners();
     }
   }
+
+  void removeOrders() async {
+    isLoading.value = true;
+    List<String> ordersId = orders.map((order) => order.id ?? "").toList();
+    await _repository.removeDeliveryQuickOrders(ordersId);
+    isLoading.value = false;
+    orders.clear();
+    if (updateDeliveredQuickOrderCount != null) {
+      updateDeliveredQuickOrderCount!(orders.length);
+    }
+     notifyListeners();
+  }
 }

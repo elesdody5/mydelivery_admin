@@ -76,4 +76,14 @@ class FireStoreServiceImp implements FireStoreService {
         .doc(orderId)
         .update({"orderStatus": orderStatus.enumToString()});
   }
+
+  @override
+  Future<void> removeOrdersIds(List<String> ordersId) async {
+    final ordersCollection = _fireStore.collection("orders");
+    WriteBatch batch = _fireStore.batch();
+    for (var id in ordersId) {
+      batch.delete(ordersCollection.doc(id));
+    }
+    await batch.commit();
+  }
 }

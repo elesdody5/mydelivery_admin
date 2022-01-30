@@ -14,53 +14,14 @@ import 'package:widgets/future_with_loading_progress.dart';
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);
   final GlobalKey<FormBuilderState> _formKey = GlobalKey();
-  late ProfileProvider provider;
-
-  Future<void> _submit() async {
-    if (_formKey.currentState?.validate() == false) {
-      // Invalid!
-      return;
-    }
-    _formKey.currentState?.save();
-    provider.updateUser();
-  }
-
-  void _setupListener() {
-    setupErrorMessageListener(provider.errorMessage);
-    setupLoadingListener(provider.isLoading);
-    setupSuccessMessageListener(provider.successMessage);
-  }
 
   @override
   Widget build(BuildContext context) {
-    provider = Provider.of<ProfileProvider>(context, listen: false);
-    _setupListener();
+    final provider = Provider.of<ProfileProvider>(context, listen: false);
     return Scaffold(
-        appBar: AppBar(title: Text("profile".tr), actions: [
-          PopupMenuButton(
-            onSelected: (value) {
-              provider.setEditAble = true;
-            },
-            icon: const Icon(
-              Icons.more_vert,
-            ),
-            itemBuilder: (_) => [
-              PopupMenuItem(
-                child: TextButton.icon(
-                  icon: const Icon(
-                    Icons.edit,
-                    color: Colors.black,
-                  ),
-                  label: Text(
-                    "edit_profile".tr,
-                  ),
-                  onPressed: null,
-                ),
-                value: 0,
-              ),
-            ],
-          ),
-        ]),
+        appBar: AppBar(
+          title: Text("profile".tr),
+        ),
         body: FutureWithLoadingProgress(
           future: provider.getUserDetails,
           child: Consumer<ProfileProvider>(builder: (context, provider, child) {
@@ -139,20 +100,12 @@ class ProfileScreen extends StatelessWidget {
                         onSaved: (String? address) {
                           if (address != null) provider.user?.address = address;
                         },
+                        initialValue: provider.user?.address,
                         decoration: formInputDecoration(
                             label: "address".tr,
                             suffixIcon: const Icon(Icons.my_location_rounded)),
                       )),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      child: Text(
-                        "save".tr,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      onPressed: _submit,
-                    ),
-                  ),
+
                 ],
               ),
             );

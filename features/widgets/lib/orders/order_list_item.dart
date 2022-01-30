@@ -21,20 +21,10 @@ class OrderListItem extends StatelessWidget {
       this.updateOrderStatus})
       : super(key: key);
 
-  void Function() onOrderClicked() {
-    return orderActions == null
-        ? () => Get.bottomSheet(OrderDetails(order: order))
-        : () => Get.bottomSheet(OrderBottomSheetActions(
-              order: order,
-              orderActions: orderActions,
-              updateOrderStatus: updateOrderStatus,
-            ));
-  }
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onOrderClicked(),
+      onTap: () => Get.bottomSheet(OrderDetails(order: order)),
       child: Container(
         margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(

@@ -17,7 +17,8 @@ dependencies:
       path: features/delivery
   dashboard:
     path: features/dashboard
-
+  user_profile:
+    path: features/user_profile
   vendor:
     path: features/vendor
 
