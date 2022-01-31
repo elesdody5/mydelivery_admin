@@ -1,11 +1,14 @@
 import 'package:cool_alert/cool_alert.dart';
 import 'package:core/model/offer.dart';
+import 'package:core/model/shop.dart';
 import 'package:core/screens.dart';
 import 'package:core/utils/styles.dart';
 import 'package:core/utils/utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +36,7 @@ class _OfferDetailsScreenState extends State<OfferDetailsScreen> {
       Offer? offer = Get.arguments;
       provider = Provider.of<OfferDetailsProvider>(context, listen: false);
       if (offer != null) provider.initOffer(offer);
+      provider.getAllShops();
       _setupListener();
       isInit = false;
     }
@@ -52,8 +56,7 @@ class _OfferDetailsScreenState extends State<OfferDetailsScreen> {
         type: CoolAlertType.success,
         text: message?.tr,
         confirmBtnText: "continue".tr,
-        onConfirmBtnTap: () =>
-            Get.offNamedUntil(homeScreen, (route) => false),
+        onConfirmBtnTap: () => Get.offNamedUntil(homeScreen, (route) => false),
       );
     });
   }
@@ -84,6 +87,37 @@ class _OfferDetailsScreenState extends State<OfferDetailsScreen> {
                   selectedImage: provider.offer.imageFile,
                   imageUrl: provider.offer.photo,
                 ),
+                Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Autocomplete<Shop>(
+                      fieldViewBuilder: (BuildContext context,
+                              TextEditingController fieldTextEditingController,
+                              FocusNode fieldFocusNode,
+                              VoidCallback onFieldSubmitted) =>
+                          Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: CupertinoSearchTextField(
+                          backgroundColor: Colors.white,
+                          controller: fieldTextEditingController,
+                          focusNode: fieldFocusNode,
+                          placeholder: 'shops'.tr,
+                        ),
+                      ),
+                      optionsBuilder: (TextEditingValue textEditingValue) {
+                        if (textEditingValue.text.isEmpty) {
+                          return provider.shops;
+                        }
+                        return provider.shops.where((Shop shop) {
+                          return shop.name?.toLowerCase().contains(
+                                  textEditingValue.text.toLowerCase()) ??
+                              false;
+                        });
+                      },
+                      displayStringForOption: (Shop shop) => shop.name ?? "",
+                      onSelected: (Shop shop) {
+                        provider.offer.shop = shop.id;
+                      },
+                    )),
                 Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: FormBuilderTextField(

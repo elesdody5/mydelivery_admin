@@ -3,6 +3,7 @@ import 'package:core/data/shared_preferences/user_manager_interface.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
 import 'package:core/model/offer.dart';
+import 'package:core/model/shop.dart';
 import 'package:dashboard/data/remote/remote_data_source.dart';
 import 'package:dashboard/data/remote/remote_data_source_im.dart';
 import 'package:dashboard/data/repository/repository.dart';
@@ -41,5 +42,10 @@ class MainRepository implements Repository {
   @override
   Future<Result> addOffer(Offer offer) {
     return _remoteDataSource.addOffer(offer);
+  }
+
+  @override
+  Future<Result<List<Shop>>> getAllShops() {
+    return _remoteDataSource.getAllShops();
   }
 }

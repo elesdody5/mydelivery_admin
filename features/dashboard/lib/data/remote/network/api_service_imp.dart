@@ -2,6 +2,7 @@ import 'package:core/domain/user.dart';
 import 'package:core/domain/user_type.dart';
 import 'package:core/model/offer.dart';
 import 'package:core/model/response.dart';
+import 'package:core/model/shop.dart';
 
 import 'api_service.dart';
 import 'package:dio/dio.dart';
@@ -64,5 +65,17 @@ class ApiServiceImp implements ApiService {
     }
 
     return ApiResponse(responseData: true);
+  }
+
+  @override
+  Future<ApiResponse<List<Shop>>> getAllShops() async {
+    final response = await _dio.get(shopsUrl);
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print("error message is ${response.data['message']}");
+      return ApiResponse(errorMessage: response.data['message']);
+    }
+    List<Shop> shops = [];
+    response.data["shops"].forEach((json) => shops.add(Shop.fromJson(json)));
+    return ApiResponse(responseData: shops);
   }
 }

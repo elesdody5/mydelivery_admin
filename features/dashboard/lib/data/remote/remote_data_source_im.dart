@@ -3,6 +3,7 @@ import 'package:core/domain/user.dart';
 import 'package:core/model/http_exception.dart';
 import 'package:core/model/offer.dart';
 import 'package:core/model/response.dart';
+import 'package:core/model/shop.dart';
 import 'package:dashboard/data/remote/network/api_service.dart';
 import 'package:dashboard/data/remote/remote_data_source.dart';
 
@@ -48,6 +49,12 @@ class RemoteDataSourceImp implements RemoteDataSource {
   @override
   Future<Result> addOffer(Offer offer) async {
     var response = await _apiService.addOffer(offer);
+    return _getResultFromResponse(response);
+  }
+
+  @override
+  Future<Result<List<Shop>>> getAllShops() async{
+    var response = await _apiService.getAllShops();
     return _getResultFromResponse(response);
   }
 }

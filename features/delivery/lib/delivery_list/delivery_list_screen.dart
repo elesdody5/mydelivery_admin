@@ -2,6 +2,7 @@ import 'package:core/domain/user.dart';
 import 'package:core/domain/user_type.dart';
 import 'package:core/screens.dart';
 import 'package:core/utils/utils.dart';
+import 'package:delivery/delivery_list/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:widgets/empty_widget.dart';
@@ -45,20 +46,34 @@ class DeliveryListScreen extends StatelessWidget {
             Get.toNamed(signupScreenRouteName, arguments: UserType.delivery),
         child: const Icon(Icons.add),
       ),
-      body: UserListWithShimmer(
-        future: provider.getAllDelivery,
-        child: Consumer<DeliveryListProvider>(builder: (_, provider, __) {
-          return provider.deliveryList.isEmpty
-              ? EmptyWidget(
-                  icon: Image.asset('assets/images/delivery-man.png'),
-                  title: "empty_delivery_title".tr,
-                )
-              : UsersListView(
-                  usersList: provider.deliveryList,
-                  onUserClicked: provider.onDeliveryClicked,
-                  onLongTap: (delivery) => _showAlertDialog(provider, delivery),
-                );
-        }),
+      body: SafeArea(
+        child: UserListWithShimmer(
+          future: provider.getAllDelivery,
+          child: Consumer<DeliveryListProvider>(builder: (_, provider, __) {
+            return provider.deliveryList.isEmpty
+                ? EmptyWidget(
+                    icon: Image.asset('assets/images/delivery-man.png'),
+                    title: "empty_delivery_title".tr,
+                  )
+                : Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 10),
+                        child: SearchWidget(search: provider.search),
+                      ),
+                      Expanded(
+                        child: UsersListView(
+                          usersList: provider.filteredDeliveryList,
+                          onUserClicked: provider.onDeliveryClicked,
+                          onLongTap: (delivery) =>
+                              _showAlertDialog(provider, delivery),
+                        ),
+                      ),
+                    ],
+                  );
+          }),
+        ),
       ),
     );
   }

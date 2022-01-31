@@ -8,6 +8,7 @@ import 'package:delivery/data/repository/delivery_repository_imp.dart';
 
 class DeliveryListProvider extends BaseProvider {
   List<User> deliveryList = [];
+  List<User> filteredDeliveryList = [];
   final DeliveryRepository _repository;
 
   DeliveryListProvider({DeliveryRepository? repository})
@@ -17,6 +18,7 @@ class DeliveryListProvider extends BaseProvider {
     Result<List<User>> result = await _repository.getAllDelivery();
     if (result.succeeded()) {
       deliveryList = result.getDataIfSuccess();
+      filteredDeliveryList = [...deliveryList];
       notifyListeners();
     }
   }
@@ -34,7 +36,19 @@ class DeliveryListProvider extends BaseProvider {
     isLoading.value = false;
     if (result.succeeded()) {
       deliveryList.remove(delivery);
+      filteredDeliveryList.remove(delivery);
       notifyListeners();
     }
+  }
+
+  void search(String value) {
+    if (value.isNotEmpty) {
+      filteredDeliveryList = deliveryList.where((element) {
+        return element.name?.toLowerCase().contains(value) ?? false;
+      }).toList();
+    } else {
+      filteredDeliveryList = [...deliveryList];
+    }
+    notifyListeners();
   }
 }
