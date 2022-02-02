@@ -21,33 +21,6 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'My Delivery Admin',
       debugShowCheckedModeBanner: false,
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        cardColor: Colors.grey[800],
-        primaryColor: const Color(0xFFFFe477),
-        primaryIconTheme: const IconThemeData(color: Color(0xFFEF6F6F)),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ButtonStyle(
-              padding: MaterialStateProperty.all<EdgeInsets>(
-                  const EdgeInsets.all(10)),
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-              backgroundColor:
-                  MaterialStateProperty.all<Color>(const Color(0xFFFFe477))),
-        ),
-        textTheme: const TextTheme(
-          bodyText1: TextStyle(
-              letterSpacing: 1,
-              fontWeight: FontWeight.w700,
-              fontSize: 18,
-              color: Color(0xfff45b55)),
-          bodyText2: TextStyle(
-              letterSpacing: 1,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-              color: Colors.white),
-        ),
-        /* dark theme settings */
-      ),
       theme: ThemeData(
         primaryColor: const Color(0xFFFFe477),
         primaryColorLight: const Color(0xffffe061),

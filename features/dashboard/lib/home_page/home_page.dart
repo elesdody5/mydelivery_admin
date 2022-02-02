@@ -1,17 +1,18 @@
 import 'package:core/screens.dart';
+import 'package:core/utils/utils.dart';
+import 'package:dashboard/home_page/home_provider.dart';
+import 'package:dashboard/settings/settings_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<HomeProvider>(context, listen: false);
+    setupLoadingListener(provider.isLoading);
     return Scaffold(
         appBar: AppBar(
           elevation: 2.0,
@@ -54,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                         Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children:  <Widget>[
+                            children: <Widget>[
                               const Material(
                                   color: Colors.blue,
                                   shape: CircleBorder(),
@@ -63,7 +64,8 @@ class _HomePageState extends State<HomePage> {
                                     child: Icon(Icons.timeline,
                                         color: Colors.white, size: 30.0),
                                   )),
-                              const Padding(padding: EdgeInsets.only(bottom: 16.0)),
+                              const Padding(
+                                  padding: EdgeInsets.only(bottom: 16.0)),
                               Text('users'.tr,
                                   style: const TextStyle(
                                       color: Colors.black,
@@ -201,15 +203,35 @@ class _HomePageState extends State<HomePage> {
               ),
               onTap: () => Get.toNamed(availableOrdersScreen),
             ),
+            _buildTile(
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const Material(
+                          color: Colors.green,
+                          shape: CircleBorder(),
+                          child: Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Icon(Icons.settings,
+                                color: Colors.white, size: 30.0),
+                          )),
+                      const Padding(padding: EdgeInsets.only(bottom: 16.0)),
+                      Text('settings'.tr,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 24.0)),
+                    ]),
+              ),
+              onTap: () async {
+                await provider.getSettings();
+                Get.dialog(SettingsAlertDialog(orderSettings: provider.orderSettings, updateOrderSettings: provider.updateSettings));
+              }
+            ),
           ],
-          // staggeredTiles: const [
-          //   // StaggeredTile.extent(1, 180.0),
-          //   // StaggeredTile.extent(1, 180.0),
-          //   // StaggeredTile.extent(1, 180.0),
-          //   // StaggeredTile.extent(1, 180.0),
-          //   // StaggeredTile.extent(1, 180.0),
-          //   // StaggeredTile.extent(1, 180.0),
-          // ],
         ));
   }
 

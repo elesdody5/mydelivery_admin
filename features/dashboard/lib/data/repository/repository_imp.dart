@@ -4,20 +4,26 @@ import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
 import 'package:core/model/offer.dart';
 import 'package:core/model/shop.dart';
+import 'package:dashboard/data/firebase/firestore_service.dart';
+import 'package:dashboard/data/firebase/firestore_service_imp.dart';
 import 'package:dashboard/data/remote/remote_data_source.dart';
 import 'package:dashboard/data/remote/remote_data_source_im.dart';
 import 'package:dashboard/data/repository/repository.dart';
+import 'package:dashboard/domain/model/order_settings.dart';
 
 class MainRepository implements Repository {
   final RemoteDataSource _remoteDataSource;
   final SharedPreferencesManager _sharedPreferencesManager;
+  final FireStoreService _fireStoreService;
 
   MainRepository(
       {RemoteDataSource? remoteDataSource,
-      SharedPreferencesManager? sharedPreferencesManager})
+      SharedPreferencesManager? sharedPreferencesManager,
+      FireStoreService? fireStoreService})
       : _remoteDataSource = remoteDataSource ?? RemoteDataSourceImp(),
         _sharedPreferencesManager =
-            sharedPreferencesManager ?? SharedPreferencesManagerImp();
+            sharedPreferencesManager ?? SharedPreferencesManagerImp(),
+        _fireStoreService = fireStoreService ?? FireStoreServiceImp();
 
   @override
   Future<Result<List<User>>> getAllUsers() {
@@ -47,5 +53,15 @@ class MainRepository implements Repository {
   @override
   Future<Result<List<Shop>>> getAllShops() {
     return _remoteDataSource.getAllShops();
+  }
+
+  @override
+  Future<Result<OrderSettings>> getOrderSettings() {
+    return _fireStoreService.getOrderSettings();
+  }
+
+  @override
+  Future<Result> updateOrderSettings(OrderSettings orderSettings) {
+    return _fireStoreService.updateOrderSettings(orderSettings);
   }
 }

@@ -16,7 +16,7 @@ class VendorsListScreen extends StatelessWidget {
   void _showAlertDialog(VendorsListProvider provider, User vendor) {
     Get.dialog(AlertDialog(
       title: Text("are_you_sure".tr),
-      content: Text("do_you_to_remove_delivery".tr),
+      content: Text("do_you_to_remove_vendor".tr),
       actions: [
         TextButton(
           onPressed: () {

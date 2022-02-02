@@ -26,6 +26,7 @@ import 'package:vendor/product_list/products_provider.dart';
 import 'package:vendor/product_list/products_screen.dart';
 import 'package:vendor/vendors_list_screen/vendors_list_provider.dart';
 import 'package:vendor/vendors_list_screen/vendors_list_screen.dart';
+import 'package:dashboard/home_page/home_provider.dart';
 
 List<GetPage> appPages = [
   GetPage(
@@ -35,9 +36,11 @@ List<GetPage> appPages = [
             child: SignupScreen(),
           )),
   GetPage(
-    name: homeScreen,
-    page: () => const HomePage(),
-  ),
+      name: homeScreen,
+      page: () => ChangeNotifierProvider.value(
+            value: HomeProvider(),
+            child: const HomePage(),
+          )),
   GetPage(
     name: deliveryHomeScreen,
     page: () => const DeliveryHomeScreen(),

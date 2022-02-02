@@ -97,7 +97,7 @@ Map<String, String> arJson = {
       "لقد تم الطلب بنجاح \n سوف يتم التواصل بك من خلال الطيار",
   "order_error": "لم يتم الطلب بنجاء يرجى المحاولة مرة اخرى لاحقا",
   "new_user": "مستخدم جديد؟",
-  "users:": "المستخدمين",
+  "users": "المستخدمين",
   "user_name": "اسم المستخدم",
   "email": "البريد الالكترونى",
   "submit": "ارسال",
@@ -118,8 +118,8 @@ Map<String, String> arJson = {
   "city": "المدينة",
   "am": "صباحا",
   "pm": "مساء",
-  "first_drive": " +10 توصيل",
-  "other_drive": " +5 توصيل",
+  "first_drive": "سعر اول اوصيلة",
+  "other_drive": "سعر باقي التوصيلات",
   "delivery": "الطيار",
   "total_order": "مجموع الطلبات:",
   "total": "مجموع التوصيل:",
@@ -166,5 +166,6 @@ Map<String, String> arJson = {
   "delivered": "تم التوصيل",
   "ready": "جاهز",
   "connect_via_whatsapp": "التواصل عبر الواتس",
-  "connect_via_phone": "التواصل عبر الهاتف"
+  "connect_via_phone": "التواصل عبر الهاتف",
+  "enable_orders": "تشغيل الطلبات"
 };
