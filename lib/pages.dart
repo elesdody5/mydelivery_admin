@@ -1,18 +1,24 @@
 import 'package:authentication/signup/signup_screen.dart';
 import 'package:core/screens.dart';
+import 'package:dashboard/categories/categories_provider.dart';
+import 'package:dashboard/categories/categories_screen.dart';
 import 'package:dashboard/home_page/home_page.dart';
+import 'package:dashboard/notifications_list/notification_list_screen.dart';
+import 'package:dashboard/notifications_list/notification_provider.dart';
 import 'package:dashboard/offers/offers_provider.dart';
 import 'package:dashboard/offers/offers_screen.dart';
 import 'package:dashboard/offer_details/offer_details_provider.dart';
 import 'package:dashboard/offer_details/offer_details_screen.dart';
+import 'package:dashboard/shop_details/shop_details_provider.dart';
+import 'package:dashboard/shop_details/shop_details_screen.dart';
+import 'package:dashboard/shops/shops_provider.dart';
+import 'package:dashboard/shops/shops_screen.dart';
 import 'package:dashboard/users_list_screen/user_list_proivder.dart';
 import 'package:dashboard/users_list_screen/user_list_screen.dart';
 import 'package:delivery/avalible_orders/all_available_orders.dart';
 import 'package:delivery/avalible_orders/all_available_orders_provider.dart';
 import 'package:delivery/avalible_orders/available_order_details_screen/avaliable_user_order_provider.dart';
 import 'package:delivery/avalible_orders/available_order_details_screen/avaliable_user_orders_details_screen.dart';
-import 'package:delivery/avalible_orders/available_orders/available_orders_provider.dart';
-import 'package:delivery/avalible_orders/available_orders/available_orders_screen.dart';
 import 'package:delivery/delivery_list/delivery_list_provider.dart';
 import 'package:delivery/delivery_list/delivery_list_screen.dart';
 import 'package:delivery/home_screen/delivery_home_screen.dart';
@@ -102,5 +108,29 @@ List<GetPage> appPages = [
       page: () => ChangeNotifierProvider.value(
             value: AvailableUserOrdersDetailsProvider(),
             child: AvailableUserOrdersDetailsScreen(),
+          )),
+  GetPage(
+      name: categoriesScreenRouteName,
+      page: () => ChangeNotifierProvider.value(
+            value: CategoriesProvider(),
+            child: const CategoriesScreen(),
+          )),
+  GetPage(
+      name: shopsScreenRouteName,
+      page: () => ChangeNotifierProvider.value(
+            value: ShopsProvider(),
+            child: const ShopsScreen(),
+          )),
+  GetPage(
+      name: shopDetailsScreenRouteName,
+      page: () => ChangeNotifierProvider.value(
+            value: ShopDetailsProvider(),
+            child: const ShopDetailsScreen(),
+          )),
+  GetPage(
+      name: notificationsScreenRouteName,
+      page: () => ChangeNotifierProvider.value(
+            value: NotificationListProvider(),
+            child: const NotificationListScreen(),
           )),
 ];

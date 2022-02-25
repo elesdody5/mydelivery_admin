@@ -6,7 +6,7 @@ abstract class BaseProvider with ChangeNotifier {
   RxnString errorMessage = RxnString("");
   RxnString successMessage = RxnString("");
   var isLoading = false.obs;
-  Rxn<NavigationDestination> navigation = Rxn(null);
+  Rxn<Destination> navigation = Rxn(null);
 }
 
 extension ClearRxnString on RxnString {
@@ -15,7 +15,7 @@ extension ClearRxnString on RxnString {
   }
 }
 
-extension ClearRxn on Rxn<NavigationDestination> {
+extension ClearRxn on Rxn<Destination> {
   void clear() {
     value = null;
   }

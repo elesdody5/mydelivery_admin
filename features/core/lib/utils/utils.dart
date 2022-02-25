@@ -42,8 +42,8 @@ void setupLoadingListener(RxBool isLoading) {
   });
 }
 
-void setupNavigationListener(Rxn<NavigationDestination> navigationObs) {
-  ever(navigationObs, (NavigationDestination? navigation) {
+void setupNavigationListener(Rxn<Destination> navigationObs) {
+  ever(navigationObs, (Destination? navigation) {
     navigation?.let((it) {
       navigation.removeFromStack == true
           ? Get.offNamed(it.routeName, arguments: navigation.argument)

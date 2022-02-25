@@ -27,7 +27,7 @@ class DeliveryListProvider extends BaseProvider {
     isLoading.value = true;
     await _repository.saveCurrentUserId(id);
     isLoading.value = false;
-    navigation.value = NavigationDestination(routeName: deliveryHomeScreen);
+    navigation.value = Destination(routeName: deliveryHomeScreen);
   }
 
   Future<void> removeDelivery(User delivery) async {

@@ -25,7 +25,7 @@ class VendorsListProvider extends BaseProvider {
     isLoading.value = true;
     await _repository.saveCurrentUserId(id);
     isLoading.value = false;
-    navigation.value = NavigationDestination(routeName: vendorHomeScreen);
+    navigation.value = Destination(routeName: vendorHomeScreen);
   }
 
   Future<void> removeVendor(User vendor) async {

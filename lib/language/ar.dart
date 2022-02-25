@@ -70,7 +70,10 @@ Map<String, String> arJson = {
   "open_whats_app": "اضغط لفتح الواتساب",
   "are_you_sure": "هل انت متأكد",
   "do_you_to_remove_delivery": "هل تريد حذف هذا الطيار",
+  "do_you_to_remove_user": "هل تريد حذف هذا المستخدم",
+  "do_you_to_remove_vendor": "هل تريد حذف هذا التاجر",
   "do_you_to_remove_offer": "هل تريد حذف هذا العرض",
+  "do_you_to_remove_notification": "هل تريد حذف هذا الاشعار",
   "yes": "نعم",
   "time": "اوقات العمل",
   "save": "حفظ",
@@ -167,5 +170,12 @@ Map<String, String> arJson = {
   "ready": "جاهز",
   "connect_via_whatsapp": "التواصل عبر الواتس",
   "connect_via_phone": "التواصل عبر الهاتف",
-  "enable_orders": "تشغيل الطلبات"
+  "enable_orders": "تشغيل الطلبات",
+  "send_notification": "ارسال اشعار",
+  "send": "ارسال",
+  "notification_title": "العنوان",
+  "notification_message": "الرسالة",
+  "notification_send_successfully": "تم ارسال الرسالة بنجاح",
+  "order_places_count": "عدد اماكن الطلب ",
+  "notifications": "الاشعارات"
 };

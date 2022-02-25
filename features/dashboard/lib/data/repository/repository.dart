@@ -1,7 +1,11 @@
+import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
+import 'package:core/model/category.dart';
 import 'package:core/model/offer.dart';
+import 'package:core/model/product.dart';
 import 'package:core/model/shop.dart';
+import 'package:dashboard/domain/model/notification_message.dart';
 import 'package:dashboard/domain/model/order_settings.dart';
 
 abstract class Repository {
@@ -17,6 +21,27 @@ abstract class Repository {
 
   Future<Result<List<Shop>>> getAllShops();
 
+  Future<Result<List<Category>>> getAllCategory();
+
   Future<Result<OrderSettings>> getOrderSettings();
+
   Future<Result> updateOrderSettings(OrderSettings orderSettings);
+
+  Future<Result> sendQuickOrder(QuickOrder quickOrder);
+
+  Future<Result> sendNotification(NotificationMessage notificationMessage);
+
+  Future<Result<List<Shop>>> getShopsByCategory(String categoryId);
+
+  Future<Result<Shop>> getShopById(String id);
+
+  Future<Result<List<Category>>> getShopSubCategories(String shopId);
+
+  Future<Result<List<Product>>> getShopProducts(String shopId);
+
+  Future<Result> removeUserById(String userId);
+
+  Future<Result<List<NotificationMessage>>> getAllNotifications();
+
+  Future<Result> deleteNotificationById(String id);
 }

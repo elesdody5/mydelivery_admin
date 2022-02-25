@@ -31,7 +31,7 @@ class AvailableOrdersProvider extends BaseProvider {
   void navigateToUserOrderDetails(String userId) {
     List<Order> selectedOrders =
         orders.where((element) => element.user?.id == userId).toList();
-    navigation.value = NavigationDestination(
+    navigation.value = Destination(
         routeName: availableOrderDetailsScreen, argument: selectedOrders);
   }
 }

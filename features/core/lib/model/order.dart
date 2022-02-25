@@ -64,7 +64,7 @@ class Order {
   }
 
   String? get formattedDate {
-    var dateFormat = DateFormat("yyyy-MM-dd");
+    var dateFormat = DateFormat("yyyy-MM-dd HH:mm a");
     if (dateTime == null) return null;
     return dateFormat.format(dateTime!);
   }

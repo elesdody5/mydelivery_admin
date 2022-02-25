@@ -25,6 +25,16 @@ class UsersListProvider extends BaseProvider {
     isLoading.value = true;
     await _repository.saveCurrentUserId(id);
     isLoading.value = false;
-    navigation.value = NavigationDestination(routeName: profileScreenRouteName);
+    navigation.value = Destination(routeName: profileScreenRouteName);
+  }
+
+  Future<void> removeUser(User user) async {
+    isLoading.value = true;
+    Result result = await _repository.removeUserById(user.id ?? "");
+    isLoading.value = false;
+    if (result.succeeded()) {
+      usersList.remove(user);
+      notifyListeners();
+    }
   }
 }

@@ -1,9 +1,9 @@
-class NavigationDestination<T> {
+class Destination<T> {
   String routeName;
   T? argument;
   bool removeFromStack;
 
-  NavigationDestination(
+  Destination(
       {required this.routeName, this.argument, this.removeFromStack = false});
 
   @override

@@ -34,10 +34,20 @@ class QuickOrderDetails extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "description".tr,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    "description".tr,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                  Text(
+                    "${"order_places_count".tr} (${quickOrder.count ?? "1"})",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                ],
               ),
             ),
           ),
@@ -55,16 +65,43 @@ class QuickOrderDetails extends StatelessWidget {
             leading: CircleAvatar(
               backgroundImage: _imageProvider(),
             ),
-            title: Text(quickOrder.user?.name ?? ""),
+            title: quickOrder.user != null
+                ? Text(quickOrder.user?.name ?? "")
+                : Text(
+                    quickOrder.phoneNumber ?? "",
+                  ),
             subtitle: Text(quickOrder.address ?? ""),
             trailing: IconButton(
-              onPressed: () => launch("tel://${quickOrder.user?.phone}"),
+              onPressed: () {
+                if (quickOrder.user != null) {
+                  launch("tel://${quickOrder.user?.phone}");
+                } else {
+                  launch("tel://${quickOrder.phoneNumber}");
+                }
+              },
               icon: Icon(
                 Icons.phone,
                 color: Get.theme.primaryIconTheme.color,
               ),
             ),
           ),
+          if (pickOrder != null)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                  onPressed: () => pickOrder!(quickOrder),
+                  child: Text("pick_order".tr)),
+            ),
+          if (deliverOrder != null)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                  onPressed: () {
+                    Get.back();
+                    deliverOrder!(quickOrder);
+                  },
+                  child: Text("delivered".tr)),
+            )
         ],
       ),
     );

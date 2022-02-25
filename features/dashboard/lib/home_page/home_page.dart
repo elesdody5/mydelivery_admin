@@ -1,19 +1,48 @@
 import 'package:core/screens.dart';
 import 'package:core/utils/utils.dart';
 import 'package:dashboard/home_page/home_provider.dart';
+import 'package:dashboard/home_page/widgets/notification_dialog.dart';
 import 'package:dashboard/settings/settings_alert_dialog.dart';
+import 'package:dashboard/widgets/quick_order_alert/quick_order_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
+  void _setupListener(HomeProvider provider) {
+    setupErrorMessageListener(provider.errorMessage);
+    setupLoadingListener(provider.isLoading);
+    setupSuccessMessageListener(provider.successMessage);
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<HomeProvider>(context, listen: false);
-    setupLoadingListener(provider.isLoading);
+    _setupListener(provider);
     return Scaffold(
+        floatingActionButton: SpeedDial(
+          animatedIconTheme: const IconThemeData(size: 22.0),
+          icon: Icons.add,
+          direction: SpeedDialDirection.right,
+          children: [
+            SpeedDialChild(
+                label: "quick_order".tr,
+                onTap: () => Get.dialog(QuickOrderAlert(
+                      quickOrder: provider.quickOrder,
+                      sendQuickOrder: provider.sendQuickOrder,
+                      title: "quick_order".tr,
+                    ))),
+            SpeedDialChild(
+                label: "send_notification".tr,
+                onTap: () => Get.dialog(NotificationDialog(
+                      notificationMessage: provider.notificationMessage,
+                      sendNotification: provider.sendNotification,
+                    )))
+          ],
+        ),
         appBar: AppBar(
           elevation: 2.0,
           backgroundColor: Colors.white,
@@ -111,7 +140,7 @@ class HomePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       const Material(
-                          color: Colors.amber,
+                          color: Colors.blueGrey,
                           shape: CircleBorder(),
                           child: Padding(
                             padding: EdgeInsets.all(16.0),
@@ -151,7 +180,7 @@ class HomePage extends StatelessWidget {
                               fontSize: 24.0)),
                     ]),
               ),
-              onTap: () => Get.toNamed(""),
+              onTap: () => Get.toNamed(categoriesScreenRouteName),
             ),
             _buildTile(
               Padding(
@@ -204,33 +233,57 @@ class HomePage extends StatelessWidget {
               onTap: () => Get.toNamed(availableOrdersScreen),
             ),
             _buildTile(
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      const Material(
-                          color: Colors.green,
-                          shape: CircleBorder(),
-                          child: Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: Icon(Icons.settings,
-                                color: Colors.white, size: 30.0),
-                          )),
-                      const Padding(padding: EdgeInsets.only(bottom: 16.0)),
-                      Text('settings'.tr,
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 24.0)),
-                    ]),
-              ),
-              onTap: () async {
-                await provider.getSettings();
-                Get.dialog(SettingsAlertDialog(orderSettings: provider.orderSettings, updateOrderSettings: provider.updateSettings));
-              }
-            ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        const Material(
+                            color: Colors.green,
+                            shape: CircleBorder(),
+                            child: Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Icon(Icons.settings,
+                                  color: Colors.white, size: 30.0),
+                            )),
+                        const Padding(padding: EdgeInsets.only(bottom: 16.0)),
+                        Text('settings'.tr,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 24.0)),
+                      ]),
+                ), onTap: () async {
+              await provider.getSettings();
+              Get.dialog(SettingsAlertDialog(
+                  orderSettings: provider.orderSettings,
+                  updateOrderSettings: provider.updateSettings));
+            }),
+            _buildTile(
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        const Material(
+                            color: Color(0xFFFFe477),
+                            shape: CircleBorder(),
+                            child: Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Icon(Icons.notifications_active,
+                                  color: Colors.white, size: 30.0),
+                            )),
+                        const Padding(padding: EdgeInsets.only(bottom: 16.0)),
+                        Text('notifications'.tr,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 24.0)),
+                      ]),
+                ),
+                onTap: () => Get.toNamed(notificationsScreenRouteName)),
           ],
         ));
   }
