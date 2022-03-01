@@ -28,7 +28,7 @@ class AllCurrentDeliveryOrders extends StatelessWidget {
                     builder: (context, provider, child) {
                   return Tab(
                     child: Text(
-                      "${"orders".tr} (${provider.currentOrdersCount})",
+                      "${"quick_order".tr} (${provider.currentQuickOrdersCount})",
                       style: Get.textTheme.bodyText2,
                     ),
                   );
@@ -37,7 +37,7 @@ class AllCurrentDeliveryOrders extends StatelessWidget {
                     builder: (context, provider, child) {
                   return Tab(
                     child: Text(
-                      "${"quick_order".tr} (${provider.currentQuickOrdersCount})",
+                      "${"orders".tr} (${provider.currentOrdersCount})",
                       style: Get.textTheme.bodyText2,
                     ),
                   );
@@ -48,15 +48,15 @@ class AllCurrentDeliveryOrders extends StatelessWidget {
           body: TabBarView(
             children: [
               ChangeNotifierProvider.value(
-                value: CurrentDeliveryOrdersProvider(
-                    updateCurrentOrderCount: provider.setCurrentOrdersCount),
-                child: const CurrentDeliveryOrdersScreen(),
-              ),
-              ChangeNotifierProvider.value(
                 value: CurrentQuickOrderProvider(
                     updateCurrentQuickOrderCount:
                         provider.setCurrentQuickOrdersCount),
                 child: const CurrentQuickOrdersScreen(),
+              ),
+              ChangeNotifierProvider.value(
+                value: CurrentDeliveryOrdersProvider(
+                    updateCurrentOrderCount: provider.setCurrentOrdersCount),
+                child: const CurrentDeliveryOrdersScreen(),
               ),
             ],
           ),

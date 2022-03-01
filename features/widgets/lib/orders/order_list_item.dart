@@ -43,8 +43,16 @@ class OrderListItem extends StatelessWidget {
                     "${order.cartItems?.first.product?.name ?? ""}...",
                     overflow: TextOverflow.ellipsis,
                   ),
-                  subtitle: Text(
-                      "${order.shop?.name ?? ""}   \t \t ${order.formattedDate ?? ""}"),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(order.shop?.name ?? ""),
+                      Text(
+                        " ${order.formattedDate}  ${order.formattedTime} ",
+                        textDirection: TextDirection.ltr,
+                      ),
+                    ],
+                  ),
                   trailing: Text(
                     "${order.price.toString()} ${"le".tr} \n   +   \n ${order.deliveryPrice} ${"le".tr}",
                     style: TextStyle(color: Get.textTheme.bodyText1?.color),

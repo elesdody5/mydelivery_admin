@@ -1,6 +1,5 @@
 import 'package:core/model/order.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import 'details_list_tile.dart';
@@ -17,22 +16,46 @@ class OrderDetails extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Align(
-            alignment: Alignment.centerRight,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "description".tr,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "description".tr,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 18),
+                ),
               ),
-            ),
+              if (order.coins != null)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text(order.coins?.toString() ?? ""),
+                          const Icon(
+                            Icons.monetization_on,
+                            color: Colors.amberAccent,
+                          )
+                        ],
+                      ),
+                      Text(
+                        "${"after_apply_coins_message".tr} ${order.price - (order.coins ?? 0)} ${"le".tr}",
+                      ),
+                    ],
+                  ),
+                )
+            ],
           ),
           Wrap(
             children: order.cartItems
                     ?.map((cartItem) => Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(cartItem.product?.name ?? ""),
+                          child: Text(
+                              "(${cartItem.quantity})  ${cartItem.product?.name ?? ""}"),
                         ))
                     .toList() ??
                 [],

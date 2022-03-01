@@ -29,7 +29,7 @@ class AllAvailableOrdersScreen extends StatelessWidget {
                     builder: (context, provider, child) {
                   return Tab(
                     child: Text(
-                      "${"orders".tr} (${provider.availableOrdersCount})",
+                      "${"quick_order".tr} (${provider.availableQuickOrdersCount})",
                       style: Get.textTheme.bodyText2,
                     ),
                   );
@@ -38,7 +38,7 @@ class AllAvailableOrdersScreen extends StatelessWidget {
                     builder: (context, provider, child) {
                   return Tab(
                     child: Text(
-                      "${"quick_order".tr} (${provider.availableQuickOrdersCount})",
+                      "${"orders".tr} (${provider.availableOrdersCount})",
                       style: Get.textTheme.bodyText2,
                     ),
                   );
@@ -49,14 +49,16 @@ class AllAvailableOrdersScreen extends StatelessWidget {
           body: TabBarView(
             children: [
               ChangeNotifierProvider.value(
+                value: AvailableQuickOrderProvider(
+                    updateAvailableQuickOrderCount:
+                        provider.setAvailableQuickOrdersCount),
+                child: const AvailableQuickOrders(),
+              ),
+              ChangeNotifierProvider.value(
                 value: AvailableOrdersProvider(
                     updateAvailableOrderCount:
                         provider.setAvailableOrdersCount),
                 child: const AvailableOrdersScreen(),
-              ),
-              ChangeNotifierProvider.value(
-                value: AvailableQuickOrderProvider(updateAvailableQuickOrderCount: provider.setAvailableQuickOrdersCount),
-                child: const AvailableQuickOrders(),
               ),
             ],
           ),

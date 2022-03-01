@@ -177,5 +177,9 @@ Map<String, String> arJson = {
   "notification_message": "الرسالة",
   "notification_send_successfully": "تم ارسال الرسالة بنجاح",
   "order_places_count": "عدد اماكن الطلب ",
-  "notifications": "الاشعارات"
+  "notifications": "الاشعارات",
+  "before_apply_coins_message": "السعر قبل الخصم",
+  "after_apply_coins_message": "السعر بعد الخصم",
+  "add_photo": "اضافة صورة",
+  "view_image": "عرض الصورة",
 };

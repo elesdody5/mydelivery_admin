@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/domain/quick_order.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -22,6 +23,21 @@ class QuickOrderDetails extends StatelessWidget {
       );
     }
   }
+
+  void _showImagePreview() => Get.dialog(
+        CachedNetworkImage(
+          imageUrl: quickOrder.imageUrl ?? "",
+          fit: BoxFit.contain,
+          placeholder: (context, url) => const CupertinoActivityIndicator(),
+          imageBuilder: (context, provider) => InteractiveViewer(
+              panEnabled: false,
+              // Set it to false to prevent panning.
+              child: Container(
+                decoration:
+                    BoxDecoration(image: DecorationImage(image: provider)),
+              )),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +81,7 @@ class QuickOrderDetails extends StatelessWidget {
             leading: CircleAvatar(
               backgroundImage: _imageProvider(),
             ),
-            title: quickOrder.user != null
+            title: quickOrder.user?.name != null
                 ? Text(quickOrder.user?.name ?? "")
                 : Text(
                     quickOrder.phoneNumber ?? "",
@@ -73,7 +89,7 @@ class QuickOrderDetails extends StatelessWidget {
             subtitle: Text(quickOrder.address ?? ""),
             trailing: IconButton(
               onPressed: () {
-                if (quickOrder.user != null) {
+                if (quickOrder.user?.name != null) {
                   launch("tel://${quickOrder.user?.phone}");
                 } else {
                   launch("tel://${quickOrder.phoneNumber}");
@@ -85,23 +101,12 @@ class QuickOrderDetails extends StatelessWidget {
               ),
             ),
           ),
-          if (pickOrder != null)
+          if (quickOrder.imageUrl != null)
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
-                  onPressed: () => pickOrder!(quickOrder),
-                  child: Text("pick_order".tr)),
+                  onPressed: _showImagePreview, child: Text("view_image".tr)),
             ),
-          if (deliverOrder != null)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                  onPressed: () {
-                    Get.back();
-                    deliverOrder!(quickOrder);
-                  },
-                  child: Text("delivered".tr)),
-            )
         ],
       ),
     );
