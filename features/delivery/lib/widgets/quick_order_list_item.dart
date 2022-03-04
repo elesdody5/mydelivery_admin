@@ -3,7 +3,6 @@ import 'package:delivery/widgets/quick_order_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:widgets/orders/order_status.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class QuickOrderListItem extends StatelessWidget {
   final QuickOrder quickOrder;
@@ -26,13 +25,26 @@ class QuickOrderListItem extends StatelessWidget {
         orderStatus: quickOrder.orderStatus,
       ),
       title: quickOrder.user?.name != null
-          ? Text(quickOrder.user?.name ?? "")
+          ? Text(
+              quickOrder.user?.name ?? "",
+              style: Get.textTheme.bodyText2,
+            )
           : Text(
-        quickOrder.phoneNumber ?? "",
+              quickOrder.phoneNumber ?? "",
+              style: Get.textTheme.bodyText2,
+            ),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (quickOrder.address != null) Text(quickOrder.address ?? ""),
+          Text(
+            " ${quickOrder.formattedDate}  ${quickOrder.formattedTime} ",
+            textDirection: TextDirection.ltr,
+          ),
+        ],
       ),
-      subtitle: Text(quickOrder.address ?? ""),
       trailing:
-      Text(quickOrder.inCity == true ? "in_menouf".tr : "out_menouf".tr),
+          Text(quickOrder.inCity == true ? "in_menouf".tr : "out_menouf".tr),
     );
   }
 }

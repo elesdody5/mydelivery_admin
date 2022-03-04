@@ -39,7 +39,7 @@ class UserApiServiceImp implements UserApiService {
   Future<ApiResponse> updateUser(User user) async {
     final response = await _dio.patch(userDetailsUrl,
         queryParameters: {"userId": user.id},
-        data: FormData.fromMap(await user.toJsonWithImage()));
+        data: user.toJson());
     if (response.statusCode != 200 && response.statusCode != 201) {
       print("error message is ${response.data['message']}");
       return ApiResponse(errorMessage: response.data['message']);

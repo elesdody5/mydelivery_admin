@@ -1,9 +1,9 @@
 import 'package:core/domain/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/domain/user_type.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class UserListItem extends StatelessWidget {
   final User user;
@@ -47,9 +47,27 @@ class UserListItem extends StatelessWidget {
             ),
           ),
           subtitle: Text(user.userType?.enmToString() ?? ""),
-          trailing: const IconButton(
-            icon: Icon(Icons.phone),
-            onPressed: null,
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (user.coins != null)
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      Icons.monetization_on,
+                      color: Colors.amberAccent,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(user.coins.toString()),
+                    ),
+                  ],
+                ),
+              IconButton(
+                  icon: const Icon(Icons.phone),
+                  onPressed: () => launch("tel://${user.phone}")),
+            ],
           ),
         ),
       ),

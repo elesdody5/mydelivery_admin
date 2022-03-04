@@ -15,9 +15,25 @@ class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);
   final GlobalKey<FormBuilderState> _formKey = GlobalKey();
 
+  Future<void> _submit(ProfileProvider provider) async {
+    if (_formKey.currentState?.validate() == false) {
+      // Invalid!
+      return;
+    }
+    _formKey.currentState?.save();
+    provider.updateUser();
+  }
+
+  void _setupListener(ProfileProvider provider) {
+    setupErrorMessageListener(provider.errorMessage);
+    setupLoadingListener(provider.isLoading);
+    setupSuccessMessageListener(provider.successMessage);
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ProfileProvider>(context, listen: false);
+    _setupListener(provider);
     return Scaffold(
         appBar: AppBar(
           title: Text("profile".tr),
@@ -45,11 +61,7 @@ class ProfileScreen extends StatelessWidget {
                         fit: BoxFit.cover,
                         previewWidth: 160,
                         iconColor: Colors.grey,
-                        onSaved: (image) {
-                          if (image?[0] != null) {
-                            provider.user?.imageFile = File(image?[0]?.path);
-                          }
-                        },
+                        enabled: false,
                         initialValue: [provider.user?.imageUrl],
                       ),
                     ),
@@ -58,10 +70,8 @@ class ProfileScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: FormBuilderTextField(
                         name: "name",
-                        enabled: provider.editAble,
-                        onSaved: (String? name) {
-                          if (name != null) provider.user?.name = name;
-                        },
+                        enabled: false,
+                        readOnly: true,
                         initialValue: provider.user?.name,
                         decoration: formInputDecoration(
                             label: "user_name".tr,
@@ -74,9 +84,8 @@ class ProfileScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: FormBuilderTextField(
                         name: "phone",
-                        onSaved: (String? phone) {
-                          if (phone != null) provider.user?.phone = phone;
-                        },
+                        enabled: false,
+                        readOnly: true,
                         initialValue: provider.user?.phone,
                         decoration: formInputDecoration(
                             label: "phone".tr,
@@ -97,15 +106,51 @@ class ProfileScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: FormBuilderTextField(
                         name: "address",
-                        onSaved: (String? address) {
-                          if (address != null) provider.user?.address = address;
-                        },
+                        enabled: false,
+                        readOnly: true,
                         initialValue: provider.user?.address,
                         decoration: formInputDecoration(
                             label: "address".tr,
                             suffixIcon: const Icon(Icons.my_location_rounded)),
                       )),
-
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListTile(
+                        tileColor: Colors.white,
+                        leading: Icon(
+                          Icons.monetization_on_rounded,
+                          color: Get.theme.primaryColor,
+                        ),
+                        title: Text("coin".tr),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                                icon: Icon(
+                                  Icons.add,
+                                  color: Get.theme.primaryColor,
+                                ),
+                                onPressed: provider.increaseScore),
+                            Text(provider.user?.coins?.toString() ?? "0"),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.remove,
+                                  color: Get.theme.primaryColor,
+                                ),
+                                onPressed: provider.decreaseScore),
+                          ],
+                        )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      child: Text(
+                        "save".tr,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      onPressed: () => _submit(provider),
+                    ),
+                  ),
                 ],
               ),
             );

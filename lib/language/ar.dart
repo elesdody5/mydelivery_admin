@@ -182,4 +182,5 @@ Map<String, String> arJson = {
   "after_apply_coins_message": "السعر بعد الخصم",
   "add_photo": "اضافة صورة",
   "view_image": "عرض الصورة",
+  "coin": "كوين",
 };

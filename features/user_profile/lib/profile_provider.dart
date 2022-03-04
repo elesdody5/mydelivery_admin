@@ -7,17 +7,22 @@ import 'data/repository/user_repository_imp.dart';
 class ProfileProvider extends BaseProvider {
   User? user;
   final UserRepository _repository;
-  bool editAble = false;
 
-  set setEditAble(bool editAble) {
-    this.editAble = editAble;
-    notifyListeners();
-  }
 
   ProfileProvider({UserRepository? repository})
       : _repository = repository ?? UserRepositoryImp();
 
+  void decreaseScore() {
+    if (user?.coins != null && user!.coins! > 0) {
+      user?.coins = user!.coins!  - 1;
+      notifyListeners();
+    }
+  }
 
+  void increaseScore() {
+    user?.coins = (user?.coins ?? 0) + 1;
+    notifyListeners();
+  }
 
   Future<void> updateUser() async {
     if (user != null) {

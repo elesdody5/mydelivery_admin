@@ -15,6 +15,7 @@ class User {
   UserType? userType;
   String? latitude;
   String? longitude;
+  int? coins;
 
   User(
       {this.userType,
@@ -25,7 +26,8 @@ class User {
       this.imageUrl,
       this.latitude,
       this.longitude,
-      this.imageFile});
+      this.imageFile,
+      this.coins});
 
   factory User.fromJson(Map<String, dynamic> json) => User(
       id: json["_id"],
@@ -35,7 +37,8 @@ class User {
       address: json['fullAddress'],
       latitude: json["address"]?["lattitude"],
       longitude: json["address"]?["longitude"],
-      userType: stringToEnum(json['userType']?.toLowerCase()));
+      userType: stringToEnum(json['userType']?.toLowerCase()),
+      coins: json['score']);
 
   Future<Map<String, dynamic>> toJsonWithImage() async {
     List<String>? mimeTypeData;
@@ -66,6 +69,7 @@ class User {
         "fullAddress": address,
         "address": {'lattitude': latitude, "longitude": longitude},
         "photo": imageUrl,
+        "score": coins
       };
 
   @override
