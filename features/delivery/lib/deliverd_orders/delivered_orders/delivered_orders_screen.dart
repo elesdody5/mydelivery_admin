@@ -1,4 +1,5 @@
 import 'package:core/utils/utils.dart';
+import 'package:delivery/deliverd_orders/delivered_orders/widgets/orders_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +20,7 @@ class DeliveredOrdersScreen extends StatelessWidget {
     return FutureWithLoadingProgress(
       future: provider.getDeliveredOrders,
       child: Consumer<DeliveredOrdersProvider>(
-          builder: (_, provider, child) => provider.orders.isEmpty
+          builder: (_, provider, child) => provider.filteredOrders.isEmpty
               ? EmptyWidget(
                   title: "empty_orders".tr,
                   icon: Image.asset('assets/images/delivery-man.png'),
@@ -29,9 +30,13 @@ class DeliveredOrdersScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      OrdersListTile(
+                          ordersNumber:
+                              provider.filteredOrders.length.toString(),
+                          onDateSelected: provider.dateFilter),
                       Expanded(
                         child: OrdersListView(
-                          orders: provider.orders,
+                          orders: provider.filteredOrders,
                         ),
                       ),
                       OutlinedButton(
@@ -39,13 +44,19 @@ class DeliveredOrdersScreen extends StatelessWidget {
                         child: Text(
                             "${"total".tr} ${provider.totalDeliveryPrice} ${"le".tr}"),
                       ),
-                      ElevatedButton(
-                        onPressed: provider.removeOrders,
-                        child: Text("delete".tr),
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.red)),
-                      ),
+                      OutlinedButton(
+                        onPressed: null,
+                        child: Text(
+                          "${"coin".tr} ${provider.totalCoins} ",
+                        ),
+                      )
+                      // ElevatedButton(
+                      //   onPressed: provider.removeOrders,
+                      //   child: Text("delete".tr),
+                      //   style: ButtonStyle(
+                      //       backgroundColor:
+                      //           MaterialStateProperty.all<Color>(Colors.red)),
+                      // ),
                     ],
                   ),
                 )),

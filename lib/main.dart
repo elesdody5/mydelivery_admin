@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'My Delivery Admin',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: "ELMessiri",
         primaryColor: const Color(0xFFFFe477),
         primaryColorLight: const Color(0xffffe061),
         primaryIconTheme: const IconThemeData(color: Color(0xFFEF6F6F)),

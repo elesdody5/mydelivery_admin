@@ -32,6 +32,10 @@ flutter:
 
   assets:
       - assets/images/
+  fonts:
+    - family: ELMessiri
+      fonts:
+        - asset: assets/fonts/ELMessiri.ttf
 flutter_icons:
   android: "ic_launcher"
   ios: true
