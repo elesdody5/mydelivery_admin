@@ -36,7 +36,9 @@ abstract class VendorRemoteDataSource {
 
   Future<Result> removeShop(String shopId);
 
-  Future<Result<List<User>>> getAllVendors() ;
+  Future<Result<List<User>>> getAllVendors();
 
   Future<Result> removeUser(String id);
+
+  Future<Result<List<QuickOrder>>> getVendorQuickOrder(String userId);
 }

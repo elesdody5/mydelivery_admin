@@ -7,5 +7,6 @@ const shopUrl = "shops/shop";
 const categoriesUrl = "categories/";
 const userUrl = "users/user";
 const quickOrderUrl = "quickOrders/";
-const String vendorsUrl ="/users/type" ;
+const String vendorsUrl = "/users/type";
 
+const quickOrderUrlForUser = "quickOrders/quickOrdersForUser";

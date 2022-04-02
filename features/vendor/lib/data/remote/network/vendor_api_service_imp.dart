@@ -233,4 +233,19 @@ class VendorApiServiceImp implements VendorApiService {
     }
     return ApiResponse(responseData: true);
   }
+
+  @override
+  Future<ApiResponse<List<QuickOrder>>> getVendorQuickOrder(
+      String userId) async {
+    final response = await _dio
+        .get(quickOrderUrlForUser, queryParameters: {"userId": userId});
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print("error message is ${response.data['message']}");
+      return ApiResponse(errorMessage: response.data['message']);
+    }
+    List<QuickOrder> quickOrders = [];
+    response.data["quickOrders"]
+        .forEach((json) => quickOrders.add(QuickOrder.fromJson(json)));
+    return ApiResponse(responseData: quickOrders.reversed.toList());
+  }
 }

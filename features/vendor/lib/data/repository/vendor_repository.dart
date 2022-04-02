@@ -50,4 +50,6 @@ abstract class VendorRepository {
   Future<void> saveCurrentUserId(String id);
 
   Future<Result> removeUserById(String id);
+
+  Future<Result<List<QuickOrder>>> getQuickOrderByUserId();
 }

@@ -168,6 +168,13 @@ class VendorRepositoryImp implements VendorRepository {
 
   @override
   Future<Result> removeUserById(String id) {
-   return _remoteDataSource.removeUser(id);
+    return _remoteDataSource.removeUser(id);
+  }
+
+  @override
+  Future<Result<List<QuickOrder>>> getQuickOrderByUserId() async {
+    String? userId = await _sharedPreferencesManager.getUserId();
+    if (userId == null) return Error(Exception("User not found"));
+    return _remoteDataSource.getVendorQuickOrder(userId);
   }
 }

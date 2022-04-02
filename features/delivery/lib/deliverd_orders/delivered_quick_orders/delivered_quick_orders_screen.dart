@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:widgets/empty_widget.dart';
 import 'package:widgets/future_with_loading_progress.dart';
 
+import '../delivered_orders/widgets/orders_list_tile.dart';
+
 class DeliveredQuickOrdersScreen extends StatelessWidget {
   const DeliveredQuickOrdersScreen({Key? key}) : super(key: key);
 
@@ -24,7 +26,7 @@ class DeliveredQuickOrdersScreen extends StatelessWidget {
     return FutureWithLoadingProgress(
       future: provider.getDeliveredDeliveryOrders,
       child: Consumer<DeliveredQuickOrdersProvider>(
-          builder: (_, provider, child) => provider.orders.isEmpty
+          builder: (_, provider, child) => provider.filteredOrders.isEmpty
               ? Center(
                   child: EmptyWidget(
                     title: "empty_orders".tr,
@@ -36,18 +38,22 @@ class DeliveredQuickOrdersScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      OrdersListTile(
+                          ordersNumber:
+                          provider.filteredOrders.length.toString(),
+                          onDateSelected: provider.dateFilter),
                       Expanded(
                         child: QuickOrdersListView(
-                          orders: provider.orders,
+                          orders: provider.filteredOrders,
                         ),
                       ),
-                      ElevatedButton(
-                        onPressed: provider.removeOrders,
-                        child: Text("delete".tr),
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.red)),
-                      ),
+                      // ElevatedButton(
+                      //   onPressed: provider.removeOrders,
+                      //   child: Text("delete".tr),
+                      //   style: ButtonStyle(
+                      //       backgroundColor:
+                      //           MaterialStateProperty.all<Color>(Colors.red)),
+                      // ),
                     ],
                   ),
                 )),

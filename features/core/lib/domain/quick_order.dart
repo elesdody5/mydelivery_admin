@@ -41,7 +41,9 @@ class QuickOrder {
         inCity: json["inCity"],
         delivery:
             json['delivery'] != null ? User.fromJson(json['delivery']) : null,
-        user: json['user'] != null ? User.fromJson(json['user']) : null,
+    user: (json['user'] != null && json['user'] is! String)
+        ? User.fromJson(json['user'])
+        : null,
         description: json['description'],
         orderStatus: stringToEnum(json['status']),
         phoneNumber: json['userPhone'],

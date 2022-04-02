@@ -7,6 +7,8 @@ import 'package:vendor/available_orders/shop_available_orders.dart';
 import 'package:vendor/available_orders/shop_avaliable_orders_provider.dart';
 import 'package:vendor/delivered_orders/shop_delivered_orders.dart';
 import 'package:vendor/delivered_orders/shop_delivered_orders_provider.dart';
+import 'package:vendor/vendor_quick_orders/vendor_quick_orders_provider.dart';
+import 'package:vendor/vendor_quick_orders/vendor_quick_orders_screen.dart';
 
 import 'package:vendor/vendor_shops/vendor_shops_provider.dart';
 import 'package:vendor/vendor_shops/vendor_shops_screen.dart';
@@ -34,6 +36,10 @@ class _VendorHomeScreen extends State<VendorHomeScreen> {
     ChangeNotifierProvider.value(
       value: ShopDeliveredOrdersProvider(),
       child: const ShopDeliveredOrdersScreen(),
+    ),
+    ChangeNotifierProvider.value(
+      value: VendorQuickOrdersProvider(),
+      child: const VendorQuickOrdersScreen(),
     ),
   ];
 
@@ -69,6 +75,11 @@ class _VendorHomeScreen extends State<VendorHomeScreen> {
             const Icon(
               Icons.check_circle,
               color: Colors.green,
+            ),
+            Image.asset(
+              "assets/images/notification.png",
+              width: 30,
+              height: 30,
             ),
           ],
           onTap: (currentIndex) {

@@ -131,4 +131,10 @@ class VendorRemoteDataSourceImp implements VendorRemoteDataSource {
     var response = await _apiService.removeUserById(id);
     return _getResultFromResponse(response);
   }
+
+  @override
+  Future<Result<List<QuickOrder>>> getVendorQuickOrder(String userId) async{
+    var response = await _apiService.getVendorQuickOrder(userId);
+    return _getResultFromResponse(response);
+  }
 }

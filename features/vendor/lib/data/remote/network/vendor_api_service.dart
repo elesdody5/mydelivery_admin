@@ -39,5 +39,7 @@ abstract class VendorApiService {
 
   Future<ApiResponse> getAllVendors();
 
-  Future<ApiResponse> removeUserById(String id) ;
+  Future<ApiResponse> removeUserById(String id);
+
+  Future<ApiResponse<List<QuickOrder>>> getVendorQuickOrder(String userId);
 }
