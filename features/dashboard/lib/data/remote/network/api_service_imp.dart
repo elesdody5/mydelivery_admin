@@ -116,6 +116,9 @@ class ApiServiceImp implements ApiService {
     List<Category> categories = [];
     response.data["categories"]
         .forEach((json) => categories.add(Category.fromJson(json)));
+    categories.sort((first, second) =>
+        first.name?.toLowerCase().compareTo(second.name?.toLowerCase() ?? "") ??
+        0);
     return ApiResponse(responseData: categories);
   }
 
@@ -129,6 +132,10 @@ class ApiServiceImp implements ApiService {
     }
     List<Shop> shops = [];
     response.data["shops"]?.forEach((json) => shops.add(Shop.fromJson(json)));
+    shops.sort((first, second) =>
+        first.name?.toLowerCase().compareTo(second.name?.toLowerCase() ?? "") ??
+        0);
+
     return ApiResponse(responseData: shops);
   }
 
@@ -201,8 +208,8 @@ class ApiServiceImp implements ApiService {
 
   @override
   Future<ApiResponse> deleteNotificationById(String id) async {
-    final response = await _dio
-        .delete(deleteNotificationsUrl, queryParameters: {"notificationId": id});
+    final response = await _dio.delete(deleteNotificationsUrl,
+        queryParameters: {"notificationId": id});
     if (response.statusCode != 200 && response.statusCode != 201) {
       print("error message is ${response.data['message']}");
       return ApiResponse(errorMessage: response.data['message']);
