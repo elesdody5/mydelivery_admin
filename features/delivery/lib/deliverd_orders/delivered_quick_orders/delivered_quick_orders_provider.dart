@@ -58,7 +58,7 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
     List<String> ordersId = _orders.map((order) => order.id ?? "").toList();
     await _repository.removeDeliveryQuickOrders(ordersId);
     isLoading.value = false;
-    _orders.clear();
+    filteredOrders.clear();
     if (updateDeliveredQuickOrderCount != null) {
       updateDeliveredQuickOrderCount!(_orders.length);
     }

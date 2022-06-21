@@ -36,4 +36,6 @@ abstract class ApiService {
   Future<ApiResponse<List<NotificationMessage>>> getAllNotifications();
 
   Future<ApiResponse> deleteNotificationById(String id);
+
+  Future<ApiResponse> blockUser(String id,bool block) ;
 }

@@ -47,13 +47,13 @@ class DeliveredQuickOrdersScreen extends StatelessWidget {
                           orders: provider.filteredOrders,
                         ),
                       ),
-                      // ElevatedButton(
-                      //   onPressed: provider.removeOrders,
-                      //   child: Text("delete".tr),
-                      //   style: ButtonStyle(
-                      //       backgroundColor:
-                      //           MaterialStateProperty.all<Color>(Colors.red)),
-                      // ),
+                      ElevatedButton(
+                        onPressed: provider.removeOrders,
+                        child: Text("delete".tr),
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.red)),
+                      ),
                     ],
                   ),
                 )),

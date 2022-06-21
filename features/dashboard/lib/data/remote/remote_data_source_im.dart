@@ -116,9 +116,16 @@ class RemoteDataSourceImp implements RemoteDataSource {
     var response = await _apiService.getAllNotifications();
     return _getResultFromResponse(response);
   }
+
   @override
-  Future<Result> deleteNotificationById(String id)  async {
+  Future<Result> deleteNotificationById(String id) async {
     var response = await _apiService.deleteNotificationById(id);
+    return _getResultFromResponse(response);
+  }
+
+  @override
+  Future<Result> blockUser(String id,bool block)async {
+    var response = await _apiService.blockUser(id,block);
     return _getResultFromResponse(response);
   }
 }

@@ -86,7 +86,8 @@ class ApiServiceImp implements ApiService {
   @override
   Future<ApiResponse> sendQuickOrder(QuickOrder quickOrder) async {
     final response = await _dio.post(quickOrderUrl,
-        queryParameters: {"userType": "delivery"}, data: quickOrder.toJson());
+        queryParameters: {"userType": "delivery"},
+        data: FormData.fromMap(await quickOrder.toJson()));
     if (response.statusCode != 200 && response.statusCode != 201) {
       print("error message is ${response.data['message']}");
       return ApiResponse(errorMessage: response.data['message']);
@@ -203,7 +204,7 @@ class ApiServiceImp implements ApiService {
     List<NotificationMessage> notifications = [];
     response.data["notifications"].forEach(
         (json) => notifications.add(NotificationMessage.fromJson(json)));
-    return ApiResponse(responseData: notifications);
+    return ApiResponse(responseData: notifications.reversed.toList());
   }
 
   @override
@@ -215,6 +216,17 @@ class ApiServiceImp implements ApiService {
       return ApiResponse(errorMessage: response.data['message']);
     }
 
+    return ApiResponse(responseData: true);
+  }
+
+  @override
+  Future<ApiResponse> blockUser(String id, bool block) async {
+    final response = await _dio.patch(userDetailsUrl,
+        queryParameters: {"userId": id}, data: {"blocked": block});
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print("error message is ${response.data['message']}");
+      return ApiResponse(errorMessage: response.data['message']);
+    }
     return ApiResponse(responseData: true);
   }
 }

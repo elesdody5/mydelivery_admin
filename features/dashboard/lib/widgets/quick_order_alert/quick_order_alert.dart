@@ -60,7 +60,7 @@ class QuickOrderAlert extends StatelessWidget {
                   initialValue: 1,
                   validator: FormBuilderValidators.required(context),
                   onSaved: (int? value) => quickOrder.count = value,
-                  items: [1, 2, 3]
+                  items: [1, 2, 3,4,5]
                       .map((count) => DropdownMenuItem(
                             value: count,
                             child: Text("$count"),

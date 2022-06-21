@@ -39,7 +39,7 @@ flutter:
 flutter_icons:
   android: "ic_launcher"
   ios: true
-  image_path: "assets/images/logo_with_bg.jpeg"
-  adaptive_icon_background: "#03A9F4"
-  adaptive_icon_foreground: "assets/images/ic_launcher_foreground.png"
+  image_path: "assets/images/mydelivery_logo.png"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/images/delivery_icon.png"
   remove_alpha_ios: true

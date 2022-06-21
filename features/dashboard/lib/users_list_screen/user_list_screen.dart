@@ -14,12 +14,14 @@ class UsersListScreen extends StatelessWidget {
   void _showAlertDialog(UsersListProvider provider, User user) {
     Get.dialog(AlertDialog(
       title: Text("are_you_sure".tr),
-      content: Text("do_you_to_remove_user".tr),
+      content: user.isBlocked
+          ? Text("do_you_to_unblock_user".tr)
+          : Text("do_you_to_block_user".tr),
       actions: [
         TextButton(
           onPressed: () {
             Get.back();
-            provider.removeUser(user);
+            provider.blockUser(user);
           },
           child: Text("yes".tr),
         ),

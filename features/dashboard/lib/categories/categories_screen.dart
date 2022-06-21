@@ -1,4 +1,3 @@
-import 'package:core/model/category.dart';
 import 'package:dashboard/categories/categories_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';

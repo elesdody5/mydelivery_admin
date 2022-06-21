@@ -28,12 +28,13 @@ class UsersListProvider extends BaseProvider {
     navigation.value = Destination(routeName: profileScreenRouteName);
   }
 
-  Future<void> removeUser(User user) async {
+  Future<void> blockUser(User user) async {
     isLoading.value = true;
-    Result result = await _repository.removeUserById(user.id ?? "");
+    Result result =
+        await _repository.blockUser(user.id ?? "", !user.isBlocked);
     isLoading.value = false;
     if (result.succeeded()) {
-      usersList.remove(user);
+      user.isBlocked = !user.isBlocked;
       notifyListeners();
     }
   }

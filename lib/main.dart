@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mydelivery_admin/pages.dart';
 import 'package:firebase_core/firebase_core.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'language/messages.dart';
 
 void main() async {
@@ -50,6 +50,12 @@ class MyApp extends StatelessWidget {
               color: Colors.black),
         ),
       ),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate
+      ],
+      supportedLocales: const [
+        Locale('fr')
+      ],
       translations: Messages(),
       // your translations
       locale: const Locale("ar"),

@@ -114,7 +114,13 @@ class MainRepository implements Repository {
     return _remoteDataSource.getAllNotifications();
   }
 
+  @override
   Future<Result> deleteNotificationById(String id){
     return _remoteDataSource.deleteNotificationById(id);
+  }
+
+  @override
+  Future<Result> blockUser(String id,bool block){
+    return _remoteDataSource.blockUser(id,block);
   }
 }

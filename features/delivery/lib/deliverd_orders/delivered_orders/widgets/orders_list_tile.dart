@@ -17,7 +17,8 @@ class OrdersListTile extends StatelessWidget {
       context: context,
       firstDate: DateTime(2000),
       lastDate: DateTime(2030),
-      builder: (BuildContext context,  child) {
+      locale: const Locale("ar"),
+      builder: (BuildContext context, child) {
         return Theme(
           data: ThemeData.light().copyWith(
             colorScheme: const ColorScheme.dark(
@@ -26,7 +27,7 @@ class OrdersListTile extends StatelessWidget {
               surface: Colors.blueAccent,
               onSurface: Colors.black,
             ),
-            dialogBackgroundColor:Colors.blue[900],
+            dialogBackgroundColor: Colors.blue[900],
           ),
           child: child!,
         );

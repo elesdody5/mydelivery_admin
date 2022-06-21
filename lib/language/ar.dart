@@ -71,6 +71,8 @@ Map<String, String> arJson = {
   "are_you_sure": "هل انت متأكد",
   "do_you_to_remove_delivery": "هل تريد حذف هذا الطيار",
   "do_you_to_remove_user": "هل تريد حذف هذا المستخدم",
+  "do_you_to_block_user": "هل تريد حظر هذا المستخدم",
+  "do_you_to_unblock_user": "هل تريد فك حظر هذا المستخدم",
   "do_you_to_remove_vendor": "هل تريد حذف هذا التاجر",
   "do_you_to_remove_offer": "هل تريد حذف هذا العرض",
   "do_you_to_remove_notification": "هل تريد حذف هذا الاشعار",
