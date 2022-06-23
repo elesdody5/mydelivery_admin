@@ -128,4 +128,10 @@ class RemoteDataSourceImp implements RemoteDataSource {
     var response = await _apiService.blockUser(id,block);
     return _getResultFromResponse(response);
   }
+
+  @override
+  Future<Result> removeShopById(String id) async{
+    var response = await _apiService.removeShopById(id);
+    return _getResultFromResponse(response);
+  }
 }

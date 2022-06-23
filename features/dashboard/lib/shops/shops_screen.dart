@@ -1,4 +1,6 @@
 import 'package:core/model/category.dart';
+import 'package:core/model/shop.dart';
+import 'package:core/utils/utils.dart';
 import 'package:dashboard/shops/shops_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,10 +14,31 @@ import 'widgets/shops_grid_view.dart';
 class ShopsScreen extends StatelessWidget {
   const ShopsScreen({Key? key}) : super(key: key);
 
+  void _showAlertDialog(ShopsProvider provider, Shop shop) {
+    Get.dialog(AlertDialog(
+      title: Text("are_you_sure".tr),
+      content: Text("do_you_to_remove_shop".tr),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Get.back();
+            provider.removeShop(shop);
+          },
+          child: Text("yes".tr),
+        ),
+        TextButton(
+          onPressed: () => Get.back(),
+          child: Text("cancel".tr),
+        )
+      ],
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     Category? category = Get.arguments;
     final provider = Provider.of<ShopsProvider>(context, listen: false);
+    setupLoadingListener(provider.isLoading);
     return Scaffold(
       body: SafeArea(
           left: false,
@@ -43,6 +66,8 @@ class ShopsScreen extends StatelessWidget {
                         : Expanded(
                             child: ShopsGridView(
                             shops: provider.filteredShops,
+                            onLongPress: (shop) =>
+                                _showAlertDialog(provider, shop),
                           ))),
               )
             ],

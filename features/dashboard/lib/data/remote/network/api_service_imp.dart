@@ -229,4 +229,16 @@ class ApiServiceImp implements ApiService {
     }
     return ApiResponse(responseData: true);
   }
+
+  @override
+  Future<ApiResponse> removeShopById(String id) async {
+    final response =
+        await _dio.delete(shopUrl, queryParameters: {"shopId": id});
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print("error message is ${response.data['message']}");
+      return ApiResponse(errorMessage: response.data['message']);
+    }
+
+    return ApiResponse(responseData: true);
+  }
 }

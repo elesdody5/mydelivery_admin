@@ -6,13 +6,15 @@ import 'package:get/get.dart';
 
 class ShopListItem extends StatelessWidget {
   final Shop shop;
+  final Function(Shop) onLongPress;
 
-  const ShopListItem({Key? key, required this.shop}) : super(key: key);
+  const ShopListItem({Key? key, required this.shop,required this.onLongPress}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Get.toNamed(shopDetailsScreenRouteName, arguments: shop.id),
+      onLongPress: () => onLongPress(shop),
       child: Card(
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

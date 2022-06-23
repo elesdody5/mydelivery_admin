@@ -39,4 +39,6 @@ abstract class RemoteDataSource {
   Future<Result> deleteNotificationById(String id);
 
   Future<Result> blockUser(String id,bool block);
+
+  Future<Result> removeShopById(String id) ;
 }

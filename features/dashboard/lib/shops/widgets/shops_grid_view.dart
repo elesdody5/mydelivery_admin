@@ -6,8 +6,11 @@ import 'shop_list_item.dart';
 
 class ShopsGridView extends StatelessWidget {
   final List<Shop> shops;
+  final Function(Shop) onLongPress;
 
-  const ShopsGridView({Key? key, required this.shops}) : super(key: key);
+  const ShopsGridView(
+      {Key? key, required this.shops, required this.onLongPress})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => AnimationLimiter(
@@ -28,6 +31,7 @@ class ShopsGridView extends StatelessWidget {
                 child: FadeInAnimation(
                     child: ShopListItem(
                   shop: shops[index],
+                  onLongPress: onLongPress,
                 )),
               )),
         ),

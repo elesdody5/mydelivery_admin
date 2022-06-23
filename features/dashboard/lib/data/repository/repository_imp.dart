@@ -123,4 +123,9 @@ class MainRepository implements Repository {
   Future<Result> blockUser(String id,bool block){
     return _remoteDataSource.blockUser(id,block);
   }
+
+  @override
+  Future<Result> removeShopById(String id) {
+    return _remoteDataSource.removeShopById(id);
+  }
 }

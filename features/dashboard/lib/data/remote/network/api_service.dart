@@ -38,4 +38,6 @@ abstract class ApiService {
   Future<ApiResponse> deleteNotificationById(String id);
 
   Future<ApiResponse> blockUser(String id,bool block) ;
+
+  Future<ApiResponse>  removeShopById(String id) ;
 }

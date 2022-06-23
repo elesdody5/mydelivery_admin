@@ -34,7 +34,7 @@ class CategoryListItem extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(category.name ?? ""),
+          child: Text(category.name ?? "",textAlign: TextAlign.center,),
         )
       ],
     );

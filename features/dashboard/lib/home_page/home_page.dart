@@ -76,7 +76,7 @@ class HomePage extends StatelessWidget {
           children: <Widget>[
             _buildTile(
               Padding(
-                  padding: const EdgeInsets.all(24.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,

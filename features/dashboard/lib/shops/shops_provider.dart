@@ -34,4 +34,14 @@ class ShopsProvider extends BaseProvider {
     }
     notifyListeners();
   }
+
+  Future<void> removeShop(Shop shop) async {
+    isLoading.value = true;
+    Result result = await _repository.removeShopById(shop.id ?? "");
+    isLoading.value = false;
+    if (result.succeeded()) {
+      filteredShops.remove(shop);
+      notifyListeners();
+    }
+  }
 }
