@@ -1,6 +1,7 @@
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/user.dart';
 import 'package:core/model/response.dart';
+import 'package:core/model/review.dart';
 
 abstract class DeliveryApiService {
   Future<ApiResponse> getUserById(String userId);
@@ -23,4 +24,6 @@ abstract class DeliveryApiService {
   Future<ApiResponse> removeUserById(String id);
 
   Future<ApiResponse> removeQuickOrders(List<String> ordersId);
+
+  Future<ApiResponse<List<Review>>> getAllDeliveryReviews(String deliveryId) ;
 }

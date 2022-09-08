@@ -21,9 +21,9 @@ class VendorsListProvider extends BaseProvider {
     }
   }
 
-  void onDeliveryClicked(String id) async {
+  void onDeliveryClicked(User vendor) async {
     isLoading.value = true;
-    await _repository.saveCurrentUserId(id);
+    await _repository.saveCurrentUserId(vendor.id ?? "");
     isLoading.value = false;
     navigation.value = Destination(routeName: vendorHomeScreen);
   }

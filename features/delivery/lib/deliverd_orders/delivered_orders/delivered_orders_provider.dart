@@ -14,8 +14,8 @@ class DeliveredOrdersProvider extends BaseProvider {
       {DeliveryRepository? repository, this.updateDeliveredOrderCount})
       : _repository = repository ?? DeliveryRepositoryImp();
 
-  Future<void> getDeliveredOrders() async {
-    _orders = await _repository.getDeliveredOrdersForDelivery();
+  Future<void> getDeliveredOrders(String deliveryId) async {
+    _orders = await _repository.getDeliveredOrdersForDelivery(deliveryId);
     filteredOrders = [..._orders];
     if (updateDeliveredOrderCount != null) {
       updateDeliveredOrderCount!(filteredOrders.length);

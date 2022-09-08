@@ -14,6 +14,7 @@ class AllCurrentDeliveryOrders extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider =
         Provider.of<AllCurrentOrdersProvider>(context, listen: false);
+    String deliveryId = Get.arguments;
     return DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -51,12 +52,16 @@ class AllCurrentDeliveryOrders extends StatelessWidget {
                 value: CurrentQuickOrderProvider(
                     updateCurrentQuickOrderCount:
                         provider.setCurrentQuickOrdersCount),
-                child: const CurrentQuickOrdersScreen(),
+                child: CurrentQuickOrdersScreen(
+                  deliveryId: deliveryId,
+                ),
               ),
               ChangeNotifierProvider.value(
                 value: CurrentDeliveryOrdersProvider(
                     updateCurrentOrderCount: provider.setCurrentOrdersCount),
-                child: const CurrentDeliveryOrdersScreen(),
+                child: CurrentDeliveryOrdersScreen(
+                  deliveryId: deliveryId,
+                ),
               ),
             ],
           ),

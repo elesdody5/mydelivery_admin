@@ -21,17 +21,16 @@ class UsersListProvider extends BaseProvider {
     }
   }
 
-  void onUserClicked(String id) async {
+  void onUserClicked(User user) async {
     isLoading.value = true;
-    await _repository.saveCurrentUserId(id);
+    await _repository.saveCurrentUserId(user.id ?? "");
     isLoading.value = false;
     navigation.value = Destination(routeName: profileScreenRouteName);
   }
 
   Future<void> blockUser(User user) async {
     isLoading.value = true;
-    Result result =
-        await _repository.blockUser(user.id ?? "", !user.isBlocked);
+    Result result = await _repository.blockUser(user.id ?? "", !user.isBlocked);
     isLoading.value = false;
     if (result.succeeded()) {
       user.isBlocked = !user.isBlocked;

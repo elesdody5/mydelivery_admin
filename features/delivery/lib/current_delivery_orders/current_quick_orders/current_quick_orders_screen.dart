@@ -8,7 +8,8 @@ import 'package:widgets/empty_widget.dart';
 import 'package:widgets/future_with_loading_progress.dart';
 
 class CurrentQuickOrdersScreen extends StatelessWidget {
-  const CurrentQuickOrdersScreen({Key? key}) : super(key: key);
+  final String deliveryId ;
+  const CurrentQuickOrdersScreen({Key? key,required this.deliveryId}) : super(key: key);
 
   void _setupListener(CurrentQuickOrderProvider provider) {
     setupErrorMessageListener(provider.errorMessage);
@@ -21,8 +22,9 @@ class CurrentQuickOrdersScreen extends StatelessWidget {
     final provider =
         Provider.of<CurrentQuickOrderProvider>(context, listen: false);
     _setupListener(provider);
+
     return FutureWithLoadingProgress(
-      future: provider.getCurrentDeliveryOrders,
+      future: () => provider.getCurrentDeliveryOrders(deliveryId),
       child: Consumer<CurrentQuickOrderProvider>(
           builder: (_, provider, child) => provider.orders.isEmpty
               ? Center(

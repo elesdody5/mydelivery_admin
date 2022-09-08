@@ -13,8 +13,8 @@ class CurrentDeliveryOrdersProvider extends BaseProvider {
       {DeliveryRepository? repository, this.updateCurrentOrderCount})
       : _repository = repository ?? DeliveryRepositoryImp();
 
-  Future<void> getDeliveryOrders() async {
-    Stream<List<Order>> stream = await _repository.getCurrentDeliveryOrders();
+  Future<void> getDeliveryOrders(String userId) async {
+    Stream<List<Order>> stream = await _repository.getCurrentDeliveryOrders(userId);
     stream.listen((event) {
       orders = event;
       if (updateCurrentOrderCount != null) {

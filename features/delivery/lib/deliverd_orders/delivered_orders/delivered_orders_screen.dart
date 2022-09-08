@@ -10,7 +10,10 @@ import 'package:widgets/orders/orders_list_view.dart';
 import 'delivered_orders_provider.dart';
 
 class DeliveredOrdersScreen extends StatelessWidget {
-  const DeliveredOrdersScreen({Key? key}) : super(key: key);
+  final String deliveryId;
+
+  const DeliveredOrdersScreen({Key? key, required this.deliveryId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,7 @@ class DeliveredOrdersScreen extends StatelessWidget {
         Provider.of<DeliveredOrdersProvider>(context, listen: false);
     setupLoadingListener(provider.isLoading);
     return FutureWithLoadingProgress(
-      future: provider.getDeliveredOrders,
+      future: () => provider.getDeliveredOrders(deliveryId),
       child: Consumer<DeliveredOrdersProvider>(
           builder: (_, provider, child) => provider.filteredOrders.isEmpty
               ? EmptyWidget(

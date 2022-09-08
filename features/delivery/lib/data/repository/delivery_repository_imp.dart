@@ -5,6 +5,7 @@ import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
 import 'package:core/model/order.dart';
 import 'package:core/model/order_status.dart';
+import 'package:core/model/review.dart';
 import 'package:delivery/data/firebase/firestore_service.dart';
 import 'package:delivery/data/firebase/firestore_service_imp.dart';
 
@@ -65,14 +66,12 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   }
 
   @override
-  Future<Stream<List<Order>>> getCurrentDeliveryOrders() async {
-    String? userId = await _sharedPreferencesManager.getUserId();
+  Future<Stream<List<Order>>> getCurrentDeliveryOrders(String userId) async {
     return _fireStoreService.getCurrentDeliveryOrders(userId ?? "");
   }
 
   @override
-  Future<List<Order>> getDeliveredOrdersForDelivery() async {
-    String? userId = await _sharedPreferencesManager.getUserId();
+  Future<List<Order>> getDeliveredOrdersForDelivery(String userId) async {
     return _fireStoreService.getDeliveredOrdersForDelivery(userId ?? "");
   }
 
@@ -93,8 +92,7 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   }
 
   @override
-  Future<Result<List<QuickOrder>>> getCurrentDeliveryQuickOrders() async {
-    String? userId = await _sharedPreferencesManager.getUserId();
+  Future<Result<List<QuickOrder>>> getCurrentDeliveryQuickOrders(String userId) async {
     return _remoteDataSource.getCurrentDeliveryQuickOrder(userId ?? "");
   }
 
@@ -104,8 +102,7 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   }
 
   @override
-  Future<Result<List<QuickOrder>>> getDeliveredQuickOrders() async {
-    String? userId = await _sharedPreferencesManager.getUserId();
+  Future<Result<List<QuickOrder>>> getDeliveredQuickOrders(String userId) async {
     return _remoteDataSource.getDeliveredQuickOrders(userId ?? "");
   }
 
@@ -132,5 +129,11 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   @override
   Future<void> removeDeliveryQuickOrders(List<String> ordersId) {
     return _remoteDataSource.removeQuickOrders(ordersId);
+  }
+
+  @override
+  Future<Result<List<Review>>> getAllDeliveryReviews(String deliveryId) {
+    return _remoteDataSource.getAllDeliveryReviews(deliveryId);
+
   }
 }

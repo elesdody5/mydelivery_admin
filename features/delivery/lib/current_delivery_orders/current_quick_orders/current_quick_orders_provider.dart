@@ -15,9 +15,9 @@ class CurrentQuickOrderProvider extends BaseProvider {
       this.updateCurrentQuickOrderCount})
       : _repository = deliveryRepository ?? DeliveryRepositoryImp();
 
-  Future<void> getCurrentDeliveryOrders() async {
+  Future<void> getCurrentDeliveryOrders(String userId) async {
     Result<List<QuickOrder>> result =
-        await _repository.getCurrentDeliveryQuickOrders();
+        await _repository.getCurrentDeliveryQuickOrders(userId);
     if (result.succeeded()) {
       orders = result.getDataIfSuccess();
       if (updateCurrentQuickOrderCount != null) {

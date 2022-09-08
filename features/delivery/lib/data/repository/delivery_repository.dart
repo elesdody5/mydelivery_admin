@@ -3,6 +3,7 @@ import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
 import 'package:core/model/order.dart';
 import 'package:core/model/order_status.dart';
+import 'package:core/model/review.dart';
 
 abstract class DeliveryRepository {
   Future<Result<User>> getUserData();
@@ -11,9 +12,9 @@ abstract class DeliveryRepository {
 
   Future<Result> addDeliveryToOrders(List<Order> orders);
 
-  Future<Stream<List<Order>>> getCurrentDeliveryOrders();
+  Future<Stream<List<Order>>> getCurrentDeliveryOrders(String userId);
 
-  Future<List<Order>> getDeliveredOrdersForDelivery();
+  Future<List<Order>> getDeliveredOrdersForDelivery(String userId);
 
   Future<void> updateOrderStatus(String orderId, OrderStatus orderStatus);
 
@@ -21,11 +22,11 @@ abstract class DeliveryRepository {
 
   Future<Result> pickQuickOrder(String quickOrderId);
 
-  Future<Result<List<QuickOrder>>> getCurrentDeliveryQuickOrders();
+  Future<Result<List<QuickOrder>>> getCurrentDeliveryQuickOrders(String userId);
 
   Future<Result> updateQuickOrderStatus(String quickOrderId, String status);
 
-  Future<Result<List<QuickOrder>>> getDeliveredQuickOrders();
+  Future<Result<List<QuickOrder>>> getDeliveredQuickOrders(String userId);
 
   Future<Result<List<User>>> getAllDelivery();
 
@@ -36,4 +37,6 @@ abstract class DeliveryRepository {
   Future<void> removeDeliveryOrders(List<String> ordersId);
 
   Future<void> removeDeliveryQuickOrders(List<String> ordersId);
+
+  Future<Result<List<Review>>>getAllDeliveryReviews(String deliveryId);
 }

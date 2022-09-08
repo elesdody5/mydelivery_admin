@@ -4,6 +4,7 @@ import 'package:core/domain/user.dart';
 import 'package:core/domain/user_type.dart';
 import 'package:core/model/order_status.dart';
 import 'package:core/model/response.dart';
+import 'package:core/model/review.dart';
 import 'package:dio/dio.dart';
 
 import '../apis_url/apis_url.dart';
@@ -69,8 +70,7 @@ class DeliveryApiServiceImp implements DeliveryApiService {
     response.data['quickOrders']
         .forEach((json) => orders.add(QuickOrder.fromJson(json)));
     return ApiResponse(
-        responseData: orders
-            .reversed
+        responseData: orders.reversed
             .where((order) => order.orderStatus != OrderStatus.delivered)
             .toList());
   }
@@ -104,8 +104,7 @@ class DeliveryApiServiceImp implements DeliveryApiService {
     response.data['quickOrders']
         .forEach((json) => orders.add(QuickOrder.fromJson(json)));
     return ApiResponse(
-        responseData: orders
-            .reversed
+        responseData: orders.reversed
             .where((order) => order.orderStatus == OrderStatus.delivered)
             .toList());
   }
@@ -144,5 +143,20 @@ class DeliveryApiServiceImp implements DeliveryApiService {
       return ApiResponse(errorMessage: response.data['message']);
     }
     return ApiResponse(responseData: true);
+  }
+
+  @override
+  Future<ApiResponse<List<Review>>> getAllDeliveryReviews(
+      String deliveryId) async {
+    final response =
+        await _dio.get(reviewsUrl, queryParameters: {"deliveryId": deliveryId});
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print("error message is ${response.data['message']}");
+      return ApiResponse(errorMessage: response.data['message']);
+    }
+    List<Review> reviews = [];
+    response.data["reviews"]
+        .forEach((json) => reviews.add(Review.fromJson(json)));
+    return ApiResponse(responseData: reviews);
   }
 }

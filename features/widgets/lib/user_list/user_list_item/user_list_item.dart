@@ -4,25 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/domain/user_type.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:widgets/user_avatar.dart';
+import '';
 
 class UserListItem extends StatelessWidget {
   final User user;
-  final Function(String) onTap;
+  final Function(User) onTap;
   final Function(User)? onLongTap;
 
   const UserListItem(
       {Key? key, required this.user, required this.onTap, this.onLongTap})
       : super(key: key);
-
-  ImageProvider _imageProvider() {
-    if (user.imageUrl == null) {
-      return const AssetImage('assets/images/profile.png');
-    } else {
-      return CachedNetworkImageProvider(
-        user.imageUrl ?? "",
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +24,8 @@ class UserListItem extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         child: ListTile(
           onLongPress: onLongTap != null ? () => onLongTap!(user) : null,
-          onTap: () => onTap(user.id ?? ""),
-          leading: Hero(
-            tag: user.id!,
-            child: CircleAvatar(
-              backgroundImage: _imageProvider(),
-            ),
-          ),
+          onTap: () => onTap(user),
+          leading: UserAvatar(id: user.id ?? "", imageUrl: user.imageUrl),
           title: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Text(

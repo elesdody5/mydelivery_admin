@@ -3,6 +3,7 @@ import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
 import 'package:core/model/http_exception.dart';
 import 'package:core/model/response.dart';
+import 'package:core/model/review.dart';
 import 'package:delivery/data/remote/network/delivery_api_service.dart';
 import 'package:delivery/data/remote/network/delivery_api_service_imp.dart';
 
@@ -85,6 +86,12 @@ class DeliveryRemoteDataSourceImp implements DeliveryRemoteDataSource {
   @override
   Future<Result> removeQuickOrders(List<String> ordersId) async {
     var response = await _deliveryApiService.removeQuickOrders(ordersId);
+    return _getResultFromResponse(response);
+  }
+
+  @override
+  Future<Result<List<Review>>> getAllDeliveryReviews(String deliveryId)  async{
+    var response = await _deliveryApiService.getAllDeliveryReviews(deliveryId);
     return _getResultFromResponse(response);
   }
 }

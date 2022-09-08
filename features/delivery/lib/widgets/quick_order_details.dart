@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'quick_order_description_text.dart';
+
 class QuickOrderDetails extends StatelessWidget {
   final QuickOrder quickOrder;
   final Function(QuickOrder)? pickOrder;
@@ -69,10 +71,7 @@ class QuickOrderDetails extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(
-              quickOrder.description ?? "",
-              style: const TextStyle(fontSize: 15),
-            ),
+            child: QuickOrderDescriptionText(description: quickOrder.description),
           ),
           const Divider(
             thickness: 1,

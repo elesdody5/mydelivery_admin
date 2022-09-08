@@ -10,7 +10,10 @@ import 'package:widgets/orders/order_action_model.dart';
 import 'package:widgets/orders/orders_list_view.dart';
 
 class CurrentDeliveryOrdersScreen extends StatelessWidget {
-  const CurrentDeliveryOrdersScreen({Key? key}) : super(key: key);
+  final String deliveryId;
+
+  const CurrentDeliveryOrdersScreen({Key? key, required this.deliveryId})
+      : super(key: key);
 
   List<OrderActionModel> orderActions() {
     return [
@@ -25,12 +28,13 @@ class CurrentDeliveryOrdersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider =
         Provider.of<CurrentDeliveryOrdersProvider>(context, listen: false);
+    String deliveryId = Get.arguments;
     return Scaffold(
       body: SafeArea(
         left: false,
         right: false,
         child: FutureWithLoadingProgress(
-          future: provider.getDeliveryOrders,
+          future: () => provider.getDeliveryOrders(deliveryId),
           child: Consumer<CurrentDeliveryOrdersProvider>(
               builder: (_, provider, child) => provider.orders.isEmpty
                   ? EmptyWidget(

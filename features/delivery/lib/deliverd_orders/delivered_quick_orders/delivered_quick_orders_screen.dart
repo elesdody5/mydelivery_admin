@@ -10,7 +10,9 @@ import 'package:widgets/future_with_loading_progress.dart';
 import '../delivered_orders/widgets/orders_list_tile.dart';
 
 class DeliveredQuickOrdersScreen extends StatelessWidget {
-  const DeliveredQuickOrdersScreen({Key? key}) : super(key: key);
+  final String deliveryId ;
+
+  const DeliveredQuickOrdersScreen({Key? key,required this.deliveryId}) : super(key: key);
 
   void _setupListener(DeliveredQuickOrdersProvider provider) {
     setupErrorMessageListener(provider.errorMessage);
@@ -22,9 +24,10 @@ class DeliveredQuickOrdersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider =
         Provider.of<DeliveredQuickOrdersProvider>(context, listen: false);
+
     _setupListener(provider);
     return FutureWithLoadingProgress(
-      future: provider.getDeliveredDeliveryOrders,
+      future: () => provider.getDeliveredDeliveryOrders(deliveryId),
       child: Consumer<DeliveredQuickOrdersProvider>(
           builder: (_, provider, child) => provider.filteredOrders.isEmpty
               ? Center(
@@ -40,7 +43,7 @@ class DeliveredQuickOrdersScreen extends StatelessWidget {
                     children: [
                       OrdersListTile(
                           ordersNumber:
-                          provider.filteredOrders.length.toString(),
+                              provider.filteredOrders.length.toString(),
                           onDateSelected: provider.dateFilter),
                       Expanded(
                         child: QuickOrdersListView(

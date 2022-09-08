@@ -1,6 +1,7 @@
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
+import 'package:core/model/review.dart';
 
 abstract class DeliveryRemoteDataSource {
   Future<Result<User>> getUserById(String userId);
@@ -21,4 +22,6 @@ abstract class DeliveryRemoteDataSource {
   Future<Result> removeUserById(String id);
 
   Future<void> removeQuickOrders(List<String> ordersId) ;
+
+  Future<Result<List<Review>>> getAllDeliveryReviews(String deliveryId);
 }

@@ -65,7 +65,9 @@ class DeliveryListScreen extends StatelessWidget {
                       Expanded(
                         child: UsersListView(
                           usersList: provider.filteredDeliveryList,
-                          onUserClicked: provider.onDeliveryClicked,
+                          onUserClicked: (delivery) => Get.toNamed(
+                              deliveryDetailsScreenRouteName,
+                              arguments: delivery),
                           onLongTap: (delivery) =>
                               _showAlertDialog(provider, delivery),
                         ),

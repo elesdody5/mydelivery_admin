@@ -16,9 +16,9 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
       this.updateDeliveredQuickOrderCount})
       : _repository = deliveryRepository ?? DeliveryRepositoryImp();
 
-  Future<void> getDeliveredDeliveryOrders() async {
+  Future<void> getDeliveredDeliveryOrders(String deliveryId) async {
     Result<List<QuickOrder>> result =
-        await _repository.getDeliveredQuickOrders();
+        await _repository.getDeliveredQuickOrders(deliveryId);
     if (result.succeeded()) {
       _orders = result.getDataIfSuccess();
       filteredOrders = [..._orders];
@@ -28,6 +28,7 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
       notifyListeners();
     }
   }
+
   void dateFilter(DateTimeRange? dateTime) {
     filteredOrders = filteredOrders
         .where((element) => _inRange(element.dateTime, dateTime))
@@ -62,6 +63,6 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
     if (updateDeliveredQuickOrderCount != null) {
       updateDeliveredQuickOrderCount!(_orders.length);
     }
-     notifyListeners();
+    notifyListeners();
   }
 }
