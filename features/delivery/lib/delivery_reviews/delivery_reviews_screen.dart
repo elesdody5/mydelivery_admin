@@ -1,6 +1,7 @@
 import 'package:core/domain/user.dart';
 import 'package:delivery/delivery_reviews/delivery_reviews_provider.dart';
 import 'package:delivery/delivery_reviews/widgets/rating_text.dart';
+import 'package:delivery/delivery_reviews/widgets/reviews_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:widgets/empty_widget.dart';
 import 'package:widgets/future_with_loading_progress.dart';
@@ -40,7 +41,7 @@ class DeliveryReviewsScreen extends StatelessWidget {
                         icon: const Icon(
                           Icons.star, color: Colors.amber, size: 50,),),
                     if(provider.reviews.isNotEmpty)
-                      Expanded(child: ListView())
+                      Expanded(child: ReviewsListView(reviews: provider.reviews,))
                   ],
                 );
               }),

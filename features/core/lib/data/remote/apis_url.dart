@@ -1,1 +1,1 @@
-const baseUrl = "https://new-my-delivery.herokuapp.com/api/v1/";
+const baseUrl = "https://alert-jade-jacket.cyclic.app/api/v1/";

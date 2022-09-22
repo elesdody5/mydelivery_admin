@@ -155,7 +155,7 @@ class DeliveryApiServiceImp implements DeliveryApiService {
       return ApiResponse(errorMessage: response.data['message']);
     }
     List<Review> reviews = [];
-    response.data["reviews"]
+    response.data["review"]
         .forEach((json) => reviews.add(Review.fromJson(json)));
     return ApiResponse(responseData: reviews);
   }

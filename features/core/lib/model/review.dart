@@ -3,7 +3,7 @@ import 'package:core/domain/user.dart';
 class Review {
   String? id;
   String? delivery;
-  int? rating;
+  double? rating;
   String? reviewBody;
   User? user;
 

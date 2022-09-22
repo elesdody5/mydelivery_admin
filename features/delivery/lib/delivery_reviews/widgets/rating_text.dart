@@ -24,14 +24,26 @@ class DeliveryRatingBar extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: RatingBarIndicator(
-            rating: ratingAverage,
-            itemBuilder: (context, index) => const Icon(
-              Icons.star,
-              color: Colors.amber,
-            ),
-            itemCount: 5,
-            itemSize: 50.0,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              RatingBarIndicator(
+                rating: ratingAverage,
+                itemBuilder: (context, index) => const Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                itemCount: 5,
+                itemSize: 40.0,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "$ratingAverage",
+                  style: const TextStyle(fontSize: 20),
+                ),
+              )
+            ],
           ),
         ),
         Text(

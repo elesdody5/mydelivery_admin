@@ -23,7 +23,7 @@ class DeliveryReviewsProvider extends BaseProvider {
   }
 
   void _calculateAverage() {
-    var sum = 0;
+    var sum = 0.0;
     for (var review in reviews) {
       sum += review.rating ?? 0;
     }
