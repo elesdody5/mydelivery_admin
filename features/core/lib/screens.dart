@@ -1,6 +1,8 @@
 const String homeScreen = "/home_screen";
 const String usersScreen = "/users_screen";
 const String signupScreenRouteName = '/signup_screen';
+const String loginScreenRouteName = '/login_screen';
+const String splashScreenRouteName = '/splash_screen';
 const String shopDetailsScreenRouteName = "/shop_details_screen";
 const String shopsScreenRouteName = "/shops_screen";
 const String shopProductsScreenRouteName = '/shop_product_screen';

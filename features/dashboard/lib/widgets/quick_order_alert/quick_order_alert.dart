@@ -7,6 +7,9 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+import 'record_widget.dart';
+import 'record_widget_provider.dart';
 
 class QuickOrderAlert extends StatelessWidget {
   final Function() sendQuickOrder;
@@ -60,7 +63,7 @@ class QuickOrderAlert extends StatelessWidget {
                   initialValue: 1,
                   validator: FormBuilderValidators.required(context),
                   onSaved: (int? value) => quickOrder.count = value,
-                  items: [1, 2, 3,4,5]
+                  items: [1, 2, 3, 4, 5]
                       .map((count) => DropdownMenuItem(
                             value: count,
                             child: Text("$count"),
@@ -87,6 +90,7 @@ class QuickOrderAlert extends StatelessWidget {
                 width: 100,
                 child: FormBuilderImagePicker(
                   name: 'photo',
+                  imageQuality: 70,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     label: Text("${"add_photo".tr} (${"optional".tr}) "),
@@ -95,11 +99,18 @@ class QuickOrderAlert extends StatelessWidget {
                   fit: BoxFit.cover,
                   iconColor: Colors.grey,
                   onSaved: (image) {
-                    if (image?[0] != null) {
+                    if (image?[0] != null && image?[0] is! String) {
                       quickOrder.imageFile = File(image?[0]?.path);
                     }
                   },
                 ),
+              ),
+              Text("${"add_record".tr} (${"optional".tr})"),
+              ChangeNotifierProvider.value(
+                  value: RecordProvider(quickOrder: quickOrder),
+                  child: const RecordWidget()),
+              Divider(
+                color: Get.theme.primaryIconTheme.color,
               ),
               FormBuilderTextField(
                 name: "description",

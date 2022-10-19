@@ -14,7 +14,7 @@ abstract class AuthRepository {
 
   Future<String> getLang();
 
-  Future<LoginResponse> autoLogin();
+  Future<Result<LoginResponse>> autoLogin();
 
   Future<void> saveNotificationToken(String? token);
 

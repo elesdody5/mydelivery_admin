@@ -2,6 +2,7 @@ enum UserType {
   user,
   vendor,
   delivery,
+  admin
 }
 
 extension EnumToString on UserType {

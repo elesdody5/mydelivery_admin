@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:widgets/user_avatar.dart';
 
 class DetailsListTile extends StatelessWidget {
   final String? imageUrl;
@@ -22,16 +22,6 @@ class DetailsListTile extends StatelessWidget {
       this.phone})
       : super(key: key);
 
-  ImageProvider _imageProvider() {
-    if (imageUrl == null) {
-      return const AssetImage('assets/images/profile.png');
-    } else {
-      return CachedNetworkImageProvider(
-        imageUrl ?? "",
-      );
-    }
-  }
-
   Future<void> _openMap() async {
     String googleUrl =
         'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
@@ -45,8 +35,9 @@ class DetailsListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: CircleAvatar(
-        backgroundImage: _imageProvider(),
+      leading: UserAvatar(
+        id: "",
+        imageUrl: imageUrl,
       ),
       title: Text(name ?? ""),
       subtitle: address != null ? Text(address ?? "") : null,

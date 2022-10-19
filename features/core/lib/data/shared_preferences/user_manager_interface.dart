@@ -31,4 +31,8 @@ abstract class SharedPreferencesManager {
   Future<void> saveVendorShopId(String shopId);
 
   Future<String?> getVendorShopId();
+  Future<void> saveUserPhone(String phone);
+  Future<void> saveUserPassword(String password);
+  Future<String?> getUserPhone();
+  Future<String?> getUserPassword();
 }

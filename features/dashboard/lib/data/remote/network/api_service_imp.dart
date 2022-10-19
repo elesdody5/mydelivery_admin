@@ -88,11 +88,29 @@ class ApiServiceImp implements ApiService {
     final response = await _dio.post(quickOrderUrl,
         queryParameters: {"userType": "delivery"},
         data: FormData.fromMap(await quickOrder.toJson()));
+
     if (response.statusCode != 200 && response.statusCode != 201) {
       print("error message is ${response.data['message']}");
       return ApiResponse(errorMessage: response.data['message']);
     }
+
+    String? id = response.data["createdElement"]?["_id"];
+    if (quickOrder.recordFile != null) {
+      await addAudioToQuickOrder(id, quickOrder);
+    }
     return ApiResponse(responseData: true);
+  }
+
+  Future<bool> addAudioToQuickOrder(String? id, QuickOrder quickOrder) async {
+    final request = {"audio": await quickOrder.getRecordMultiPartFile()};
+    final response = await _dio.post(recordsUrl,
+        queryParameters: {"quickOrderId": id}, data: FormData.fromMap(request));
+
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print("error message is ${response.data['message']}");
+      return false;
+    }
+    return true;
   }
 
   @override

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:widgets/user_avatar.dart';
 
 class QuickOrderDetails extends StatelessWidget {
   final QuickOrder quickOrder;
@@ -12,16 +13,6 @@ class QuickOrderDetails extends StatelessWidget {
     Key? key,
     required this.quickOrder,
   }) : super(key: key);
-
-  ImageProvider _imageProvider() {
-    if (quickOrder.delivery?.imageUrl == null) {
-      return const AssetImage('assets/images/profile.png');
-    } else {
-      return CachedNetworkImageProvider(
-        quickOrder.delivery?.imageUrl ?? "",
-      );
-    }
-  }
 
   void _showImagePreview() => Get.dialog(
         CachedNetworkImage(
@@ -77,8 +68,9 @@ class QuickOrderDetails extends StatelessWidget {
             thickness: 1,
           ),
           ListTile(
-            leading: CircleAvatar(
-              backgroundImage: _imageProvider(),
+            leading: UserAvatar(
+              id: quickOrder.delivery?.id ?? "",
+              imageUrl: quickOrder.delivery?.imageUrl,
             ),
             title: quickOrder.delivery?.name != null
                 ? Text(quickOrder.delivery?.name ?? "")

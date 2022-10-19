@@ -1,7 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/domain/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:widgets/user_avatar.dart';
 
 class AvailableOrderListItem extends StatelessWidget {
   final User? user;
@@ -11,23 +11,11 @@ class AvailableOrderListItem extends StatelessWidget {
       {Key? key, required this.user, required this.onTap})
       : super(key: key);
 
-  ImageProvider _imageProvider() {
-    if (user?.imageUrl == null) {
-      return const AssetImage('assets/images/profile.png');
-    } else {
-      return CachedNetworkImageProvider(
-        user?.imageUrl ?? "",
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () => onTap(user?.id ?? ""),
-      leading: CircleAvatar(
-        backgroundImage: _imageProvider(),
-      ),
+      leading: UserAvatar(id: user?.id ?? "", imageUrl: user?.imageUrl),
       title: Text(user?.name ?? ""),
       subtitle: Text(user?.address ?? ""),
       trailing: const Icon(CupertinoIcons.forward),

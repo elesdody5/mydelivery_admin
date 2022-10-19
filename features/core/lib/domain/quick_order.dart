@@ -21,36 +21,40 @@ class QuickOrder {
   DateTime? dateTime;
   File? imageFile;
   String? imageUrl;
+  String? audioUrl;
+  File? recordFile;
 
   QuickOrder(
       {this.id,
-      this.address,
-      this.inCity,
-      this.delivery,
-      this.user,
-      this.description,
-      this.orderStatus,
-      this.phoneNumber,
-      this.count,
-      this.dateTime,
-      this.imageUrl});
+        this.address,
+        this.inCity,
+        this.delivery,
+        this.user,
+        this.description,
+        this.orderStatus,
+        this.phoneNumber,
+        this.count,
+        this.dateTime,
+        this.imageUrl,
+        this.audioUrl});
 
   factory QuickOrder.fromJson(Map<String, dynamic> json) => QuickOrder(
-        id: json['_id'],
-        address: json['address'],
-        inCity: json["inCity"],
-        delivery:
-            json['delivery'] != null ? User.fromJson(json['delivery']) : null,
+    id: json['_id'],
+    address: json['address'],
+    inCity: json["inCity"],
+    delivery:
+    json['delivery'] != null ? User.fromJson(json['delivery']) : null,
     user: (json['user'] != null && json['user'] is! String)
         ? User.fromJson(json['user'])
         : null,
-        description: json['description'],
-        orderStatus: stringToEnum(json['status']),
-        phoneNumber: json['userPhone'],
-        count: json['count'],
-        imageUrl: json['photo'],
-        dateTime: json["date"] != null ? DateTime.parse(json['date']) : null,
-      );
+    description: json['description'],
+    orderStatus: stringToEnum(json['status']),
+    phoneNumber: json['userPhone'],
+    count: json['count'],
+    imageUrl: json['photo'],
+    audioUrl: json['audio'],
+    dateTime: json["date"] != null ? DateTime.parse(json['date']) : null,
+  );
 
   Future<Map<String, dynamic>> toJson() async {
     List<String>? mimeTypeData;
@@ -71,10 +75,21 @@ class QuickOrder {
       "date": dateTime?.toIso8601String(),
       "photo": imageFile != null
           ? await MultipartFile.fromFile(imageFile!.path,
-              filename: imageFile?.path.split('/').last ?? "",
-              contentType: MediaType(mimeTypeData![0], mimeTypeData[1]))
+          filename: imageFile?.path.split('/').last ?? "",
+          contentType: MediaType(mimeTypeData![0], mimeTypeData[1]))
           : null
     };
+  }
+
+  Future<MultipartFile> getRecordMultiPartFile() async {
+    List<String>? mimeTypeData;
+
+    if (recordFile != null) {
+      mimeTypeData = lookupMimeType(recordFile!.path)?.split('/');
+    }
+    return MultipartFile.fromFile(recordFile!.path,
+        filename: recordFile?.path.split('/').last ?? "",
+        contentType: MediaType(mimeTypeData![0], mimeTypeData[1]));
   }
 
   String? get formattedTime {

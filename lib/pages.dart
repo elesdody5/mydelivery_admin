@@ -1,4 +1,8 @@
+import 'package:authentication/login/login_provider.dart';
+import 'package:authentication/login/login_screen.dart';
 import 'package:authentication/signup/signup_screen.dart';
+import 'package:authentication/splash/splash_provider.dart';
+import 'package:authentication/splash/splash_screen.dart';
 import 'package:core/screens.dart';
 import 'package:dashboard/categories/categories_provider.dart';
 import 'package:dashboard/categories/categories_screen.dart';
@@ -48,6 +52,20 @@ List<GetPage> appPages = [
           ChangeNotifierProvider.value(
             value: SignUpProvider(),
             child: SignupScreen(),
+          )),
+  GetPage(
+      name: loginScreenRouteName,
+      page: () =>
+          ChangeNotifierProvider.value(
+            value: LoginProvider(),
+            child: LoginScreen(),
+          )),
+  GetPage(
+      name: splashScreenRouteName,
+      page: () =>
+          ChangeNotifierProvider.value(
+            value: SplashProvider(),
+            child: const SplashScreen(),
           )),
   GetPage(
       name: homeScreen,

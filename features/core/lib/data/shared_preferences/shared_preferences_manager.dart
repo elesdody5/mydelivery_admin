@@ -115,4 +115,28 @@ class SharedPreferencesManagerImp implements SharedPreferencesManager {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setString(shopIdKey, shopId);
   }
+
+  @override
+  Future<String?> getUserPassword() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences.getString(passwordKey);
+  }
+
+  @override
+  Future<String?> getUserPhone() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences.getString(phoneKey);
+  }
+
+  @override
+  Future<void> saveUserPassword(String password) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString(passwordKey, password);
+  }
+
+  @override
+  Future<void> saveUserPhone(String phone) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString(phoneKey, phone);
+  }
 }

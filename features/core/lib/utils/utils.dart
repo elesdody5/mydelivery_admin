@@ -97,3 +97,6 @@ String getDayLocal(int day) {
   var days = "days".tr.split(",");
   return days[day];
 }
+String get imagePath => Get.isDarkMode
+    ? "assets/images/logo_white.png"
+    : "assets/images/mydelivery_logo.png";

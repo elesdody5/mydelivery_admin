@@ -22,9 +22,8 @@ class MyApp extends StatelessWidget {
       title: 'My Delivery Admin',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: "ELMessiri",
-        primaryColor: const Color(0xFFFFe477),
-        primaryColorLight: const Color(0xffffe061),
+        primaryColor: const Color(0xfffeed01),
+        primaryColorLight: const Color(0xfffeed01),
         primaryIconTheme: const IconThemeData(color: Color(0xFFEF6F6F)),
         cardColor: Colors.white,
         elevatedButtonTheme: ElevatedButtonThemeData(
@@ -33,10 +32,10 @@ class MyApp extends StatelessWidget {
                   const EdgeInsets.all(10)),
               foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
               backgroundColor:
-                  MaterialStateProperty.all<Color>(const Color(0xFFFFe477))),
+                  MaterialStateProperty.all<Color>(const Color(0xfffeed01))),
         ),
         appBarTheme: const AppBarTheme(
-            color: Color(0xFFFFe477), foregroundColor: Colors.black),
+            color: Color(0xfffeed01), foregroundColor: Colors.black),
         textTheme: const TextTheme(
           bodyText1: TextStyle(
               letterSpacing: 1,
@@ -61,7 +60,7 @@ class MyApp extends StatelessWidget {
       locale: const Locale("ar"),
       // translations will be displayed in that locale
       fallbackLocale: const Locale('ar'),
-      initialRoute: homeScreen,
+      initialRoute: splashScreenRouteName,
       getPages: appPages,
     );
   }

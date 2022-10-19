@@ -86,7 +86,7 @@ Map<String, String> arJson = {
   "order": "اطلب من",
   "quick_order": "طلب سريع",
   "your_orders": "طلباتك",
-  "current_orders": "الظلبات الحالية",
+  "current_orders": "الطلبات الحالية",
   "le": "جنيه",
   "all": "الكل",
   "my_delivery_services": "حدمات My Delivery",
@@ -193,5 +193,7 @@ Map<String, String> arJson = {
   "good": "جيد",
   "bad": "سئ",
   "very_bad": "سئ جدا",
-  "no_reviews": "لايوجد تقيمات للطيار"
+  "no_reviews": "لايوجد تقيمات للطيار",
+  "add_record": "اضافة تسجيل",
+  "not_admin_user":"لايمكن الدخول كاأدمن"
 };

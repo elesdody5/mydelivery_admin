@@ -13,4 +13,6 @@ const usersUrl = 'users/user';
 const notificationsUrl = "notifications";
 const deleteNotificationsUrl = "notifications/notification";
 const userDetailsUrl = 'users/user';
+const recordsUrl = "records/";
+
 

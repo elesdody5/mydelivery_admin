@@ -1,4 +1,6 @@
 const userIdKey = "user_id";
+const phoneKey = "phone";
+const passwordKey = "password";
 const userKey = "user";
 const tokenKey = 'token';
 const localKey = "LOCAL";

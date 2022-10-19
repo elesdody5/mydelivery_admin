@@ -7,8 +7,6 @@ import 'package:authentication/domin/model/signup_model.dart';
 import 'package:core/data/shared_preferences/shared_preferences_manager.dart';
 import 'package:core/data/shared_preferences/user_manager_interface.dart';
 import 'package:core/domain/result.dart';
-import 'package:core/domain/user_type.dart';
-import 'package:core/utils/utils.dart';
 
 class AuthRepositoryImp implements AuthRepository {
   AuthRemoteDataSource _remoteAuth;
@@ -25,6 +23,8 @@ class AuthRepositoryImp implements AuthRepository {
         await _remoteAuth.login(phone, password);
     if (loginResponse.succeeded()) {
       var loginData = loginResponse.getDataIfSuccess();
+      await _userManager.saveUserPhone(phone);
+      await _userManager.saveUserPassword(password);
       await _userManager.saveToken(loginData.token);
       await _userManager.saveUserId(loginData.userId);
       await _userManager.saveUserType(loginData.userType);
@@ -67,14 +67,11 @@ class AuthRepositoryImp implements AuthRepository {
   }
 
   @override
-  Future<LoginResponse> autoLogin() async {
-    String? token = await _userManager.getToken();
-    UserType? userType = await _userManager.getUserType();
-    String? userId = await _userManager.getUserId();
-    LoginResponse loginResponse =
-        LoginResponse(token: token, userType: userType, userId: userId);
-    token?.let((it) => _remoteAuth.addInterceptor(it));
-    return loginResponse;
+  Future<Result<LoginResponse>> autoLogin() async {
+    String? password = await _userManager.getUserPassword();
+    String? phone = await _userManager.getUserPhone();
+    if (phone != null && password != null) return await login(phone, password);
+    return Error(Exception("user not found"));
   }
 
   @override

@@ -13,6 +13,9 @@ dependencies:
   core:
     path: ../core/
 
+  widgets:
+    path: ../widgets/
+
 
 
 dev_dependencies:

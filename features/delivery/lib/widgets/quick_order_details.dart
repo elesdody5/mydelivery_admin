@@ -4,8 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:widgets/user_avatar.dart';
 
 import 'quick_order_description_text.dart';
+import 'record/quick_order_record_player.dart';
 
 class QuickOrderDetails extends StatelessWidget {
   final QuickOrder quickOrder;
@@ -15,16 +17,6 @@ class QuickOrderDetails extends StatelessWidget {
   const QuickOrderDetails(
       {Key? key, required this.quickOrder, this.pickOrder, this.deliverOrder})
       : super(key: key);
-
-  ImageProvider _imageProvider() {
-    if (quickOrder.user?.imageUrl == null) {
-      return const AssetImage('assets/images/profile.png');
-    } else {
-      return CachedNetworkImageProvider(
-        quickOrder.user?.imageUrl ?? "",
-      );
-    }
-  }
 
   void _showImagePreview() => Get.dialog(
         CachedNetworkImage(
@@ -40,6 +32,9 @@ class QuickOrderDetails extends StatelessWidget {
               )),
         ),
       );
+
+  void _playRecord() =>
+      Get.dialog(QuickOrderRecordPlayer(audioUrl: quickOrder.audioUrl ?? ""));
 
   @override
   Widget build(BuildContext context) {
@@ -71,15 +66,16 @@ class QuickOrderDetails extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: QuickOrderDescriptionText(description: quickOrder.description),
+            child:
+                QuickOrderDescriptionText(description: quickOrder.description),
           ),
           const Divider(
             thickness: 1,
           ),
           ListTile(
-            leading: CircleAvatar(
-              backgroundImage: _imageProvider(),
-            ),
+            leading: UserAvatar(
+                id: quickOrder.user?.id ?? "",
+                imageUrl: quickOrder.user?.imageUrl),
             title: quickOrder.user?.name != null
                 ? Text(quickOrder.user?.name ?? "")
                 : Text(
@@ -105,6 +101,12 @@ class QuickOrderDetails extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                   onPressed: _showImagePreview, child: Text("view_image".tr)),
+            ),
+          if (quickOrder.audioUrl != null)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                  onPressed: _playRecord, child: Text("play_record".tr)),
             ),
         ],
       ),
