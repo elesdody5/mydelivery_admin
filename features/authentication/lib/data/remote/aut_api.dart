@@ -29,8 +29,8 @@ class AuthApiServiceImp implements AuthApiService {
 
       final responseData = response.data;
       String token = responseData['token'];
-      UserType? type = stringToEnum(responseData['userType']);
-      String? userId = responseData['userId'];
+      UserType? type = stringToEnum(responseData['user']['userType']);
+      String? userId = responseData['user']['_id'];
       addInterceptor(token);
       return ApiResponse(
           responseData:

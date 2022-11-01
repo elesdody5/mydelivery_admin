@@ -48,4 +48,6 @@ abstract class Repository {
   Future<Result> blockUser(String id, bool block);
 
   Future<Result> removeShopById(String id);
+
+  Future<void>logout() ;
 }

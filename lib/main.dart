@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
         GlobalMaterialLocalizations.delegate
       ],
       supportedLocales: const [
-        Locale('fr')
+        Locale('ar')
       ],
       translations: Messages(),
       // your translations

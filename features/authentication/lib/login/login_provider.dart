@@ -19,8 +19,10 @@ class LoginProvider extends BaseProvider {
             forgetPasswordUseCase ?? ForgetPasswordUseCaseImp();
 
   void _navigate(String phone, UserType? userType) {
+    print(userType?.name);
     if (userType?.name == UserType.admin.name)
-      navigation.value = Destination(routeName: homeScreen, argument: phone);
+      navigation.value = Destination(
+          routeName: homeScreen, argument: phone, removeFromStack: true);
     else {
       errorMessage.value = "Not Admin user";
     }

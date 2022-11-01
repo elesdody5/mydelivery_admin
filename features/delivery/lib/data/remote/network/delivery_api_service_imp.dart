@@ -37,7 +37,7 @@ class DeliveryApiServiceImp implements DeliveryApiService {
       return ApiResponse(errorMessage: response.data['message']);
     }
     List<QuickOrder> orders = [];
-    response.data['quickOrders']
+    response.data['data']
         .forEach((json) => orders.add(QuickOrder.fromJson(json)));
     return ApiResponse(responseData: orders.reversed.toList());
   }
@@ -67,7 +67,7 @@ class DeliveryApiServiceImp implements DeliveryApiService {
       return ApiResponse(errorMessage: response.data['message']);
     }
     List<QuickOrder> orders = [];
-    response.data['quickOrders']
+    response.data['data']
         .forEach((json) => orders.add(QuickOrder.fromJson(json)));
     return ApiResponse(
         responseData: orders.reversed
@@ -101,7 +101,7 @@ class DeliveryApiServiceImp implements DeliveryApiService {
       return ApiResponse(errorMessage: response.data['message']);
     }
     List<QuickOrder> orders = [];
-    response.data['quickOrders']
+    response.data['data']
         .forEach((json) => orders.add(QuickOrder.fromJson(json)));
     return ApiResponse(
         responseData: orders.reversed

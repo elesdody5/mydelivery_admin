@@ -110,22 +110,27 @@ class MainRepository implements Repository {
   }
 
   @override
-  Future<Result<List<NotificationMessage>>> getAllNotifications()  {
+  Future<Result<List<NotificationMessage>>> getAllNotifications() {
     return _remoteDataSource.getAllNotifications();
   }
 
   @override
-  Future<Result> deleteNotificationById(String id){
+  Future<Result> deleteNotificationById(String id) {
     return _remoteDataSource.deleteNotificationById(id);
   }
 
   @override
-  Future<Result> blockUser(String id,bool block){
-    return _remoteDataSource.blockUser(id,block);
+  Future<Result> blockUser(String id, bool block) {
+    return _remoteDataSource.blockUser(id, block);
   }
 
   @override
   Future<Result> removeShopById(String id) {
     return _remoteDataSource.removeShopById(id);
+  }
+
+  @override
+  Future<void> logout() {
+    return _sharedPreferencesManager.deleteUserData();
   }
 }

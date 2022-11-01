@@ -16,6 +16,7 @@ class HomePage extends StatelessWidget {
     setupErrorMessageListener(provider.errorMessage);
     setupLoadingListener(provider.isLoading);
     setupSuccessMessageListener(provider.successMessage);
+    setupNavigationListener(provider.navigation);
   }
 
   @override
@@ -284,6 +285,30 @@ class HomePage extends StatelessWidget {
                       ]),
                 ),
                 onTap: () => Get.toNamed(notificationsScreenRouteName)),
+            _buildTile(
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        const Material(
+                            color: Colors.blueGrey,
+                            shape: CircleBorder(),
+                            child: Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Icon(Icons.logout,
+                                  color: Colors.white, size: 30.0),
+                            )),
+                        const Padding(padding: EdgeInsets.only(bottom: 16.0)),
+                        Text('logout'.tr,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 24.0)),
+                      ]),
+                ),
+                onTap: () => provider.logout()),
           ],
         ));
   }

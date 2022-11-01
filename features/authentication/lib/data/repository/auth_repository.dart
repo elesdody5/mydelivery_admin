@@ -26,7 +26,6 @@ class AuthRepositoryImp implements AuthRepository {
       await _userManager.saveUserPhone(phone);
       await _userManager.saveUserPassword(password);
       await _userManager.saveToken(loginData.token);
-      await _userManager.saveUserId(loginData.userId);
       await _userManager.saveUserType(loginData.userType);
     }
     return loginResponse;
@@ -37,17 +36,12 @@ class AuthRepositoryImp implements AuthRepository {
     Result<LoginResponse> loginResponse = await _remoteAuth.signUp(signUpModel);
     if (loginResponse.succeeded()) {
       var loginData = loginResponse.getDataIfSuccess();
-      await _saveUserInfo(loginData);
       _remoteAuth.addInterceptor(loginData.token ?? "");
     }
     return loginResponse;
   }
 
-  Future<void> _saveUserInfo(LoginResponse loginData) async {
-    await _userManager.saveToken(loginData.token);
-    await _userManager.saveUserId(loginData.userId);
-    await _userManager.saveUserType(loginData.userType);
-  }
+
 
   @override
   Future<Result<String>> forgetPassword(String email) async {

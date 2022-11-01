@@ -1,9 +1,4 @@
-enum UserType {
-  user,
-  vendor,
-  delivery,
-  admin
-}
+enum UserType { user, vendor, delivery, admin }
 
 extension EnumToString on UserType {
   String enmToString() {
@@ -14,6 +9,8 @@ extension EnumToString on UserType {
         return "delivery";
       case UserType.vendor:
         return "vendor";
+      case UserType.admin:
+        return "admin";
       default:
         return "user";
     }
@@ -28,6 +25,8 @@ UserType? stringToEnum(String? type) {
       return UserType.user;
     case "delivery":
       return UserType.delivery;
+    case "admin":
+      return UserType.admin;
     default:
       return null;
   }

@@ -1,6 +1,8 @@
 import 'package:core/base_provider.dart';
+import 'package:core/domain/navigation.dart';
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
+import 'package:core/screens.dart';
 import 'package:dashboard/data/repository/repository.dart';
 import 'package:dashboard/data/repository/repository_imp.dart';
 import 'package:dashboard/domain/model/notification_message.dart';
@@ -56,5 +58,12 @@ class HomeProvider extends BaseProvider {
     } else {
       errorMessage.value = "something_went_wrong";
     }
+  }
+  Future<void> logout() async {
+    isLoading.value = true;
+    await _repository.logout();
+    isLoading.value = false;
+    navigation.value =
+        Destination(routeName: loginScreenRouteName, removeFromStack: true);
   }
 }
