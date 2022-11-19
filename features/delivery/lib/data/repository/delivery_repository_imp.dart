@@ -136,4 +136,8 @@ class DeliveryRepositoryImp implements DeliveryRepository {
     return _remoteDataSource.getAllDeliveryReviews(deliveryId);
 
   }
-}
+
+  Future<int> getDeliveryCoins(String deliveryId) async {
+    return _fireStoreService.getDeliveryCoins(deliveryId);
+  }
+  }

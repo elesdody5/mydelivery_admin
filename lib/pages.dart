@@ -24,6 +24,7 @@ import 'package:delivery/current_delivery_orders/all_current_delivery_orders.dar
 import 'package:delivery/current_delivery_orders/all_current_delivery_orders_provider.dart';
 import 'package:delivery/deliverd_orders/all_delivered_orders_provider.dart';
 import 'package:delivery/deliverd_orders/all_delivered_orders_screen.dart';
+import 'package:delivery/delivery_details/delivery_details_provider.dart';
 import 'package:delivery/delivery_details/delivery_details_screen.dart';
 import 'package:delivery/avalible_orders/all_available_orders_provider.dart';
 import 'package:delivery/avalible_orders/available_order_details_screen/avaliable_user_order_provider.dart';
@@ -84,7 +85,10 @@ List<GetPage> appPages = [
   ),
   GetPage(
     name: deliveryDetailsScreenRouteName,
-    page: () => const DeliveryDetailsScreen(),
+    page: () => ChangeNotifierProvider.value(
+      value: DeliveryDetailsProvider(),
+      child: const DeliveryDetailsScreen(),
+    )
   ),
   GetPage(
       name: deliveryListScreen,

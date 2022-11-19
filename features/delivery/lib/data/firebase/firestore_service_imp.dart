@@ -19,7 +19,7 @@ class FireStoreServiceImp implements FireStoreService {
         .collection("orders")
         .where("delivery._id", isEqualTo: deliveryId)
         .where("orderStatus",
-            isNotEqualTo: OrderStatus.delivered.enumToString())
+        isNotEqualTo: OrderStatus.delivered.enumToString())
         .snapshots();
     return stream.map((event) =>
         event.docs.map((e) => Order.fromJson(e.data(), e.id)).toList());
@@ -53,7 +53,7 @@ class FireStoreServiceImp implements FireStoreService {
     WriteBatch batch = _fireStore.batch();
     for (var order in orders) {
       DocumentSnapshot<Map<String, dynamic>> docSnapshot =
-          await ordersCollection.doc(order.id).get();
+      await ordersCollection.doc(order.id).get();
 
       if (docSnapshot.get('delivery') != null) {
         return Error(ApiException("pick_order_error_body"));
@@ -69,8 +69,8 @@ class FireStoreServiceImp implements FireStoreService {
   }
 
   @override
-  Future<void> updateOrderStatus(
-      OrderStatus orderStatus, String orderId) async {
+  Future<void> updateOrderStatus(OrderStatus orderStatus,
+      String orderId) async {
     final ordersCollection = _fireStore.collection("orders");
     await ordersCollection
         .doc(orderId)
@@ -85,5 +85,17 @@ class FireStoreServiceImp implements FireStoreService {
       batch.delete(ordersCollection.doc(id));
     }
     await batch.commit();
+  }
+
+  Future<int> getDeliveryCoins(String deliveryId) async {
+    final ordersCollection = _fireStore.collection("orders");
+    final response = await ordersCollection
+        .where("delivery._id", isEqualTo: deliveryId)
+        .get();
+    int? coins = 0;
+    for (var doc in response.docs) {
+      coins = (coins! + (doc.data()["coins"] ?? 0)) as int?;
+    }
+    return coins ?? 0;
   }
 }

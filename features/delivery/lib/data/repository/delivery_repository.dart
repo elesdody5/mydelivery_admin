@@ -38,5 +38,7 @@ abstract class DeliveryRepository {
 
   Future<void> removeDeliveryQuickOrders(List<String> ordersId);
 
-  Future<Result<List<Review>>>getAllDeliveryReviews(String deliveryId);
+  Future<Result<List<Review>>> getAllDeliveryReviews(String deliveryId);
+
+  Future<int> getDeliveryCoins(String deliveryId);
 }

@@ -41,7 +41,7 @@ class UserAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Hero(
       tag: id,
-      child: InkWell(
+      child: GestureDetector(
         onTap: _showImagePreview,
         child: CircleAvatar(
           radius: radius,
