@@ -129,7 +129,7 @@ class AddProductScreen extends StatelessWidget {
                       initialValue: provider.product.price?.toString(),
                       keyboardType: TextInputType.number,
                       onSaved: (String? price) =>
-                          provider.product.price = int.parse(price ?? "0"),
+                          provider.product.price = num.parse(price ?? "0"),
                       decoration: formInputDecoration(label: "price".tr),
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(

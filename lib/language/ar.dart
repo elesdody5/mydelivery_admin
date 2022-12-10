@@ -195,5 +195,6 @@ Map<String, String> arJson = {
   "very_bad": "سئ جدا",
   "no_reviews": "لايوجد تقيمات للطيار",
   "add_record": "اضافة تسجيل",
-  "not_admin_user":"لايمكن الدخول كاأدمن"
+  "not_admin_user":"لايمكن الدخول كاأدمن",
+  "play_record": "سماع التسجيل",
 };

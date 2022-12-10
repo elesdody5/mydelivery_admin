@@ -12,7 +12,7 @@ class Product {
   String? name;
   String? image;
   String? subCategoryId;
-  int? price = 0;
+  num? price = 0;
   String? description;
   File? imageFile;
 

@@ -16,20 +16,25 @@ class Order {
   User? user;
   Shop? shop;
   int? coins;
+  String? imageUrl;
+  String? audioUrl;
 
   Order(
       {this.id,
-      this.user,
-      this.dateTime,
-      this.status,
-      this.delivery,
-      this.shop,
-      this.deliveryPrice,
-      this.coins,
-      List<CartItem>? cartItems})
+        this.user,
+        this.dateTime,
+        this.status,
+        this.delivery,
+        this.shop,
+        this.deliveryPrice,
+        this.coins,
+        this.imageUrl,
+        this.audioUrl,
+        List<CartItem>? cartItems})
       : _cartItems = cartItems ?? [];
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
         "cartItems": _cartItems?.map((e) => e.toJson()).toList(),
         "time": dateTime?.toIso8601String(),
         "orderStatus": status?.enumToString() ??
@@ -38,7 +43,9 @@ class Order {
         "shop": shop?.toJson(),
         "deliveryPrice": deliveryPrice,
         "user": user?.toJson(),
-        "coins": coins
+        "coins": coins,
+        "audio": audioUrl,
+        "image": imageUrl
       };
 
   List<CartItem>? get cartItems => _cartItems;
@@ -58,8 +65,10 @@ class Order {
           json?['cartItems']?.map((cartItem) => CartItem.fromJson(cartItem))),
       shop: Shop.fromJson(json?['shop']),
       coins: json?['coins'],
+      audioUrl: json?['audio'],
+      imageUrl: json?['image'],
       delivery:
-          json?['delivery'] != null ? User.fromJson(json?['delivery']) : null,
+      json?['delivery'] != null ? User.fromJson(json?['delivery']) : null,
       deliveryPrice: json?['deliveryPrice'],
       status: stringToEnum(json?['orderStatus']),
       user: User.fromJson(json?['user']));

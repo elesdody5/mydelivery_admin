@@ -39,7 +39,7 @@ class DeliveryApiServiceImp implements DeliveryApiService {
     List<QuickOrder> orders = [];
     response.data['data']
         .forEach((json) => orders.add(QuickOrder.fromJson(json)));
-    return ApiResponse(responseData: orders.reversed.toList());
+    return ApiResponse(responseData: orders.toList());
   }
 
   @override
@@ -70,7 +70,7 @@ class DeliveryApiServiceImp implements DeliveryApiService {
     response.data['data']
         .forEach((json) => orders.add(QuickOrder.fromJson(json)));
     return ApiResponse(
-        responseData: orders.reversed
+        responseData: orders
             .where((order) => order.orderStatus != OrderStatus.delivered)
             .toList());
   }
@@ -104,7 +104,7 @@ class DeliveryApiServiceImp implements DeliveryApiService {
     response.data['data']
         .forEach((json) => orders.add(QuickOrder.fromJson(json)));
     return ApiResponse(
-        responseData: orders.reversed
+        responseData: orders
             .where((order) => order.orderStatus == OrderStatus.delivered)
             .toList());
   }

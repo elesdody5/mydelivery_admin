@@ -4,10 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:widgets/record/quick_order_record_player.dart';
 import 'package:widgets/user_avatar.dart';
 
 import 'quick_order_description_text.dart';
-import 'record/quick_order_record_player.dart';
 
 class QuickOrderDetails extends StatelessWidget {
   final QuickOrder quickOrder;

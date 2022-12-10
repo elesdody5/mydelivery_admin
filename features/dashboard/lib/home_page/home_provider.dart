@@ -39,6 +39,7 @@ class HomeProvider extends BaseProvider {
 
   Future<void> sendQuickOrder() async {
     isLoading.value = true;
+    quickOrder.dateTime = DateTime.now();
     Result result = await _repository.sendQuickOrder(quickOrder);
     isLoading.value = false;
     if (result.succeeded()) {
@@ -49,7 +50,7 @@ class HomeProvider extends BaseProvider {
     quickOrder = QuickOrder();
   }
 
-  void sendNotification() async{
+  void sendNotification() async {
     isLoading.value = true;
     Result result = await _repository.sendNotification(notificationMessage);
     isLoading.value = false;
@@ -59,6 +60,7 @@ class HomeProvider extends BaseProvider {
       errorMessage.value = "something_went_wrong";
     }
   }
+
   Future<void> logout() async {
     isLoading.value = true;
     await _repository.logout();

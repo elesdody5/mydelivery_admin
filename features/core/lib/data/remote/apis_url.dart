@@ -1,1 +1,1 @@
-const baseUrl = "https://alert-jade-jacket.cyclic.app/api/v1/";
+const baseUrl = "https://my-delivery.onrender.com/api/v1/";
