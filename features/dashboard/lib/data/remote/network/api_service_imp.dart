@@ -85,20 +85,29 @@ class ApiServiceImp implements ApiService {
 
   @override
   Future<ApiResponse> sendQuickOrder(QuickOrder quickOrder) async {
-    final response = await _dio.post(quickOrderUrl,
-        queryParameters: {"userType": "delivery"},
-        data: FormData.fromMap(await quickOrder.toJson()));
+    try {
+      final response = await _dio.post(quickOrderUrl,
+          queryParameters: {"userType": "delivery"},
+          data: FormData.fromMap(await quickOrder.toJson()));
 
-    if (response.statusCode != 200 && response.statusCode != 201) {
-      print("error message is ${response.data['message']}");
-      return ApiResponse(errorMessage: response.data['message']);
-    }
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        print("error message is ${response.data['message']}");
+        return ApiResponse(errorMessage: response.data['message']);
+      }
 
-    String? id = response.data["createdElement"]?["_id"];
-    if (quickOrder.recordFile != null) {
-      await addAudioToQuickOrder(id, quickOrder);
+      String? id = response.data["createdElement"]?["_id"];
+      if (quickOrder.recordFile != null) {
+        await addAudioToQuickOrder(id, quickOrder);
+      }
+
+      return ApiResponse(responseData: true);
+    } catch (e) {
+      print(e);
+      if (e is DioError) {
+        return ApiResponse(networkError: true);
+      }
+      return ApiResponse(errorMessage: "Something went wrong");
     }
-    return ApiResponse(responseData: true);
   }
 
   Future<bool> addAudioToQuickOrder(String? id, QuickOrder quickOrder) async {

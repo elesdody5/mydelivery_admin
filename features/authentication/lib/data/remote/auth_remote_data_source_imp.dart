@@ -68,6 +68,8 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
     try {
       if (apiResponse.errorMessage != null) {
         return Error(ApiException(apiResponse.errorMessage!));
+      } else if (apiResponse.networkError == true) {
+        return Error(ApiException("networkError", networkError: true));
       } else {
         return Success(apiResponse.responseData);
       }

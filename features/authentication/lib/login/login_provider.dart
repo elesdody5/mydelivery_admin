@@ -6,7 +6,7 @@ import 'package:core/domain/navigation.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user_type.dart';
 import 'package:core/screens.dart';
-
+import 'package:get/get.dart';
 class LoginProvider extends BaseProvider {
   LoginUseCase _loginUseCase;
   ForgetPasswordUseCase _forgetPasswordUseCase;
@@ -36,6 +36,8 @@ class LoginProvider extends BaseProvider {
       isLoading.value = false;
       if (result.succeeded()) {
         _navigate(phone, result.getDataIfSuccess().userType);
+      } else if (result.isNetworkError()) {
+        errorMessage.value = "network_error".tr;
       } else {
         errorMessage.value = result.getErrorMessage();
       }

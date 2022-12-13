@@ -35,8 +35,11 @@ class AuthApiServiceImp implements AuthApiService {
       return ApiResponse(
           responseData:
               LoginResponse(token: token, userType: type, userId: userId));
-    } catch (error) {
-      print(error);
+    } catch (e) {
+      print(e);
+      if (e is DioError) {
+        return ApiResponse(networkError: true);
+      }
       return ApiResponse(errorMessage: "Something went wrong");
     }
   }

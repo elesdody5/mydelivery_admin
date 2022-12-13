@@ -1,3 +1,5 @@
+import 'package:core/model/http_exception.dart';
+
 /// A generic class that holds a value with its loading status.
 /// @param <T>
 ///*/
@@ -54,5 +56,9 @@ extension ResultExtension<T> on Result<T> {
     } else {
       throw Exception("Cannot cast result to Error");
     }
+  }
+  bool isNetworkError() {
+    ApiException apiException = (this as Error<T>).exception as ApiException;
+    return apiException.networkError == true;
   }
 }
