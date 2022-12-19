@@ -91,6 +91,7 @@ class FireStoreServiceImp implements FireStoreService {
     final ordersCollection = _fireStore.collection("orders");
     final response = await ordersCollection
         .where("delivery._id", isEqualTo: deliveryId)
+        .where("orderStatus", isEqualTo: OrderStatus.delivered.enumToString())
         .get();
     int? coins = 0;
     for (var doc in response.docs) {

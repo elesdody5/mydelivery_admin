@@ -39,76 +39,78 @@ class QuickOrderDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Align(
-            alignment: Alignment.centerRight,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    "description".tr,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 18),
-                  ),
-                  Text(
-                    "${"order_places_count".tr} (${quickOrder.count ?? "1"})",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 18),
-                  ),
-                ],
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      "description".tr,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                    Text(
+                      "${"order_places_count".tr} (${quickOrder.count ?? "1"})",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child:
-                QuickOrderDescriptionText(description: quickOrder.description),
-          ),
-          const Divider(
-            thickness: 1,
-          ),
-          ListTile(
-            leading: UserAvatar(
-                id: quickOrder.user?.id ?? "",
-                imageUrl: quickOrder.user?.imageUrl),
-            title: quickOrder.user?.name != null
-                ? Text(quickOrder.user?.name ?? "")
-                : Text(
-                    quickOrder.phoneNumber ?? "",
-                  ),
-            subtitle: Text(quickOrder.address ?? ""),
-            trailing: IconButton(
-              onPressed: () {
-                if (quickOrder.user?.name != null) {
-                  launch("tel://${quickOrder.user?.phone}");
-                } else {
-                  launch("tel://${quickOrder.phoneNumber}");
-                }
-              },
-              icon: Icon(
-                Icons.phone,
-                color: Get.theme.primaryIconTheme.color,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child:
+                  QuickOrderDescriptionText(description: quickOrder.description),
+            ),
+            const Divider(
+              thickness: 1,
+            ),
+            ListTile(
+              leading: UserAvatar(
+                  id: quickOrder.user?.id ?? "",
+                  imageUrl: quickOrder.user?.imageUrl),
+              title: quickOrder.user?.name != null
+                  ? Text(quickOrder.user?.name ?? "")
+                  : Text(
+                      quickOrder.phoneNumber ?? "",
+                    ),
+              subtitle: Text(quickOrder.address ?? ""),
+              trailing: IconButton(
+                onPressed: () {
+                  if (quickOrder.user?.name != null) {
+                    launch("tel://${quickOrder.user?.phone}");
+                  } else {
+                    launch("tel://${quickOrder.phoneNumber}");
+                  }
+                },
+                icon: Icon(
+                  Icons.phone,
+                  color: Get.theme.primaryIconTheme.color,
+                ),
               ),
             ),
-          ),
-          if (quickOrder.imageUrl != null)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                  onPressed: _showImagePreview, child: Text("view_image".tr)),
-            ),
-          if (quickOrder.audioUrl != null)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                  onPressed: _playRecord, child: Text("play_record".tr)),
-            ),
-        ],
+            if (quickOrder.imageUrl != null)
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                    onPressed: _showImagePreview, child: Text("view_image".tr)),
+              ),
+            if (quickOrder.audioUrl != null)
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                    onPressed: _playRecord, child: Text("play_record".tr)),
+              ),
+          ],
+        ),
       ),
     );
   }

@@ -18,7 +18,7 @@ class ReviewListItem extends StatelessWidget {
       title: Text(review.user?.name ?? ""),
       subtitle: Text(review.reviewBody ?? ""),
       trailing: RatingBarIndicator(
-        rating: review.rating ?? 0,
+        rating: review.rating?.toDouble() ?? 0,
         itemBuilder: (context, index) => const Icon(
           Icons.star,
           color: Colors.amber,

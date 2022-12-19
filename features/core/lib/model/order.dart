@@ -21,20 +21,19 @@ class Order {
 
   Order(
       {this.id,
-        this.user,
-        this.dateTime,
-        this.status,
-        this.delivery,
-        this.shop,
-        this.deliveryPrice,
-        this.coins,
-        this.imageUrl,
-        this.audioUrl,
-        List<CartItem>? cartItems})
+      this.user,
+      this.dateTime,
+      this.status,
+      this.delivery,
+      this.shop,
+      this.deliveryPrice,
+      this.coins,
+      this.imageUrl,
+      this.audioUrl,
+      List<CartItem>? cartItems})
       : _cartItems = cartItems ?? [];
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "cartItems": _cartItems?.map((e) => e.toJson()).toList(),
         "time": dateTime?.toIso8601String(),
         "orderStatus": status?.enumToString() ??
@@ -59,19 +58,20 @@ class Order {
   }
 
   factory Order.fromJson(Map<String, dynamic>? json, String id) => Order(
-      id: id,
-      dateTime: json?["time"] != null ? DateTime.parse(json?['time']) : null,
-      cartItems: List<CartItem>.from(
-          json?['cartItems']?.map((cartItem) => CartItem.fromJson(cartItem))),
-      shop: Shop.fromJson(json?['shop']),
-      coins: json?['coins'],
-      audioUrl: json?['audio'],
-      imageUrl: json?['image'],
-      delivery:
-      json?['delivery'] != null ? User.fromJson(json?['delivery']) : null,
-      deliveryPrice: json?['deliveryPrice'],
-      status: stringToEnum(json?['orderStatus']),
-      user: User.fromJson(json?['user']));
+        id: id,
+        dateTime: json?["time"] != null ? DateTime.parse(json?['time']) : null,
+        cartItems: List<CartItem>.from(
+            json?['cartItems']?.map((cartItem) => CartItem.fromJson(cartItem))),
+        shop: Shop.fromJson(json?['shop']),
+        coins: json?['coins'],
+        audioUrl: json?['audio'],
+        imageUrl: json?['image'],
+        delivery:
+            json?['delivery'] != null ? User.fromJson(json?['delivery']) : null,
+        deliveryPrice: json?['deliveryPrice'],
+        status: stringToEnum(json?['orderStatus']),
+        user: json?['user'] != null ? User.fromJson(json?['user']) : null,
+      );
 
   @override
   String toString() {

@@ -27,6 +27,6 @@ class DeliveryReviewsProvider extends BaseProvider {
     for (var review in reviews) {
       sum += review.rating ?? 0;
     }
-    average = sum / reviews.length;
+    average = (sum / reviews.length).floorToDouble();
   }
 }

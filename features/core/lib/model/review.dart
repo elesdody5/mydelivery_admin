@@ -2,14 +2,14 @@ import 'package:core/domain/user.dart';
 
 class Review {
   String? id;
-  String? delivery;
-  double? rating;
+  String? deliveryId;
+  num? rating;
   String? reviewBody;
   User? user;
 
   Review({
     this.id,
-    this.delivery,
+    this.deliveryId,
     this.rating,
     this.reviewBody,
     this.user,
@@ -17,7 +17,7 @@ class Review {
 
   factory Review.fromJson(Map<String, dynamic> json) => Review(
         id: json["_id"],
-        delivery: json["delivery"],
+        deliveryId: json["delivery"],
         rating: json["rating"],
         reviewBody: json["reviewBody"],
         user: User.fromJson(json["reviewPoster"]),

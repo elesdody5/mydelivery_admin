@@ -65,6 +65,7 @@ void showLoadingProgress() {
   CoolAlert.show(
     context: Get.context!,
     type: CoolAlertType.loading,
+    barrierDismissible: false
   );
 }
 

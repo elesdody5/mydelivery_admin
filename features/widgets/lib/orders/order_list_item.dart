@@ -54,7 +54,7 @@ class OrderListItem extends StatelessWidget {
                     ],
                   ),
                   trailing: Text(
-                    "${order.price.toString()} ${"le".tr} \n   +   \n ${order.deliveryPrice} ${"le".tr}",
+                    "${order.price.toString()} ${"le".tr} \n   +   \n ${order.deliveryPrice ?? 0} ${"le".tr}",
                     style: TextStyle(color: Get.textTheme.bodyText1?.color),
                   ),
                 ),
