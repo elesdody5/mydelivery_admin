@@ -20,7 +20,7 @@ class QuickOrderDescriptionText extends StatelessWidget {
       return SelectableText.rich(
         TextSpan(
             children: description?.split(" ").map((text) {
-          if (numberRegex.hasMatch(text)) {
+          if (numberRegex.hasMatch(text) && text.length >= 11) {
             return TextSpan(
                 text: "$text ",
                 style: const TextStyle(color: Colors.blue),
