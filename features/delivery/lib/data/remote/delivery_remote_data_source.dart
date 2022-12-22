@@ -24,4 +24,6 @@ abstract class DeliveryRemoteDataSource {
   Future<void> removeQuickOrders(List<String> ordersId) ;
 
   Future<Result<List<Review>>> getAllDeliveryReviews(String deliveryId);
+
+  Future<Result<List<QuickOrder>>> getAllQuickOrders() ;
 }

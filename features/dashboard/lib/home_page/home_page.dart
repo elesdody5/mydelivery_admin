@@ -191,22 +191,22 @@ class HomePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       const Material(
-                          color: Colors.red,
+                          color: Colors.deepOrange,
                           shape: CircleBorder(),
                           child: Padding(
                             padding: EdgeInsets.all(16.0),
-                            child: Icon(Icons.local_offer,
+                            child: Icon(Icons.delivery_dining_rounded,
                                 color: Colors.white, size: 30.0),
                           )),
                       const Padding(padding: EdgeInsets.only(bottom: 16.0)),
-                      Text('offers'.tr,
+                      Text('quick_order'.tr,
                           style: const TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.w700,
                               fontSize: 24.0)),
                     ]),
               ),
-              onTap: () => Get.toNamed(offersScreenRouteName),
+              onTap: () => Get.toNamed(quickOrdersScreen),
             ),
             _buildTile(
               Padding(
@@ -232,6 +232,31 @@ class HomePage extends StatelessWidget {
                     ]),
               ),
               onTap: () => Get.toNamed(availableOrdersScreen),
+            ),
+            _buildTile(
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const Material(
+                          color: Colors.red,
+                          shape: CircleBorder(),
+                          child: Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Icon(Icons.local_offer,
+                                color: Colors.white, size: 30.0),
+                          )),
+                      const Padding(padding: EdgeInsets.only(bottom: 16.0)),
+                      Text('offers'.tr,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 24.0)),
+                    ]),
+              ),
+              onTap: () => Get.toNamed(offersScreenRouteName),
             ),
             _buildTile(
                 Padding(

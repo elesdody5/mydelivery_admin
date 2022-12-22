@@ -58,7 +58,7 @@ class OrderStatusWidget extends StatelessWidget {
         );
       case OrderStatus.waitingDelivery:
         return Text(
-          "waiting_for_delivery".tr,
+          "waitingForDelivery".tr,
           style: const TextStyle(color: Colors.grey),
         );
       case OrderStatus.refusedFromShop:

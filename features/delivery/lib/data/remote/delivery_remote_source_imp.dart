@@ -90,8 +90,14 @@ class DeliveryRemoteDataSourceImp implements DeliveryRemoteDataSource {
   }
 
   @override
-  Future<Result<List<Review>>> getAllDeliveryReviews(String deliveryId)  async{
+  Future<Result<List<Review>>> getAllDeliveryReviews(String deliveryId) async {
     var response = await _deliveryApiService.getAllDeliveryReviews(deliveryId);
+    return _getResultFromResponse(response);
+  }
+
+  @override
+  Future<Result<List<QuickOrder>>> getAllQuickOrders() async {
+    var response = await _deliveryApiService.getAllQuickOrders();
     return _getResultFromResponse(response);
   }
 }

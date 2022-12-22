@@ -13,12 +13,16 @@ class QuickOrdersListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: orders.length,
-        itemBuilder: (context, index) => QuickOrderListItem(
-              quickOrder: orders[index],
-              pickOrder: pickOrder,
-              deliverOrder: deliverOrder,
-            ));
+    return ListView.separated(
+      itemCount: orders.length,
+      itemBuilder: (context, index) => QuickOrderListItem(
+        quickOrder: orders[index],
+        pickOrder: pickOrder,
+        deliverOrder: deliverOrder,
+      ),
+      separatorBuilder: (context, index) => const Divider(
+        thickness: 1,
+      ),
+    );
   }
 }

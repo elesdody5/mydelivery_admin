@@ -25,5 +25,7 @@ abstract class DeliveryApiService {
 
   Future<ApiResponse> removeQuickOrders(List<String> ordersId);
 
-  Future<ApiResponse<List<Review>>> getAllDeliveryReviews(String deliveryId) ;
+  Future<ApiResponse<List<Review>>> getAllDeliveryReviews(String deliveryId);
+
+  Future<ApiResponse<List<QuickOrder>>> getAllQuickOrders();
 }

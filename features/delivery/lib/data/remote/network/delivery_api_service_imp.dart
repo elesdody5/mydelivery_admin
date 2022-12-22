@@ -159,4 +159,17 @@ class DeliveryApiServiceImp implements DeliveryApiService {
         .forEach((json) => reviews.add(Review.fromJson(json)));
     return ApiResponse(responseData: reviews);
   }
+
+  @override
+  Future<ApiResponse<List<QuickOrder>>> getAllQuickOrders() async {
+    final response = await _dio.get(quickOrdersUrl);
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print("error message is ${response.data['message']}");
+      return ApiResponse(errorMessage: response.data['message']);
+    }
+    List<QuickOrder> orders = [];
+    response.data['data']
+        .forEach((json) => orders.add(QuickOrder.fromJson(json)));
+    return ApiResponse(responseData: orders);
+  }
 }

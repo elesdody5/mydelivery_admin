@@ -67,12 +67,33 @@ class QuickOrderDetails extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child:
-                  QuickOrderDescriptionText(description: quickOrder.description),
+              child: QuickOrderDescriptionText(
+                  description: quickOrder.description),
             ),
             const Divider(
               thickness: 1,
             ),
+            if (quickOrder.delivery != null)
+              ListTile(
+                leading: UserAvatar(
+                    id: quickOrder.delivery?.id ?? "",
+                    imageUrl: quickOrder.delivery?.imageUrl),
+                title: Text(quickOrder.delivery?.name ?? ""),
+                subtitle: Text("delivery".tr),
+                trailing: IconButton(
+                  onPressed: () {
+                    launch("tel://${quickOrder.delivery?.phone}");
+                  },
+                  icon: Icon(
+                    Icons.phone,
+                    color: Get.theme.primaryIconTheme.color,
+                  ),
+                ),
+              ),
+            if (quickOrder.delivery != null)
+              const Divider(
+                thickness: 1,
+              ),
             ListTile(
               leading: UserAvatar(
                   id: quickOrder.user?.id ?? "",

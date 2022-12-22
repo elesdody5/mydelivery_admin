@@ -10,6 +10,7 @@ const String categoriesScreenRouteName = "/categories_screen";
 const String profileScreenRouteName = "/profile_screen";
 const String availableOrderDetailsScreen = '/available_order_details_screen';
 const String availableOrdersScreen = '/available_order_screen';
+const String quickOrdersScreen = '/quick_orders_screen';
 const String deliveryHomeScreen = '/delivery_home_screen';
 const String deliveryListScreen = '/delivery_list_screen';
 const String currentDeliveryOrdersScreen = '/delivery_orders';

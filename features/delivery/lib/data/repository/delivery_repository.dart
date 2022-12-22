@@ -41,4 +41,8 @@ abstract class DeliveryRepository {
   Future<Result<List<Review>>> getAllDeliveryReviews(String deliveryId);
 
   Future<int> getDeliveryCoins(String deliveryId);
+
+  Future<Result<List<QuickOrder>>> getAllQuickOrders();
+
+  Future<List<Order>> getAllOrders();
 }

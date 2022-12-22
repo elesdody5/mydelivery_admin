@@ -19,14 +19,16 @@ import 'package:dashboard/shops/shops_provider.dart';
 import 'package:dashboard/shops/shops_screen.dart';
 import 'package:dashboard/users_list_screen/user_list_proivder.dart';
 import 'package:dashboard/users_list_screen/user_list_screen.dart';
-import 'package:delivery/avalible_orders/all_available_orders.dart';
+import 'package:delivery/all_quick_orders/all_quick_orders_provider.dart';
+import 'package:delivery/all_orders/avalible_orders/available_orders/available_orders_provider.dart';
+import 'package:delivery/all_orders/avalible_orders/available_orders/available_orders_screen.dart';
+import 'package:delivery/all_quick_orders/all_quick_orders_screen.dart';
 import 'package:delivery/current_delivery_orders/all_current_delivery_orders.dart';
 import 'package:delivery/current_delivery_orders/all_current_delivery_orders_provider.dart';
 import 'package:delivery/deliverd_orders/all_delivered_orders_provider.dart';
 import 'package:delivery/deliverd_orders/all_delivered_orders_screen.dart';
 import 'package:delivery/delivery_details/delivery_details_provider.dart';
 import 'package:delivery/delivery_details/delivery_details_screen.dart';
-import 'package:delivery/avalible_orders/all_available_orders_provider.dart';
 import 'package:delivery/avalible_orders/available_order_details_screen/avaliable_user_order_provider.dart';
 import 'package:delivery/avalible_orders/available_order_details_screen/avaliable_user_orders_details_screen.dart';
 import 'package:delivery/delivery_list/delivery_list_provider.dart';
@@ -49,29 +51,25 @@ import 'package:dashboard/home_page/home_provider.dart';
 List<GetPage> appPages = [
   GetPage(
       name: signupScreenRouteName,
-      page: () =>
-          ChangeNotifierProvider.value(
+      page: () => ChangeNotifierProvider.value(
             value: SignUpProvider(),
             child: SignupScreen(),
           )),
   GetPage(
       name: loginScreenRouteName,
-      page: () =>
-          ChangeNotifierProvider.value(
+      page: () => ChangeNotifierProvider.value(
             value: LoginProvider(),
             child: LoginScreen(),
           )),
   GetPage(
       name: splashScreenRouteName,
-      page: () =>
-          ChangeNotifierProvider.value(
+      page: () => ChangeNotifierProvider.value(
             value: SplashProvider(),
             child: const SplashScreen(),
           )),
   GetPage(
       name: homeScreen,
-      page: () =>
-          ChangeNotifierProvider.value(
+      page: () => ChangeNotifierProvider.value(
             value: HomeProvider(),
             child: const HomePage(),
           )),
@@ -84,123 +82,112 @@ List<GetPage> appPages = [
     page: () => DeliveryProfileScreen(),
   ),
   GetPage(
-    name: deliveryDetailsScreenRouteName,
-    page: () => ChangeNotifierProvider.value(
-      value: DeliveryDetailsProvider(),
-      child: const DeliveryDetailsScreen(),
-    )
-  ),
+      name: deliveryDetailsScreenRouteName,
+      page: () => ChangeNotifierProvider.value(
+            value: DeliveryDetailsProvider(),
+            child: const DeliveryDetailsScreen(),
+          )),
   GetPage(
       name: deliveryListScreen,
-      page: () =>
-          ChangeNotifierProvider.value(
+      page: () => ChangeNotifierProvider.value(
             value: DeliveryListProvider(),
             child: const DeliveryListScreen(),
           )),
   GetPage(
       name: shopProductsScreenRouteName,
-      page: () =>
-          ChangeNotifierProvider.value(
+      page: () => ChangeNotifierProvider.value(
             value: ProductsProvider(),
             child: ProductsScreen(),
           )),
   GetPage(
       name: vendorsListScreen,
-      page: () =>
-          ChangeNotifierProvider.value(
+      page: () => ChangeNotifierProvider.value(
             value: VendorsListProvider(),
             child: const VendorsListScreen(),
           )),
   GetPage(
       name: profileScreenRouteName,
-      page: () =>
-          ChangeNotifierProvider.value(
+      page: () => ChangeNotifierProvider.value(
             value: ProfileProvider(),
             child: ProfileScreen(),
           )),
   GetPage(
       name: usersScreen,
-      page: () =>
-          ChangeNotifierProvider.value(
+      page: () => ChangeNotifierProvider.value(
             value: UsersListProvider(),
             child: const UsersListScreen(),
           )),
   GetPage(
       name: offersScreenRouteName,
-      page: () =>
-          ChangeNotifierProvider.value(
+      page: () => ChangeNotifierProvider.value(
             value: OffersProvider(),
             child: const OffersScreen(),
           )),
   GetPage(
       name: offerDetailsScreenRouteName,
-      page: () =>
-          ChangeNotifierProvider.value(
+      page: () => ChangeNotifierProvider.value(
             value: OfferDetailsProvider(),
             child: const OfferDetailsScreen(),
           )),
   GetPage(
       name: availableOrdersScreen,
-      page: () =>
-          ChangeNotifierProvider.value(
-            value: AllAvailableOrdersProvider(),
-            child: const AllAvailableOrdersScreen(),
+      page: () => ChangeNotifierProvider.value(
+            value: AvailableOrdersProvider(),
+            child: const AvailableOrdersScreen(),
+          )),
+  GetPage(
+      name: quickOrdersScreen,
+      page: () => ChangeNotifierProvider.value(
+            value: AllQuickOrdersProvider(),
+            child: const AllQuickOrdersScreen(),
           )),
   GetPage(
       name: availableOrderDetailsScreen,
-      page: () =>
-          ChangeNotifierProvider.value(
+      page: () => ChangeNotifierProvider.value(
             value: AvailableUserOrdersDetailsProvider(),
             child: AvailableUserOrdersDetailsScreen(),
           )),
   GetPage(
       name: categoriesScreenRouteName,
-      page: () =>
-          ChangeNotifierProvider.value(
+      page: () => ChangeNotifierProvider.value(
             value: CategoriesProvider(),
             child: const CategoriesScreen(),
           )),
   GetPage(
       name: shopsScreenRouteName,
-      page: () =>
-          ChangeNotifierProvider.value(
+      page: () => ChangeNotifierProvider.value(
             value: ShopsProvider(),
             child: const ShopsScreen(),
           )),
   GetPage(
       name: shopDetailsScreenRouteName,
-      page: () =>
-          ChangeNotifierProvider.value(
+      page: () => ChangeNotifierProvider.value(
             value: ShopDetailsProvider(),
             child: const ShopDetailsScreen(),
           )),
   GetPage(
       name: notificationsScreenRouteName,
-      page: () =>
-          ChangeNotifierProvider.value(
+      page: () => ChangeNotifierProvider.value(
             value: NotificationListProvider(),
             child: const NotificationListScreen(),
           )),
   GetPage(
       name: deliveryReviewsScreenRouteName,
-      page: () =>
-          ChangeNotifierProvider.value(
+      page: () => ChangeNotifierProvider.value(
             value: DeliveryReviewsProvider(),
             child: const DeliveryReviewsScreen(),
           )),
   GetPage(
       name: currentDeliveryOrdersScreen,
-      page: () =>
-          ChangeNotifierProvider.value(
+      page: () => ChangeNotifierProvider.value(
             value: AllCurrentOrdersProvider(),
             child: const AllCurrentDeliveryOrders(),
           )),
   GetPage(
     name: deliveryDeliveredOrdersScreen,
-    page: () =>
-        ChangeNotifierProvider.value(
-          value: AllDeliveredOrdersProvider(),
-          child: const AllDeliveredOrdersScreen(),
-        ),
+    page: () => ChangeNotifierProvider.value(
+      value: AllDeliveredOrdersProvider(),
+      child: const AllDeliveredOrdersScreen(),
+    ),
   )
 ];

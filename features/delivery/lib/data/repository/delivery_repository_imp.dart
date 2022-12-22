@@ -92,7 +92,8 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   }
 
   @override
-  Future<Result<List<QuickOrder>>> getCurrentDeliveryQuickOrders(String userId) async {
+  Future<Result<List<QuickOrder>>> getCurrentDeliveryQuickOrders(
+      String userId) async {
     return _remoteDataSource.getCurrentDeliveryQuickOrder(userId ?? "");
   }
 
@@ -102,7 +103,8 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   }
 
   @override
-  Future<Result<List<QuickOrder>>> getDeliveredQuickOrders(String userId) async {
+  Future<Result<List<QuickOrder>>> getDeliveredQuickOrders(
+      String userId) async {
     return _remoteDataSource.getDeliveredQuickOrders(userId ?? "");
   }
 
@@ -134,10 +136,20 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   @override
   Future<Result<List<Review>>> getAllDeliveryReviews(String deliveryId) {
     return _remoteDataSource.getAllDeliveryReviews(deliveryId);
-
   }
 
+  @override
   Future<int> getDeliveryCoins(String deliveryId) async {
     return _fireStoreService.getDeliveryCoins(deliveryId);
   }
+
+  @override
+  Future<Result<List<QuickOrder>>> getAllQuickOrders() {
+    return _remoteDataSource.getAllQuickOrders();
   }
+
+  @override
+  Future<List<Order>> getAllOrders() {
+    return _fireStoreService.getAllOrders();
+  }
+}
