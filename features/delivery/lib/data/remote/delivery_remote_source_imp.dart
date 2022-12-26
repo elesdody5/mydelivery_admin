@@ -85,7 +85,7 @@ class DeliveryRemoteDataSourceImp implements DeliveryRemoteDataSource {
 
   @override
   Future<Result> removeQuickOrders(List<String> ordersId) async {
-    var response = await _deliveryApiService.removeQuickOrders(ordersId);
+    var response = await _deliveryApiService.removeDeliveryFromQuickOrders(ordersId);
     return _getResultFromResponse(response);
   }
 

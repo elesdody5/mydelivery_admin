@@ -23,7 +23,7 @@ abstract class DeliveryApiService {
 
   Future<ApiResponse> removeUserById(String id);
 
-  Future<ApiResponse> removeQuickOrders(List<String> ordersId);
+  Future<ApiResponse> removeDeliveryFromQuickOrders(List<String> ordersId);
 
   Future<ApiResponse<List<Review>>> getAllDeliveryReviews(String deliveryId);
 

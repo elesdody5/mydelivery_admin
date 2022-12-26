@@ -135,9 +135,9 @@ class DeliveryApiServiceImp implements DeliveryApiService {
   }
 
   @override
-  Future<ApiResponse> removeQuickOrders(List<String> ordersId) async {
+  Future<ApiResponse> removeDeliveryFromQuickOrders(List<String> ordersId) async {
     final response =
-        await _dio.delete(deleteQuickOrders, data: {"quickOrders": ordersId});
+        await _dio.patch(deleteDeliveryFromQuickOrders, data: {"quickOrders": ordersId});
     if (response.statusCode != 200 && response.statusCode != 201) {
       print("error message is ${response.data['message']}");
       return ApiResponse(errorMessage: response.data['message']);
@@ -170,6 +170,6 @@ class DeliveryApiServiceImp implements DeliveryApiService {
     List<QuickOrder> orders = [];
     response.data['data']
         .forEach((json) => orders.add(QuickOrder.fromJson(json)));
-    return ApiResponse(responseData: orders);
+    return ApiResponse(responseData: orders.reversed.toList());
   }
 }
