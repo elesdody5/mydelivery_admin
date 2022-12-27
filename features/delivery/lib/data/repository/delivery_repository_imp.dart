@@ -125,7 +125,7 @@ class DeliveryRepositoryImp implements DeliveryRepository {
 
   @override
   Future<void> removeDeliveryOrders(List<String> ordersId) {
-    return _fireStoreService.removeOrdersIds(ordersId);
+    return _fireStoreService.removeDeliveryFromOrders(ordersId);
   }
 
   @override
