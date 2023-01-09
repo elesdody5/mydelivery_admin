@@ -4,24 +4,24 @@ import 'package:core/domain/result.dart';
 import 'package:delivery/data/repository/delivery_repository.dart';
 import 'package:delivery/data/repository/delivery_repository_imp.dart';
 
-class AllAvailableQuickOrdersProvider extends BaseProvider {
+class AllDeliveredQuickOrdersProvider extends BaseProvider {
   List<QuickOrder> _orders = [];
   List<QuickOrder> filteredQuickOrders = [];
   final DeliveryRepository _repository;
-  void Function(int)? updateAvailableQuickOrderCount;
+  void Function(int)? updateDeliveredQuickOrderCount;
 
-  AllAvailableQuickOrdersProvider(
-      {DeliveryRepository? repository, this.updateAvailableQuickOrderCount})
+  AllDeliveredQuickOrdersProvider(
+      {DeliveryRepository? repository, this.updateDeliveredQuickOrderCount})
       : _repository = repository ?? DeliveryRepositoryImp();
 
-  Future<void> getAvailableDeliveryOrders() async {
+  Future<void> getDeliveredQuickOrders() async {
     Result<List<QuickOrder>> result =
-        await _repository.getAvailableQuickOrders();
+        await _repository.getAllDeliveredQuickOrders();
     if (result.succeeded()) {
       _orders = result.getDataIfSuccess();
       filteredQuickOrders = [..._orders];
-      if (updateAvailableQuickOrderCount != null) {
-        updateAvailableQuickOrderCount!(_orders.length);
+      if (updateDeliveredQuickOrderCount != null) {
+        updateDeliveredQuickOrderCount!(_orders.length);
       }
       notifyListeners();
     }

@@ -78,14 +78,11 @@ class FireStoreServiceImp implements FireStoreService {
   }
 
   @override
-  Future<void> removeDeliveryFromOrders(List<String> ordersId) async {
+  Future<void> removeOrders(List<String> ordersId) async {
     final ordersCollection = _fireStore.collection("orders");
     WriteBatch batch = _fireStore.batch();
     for (var id in ordersId) {
-      batch.update(
-        ordersCollection.doc(id),
-        {"delivery": null},
-      );
+      batch.delete(ordersCollection.doc(id));
     }
     await batch.commit();
   }

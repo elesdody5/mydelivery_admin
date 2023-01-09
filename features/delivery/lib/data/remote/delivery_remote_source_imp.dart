@@ -85,7 +85,7 @@ class DeliveryRemoteDataSourceImp implements DeliveryRemoteDataSource {
 
   @override
   Future<Result> removeQuickOrders(List<String> ordersId) async {
-    var response = await _deliveryApiService.removeDeliveryFromQuickOrders(ordersId);
+    var response = await _deliveryApiService.removeQuickOrders(ordersId);
     return _getResultFromResponse(response);
   }
 
@@ -98,6 +98,24 @@ class DeliveryRemoteDataSourceImp implements DeliveryRemoteDataSource {
   @override
   Future<Result<List<QuickOrder>>> getAllQuickOrders() async {
     var response = await _deliveryApiService.getAllQuickOrders();
+    return _getResultFromResponse(response);
+  }
+
+  @override
+  Future<Result<List<QuickOrder>>> getAllDeliveredQuickOrders() async {
+    var response = await _deliveryApiService.getAllDeliveredQuickOrders();
+    return _getResultFromResponse(response);
+  }
+
+  @override
+  Future<Result<List<QuickOrder>>> getAllWithDeliveryQuickOrders() async {
+    var response = await _deliveryApiService.getAllWithDeliveryQuickOrders();
+    return _getResultFromResponse(response);
+  }
+
+  @override
+  Future<Result> updateDeliveryBlockStates(String id, bool isBlocked) async{
+    var response = await _deliveryApiService.updateDeliveryBlockStates(id,isBlocked);
     return _getResultFromResponse(response);
   }
 }

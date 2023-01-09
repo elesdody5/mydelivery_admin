@@ -110,6 +110,40 @@ class DeliveryApiServiceImp implements DeliveryApiService {
   }
 
   @override
+  Future<ApiResponse<List<QuickOrder>>> getAllWithDeliveryQuickOrders() async {
+    final response = await _dio.get(quickOrdersUrl);
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print("error message is ${response.data['message']}");
+      return ApiResponse(errorMessage: response.data['message']);
+    }
+    List<QuickOrder> orders = [];
+    response.data['data']
+        .forEach((json) => orders.add(QuickOrder.fromJson(json)));
+    return ApiResponse(
+        responseData: orders
+            .where((quickOrder) =>
+                quickOrder.delivery != null &&
+                quickOrder.orderStatus != OrderStatus.delivered)
+            .toList());
+  }
+
+  @override
+  Future<ApiResponse<List<QuickOrder>>> getAllDeliveredQuickOrders() async {
+    final response = await _dio.get(quickOrdersUrl);
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print("error message is ${response.data['message']}");
+      return ApiResponse(errorMessage: response.data['message']);
+    }
+    List<QuickOrder> orders = [];
+    response.data['data']
+        .forEach((json) => orders.add(QuickOrder.fromJson(json)));
+    return ApiResponse(
+        responseData: orders
+            .where((order) => order.orderStatus == OrderStatus.delivered)
+            .toList());
+  }
+
+  @override
   Future<ApiResponse<List<User>>> getAllDelivery() async {
     final response = await _dio.get(deliveryUrl,
         queryParameters: {"userType": UserType.delivery.enmToString()});
@@ -135,9 +169,9 @@ class DeliveryApiServiceImp implements DeliveryApiService {
   }
 
   @override
-  Future<ApiResponse> removeDeliveryFromQuickOrders(List<String> ordersId) async {
+  Future<ApiResponse> removeQuickOrders(List<String> ordersId) async {
     final response =
-        await _dio.patch(deleteDeliveryFromQuickOrders, data: {"quickOrders": ordersId});
+        await _dio.delete(deleteQuickOrders, data: {"quickOrders": ordersId});
     if (response.statusCode != 200 && response.statusCode != 201) {
       print("error message is ${response.data['message']}");
       return ApiResponse(errorMessage: response.data['message']);
@@ -171,5 +205,17 @@ class DeliveryApiServiceImp implements DeliveryApiService {
     response.data['data']
         .forEach((json) => orders.add(QuickOrder.fromJson(json)));
     return ApiResponse(responseData: orders);
+  }
+
+  @override
+  Future<ApiResponse> updateDeliveryBlockStates(
+      String id, bool isBlocked) async {
+    final response = await _dio.patch(userUrl,
+        queryParameters: {"userId": id}, data: {"blocked": isBlocked});
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print("error message is ${response.data['message']}");
+      return ApiResponse(errorMessage: response.data['message']);
+    }
+    return ApiResponse(responseData: true);
   }
 }

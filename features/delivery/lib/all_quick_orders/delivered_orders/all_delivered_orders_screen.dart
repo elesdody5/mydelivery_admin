@@ -6,18 +6,18 @@ import 'package:get/get.dart';
 import 'package:widgets/future_with_loading_progress.dart';
 
 import '../../widgets/quick_orders_list_view.dart';
-import 'all_available_quick_orders_provider.dart';
+import 'all_delivered_orders_provider.dart';
 
-class AllAvailableQuickOrdersScreen extends StatelessWidget {
-  const AllAvailableQuickOrdersScreen({Key? key}) : super(key: key);
+class AllDeliveredQuickOrdersScreen extends StatelessWidget {
+  const AllDeliveredQuickOrdersScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FutureWithLoadingProgress(
       future:
-          Provider.of<AllAvailableQuickOrdersProvider>(context, listen: false)
-              .getAvailableDeliveryOrders,
-      child: Consumer<AllAvailableQuickOrdersProvider>(
+          Provider.of<AllDeliveredQuickOrdersProvider>(context, listen: false)
+              .getDeliveredQuickOrders,
+      child: Consumer<AllDeliveredQuickOrdersProvider>(
           builder: (_, provider, child) => Column(
                 children: [
                   Padding(

@@ -1,6 +1,8 @@
 import 'package:core/domain/user.dart';
 import 'package:core/screens.dart';
+import 'package:core/utils/utils.dart';
 import 'package:delivery/delivery_details/delivery_details_provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:widgets/future_with_loading_progress.dart';
@@ -10,15 +12,22 @@ import 'package:provider/provider.dart';
 class DeliveryDetailsScreen extends StatelessWidget {
   const DeliveryDetailsScreen({Key? key}) : super(key: key);
 
+  void _setupListener(DeliveryDetailsProvider provider) {
+    setupErrorMessageListener(provider.errorMessage);
+    setupLoadingListener(provider.isLoading);
+    setupNavigationListener(provider.navigation);
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider =
         Provider.of<DeliveryDetailsProvider>(context, listen: false);
     User delivery = Get.arguments;
+    _setupListener(provider);
     return Scaffold(
       body: SafeArea(
         child: FutureWithLoadingProgress(
-          future: () => provider.getDeliveryCoins(delivery.id ?? ""),
+          future: () => provider.init(delivery.id ?? ""),
           child: Consumer<DeliveryDetailsProvider>(
               builder: (context, provider, key) {
             return Column(
@@ -79,6 +88,22 @@ class DeliveryDetailsScreen extends StatelessWidget {
                     style: Get.textTheme.bodyText2,
                   ),
                   trailing: Text("${provider.coins}"),
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.block,
+                    size: 20,
+                    color: Colors.red,
+                  ),
+                  title: Text(
+                    "block".tr,
+                    style: Get.textTheme.bodyText2,
+                  ),
+                  trailing: Switch(
+                    value: provider.isBlocked,
+                    onChanged: (bool value) =>
+                        provider.updateBlockState(delivery.id, value),
+                  ),
                 ),
                 ExpansionTile(
                   expandedCrossAxisAlignment: CrossAxisAlignment.start,

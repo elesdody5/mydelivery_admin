@@ -8,6 +8,8 @@ import 'package:core/model/review.dart';
 abstract class DeliveryRepository {
   Future<Result<User>> getUserData();
 
+  Future<Result<User>> getRemoteUserDetails(String deliveyId);
+
   Stream<List<Order>> getAvailableOrders();
 
   Future<Result> addDeliveryToOrders(List<Order> orders);
@@ -45,4 +47,10 @@ abstract class DeliveryRepository {
   Future<Result<List<QuickOrder>>> getAllQuickOrders();
 
   Future<List<Order>> getAllOrders();
+
+  Future<Result<List<QuickOrder>>> getAllDeliveredQuickOrders();
+
+  Future<Result<List<QuickOrder>>> getAllWithDeliveryQuickOrders();
+
+  Future<Result> updatedDeliveryBlockStates(String id, bool isBlocked);
 }

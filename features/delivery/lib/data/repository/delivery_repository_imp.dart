@@ -34,7 +34,9 @@ class DeliveryRepositoryImp implements DeliveryRepository {
     if (user != null) {
       return Success(user);
     } else {
-      Result<User> user = await _getRemoteUserDetails();
+      String? deliveryId = await _sharedPreferencesManager.getUserId();
+      if (deliveryId == null) return Error(Exception("User not found"));
+      Result<User> user = await getRemoteUserDetails(deliveryId);
       if (user.succeeded()) {
         await _sharedPreferencesManager
             .saveUserDetails(user.getDataIfSuccess());
@@ -43,10 +45,9 @@ class DeliveryRepositoryImp implements DeliveryRepository {
     }
   }
 
-  Future<Result<User>> _getRemoteUserDetails() async {
-    String? userId = await _sharedPreferencesManager.getUserId();
-    if (userId == null) return Error(Exception("User not found"));
-    return _remoteDataSource.getUserById(userId);
+  @override
+  Future<Result<User>> getRemoteUserDetails(String deliveryId) async {
+    return _remoteDataSource.getUserById(deliveryId);
   }
 
   @override
@@ -125,7 +126,7 @@ class DeliveryRepositoryImp implements DeliveryRepository {
 
   @override
   Future<void> removeDeliveryOrders(List<String> ordersId) {
-    return _fireStoreService.removeDeliveryFromOrders(ordersId);
+    return _fireStoreService.removeOrders(ordersId);
   }
 
   @override
@@ -151,5 +152,20 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   @override
   Future<List<Order>> getAllOrders() {
     return _fireStoreService.getAllOrders();
+  }
+
+  @override
+  Future<Result<List<QuickOrder>>> getAllDeliveredQuickOrders() {
+    return _remoteDataSource.getAllDeliveredQuickOrders();
+  }
+
+  @override
+  Future<Result<List<QuickOrder>>> getAllWithDeliveryQuickOrders() {
+    return _remoteDataSource.getAllWithDeliveryQuickOrders();
+  }
+
+  @override
+  Future<Result> updatedDeliveryBlockStates(String id, bool isBlocked) {
+    return _remoteDataSource.updateDeliveryBlockStates(id, isBlocked);
   }
 }

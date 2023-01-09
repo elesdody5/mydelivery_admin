@@ -17,13 +17,19 @@ abstract class DeliveryRemoteDataSource {
 
   Future<Result<List<QuickOrder>>> getDeliveredQuickOrders(String deliveryId);
 
+  Future<Result<List<QuickOrder>>> getAllDeliveredQuickOrders();
+
+  Future<Result<List<QuickOrder>>> getAllWithDeliveryQuickOrders();
+
   Future<Result<List<User>>> getAllDelivery();
 
   Future<Result> removeUserById(String id);
 
-  Future<void> removeQuickOrders(List<String> ordersId) ;
+  Future<void> removeQuickOrders(List<String> ordersId);
 
   Future<Result<List<Review>>> getAllDeliveryReviews(String deliveryId);
 
-  Future<Result<List<QuickOrder>>> getAllQuickOrders() ;
+  Future<Result<List<QuickOrder>>> getAllQuickOrders();
+
+  Future<Result> updateDeliveryBlockStates(String id, bool isBlocked) ;
 }
