@@ -7,7 +7,8 @@ import 'package:dashboard/data/repository/repository.dart';
 import 'package:dashboard/data/repository/repository_imp.dart';
 
 class UsersListProvider extends BaseProvider {
-  List<User> usersList = [];
+  List<User> users = [];
+  List<User> filteredUsers = [];
   final Repository _repository;
 
   UsersListProvider({Repository? repository})
@@ -16,7 +17,8 @@ class UsersListProvider extends BaseProvider {
   Future<void> getAllUsers() async {
     Result<List<User>> result = await _repository.getAllUsers();
     if (result.succeeded()) {
-      usersList = result.getDataIfSuccess();
+      users = result.getDataIfSuccess();
+      filteredUsers = [...users];
       notifyListeners();
     }
   }
@@ -36,5 +38,16 @@ class UsersListProvider extends BaseProvider {
       user.isBlocked = !user.isBlocked;
       notifyListeners();
     }
+  }
+
+  void search(String value) {
+    if (value.isNotEmpty) {
+      filteredUsers = users.where((element) {
+        return element.name?.toLowerCase().contains(value) ?? false;
+      }).toList();
+    } else {
+      filteredUsers = [...users];
+    }
+    notifyListeners();
   }
 }

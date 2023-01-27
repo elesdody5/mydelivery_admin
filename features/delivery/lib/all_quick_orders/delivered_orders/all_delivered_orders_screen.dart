@@ -1,4 +1,4 @@
-import 'package:delivery/delivery_list/widgets/search_widget.dart';
+import 'package:widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:widgets/empty_widget.dart';
 import 'package:provider/provider.dart';

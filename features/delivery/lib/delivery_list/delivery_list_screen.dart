@@ -2,7 +2,7 @@ import 'package:core/domain/user.dart';
 import 'package:core/domain/user_type.dart';
 import 'package:core/screens.dart';
 import 'package:core/utils/utils.dart';
-import 'package:delivery/delivery_list/widgets/search_widget.dart';
+import 'package:widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:widgets/empty_widget.dart';

@@ -1,5 +1,5 @@
 import 'package:delivery/all_quick_orders/with_delivery_quick_orders/all_with_delivery_quick_orders_provider.dart';
-import 'package:delivery/delivery_list/widgets/search_widget.dart';
+import 'package:widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:widgets/empty_widget.dart';
 import 'package:provider/provider.dart';
