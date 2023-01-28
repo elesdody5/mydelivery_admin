@@ -38,7 +38,7 @@ class FireStoreServiceImp implements FireStoreService {
   }
 
   @override
-  Stream<List<Order>> getAvailableOrders() {
+  Stream<List<Order>> getAvailableOrdersStream() {
     final stream = _fireStore
         .collection("orders")
         .where("delivery", isNull: true)
@@ -105,6 +105,43 @@ class FireStoreServiceImp implements FireStoreService {
   Future<List<Order>> getAllOrders() async {
     final response = await _fireStore.collection("orders").get();
     return response.docs
+        .map((doc) => Order.fromJson(doc.data(), doc.id))
+        .toList();
+  }
+
+  @override
+  Future<List<Order>> getAvailableOrders() async {
+    final orders = await _fireStore
+        .collection("orders")
+        .where("delivery", isNull: true)
+        .orderBy("time", descending: true)
+        .get();
+    return orders.docs
+        .map((doc) => Order.fromJson(doc.data(), doc.id))
+        .toList();
+  }
+
+  @override
+  Future<List<Order>> getWithDeliveredOrders() async {
+    final orders = await _fireStore
+        .collection("orders")
+        .where("orderStatus",
+            isEqualTo: OrderStatus.withDelivery.enumToString())
+        .orderBy("time", descending: true)
+        .get();
+    return orders.docs
+        .map((doc) => Order.fromJson(doc.data(), doc.id))
+        .toList();
+  }
+
+  @override
+  Future<List<Order>> getDeliveredOrders() async {
+    final orders = await _fireStore
+        .collection("orders")
+        .where("orderStatus", isEqualTo: OrderStatus.delivered.enumToString())
+        .orderBy("time", descending: true)
+        .get();
+    return orders.docs
         .map((doc) => Order.fromJson(doc.data(), doc.id))
         .toList();
   }

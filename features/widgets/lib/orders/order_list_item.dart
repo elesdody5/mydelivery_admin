@@ -21,10 +21,20 @@ class OrderListItem extends StatelessWidget {
       this.updateOrderStatus})
       : super(key: key);
 
+  void Function() onOrderClicked() {
+    return orderActions == null
+        ? () => Get.bottomSheet(OrderDetails(order: order))
+        : () => Get.bottomSheet(OrderBottomSheetActions(
+              order: order,
+              orderActions: orderActions,
+              updateOrderStatus: updateOrderStatus,
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.bottomSheet(OrderDetails(order: order)),
+      onTap: onOrderClicked(),
       child: Container(
         margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(
@@ -53,10 +63,13 @@ class OrderListItem extends StatelessWidget {
                       ),
                     ],
                   ),
-                  trailing: Text(
-                    "${order.price.toString()} ${"le".tr} \n   +   \n ${order.deliveryPrice ?? 0} ${"le".tr}",
-                    style: TextStyle(color: Get.textTheme.bodyText1?.color),
-                  ),
+                  trailing: order.deliveryPrice != null
+                      ? Text(
+                          "${order.price.toString()} ${"le".tr} \n   +   \n ${order.deliveryPrice ?? ""} ${"le".tr}",
+                          style:
+                              TextStyle(color: Get.textTheme.bodyText1?.color),
+                        )
+                      : null,
                 ),
               ),
               if (order.delivery != null)

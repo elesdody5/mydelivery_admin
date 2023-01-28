@@ -10,7 +10,13 @@ abstract class DeliveryRepository {
 
   Future<Result<User>> getRemoteUserDetails(String deliveyId);
 
-  Stream<List<Order>> getAvailableOrders();
+  Stream<List<Order>> getAvailableOrdersStream();
+
+  Future<List<Order>> getAvailableOrders();
+
+  Future<List<Order>> getWithDeliveryOrders();
+
+  Future<List<Order>> getDeliveredOrders();
 
   Future<Result> addDeliveryToOrders(List<Order> orders);
 

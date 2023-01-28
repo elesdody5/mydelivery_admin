@@ -6,32 +6,32 @@ import 'package:core/screens.dart';
 import 'package:delivery/data/repository/delivery_repository.dart';
 import 'package:delivery/data/repository/delivery_repository_imp.dart';
 
-class AvailableOrdersProvider extends BaseProvider {
+class AllAvailableOrdersProvider extends BaseProvider {
   List<User?> users = [];
   final DeliveryRepository _repository;
-  List<Order> orders = [];
+  List<Order> filteredOrders = [];
+  List<Order> _orders = [];
   void Function(int)? updateAvailableOrderCount;
 
-  AvailableOrdersProvider(
+  AllAvailableOrdersProvider(
       {DeliveryRepository? repository, this.updateAvailableOrderCount})
       : _repository = repository ?? DeliveryRepositoryImp();
 
-  void getAvailableOrders() {
-    Stream<List<Order>> ordersStream = _repository.getAvailableOrders();
-    ordersStream.listen((orders) {
-      this.orders = orders;
-      users = orders.map((order) => order.user).toSet().toList();
-      if (updateAvailableOrderCount != null) {
-        updateAvailableOrderCount!(users.length);
-      }
-      notifyListeners();
-    });
+  void getAvailableOrders() async {
+    List<Order> ordersStream = await _repository.getAvailableOrders();
+    _orders = ordersStream;
+    filteredOrders = [..._orders];
+    users = _orders.map((order) => order.user).toSet().toList();
+    if (updateAvailableOrderCount != null) {
+      updateAvailableOrderCount!(users.length);
+    }
+    notifyListeners();
   }
 
-  void navigateToUserOrderDetails(String userId) {
-    List<Order> selectedOrders =
-        orders.where((element) => element.user?.id == userId).toList();
-    navigation.value = Destination(
-        routeName: availableOrderDetailsScreen, argument: selectedOrders);
+  void searchOrder(String shopName) {
+    filteredOrders = _orders
+        .where((order) => order.shop?.name?.contains(shopName) == true)
+        .toList(growable: false);
+    notifyListeners();
   }
 }

@@ -25,8 +25,8 @@ class _DeliveryHomeScreenState extends State<DeliveryHomeScreen> {
       child: const AllCurrentDeliveryOrders(),
     ),
     ChangeNotifierProvider.value(
-      value: AllDeliveredOrdersProvider(),
-      child: const AllDeliveredOrdersScreen(),
+      value: DeliveryDeliveredOrdersProvider(),
+      child: const DeliveryDeliveredOrdersScreen(),
     ),
   ];
 

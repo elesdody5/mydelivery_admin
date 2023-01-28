@@ -7,13 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-class AllDeliveredOrdersScreen extends StatelessWidget {
-  const AllDeliveredOrdersScreen({Key? key}) : super(key: key);
+class DeliveryDeliveredOrdersScreen extends StatelessWidget {
+  const DeliveryDeliveredOrdersScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final provider =
-        Provider.of<AllDeliveredOrdersProvider>(context, listen: false);
+        Provider.of<DeliveryDeliveredOrdersProvider>(context, listen: false);
     String deliveryId = Get.arguments;
     return DefaultTabController(
         length: 2,
@@ -23,7 +23,7 @@ class AllDeliveredOrdersScreen extends StatelessWidget {
             title: Text("delivered_orders".tr),
             bottom: TabBar(
               tabs: [
-                Consumer<AllDeliveredOrdersProvider>(
+                Consumer<DeliveryDeliveredOrdersProvider>(
                     builder: (context, provider, child) {
                   return Tab(
                     child: Text(
@@ -32,7 +32,7 @@ class AllDeliveredOrdersScreen extends StatelessWidget {
                     ),
                   );
                 }),
-                Consumer<AllDeliveredOrdersProvider>(
+                Consumer<DeliveryDeliveredOrdersProvider>(
                     builder: (context, provider, child) {
                   return Tab(
                     child: Text(

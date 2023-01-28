@@ -1,13 +1,14 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:widgets/user_avatar.dart';
+
+import '../../user_avatar.dart';
 
 class DetailsListTile extends StatelessWidget {
   final String? imageUrl;
   final String? name;
   final String? address;
+  final String? type;
   final String? latitude;
   final String? longitude;
   final String? phone;
@@ -19,28 +20,22 @@ class DetailsListTile extends StatelessWidget {
       this.address,
       this.latitude,
       this.longitude,
+      this.type,
       this.phone})
       : super(key: key);
 
   Future<void> _openMap() async {
     String googleUrl =
         'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
-    if (await canLaunch(googleUrl)) {
-      await launch(googleUrl);
-    } else {
-      throw 'Could not open the map.';
-    }
+    await launch(googleUrl);
   }
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: UserAvatar(
-        id: "",
-        imageUrl: imageUrl,
-      ),
+      leading: UserAvatar(id: "", imageUrl: imageUrl),
       title: Text(name ?? ""),
-      subtitle: address != null ? Text(address ?? "") : null,
+      subtitle: Text(type ?? ""),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [

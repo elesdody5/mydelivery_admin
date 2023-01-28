@@ -231,7 +231,7 @@ class HomePage extends StatelessWidget {
                               fontSize: 24.0)),
                     ]),
               ),
-              onTap: () => Get.toNamed(availableOrdersScreen),
+              onTap: () => Get.toNamed(allOrdersScreen),
             ),
             _buildTile(
               Padding(

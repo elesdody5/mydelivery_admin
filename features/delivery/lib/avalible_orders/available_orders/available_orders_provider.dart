@@ -17,7 +17,7 @@ class AvailableOrdersProvider extends BaseProvider {
       : _repository = repository ?? DeliveryRepositoryImp();
 
   void getAvailableOrders() {
-    Stream<List<Order>> ordersStream = _repository.getAvailableOrders();
+    Stream<List<Order>> ordersStream = _repository.getAvailableOrdersStream();
     ordersStream.listen((orders) {
       this.orders = orders;
       users = orders.map((order) => order.user).toSet().toList();

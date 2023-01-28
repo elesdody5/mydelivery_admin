@@ -8,7 +8,13 @@ abstract class FireStoreService {
 
   Future<List<Order>> getDeliveredOrdersForDelivery(String deliveryId);
 
-  Stream<List<Order>> getAvailableOrders();
+  Stream<List<Order>> getAvailableOrdersStream();
+
+  Future<List<Order>> getAvailableOrders();
+
+  Future<List<Order>> getDeliveredOrders();
+
+  Future<List<Order>> getWithDeliveredOrders();
 
   Future<Result> addDeliveryToOrders(User delivery, List<Order> orders);
 

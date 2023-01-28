@@ -62,8 +62,8 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   }
 
   @override
-  Stream<List<Order>> getAvailableOrders() {
-    return _fireStoreService.getAvailableOrders();
+  Stream<List<Order>> getAvailableOrdersStream() {
+    return _fireStoreService.getAvailableOrdersStream();
   }
 
   @override
@@ -167,5 +167,20 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   @override
   Future<Result> updatedDeliveryBlockStates(String id, bool isBlocked) {
     return _remoteDataSource.updateDeliveryBlockStates(id, isBlocked);
+  }
+
+  @override
+  Future<List<Order>> getAvailableOrders() {
+    return _fireStoreService.getAvailableOrders();
+  }
+
+  @override
+  Future<List<Order>> getDeliveredOrders() {
+  return _fireStoreService.getDeliveredOrders();
+  }
+
+  @override
+  Future<List<Order>> getWithDeliveryOrders() {
+    return _fireStoreService.getWithDeliveredOrders();
   }
 }

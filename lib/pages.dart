@@ -19,6 +19,8 @@ import 'package:dashboard/shops/shops_provider.dart';
 import 'package:dashboard/shops/shops_screen.dart';
 import 'package:dashboard/users_list_screen/user_list_proivder.dart';
 import 'package:dashboard/users_list_screen/user_list_screen.dart';
+import 'package:delivery/all_orders/AllOrdersProvider.dart';
+import 'package:delivery/all_orders/all_orders_screen.dart';
 import 'package:delivery/all_quick_orders/all_quick_orders_provider.dart';
 import 'package:delivery/all_orders/avalible_orders/available_orders/available_orders_provider.dart';
 import 'package:delivery/all_orders/avalible_orders/available_orders/available_orders_screen.dart';
@@ -36,6 +38,7 @@ import 'package:delivery/delivery_list/delivery_list_screen.dart';
 import 'package:delivery/delivery_reviews/delivery_reviews_provider.dart';
 import 'package:delivery/delivery_reviews/delivery_reviews_screen.dart';
 import 'package:delivery/delivery_profile/profile_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:authentication/signup/signup_provider.dart';
@@ -132,8 +135,14 @@ List<GetPage> appPages = [
   GetPage(
       name: availableOrdersScreen,
       page: () => ChangeNotifierProvider.value(
-            value: AvailableOrdersProvider(),
-            child: const AvailableOrdersScreen(),
+            value: AllAvailableOrdersProvider(),
+            child: const AllAvailableOrdersScreen(),
+          )),
+  GetPage(
+      name: allOrdersScreen,
+      page: () => ChangeNotifierProvider.value(
+            value: AllOrdersProvider(),
+            child: const AllOrdersScreen(),
           )),
   GetPage(
       name: quickOrdersScreen,
@@ -186,8 +195,8 @@ List<GetPage> appPages = [
   GetPage(
     name: deliveryDeliveredOrdersScreen,
     page: () => ChangeNotifierProvider.value(
-      value: AllDeliveredOrdersProvider(),
-      child: const AllDeliveredOrdersScreen(),
+      value: DeliveryDeliveredOrdersProvider(),
+      child: const DeliveryDeliveredOrdersScreen(),
     ),
   )
 ];

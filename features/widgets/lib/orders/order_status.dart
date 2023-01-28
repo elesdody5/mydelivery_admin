@@ -1,5 +1,4 @@
 import 'package:core/model/order_status.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -58,12 +57,12 @@ class OrderStatusWidget extends StatelessWidget {
         );
       case OrderStatus.waitingDelivery:
         return Text(
-          "waitingForDelivery".tr,
+          "waitingDelivery".tr,
           style: const TextStyle(color: Colors.grey),
         );
       case OrderStatus.refusedFromShop:
         return Text(
-          "refused_from_shop".tr,
+          "refusedFromShop".tr,
           style: const TextStyle(
             color: Colors.grey,
           ),
@@ -71,7 +70,7 @@ class OrderStatusWidget extends StatelessWidget {
         );
       case OrderStatus.inProgress:
         return Text(
-          "in_progress".tr,
+          "inProgress".tr,
           style: TextStyle(color: Get.textTheme.bodyText1?.color),
         );
       case OrderStatus.withDelivery:

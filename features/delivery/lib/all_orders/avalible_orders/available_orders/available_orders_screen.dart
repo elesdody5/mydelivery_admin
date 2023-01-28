@@ -4,38 +4,46 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:widgets/empty_widget.dart';
 import 'package:widgets/future_with_loading_progress.dart';
+import 'package:widgets/orders/orders_list_view.dart';
+import 'package:widgets/search_widget.dart';
 
 import '../widgets/available_orders_list.dart';
 import 'available_orders_provider.dart';
 
-class AvailableOrdersScreen extends StatelessWidget {
-  const AvailableOrdersScreen({Key? key}) : super(key: key);
+class AllAvailableOrdersScreen extends StatelessWidget {
+  const AllAvailableOrdersScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final provider =
-        Provider.of<AvailableOrdersProvider>(context, listen: false);
+        Provider.of<AllAvailableOrdersProvider>(context, listen: false);
     setupNavigationListener(provider.navigation);
-    return Scaffold(
-      appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            "available_orders".tr,
-          )),
-      body: FutureWithLoadingProgress(
-          future: provider.getAvailableOrders,
-          child: Consumer<AvailableOrdersProvider>(
-              builder: (_, provider, child) => provider.users.isEmpty
-                  ? Center(
-                      child: EmptyWidget(
-                        title: "empty_orders".tr,
-                        icon: Image.asset('assets/images/shopping-cart.png'),
+    return FutureWithLoadingProgress(
+        future: provider.getAvailableOrders,
+        child: Consumer<AllAvailableOrdersProvider>(
+            builder: (_, provider, child) => Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
+                      child: SearchWidget(
+                        search: provider.searchOrder,
+                        hint: "search_shop_name".tr,
                       ),
-                    )
-                  : AvailableOrdersList(
-                      users: provider.users,
-                      onTap: provider.navigateToUserOrderDetails,
-                    ))),
-    );
+                    ),
+                    Expanded(
+                        child: provider.filteredOrders.isEmpty
+                            ? Center(
+                                child: EmptyWidget(
+                                  title: "empty_orders".tr,
+                                  icon: Image.asset(
+                                      'assets/images/shopping-cart.png'),
+                                ),
+                              )
+                            : OrdersListView(
+                                orders: provider.filteredOrders,
+                              )),
+                  ],
+                )));
   }
 }
