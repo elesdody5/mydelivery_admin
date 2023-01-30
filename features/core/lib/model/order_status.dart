@@ -4,7 +4,8 @@ enum OrderStatus {
   inProgress,
   withDelivery,
   delivered,
-  waitingDelivery
+  waitingDelivery,
+  done
 }
 
 extension EnumToString on OrderStatus {
@@ -22,6 +23,8 @@ extension EnumToString on OrderStatus {
         return "refusedFromShop";
       case OrderStatus.waitingDelivery:
         return "waitingDelivery";
+      case OrderStatus.done:
+        return "done";
       default:
         return "waitingShopResponse";
     }
@@ -42,6 +45,8 @@ OrderStatus? stringToEnum(String? status) {
       return OrderStatus.refusedFromShop;
     case "waitingDelivery":
       return OrderStatus.waitingDelivery;
+    case "done":
+      return OrderStatus.done;
     default:
       return OrderStatus.waitingShopResponse;
   }

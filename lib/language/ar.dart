@@ -88,6 +88,7 @@ Map<String, String> arJson = {
   "save": "حفظ",
   "reviews": "التقيمات",
   "delete": "حذف",
+  "delete_history": "حذف من سجل الطيار",
   "doctor_profile": "بيانات الطبيب",
   "order": "اطلب من",
   "quick_order": "طلب سريع",

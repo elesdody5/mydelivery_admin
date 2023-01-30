@@ -183,4 +183,9 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   Future<List<Order>> getWithDeliveryOrders() {
     return _fireStoreService.getWithDeliveredOrders();
   }
+
+  @override
+  Future<Result> updateOrdersStatus(List<String> ordersId) {
+    return _remoteDataSource.updateOrdersStatus(ordersId);
+  }
 }

@@ -10,9 +10,10 @@ import 'package:widgets/future_with_loading_progress.dart';
 import '../delivered_orders/widgets/orders_list_tile.dart';
 
 class DeliveredQuickOrdersScreen extends StatelessWidget {
-  final String deliveryId ;
+  final String deliveryId;
 
-  const DeliveredQuickOrdersScreen({Key? key,required this.deliveryId}) : super(key: key);
+  const DeliveredQuickOrdersScreen({Key? key, required this.deliveryId})
+      : super(key: key);
 
   void _setupListener(DeliveredQuickOrdersProvider provider) {
     setupErrorMessageListener(provider.errorMessage);
@@ -51,8 +52,8 @@ class DeliveredQuickOrdersScreen extends StatelessWidget {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: provider.removeOrders,
-                        child: Text("delete".tr),
+                        onPressed: provider.updateOrdersStatus,
+                        child: Text("delete_history".tr),
                         style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all<Color>(Colors.red)),

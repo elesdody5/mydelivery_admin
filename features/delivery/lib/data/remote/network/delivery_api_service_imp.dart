@@ -218,4 +218,17 @@ class DeliveryApiServiceImp implements DeliveryApiService {
     }
     return ApiResponse(responseData: true);
   }
+
+  @override
+  Future<ApiResponse> updateOrders(List<String> ordersId) async {
+    final response =
+        await _dio.patch(updateQuickOrders,
+            queryParameters: {"status":OrderStatus.done},
+            data: {"quickOrders": ordersId});
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print("error message is ${response.data['message']}");
+      return ApiResponse(errorMessage: response.data['message']);
+    }
+    return ApiResponse(responseData: true);
+  }
 }

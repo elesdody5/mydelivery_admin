@@ -114,8 +114,15 @@ class DeliveryRemoteDataSourceImp implements DeliveryRemoteDataSource {
   }
 
   @override
-  Future<Result> updateDeliveryBlockStates(String id, bool isBlocked) async{
-    var response = await _deliveryApiService.updateDeliveryBlockStates(id,isBlocked);
+  Future<Result> updateDeliveryBlockStates(String id, bool isBlocked) async {
+    var response =
+        await _deliveryApiService.updateDeliveryBlockStates(id, isBlocked);
+    return _getResultFromResponse(response);
+  }
+
+  @override
+  Future<Result> updateOrdersStatus(List<String> ordersId) async {
+    var response = await _deliveryApiService.updateOrders(ordersId);
     return _getResultFromResponse(response);
   }
 }

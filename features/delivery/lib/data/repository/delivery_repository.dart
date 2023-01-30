@@ -59,4 +59,6 @@ abstract class DeliveryRepository {
   Future<Result<List<QuickOrder>>> getAllWithDeliveryQuickOrders();
 
   Future<Result> updatedDeliveryBlockStates(String id, bool isBlocked);
+
+  Future<Result> updateOrdersStatus(List<String> ordersId) ;
 }
