@@ -145,4 +145,15 @@ class FireStoreServiceImp implements FireStoreService {
         .map((doc) => Order.fromJson(doc.data(), doc.id))
         .toList();
   }
+
+  @override
+  Future<void> updateOrdersStatus(List<String> ordersId) async {
+    final ordersCollection = _fireStore.collection("orders");
+    WriteBatch batch = _fireStore.batch();
+    for (var id in ordersId) {
+      batch.update(ordersCollection.doc(id),
+          {"orderStatus": OrderStatus.done.enumToString()});
+    }
+    return await batch.commit();
+  }
 }

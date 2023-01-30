@@ -25,4 +25,6 @@ abstract class FireStoreService {
   Future<int> getDeliveryCoins(String deliveryId);
 
   Future<List<Order>> getAllOrders();
+
+  Future<void> updateOrdersStatus(List<String> ordersId);
 }

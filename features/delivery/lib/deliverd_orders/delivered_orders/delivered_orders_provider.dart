@@ -64,11 +64,11 @@ class DeliveredOrdersProvider extends BaseProvider {
         firstDay?.day == secondDay?.day;
   }
 
-  void removeOrders() async {
+  void updateOrdersStatus() async {
     isLoading.value = true;
     List<String> ordersId =
         filteredOrders.map((order) => order.id ?? "").toList();
-    await _repository.removeDeliveryOrders(ordersId);
+    await _repository.updateOrdersStatus(ordersId);
     isLoading.value = false;
     filteredOrders.clear();
     if (updateDeliveredOrderCount != null) {

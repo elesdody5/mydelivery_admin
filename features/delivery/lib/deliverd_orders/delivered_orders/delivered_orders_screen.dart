@@ -54,8 +54,8 @@ class DeliveredOrdersScreen extends StatelessWidget {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: provider.removeOrders,
-                        child: Text("delete".tr),
+                        onPressed: provider.updateOrdersStatus,
+                        child: Text("delete_history".tr),
                         style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all<Color>(Colors.red)),

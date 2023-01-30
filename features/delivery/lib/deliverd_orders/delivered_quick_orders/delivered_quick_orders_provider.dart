@@ -57,7 +57,7 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
   void updateOrdersStatus() async {
     isLoading.value = true;
     List<String> ordersId = _orders.map((order) => order.id ?? "").toList();
-    await _repository.updateOrdersStatus(ordersId);
+    await _repository.updateQuickOrdersStatus(ordersId);
     isLoading.value = false;
     filteredOrders.clear();
     if (updateDeliveredQuickOrderCount != null) {
