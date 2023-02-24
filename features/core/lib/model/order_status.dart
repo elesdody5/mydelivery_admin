@@ -26,7 +26,7 @@ extension EnumToString on OrderStatus {
       case OrderStatus.done:
         return "done";
       default:
-        return "waitingShopResponse";
+        return "done";
     }
   }
 }
@@ -48,6 +48,6 @@ OrderStatus? stringToEnum(String? status) {
     case "done":
       return OrderStatus.done;
     default:
-      return OrderStatus.waitingShopResponse;
+      return OrderStatus.done;
   }
 }

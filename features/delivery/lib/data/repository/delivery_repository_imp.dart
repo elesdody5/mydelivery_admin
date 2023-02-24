@@ -181,7 +181,7 @@ class DeliveryRepositoryImp implements DeliveryRepository {
 
   @override
   Future<List<Order>> getWithDeliveryOrders() {
-    return _fireStoreService.getWithDeliveredOrders();
+    return _fireStoreService.getWithDeliveryOrders();
   }
 
   @override

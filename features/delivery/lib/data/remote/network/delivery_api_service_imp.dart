@@ -111,7 +111,8 @@ class DeliveryApiServiceImp implements DeliveryApiService {
 
   @override
   Future<ApiResponse<List<QuickOrder>>> getAllWithDeliveryQuickOrders() async {
-    final response = await _dio.get(quickOrdersUrl);
+    final response = await _dio.get("$quickOrdersUrl/status",
+        queryParameters: {"status": OrderStatus.withDelivery.enumToString()});
     if (response.statusCode != 200 && response.statusCode != 201) {
       print("error message is ${response.data['message']}");
       return ApiResponse(errorMessage: response.data['message']);
@@ -119,17 +120,13 @@ class DeliveryApiServiceImp implements DeliveryApiService {
     List<QuickOrder> orders = [];
     response.data['data']
         .forEach((json) => orders.add(QuickOrder.fromJson(json)));
-    return ApiResponse(
-        responseData: orders
-            .where((quickOrder) =>
-                quickOrder.delivery != null &&
-                quickOrder.orderStatus != OrderStatus.delivered)
-            .toList());
+    return ApiResponse(responseData: orders);
   }
 
   @override
   Future<ApiResponse<List<QuickOrder>>> getAllDeliveredQuickOrders() async {
-    final response = await _dio.get(quickOrdersUrl);
+    final response = await _dio.get("$quickOrdersUrl/status",
+        queryParameters: {"status": OrderStatus.delivered.enumToString()});
     if (response.statusCode != 200 && response.statusCode != 201) {
       print("error message is ${response.data['message']}");
       return ApiResponse(errorMessage: response.data['message']);
@@ -137,10 +134,7 @@ class DeliveryApiServiceImp implements DeliveryApiService {
     List<QuickOrder> orders = [];
     response.data['data']
         .forEach((json) => orders.add(QuickOrder.fromJson(json)));
-    return ApiResponse(
-        responseData: orders
-            .where((order) => order.orderStatus == OrderStatus.delivered)
-            .toList());
+    return ApiResponse(responseData: orders);
   }
 
   @override
@@ -221,10 +215,9 @@ class DeliveryApiServiceImp implements DeliveryApiService {
 
   @override
   Future<ApiResponse> updateOrders(List<String> ordersId) async {
-    final response =
-        await _dio.patch(updateQuickOrders,
-            queryParameters: {"status":OrderStatus.done},
-            data: {"quickOrders": ordersId});
+    final response = await _dio.patch(updateQuickOrders,
+        queryParameters: {"status": OrderStatus.done.enumToString()},
+        data: {"quickOrders": ordersId});
     if (response.statusCode != 200 && response.statusCode != 201) {
       print("error message is ${response.data['message']}");
       return ApiResponse(errorMessage: response.data['message']);

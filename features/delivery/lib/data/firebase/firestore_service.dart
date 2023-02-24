@@ -14,7 +14,7 @@ abstract class FireStoreService {
 
   Future<List<Order>> getDeliveredOrders();
 
-  Future<List<Order>> getWithDeliveredOrders();
+  Future<List<Order>> getWithDeliveryOrders();
 
   Future<Result> addDeliveryToOrders(User delivery, List<Order> orders);
 

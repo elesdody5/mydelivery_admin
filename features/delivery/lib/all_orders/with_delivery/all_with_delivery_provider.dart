@@ -23,6 +23,8 @@ class AllWithDeliveryOrdersProvider extends BaseProvider {
 
   Future<void> getWithDeliveryOrders() async {
     _orders = await _repository.getWithDeliveryOrders();
+    _orders.sort((first, second) =>
+    second.dateTime?.compareTo(first.dateTime!) ?? 0);
     filteredOrders = [..._orders];
     if (updateWithDeliveryOrderCount != null) {
       updateWithDeliveryOrderCount!(_orders.length);

@@ -22,6 +22,8 @@ class OrderStatusWidget extends StatelessWidget {
         return Get.theme.primaryColor;
       case OrderStatus.delivered:
         return Colors.green;
+      case OrderStatus.done:
+        return Colors.green;
       default:
         return Get.theme.cardColor;
     }
@@ -42,6 +44,8 @@ class OrderStatusWidget extends StatelessWidget {
         return Icon(Icons.pedal_bike_rounded,
             color: Get.theme.primaryIconTheme.color);
       case OrderStatus.delivered:
+        return const Icon(Icons.check, color: Colors.white);
+      case OrderStatus.done:
         return const Icon(Icons.check, color: Colors.white);
       default:
         return const Icon(Icons.access_time_rounded);
@@ -79,6 +83,11 @@ class OrderStatusWidget extends StatelessWidget {
           style: TextStyle(color: Get.textTheme.bodyText1?.color),
         );
       case OrderStatus.delivered:
+        return Text(
+          "delivered".tr,
+          style: const TextStyle(color: Colors.white),
+        );
+      case OrderStatus.done:
         return Text(
           "delivered".tr,
           style: const TextStyle(color: Colors.white),

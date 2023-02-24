@@ -122,12 +122,14 @@ class FireStoreServiceImp implements FireStoreService {
   }
 
   @override
-  Future<List<Order>> getWithDeliveredOrders() async {
+  Future<List<Order>> getWithDeliveryOrders() async {
     final orders = await _fireStore
         .collection("orders")
-        .where("orderStatus",
-            isEqualTo: OrderStatus.withDelivery.enumToString())
-        .orderBy("time", descending: true)
+        .where("orderStatus", whereNotIn: [
+          OrderStatus.delivered.enumToString(),
+          OrderStatus.waitingDelivery.enumToString(),
+          OrderStatus.done.enumToString(),
+        ])
         .get();
     return orders.docs
         .map((doc) => Order.fromJson(doc.data(), doc.id))
