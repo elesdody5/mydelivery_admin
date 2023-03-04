@@ -34,4 +34,6 @@ abstract class DeliveryRemoteDataSource {
   Future<Result> updateDeliveryBlockStates(String id, bool isBlocked);
 
   Future<Result> updateQuickOrdersStatus(List<String> ordersId);
+
+  Future<Result> removeQuickOrder(String? id);
 }

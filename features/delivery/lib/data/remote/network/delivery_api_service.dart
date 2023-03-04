@@ -36,4 +36,6 @@ abstract class DeliveryApiService {
   Future<ApiResponse> updateDeliveryBlockStates(String id, bool isBlocked);
 
   Future<ApiResponse> updateOrders(List<String> ordersId);
+
+  Future<ApiResponse> removeQuickOrder(String? id);
 }

@@ -1,18 +1,19 @@
 import 'package:core/utils/utils.dart';
-import 'package:delivery/deliverd_orders/delivered_quick_orders/delivered_quick_orders_provider.dart';
-import 'package:delivery/widgets/quick_orders_list_view.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:widgets/empty_widget.dart';
 import 'package:widgets/future_with_loading_progress.dart';
+import 'package:widgets/quick_orders/quick_orders_list_view.dart';
 
 import '../delivered_orders/widgets/orders_list_tile.dart';
+import 'delivered_quick_orders_provider.dart';
 
-class DeliveredQuickOrdersScreen extends StatelessWidget {
-  final String deliveryId;
+class UserQuickOrdersScreen extends StatelessWidget {
+  final String userId;
 
-  const DeliveredQuickOrdersScreen({Key? key, required this.deliveryId})
+  const UserQuickOrdersScreen({Key? key, required this.userId})
       : super(key: key);
 
   void _setupListener(DeliveredQuickOrdersProvider provider) {
@@ -28,7 +29,7 @@ class DeliveredQuickOrdersScreen extends StatelessWidget {
 
     _setupListener(provider);
     return FutureWithLoadingProgress(
-      future: () => provider.getDeliveredDeliveryOrders(deliveryId),
+      future: () => provider.getDeliveredDeliveryOrders(userId),
       child: Consumer<DeliveredQuickOrdersProvider>(
           builder: (_, provider, child) => Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -68,14 +69,14 @@ class DeliveredQuickOrdersScreen extends StatelessWidget {
                                     orders: provider.filteredOrders,
                                   ),
                                 ),
-                                ElevatedButton(
-                                  onPressed: provider.updateOrdersStatus,
-                                  child: Text("delete_history".tr),
-                                  style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all<Color>(
-                                              Colors.red)),
-                                ),
+                                // ElevatedButton(
+                                //   onPressed: provider.updateOrdersStatus,
+                                //   child: Text("delete_history".tr),
+                                //   style: ButtonStyle(
+                                //       backgroundColor:
+                                //           MaterialStateProperty.all<Color>(
+                                //               Colors.red)),
+                                // ),
                               ],
                             ),
                         ),

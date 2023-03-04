@@ -24,37 +24,37 @@ class QuickOrder {
   String? audioUrl;
   File? recordFile;
 
-  QuickOrder(
-      {this.id,
-        this.address,
-        this.inCity,
-        this.delivery,
-        this.user,
-        this.description,
-        this.orderStatus,
-        this.phoneNumber,
-        this.count,
-        this.dateTime,
-        this.imageUrl,
-        this.audioUrl});
+  QuickOrder({this.id,
+    this.address,
+    this.inCity,
+    this.delivery,
+    this.user,
+    this.description,
+    this.orderStatus,
+    this.phoneNumber,
+    this.count,
+    this.dateTime,
+    this.imageUrl,
+    this.audioUrl});
 
-  factory QuickOrder.fromJson(Map<String, dynamic> json) => QuickOrder(
-    id: json['_id'],
-    address: json['address'],
-    inCity: json["inCity"],
-    delivery:
-    json['delivery'] != null ? User.fromJson(json['delivery']) : null,
-    user: (json['user'] != null && json['user'] is! String)
-        ? User.fromJson(json['user'])
-        : null,
-    description: json['description'],
-    orderStatus: stringToEnum(json['status']),
-    phoneNumber: json['userPhone'],
-    count: json['count'],
-    imageUrl: json['photo'],
-    audioUrl: json['audio'],
-    dateTime: json["date"] != null ? DateTime.parse(json['date']) : null,
-  );
+  factory QuickOrder.fromJson(Map<String, dynamic> json) =>
+      QuickOrder(
+        id: json['_id'],
+        address: json['address'],
+        inCity: json["inCity"],
+        delivery:
+        json['delivery'] != null ? User.fromJson(json['delivery']) : null,
+        user: (json['user'] != null && json['user'] is! String)
+            ? User.fromJson(json['user'])
+            : null,
+        description: json['description'],
+        orderStatus: stringToEnum(json['status']),
+        phoneNumber: json['userPhone'],
+        count: json['count'],
+        imageUrl: json['photo'],
+        audioUrl: json['audio'],
+        dateTime: json["date"] != null ? DateTime.parse(json['date']) : null,
+      );
 
   Future<Map<String, dynamic>> toJson() async {
     List<String>? mimeTypeData;
@@ -75,7 +75,9 @@ class QuickOrder {
       "date": dateTime?.toIso8601String(),
       "photo": imageFile != null
           ? await MultipartFile.fromFile(imageFile!.path,
-          filename: imageFile?.path.split('/').last ?? "",
+          filename: imageFile?.path
+              .split('/')
+              .last ?? "",
           contentType: MediaType(mimeTypeData![0], mimeTypeData[1]))
           : null
     };
@@ -88,7 +90,9 @@ class QuickOrder {
       mimeTypeData = lookupMimeType(recordFile!.path)?.split('/');
     }
     return MultipartFile.fromFile(recordFile!.path,
-        filename: recordFile?.path.split('/').last ?? "",
+        filename: recordFile?.path
+            .split('/')
+            .last ?? "",
         contentType: MediaType(mimeTypeData![0], mimeTypeData[1]));
   }
 
@@ -108,4 +112,19 @@ class QuickOrder {
     String formattedDate = dateFormat.format(dateTime!);
     return formattedDate;
   }
+
+  // QuickOrder copy() =>
+  //     QuickOrder(
+  //         address: address,
+  //         inCity: inCity,
+  //         delivery: delivery,
+  //         user: user,
+  //         description: description,
+  //         orderStatus: OrderStatus.waitingShopResponse,
+  //         phoneNumber: phoneNumber,
+  //         count: count,
+  //         dateTime: dateTime,
+  //         imageUrl,
+  //         audioUrl
+  //     )
 }

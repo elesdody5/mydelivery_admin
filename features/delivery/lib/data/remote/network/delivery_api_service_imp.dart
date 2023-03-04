@@ -71,7 +71,9 @@ class DeliveryApiServiceImp implements DeliveryApiService {
         .forEach((json) => orders.add(QuickOrder.fromJson(json)));
     return ApiResponse(
         responseData: orders
-            .where((order) => order.orderStatus != OrderStatus.delivered)
+            .where((order) =>
+                order.orderStatus != OrderStatus.delivered &&
+                order.orderStatus != OrderStatus.done)
             .toList());
   }
 
@@ -218,6 +220,17 @@ class DeliveryApiServiceImp implements DeliveryApiService {
     final response = await _dio.patch(updateQuickOrders,
         queryParameters: {"status": OrderStatus.done.enumToString()},
         data: {"quickOrders": ordersId});
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print("error message is ${response.data['message']}");
+      return ApiResponse(errorMessage: response.data['message']);
+    }
+    return ApiResponse(responseData: true);
+  }
+
+  @override
+  Future<ApiResponse> removeQuickOrder(String? id) async {
+    final response = await _dio
+        .delete(quickOrdersUrl, queryParameters: {"quickOrderId": id});
     if (response.statusCode != 200 && response.statusCode != 201) {
       print("error message is ${response.data['message']}");
       return ApiResponse(errorMessage: response.data['message']);

@@ -42,6 +42,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:authentication/signup/signup_provider.dart';
+import 'package:user_profile/current_user_orders/all_current_user_orders.dart';
+import 'package:user_profile/current_user_orders/all_current_user_orders_provider.dart';
+import 'package:user_profile/deliverd_orders/all_delivered_orders_provider.dart';
+import 'package:user_profile/deliverd_orders/all_delivered_orders_screen.dart';
 import 'package:user_profile/profile_provider.dart';
 import 'package:user_profile/profile_screen.dart';
 import 'package:vendor/home_screen/vendor_home_screen.dart';
@@ -191,6 +195,18 @@ List<GetPage> appPages = [
       page: () => ChangeNotifierProvider.value(
             value: AllCurrentOrdersProvider(),
             child: const AllCurrentDeliveryOrders(),
+          )),
+  GetPage(
+      name: currentUserOrdersScreen,
+      page: () => ChangeNotifierProvider.value(
+            value: AllCurrentUserOrdersProvider(),
+            child: const AllCurrentUserOrders(),
+          )),
+  GetPage(
+      name: currentUserOrdersScreen,
+      page: () => ChangeNotifierProvider.value(
+            value: UserDeliveredOrdersProvider(),
+            child: const UserDeliveredOrdersScreen(),
           )),
   GetPage(
     name: deliveryDeliveredOrdersScreen,

@@ -176,7 +176,7 @@ class DeliveryRepositoryImp implements DeliveryRepository {
 
   @override
   Future<List<Order>> getDeliveredOrders() {
-  return _fireStoreService.getDeliveredOrders();
+    return _fireStoreService.getDeliveredOrders();
   }
 
   @override
@@ -191,6 +191,11 @@ class DeliveryRepositoryImp implements DeliveryRepository {
 
   @override
   Future<void> updateOrdersStatus(List<String> ordersId) {
-   return _fireStoreService.updateOrdersStatus(ordersId);
+    return _fireStoreService.updateOrdersStatus(ordersId);
+  }
+
+  @override
+  Future<Result> removeQuickOrder(String? id) {
+    return _remoteDataSource.removeQuickOrder(id);
   }
 }

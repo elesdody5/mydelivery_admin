@@ -1,6 +1,8 @@
+import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
 import 'package:core/model/http_exception.dart';
+import 'package:core/model/order.dart';
 import 'package:core/model/response.dart';
 import 'package:user_profile/data/model/update_password_model.dart';
 import 'package:user_profile/data/remote/network/user_api_service.dart';
@@ -41,6 +43,19 @@ class UserRemoteDataSourceImp implements UserRemoteDataSource {
   @override
   Future<Result> updateUser(User user) async {
     var response = await _apiService.updateUser(user);
+    return _getResultFromResponse(response);
+  }
+
+  @override
+  Future<Result<List<QuickOrder>>> getCurrentQuickOrders(String userId) async {
+    var response = await _apiService.getCurrentQuickOrders(userId);
+    return _getResultFromResponse(response);
+  }
+
+  @override
+  Future<Result<List<QuickOrder>>> getDeliveredQuickOrders(
+      String userId) async {
+    var response = await _apiService.getDeliveredQuickOrders(userId);
     return _getResultFromResponse(response);
   }
 }

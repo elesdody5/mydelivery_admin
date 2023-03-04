@@ -63,4 +63,6 @@ abstract class DeliveryRepository {
   Future<Result> updateQuickOrdersStatus(List<String> ordersId);
 
   Future<void> updateOrdersStatus(List<String> ordersId);
+
+  Future<Result> removeQuickOrder(String? id);
 }

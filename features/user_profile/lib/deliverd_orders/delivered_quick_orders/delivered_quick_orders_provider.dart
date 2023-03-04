@@ -1,25 +1,27 @@
 import 'package:core/base_provider.dart';
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
-import 'package:delivery/data/repository/delivery_repository.dart';
-import 'package:delivery/data/repository/delivery_repository_imp.dart';
+
 import 'package:flutter/material.dart';
+import 'package:user_profile/data/repository/user_repository_imp.dart';
+
+import '../../data/repository/user_repository.dart';
 
 class DeliveredQuickOrdersProvider extends BaseProvider {
-  final DeliveryRepository _repository;
+  final UserRepository _repository;
   List<QuickOrder> filteredOrders = [];
   List<QuickOrder> _orders = [];
   void Function(int)? updateDeliveredQuickOrderCount;
   bool? inCityFilter;
 
   DeliveredQuickOrdersProvider(
-      {DeliveryRepository? deliveryRepository,
+      {UserRepository? deliveryRepository,
       this.updateDeliveredQuickOrderCount})
-      : _repository = deliveryRepository ?? DeliveryRepositoryImp();
+      : _repository = deliveryRepository ?? UserRepositoryImp();
 
-  Future<void> getDeliveredDeliveryOrders(String deliveryId) async {
+  Future<void> getDeliveredDeliveryOrders(String userId) async {
     Result<List<QuickOrder>> result =
-        await _repository.getDeliveredQuickOrders(deliveryId);
+        await _repository.getDeliveredQuickOrders(userId);
     if (result.succeeded()) {
       _orders = result.getDataIfSuccess();
       filteredOrders = [..._orders];
@@ -55,17 +57,17 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
         firstDay?.day == secondDay?.day;
   }
 
-  void updateOrdersStatus() async {
-    isLoading.value = true;
-    List<String> ordersId = _orders.map((order) => order.id ?? "").toList();
-    await _repository.updateQuickOrdersStatus(ordersId);
-    isLoading.value = false;
-    filteredOrders.clear();
-    if (updateDeliveredQuickOrderCount != null) {
-      updateDeliveredQuickOrderCount!(_orders.length);
-    }
-    notifyListeners();
-  }
+  // void updateOrdersStatus() async {
+  //   isLoading.value = true;
+  //   List<String> ordersId = _orders.map((order) => order.id ?? "").toList();
+  //   await _repository.updateQuickOrdersStatus(ordersId);
+  //   isLoading.value = false;
+  //   filteredOrders.clear();
+  //   if (updateDeliveredQuickOrderCount != null) {
+  //     updateDeliveredQuickOrderCount!(_orders.length);
+  //   }
+  //   notifyListeners();
+  // }
 
   void filterWithCity(bool inCity) {
     inCityFilter = inCity;
