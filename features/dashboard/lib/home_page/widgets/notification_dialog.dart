@@ -1,4 +1,5 @@
 import 'package:cool_alert/cool_alert.dart';
+import 'package:core/domain/user_type.dart';
 import 'package:core/utils/styles.dart';
 import 'package:core/utils/utils.dart';
 import 'package:dashboard/domain/model/notification_message.dart';
@@ -59,6 +60,27 @@ class NotificationDialog extends StatelessWidget {
                   onSaved: (String? body) => notificationMessage.message = body,
                   decoration:
                       formInputDecoration(label: 'notification_message'.tr),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FormBuilderDropdown<UserType>(
+                  name: "userType",
+                  decoration: formInputDecoration(label: "user".tr),
+                  initialValue: UserType.user,
+                  validator: FormBuilderValidators.compose([
+                    FormBuilderValidators.required(
+                      context,
+                    ),
+                  ]),
+                  onSaved: (UserType? userType) =>
+                      notificationMessage.userType = userType,
+                  items: UserType.values
+                      .map((userType) => DropdownMenuItem(
+                            value: userType,
+                            child: Text(userType.name.tr),
+                          ))
+                      .toList(),
                 ),
               ),
             ],

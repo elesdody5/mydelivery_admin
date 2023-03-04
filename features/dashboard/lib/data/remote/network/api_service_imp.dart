@@ -125,8 +125,9 @@ class ApiServiceImp implements ApiService {
   @override
   Future<ApiResponse> sendNotification(
       NotificationMessage notificationMessage) async {
-    final response =
-        await _dio.post(notificationUrl, data: notificationMessage.toJson());
+    final response = await _dio.post(notificationUrl,
+        queryParameters: {"userType": notificationMessage.userType?.name},
+        data: notificationMessage.toJson());
     if (response.statusCode != 200 && response.statusCode != 201) {
       print("error message is ${response.data['message']}");
       return ApiResponse(errorMessage: response.data['message']);
