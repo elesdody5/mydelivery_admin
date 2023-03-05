@@ -42,4 +42,15 @@ class CurrentQuickOrderProvider extends BaseProvider {
       errorMessage.value = "something_went_wrong";
     }
   }
+  Future<void> deleteQuickOrder(QuickOrder quickOrder) async {
+    isLoading.value = true;
+    Result result = await _repository.removeQuickOrder(quickOrder.id);
+    if (result.succeeded()) {
+      orders.remove(quickOrder);
+    } else {
+      errorMessage.value = "something_went_wrong";
+    }
+    isLoading.value = false;
+    notifyListeners();
+  }
 }

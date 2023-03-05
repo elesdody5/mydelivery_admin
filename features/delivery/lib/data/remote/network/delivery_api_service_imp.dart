@@ -60,8 +60,10 @@ class DeliveryApiServiceImp implements DeliveryApiService {
   @override
   Future<ApiResponse<List<QuickOrder>>> getCurrentDeliveryQuickOrder(
       String deliveryId) async {
-    final response = await _dio
-        .get(deliveryOrdersUrl, queryParameters: {"deliveryId": deliveryId});
+    final response = await _dio.get(deliveryOrdersUrl, queryParameters: {
+      "deliveryId": deliveryId,
+      "status": OrderStatus.withDelivery.enumToString()
+    });
     if (response.statusCode != 200 && response.statusCode != 201) {
       print("error message is ${response.data['message']}");
       return ApiResponse(errorMessage: response.data['message']);
@@ -69,12 +71,7 @@ class DeliveryApiServiceImp implements DeliveryApiService {
     List<QuickOrder> orders = [];
     response.data['data']
         .forEach((json) => orders.add(QuickOrder.fromJson(json)));
-    return ApiResponse(
-        responseData: orders
-            .where((order) =>
-                order.orderStatus != OrderStatus.delivered &&
-                order.orderStatus != OrderStatus.done)
-            .toList());
+    return ApiResponse(responseData: orders);
   }
 
   @override
@@ -96,8 +93,10 @@ class DeliveryApiServiceImp implements DeliveryApiService {
   @override
   Future<ApiResponse<List<QuickOrder>>> getDeliveredQuickOrders(
       String deliveryId) async {
-    final response = await _dio
-        .get(deliveryOrdersUrl, queryParameters: {"deliveryId": deliveryId});
+    final response = await _dio.get(deliveryOrdersUrl, queryParameters: {
+      "deliveryId": deliveryId,
+      "status": OrderStatus.delivered.enumToString()
+    });
     if (response.statusCode != 200 && response.statusCode != 201) {
       print("error message is ${response.data['message']}");
       return ApiResponse(errorMessage: response.data['message']);
@@ -105,10 +104,7 @@ class DeliveryApiServiceImp implements DeliveryApiService {
     List<QuickOrder> orders = [];
     response.data['data']
         .forEach((json) => orders.add(QuickOrder.fromJson(json)));
-    return ApiResponse(
-        responseData: orders
-            .where((order) => order.orderStatus == OrderStatus.delivered)
-            .toList());
+    return ApiResponse(responseData: orders);
   }
 
   @override
@@ -122,7 +118,7 @@ class DeliveryApiServiceImp implements DeliveryApiService {
     List<QuickOrder> orders = [];
     response.data['data']
         .forEach((json) => orders.add(QuickOrder.fromJson(json)));
-    return ApiResponse(responseData: orders);
+    return ApiResponse(responseData: orders.reversed.toList());
   }
 
   @override

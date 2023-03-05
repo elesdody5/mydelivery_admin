@@ -8,8 +8,10 @@ import 'package:widgets/empty_widget.dart';
 import 'package:widgets/future_with_loading_progress.dart';
 
 class CurrentQuickOrdersScreen extends StatelessWidget {
-  final String deliveryId ;
-  const CurrentQuickOrdersScreen({Key? key,required this.deliveryId}) : super(key: key);
+  final String deliveryId;
+
+  const CurrentQuickOrdersScreen({Key? key, required this.deliveryId})
+      : super(key: key);
 
   void _setupListener(CurrentQuickOrderProvider provider) {
     setupErrorMessageListener(provider.errorMessage);
@@ -36,6 +38,7 @@ class CurrentQuickOrdersScreen extends StatelessWidget {
               : QuickOrdersListView(
                   orders: provider.orders,
                   deliverOrder: provider.changeQuickOrderStatus,
+                  onLongPress: provider.deleteQuickOrder,
                 )),
     );
   }

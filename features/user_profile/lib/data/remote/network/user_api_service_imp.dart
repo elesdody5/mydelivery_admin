@@ -50,8 +50,11 @@ class UserApiServiceImp implements UserApiService {
 
   @override
   Future<ApiResponse> getCurrentQuickOrders(String userId) async {
-    final response =
-        await _dio.get(userQuickOrder, queryParameters: {"userId": userId});
+    final response = await _dio.get(userQuickOrder, queryParameters: {
+      "userId": userId,
+      "status": OrderStatus.waitingShopResponse.enumToString(),
+      "status": OrderStatus.withDelivery.enumToString(),
+    });
     if (response.statusCode != 200 && response.statusCode != 201) {
       print("error message is ${response.data['message']}");
       return ApiResponse(errorMessage: response.data['message']);
@@ -59,17 +62,17 @@ class UserApiServiceImp implements UserApiService {
     List<QuickOrder> orders = [];
     response.data['data']
         .forEach((json) => orders.add(QuickOrder.fromJson(json)));
-    return ApiResponse(
-        responseData: orders
-            .where((order) => order.orderStatus != OrderStatus.delivered)
-            .toList());
+    return ApiResponse(responseData: orders);
   }
 
   @override
   Future<ApiResponse<List<QuickOrder>>> getDeliveredQuickOrders(
       String userId) async {
-    final response =
-        await _dio.get(userQuickOrder, queryParameters: {"userId": userId});
+    final response = await _dio.get(userQuickOrder, queryParameters: {
+      "userId": userId,
+      "status": OrderStatus.delivered.enumToString(),
+      "status": OrderStatus.done.enumToString(),
+    });
     if (response.statusCode != 200 && response.statusCode != 201) {
       print("error message is ${response.data['message']}");
       return ApiResponse(errorMessage: response.data['message']);
@@ -77,11 +80,6 @@ class UserApiServiceImp implements UserApiService {
     List<QuickOrder> orders = [];
     response.data['data']
         .forEach((json) => orders.add(QuickOrder.fromJson(json)));
-    return ApiResponse(
-        responseData: orders
-            .where((order) =>
-                order.orderStatus == OrderStatus.delivered ||
-                order.orderStatus == OrderStatus.done)
-            .toList());
+    return ApiResponse(responseData: orders);
   }
 }

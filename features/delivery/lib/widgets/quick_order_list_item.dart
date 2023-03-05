@@ -8,9 +8,10 @@ class QuickOrderListItem extends StatelessWidget {
   final QuickOrder quickOrder;
   final Function(QuickOrder)? pickOrder;
   final Function(QuickOrder)? deliverOrder;
+  final Function(QuickOrder)? onLongPress;
 
   const QuickOrderListItem(
-      {Key? key, required this.quickOrder, this.pickOrder, this.deliverOrder})
+      {Key? key, required this.quickOrder, this.pickOrder, this.deliverOrder,this.onLongPress})
       : super(key: key);
 
   @override
@@ -21,6 +22,7 @@ class QuickOrderListItem extends StatelessWidget {
         pickOrder: pickOrder,
         deliverOrder: deliverOrder,
       )),
+      onLongPress: () => onLongPress?.call(quickOrder),
       leading: OrderStatusWidget(
         orderStatus: quickOrder.orderStatus,
       ),
