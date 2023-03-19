@@ -1,12 +1,11 @@
 import 'package:core/utils/utils.dart';
 import 'package:delivery/deliverd_orders/delivered_quick_orders/delivered_quick_orders_provider.dart';
-import 'package:delivery/widgets/quick_orders_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:widgets/empty_widget.dart';
 import 'package:widgets/future_with_loading_progress.dart';
-
+import 'package:widgets/quick_orders/quick_orders_list_view.dart';
 import '../delivered_orders/widgets/orders_list_tile.dart';
 
 class DeliveredQuickOrdersScreen extends StatelessWidget {

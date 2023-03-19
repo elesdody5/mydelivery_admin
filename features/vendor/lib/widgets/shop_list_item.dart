@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/model/shop.dart';
 import 'package:core/screens.dart';
+import 'package:core/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +11,16 @@ class ShopListItem extends StatelessWidget {
 
   const ShopListItem({Key? key, required this.shop, required this.onLongTap})
       : super(key: key);
+
+  String? workingTime() {
+    if (shop.isOpen != null) {
+      return shop.isOpen == true
+          ? "open".tr
+          : "close".trParams({"hour": shop.startHour?.timeFormat() ?? ""});
+    } else {
+      return shop.openTime;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +61,7 @@ class ShopListItem extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      shop.openTime ?? "",
+                      workingTime() ?? "",
                       style: TextStyle(
                           color: Get.isDarkMode ? Colors.white : Colors.black,
                           fontSize: 10),

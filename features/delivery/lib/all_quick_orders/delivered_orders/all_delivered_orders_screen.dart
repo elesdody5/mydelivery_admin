@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:get/get.dart';
 import 'package:widgets/future_with_loading_progress.dart';
 
-import '../../widgets/quick_orders_list_view.dart';
+import 'package:widgets/quick_orders/quick_orders_list_view.dart';
 import 'all_delivered_orders_provider.dart';
 
 class AllDeliveredQuickOrdersScreen extends StatelessWidget {

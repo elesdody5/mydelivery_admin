@@ -1,34 +1,66 @@
 import 'dart:io';
 
-import 'package:core/domain/quick_order.dart';
+import 'package:cool_alert/cool_alert.dart';
+import 'package:core/base_provider.dart';
+import 'package:core/model/shop.dart';
 import 'package:core/utils/styles.dart';
+import 'package:core/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+
+
+import 'QuickOrderFormProvider.dart';
 import 'record_widget.dart';
 import 'record_widget_provider.dart';
 
-class QuickOrderAlert extends StatelessWidget {
-  final Function() sendQuickOrder;
-  final QuickOrder quickOrder;
-  final String title;
+class QuickOrderForm extends StatelessWidget {
+  QuickOrderForm({Key? key}) : super(key: key);
 
-  QuickOrderAlert(
-      {Key? key,
-      required this.quickOrder,
-      required this.sendQuickOrder,
-      required this.title})
-      : super(key: key);
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+
+  void _setupListener(QuickOrderFormProvider provider) {
+    setupErrorMessageListener(provider.errorMessage);
+    setupLoadingListener(provider.isLoading);
+    _setupSuccessMessageListener(provider.successMessage);
+  }
+
+  void _setupSuccessMessageListener(RxnString successMessage) {
+    ever(successMessage, (String? message) {
+      if (message != null) {
+        _showSuccessDialog(message.tr);
+        successMessage.clear();
+      }
+    });
+  }
+
+  void _showSuccessDialog(String message) {
+    CoolAlert.show(
+        context: Get.context!,
+        type: CoolAlertType.success,
+        text: message,
+        onConfirmBtnTap: () {
+          Get.back();
+          Get.back();
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text(title),
-      content: SingleChildScrollView(
+    Shop? shop = Get.arguments;
+    final provider =
+        Provider.of<QuickOrderFormProvider>(context, listen: false);
+    provider.shop = shop;
+    _setupListener(provider);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("quick_order".tr),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
         child: FormBuilder(
           key: _formKey,
           child: Column(
@@ -42,7 +74,7 @@ class QuickOrderAlert extends StatelessWidget {
                   name: 'type',
                   initialValue: true,
                   validator: FormBuilderValidators.required(context),
-                  onSaved: (bool? value) => quickOrder.inCity = value,
+                  onSaved: (bool? value) => provider.quickOrder.inCity = value,
                   options: [
                     "in_menouf",
                     "out_menouf",
@@ -62,7 +94,7 @@ class QuickOrderAlert extends StatelessWidget {
                   name: 'count',
                   initialValue: 1,
                   validator: FormBuilderValidators.required(context),
-                  onSaved: (int? value) => quickOrder.count = value,
+                  onSaved: (int? value) => provider.quickOrder.count = value,
                   items: [1, 2, 3, 4, 5]
                       .map((count) => DropdownMenuItem(
                             value: count,
@@ -71,20 +103,37 @@ class QuickOrderAlert extends StatelessWidget {
                       .toList(growable: false),
                 ),
               ),
-              Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: FormBuilderTextField(
-                    name: "phone",
-                    onSaved: (String? phone) => quickOrder.phoneNumber = phone,
-                    decoration: formInputDecoration(label: "phone".tr),
-                  )),
-              Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: FormBuilderTextField(
-                    name: "address",
-                    onSaved: (String? address) => quickOrder.address = address,
-                    decoration: formInputDecoration(label: "address".tr),
-                  )),
+              Row(
+                children: [
+                  Flexible(
+                    flex: 3,
+                    child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FormBuilderTextField(
+                          name: "address",
+                          onSaved: (String? address) =>
+                              provider.quickOrder.address = address,
+                          decoration: formInputDecoration(label: "address".tr),
+                        )),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FormBuilderTextField(
+                          name: "price",
+                          initialValue: "10",
+                          onSaved: (String? price) {
+                            if (price != null) {
+                              provider.quickOrder.price = int.tryParse(price);
+                            }
+                          },
+                          decoration: formInputDecoration(
+                              label: "delivery_price".tr, suffixText: "le".tr),
+                        )),
+                  ),
+                ],
+              ),
               SizedBox(
                 height: 150,
                 width: 100,
@@ -100,14 +149,14 @@ class QuickOrderAlert extends StatelessWidget {
                   iconColor: Colors.grey,
                   onSaved: (image) {
                     if (image?[0] != null && image?[0] is! String) {
-                      quickOrder.imageFile = File(image?[0]?.path);
+                      provider.quickOrder.imageFile = File(image?[0]?.path);
                     }
                   },
                 ),
               ),
               Text("${"add_record".tr} (${"optional".tr})"),
               ChangeNotifierProvider.value(
-                  value: RecordProvider(quickOrder: quickOrder),
+                  value: RecordProvider(quickOrder: provider.quickOrder),
                   child: const RecordWidget()),
               Divider(
                 color: Get.theme.primaryIconTheme.color,
@@ -117,25 +166,24 @@ class QuickOrderAlert extends StatelessWidget {
                 minLines: 5,
                 maxLines: 10,
                 onSaved: (String? description) =>
-                    quickOrder.description = description,
+                    provider.quickOrder.description = description,
                 decoration: formInputDecoration(label: "description".tr),
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState?.validate() == true) {
+                        _formKey.currentState?.save();
+                        provider.sendQuickOrder();
+                      }
+                    },
+                    child: Text("confirm".tr)),
+              )
             ],
           ),
         ),
       ),
-      actions: [
-        TextButton(
-            onPressed: () {
-              if (_formKey.currentState?.validate() == true) {
-                _formKey.currentState?.save();
-                Get.back();
-                sendQuickOrder();
-              }
-            },
-            child: Text("confirm".tr)),
-        TextButton(onPressed: () => Get.back(), child: Text("cancel".tr)),
-      ],
     );
   }
 }

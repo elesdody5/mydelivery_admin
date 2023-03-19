@@ -38,7 +38,6 @@ import 'package:delivery/delivery_list/delivery_list_screen.dart';
 import 'package:delivery/delivery_reviews/delivery_reviews_provider.dart';
 import 'package:delivery/delivery_reviews/delivery_reviews_screen.dart';
 import 'package:delivery/delivery_profile/profile_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:authentication/signup/signup_provider.dart';
@@ -54,6 +53,8 @@ import 'package:vendor/product_list/products_screen.dart';
 import 'package:vendor/vendors_list_screen/vendors_list_provider.dart';
 import 'package:vendor/vendors_list_screen/vendors_list_screen.dart';
 import 'package:dashboard/home_page/home_provider.dart';
+import 'package:dashboard/send_quick_order/quick_order_form.dart';
+import 'package:dashboard/send_quick_order/QuickOrderFormProvider.dart';
 
 List<GetPage> appPages = [
   GetPage(
@@ -213,6 +214,13 @@ List<GetPage> appPages = [
     page: () => ChangeNotifierProvider.value(
       value: DeliveryDeliveredOrdersProvider(),
       child: const DeliveryDeliveredOrdersScreen(),
+    ),
+  ),
+  GetPage(
+    name: quickOrderForm,
+    page: () => ChangeNotifierProvider.value(
+      value: QuickOrderFormProvider(),
+      child: QuickOrderForm(),
     ),
   )
 ];

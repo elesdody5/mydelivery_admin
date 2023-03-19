@@ -1,12 +1,8 @@
-import 'dart:ui';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/model/shop.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import "package:get/get.dart";
-
+import 'package:core/utils/utils.dart';
 import 'shop_info.dart';
 
 class ShopDetailsCard extends StatelessWidget {
@@ -20,6 +16,12 @@ class ShopDetailsCard extends StatelessWidget {
     required this.openLocation,
     required this.openWhatsapp,
   }) : super(key: key);
+
+  String? workingTime() {
+    return shop?.startHour != null
+        ? "${shop?.startHour?.timeFormat()} - ${shop?.endHour?.timeFormat()}"
+        : shop?.openTime;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +61,7 @@ class ShopDetailsCard extends StatelessWidget {
                         color: Colors.black,
                       ),
                       title: "time".tr,
-                      subtitle: shop?.openTime ?? "",
+                      subtitle: workingTime() ?? "",
                     ),
                   ),
                 ]),

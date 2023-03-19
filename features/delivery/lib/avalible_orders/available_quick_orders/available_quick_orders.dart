@@ -3,7 +3,7 @@ import 'package:core/base_provider.dart';
 import 'package:core/screens.dart';
 import 'package:core/utils/utils.dart';
 import 'package:delivery/avalible_orders/available_quick_orders/available_quick_orders_provider.dart';
-import 'package:delivery/widgets/quick_orders_list_view.dart';
+import 'package:widgets/quick_orders/quick_orders_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';

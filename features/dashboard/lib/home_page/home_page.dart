@@ -3,7 +3,6 @@ import 'package:core/utils/utils.dart';
 import 'package:dashboard/home_page/home_provider.dart';
 import 'package:dashboard/home_page/widgets/notification_dialog.dart';
 import 'package:dashboard/settings/settings_alert_dialog.dart';
-import 'package:dashboard/widgets/quick_order_alert/quick_order_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -31,11 +30,7 @@ class HomePage extends StatelessWidget {
           children: [
             SpeedDialChild(
                 label: "quick_order".tr,
-                onTap: () => Get.dialog(QuickOrderAlert(
-                      quickOrder: provider.quickOrder,
-                      sendQuickOrder: provider.sendQuickOrder,
-                      title: "quick_order".tr,
-                    ))),
+                onTap: () => Get.toNamed(quickOrderForm)),
             SpeedDialChild(
                 label: "send_notification".tr,
                 onTap: () => Get.dialog(NotificationDialog(

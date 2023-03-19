@@ -5,8 +5,8 @@ class Category {
 
   Category({this.id, this.name, this.imageUrl});
 
-  factory Category.fromJson(Map<String, dynamic> json) =>
-      Category(id: json['_id'], name: json['name'], imageUrl: json['photo']);
+  factory Category.fromJson(Map<String, dynamic>? json) =>
+      Category(id: json?['_id'], name: json?['name'], imageUrl: json?['photo']);
 
   @override
   bool operator ==(Object other) =>

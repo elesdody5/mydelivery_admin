@@ -31,3 +31,4 @@ const String notificationsScreenRouteName = "/notifications_screen";
 const String deliveryDetailsScreenRouteName = "/delivery_screen";
 const String deliveryReviewsScreenRouteName = "/delivery_reviews_screen";
 const String deliveryProfileScreen = "/delivery_profile_screen";
+const String quickOrderForm ="/quick_order_screen";

@@ -1,8 +1,8 @@
+import 'package:dashboard/send_quick_order/record_widget_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-import 'record_widget_provider.dart';
 
 class RecordWidget extends StatelessWidget {
   const RecordWidget({Key? key}) : super(key: key);

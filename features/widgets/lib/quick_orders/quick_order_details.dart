@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/domain/quick_order.dart';
+import 'package:core/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -79,7 +80,10 @@ class QuickOrderDetails extends StatelessWidget {
                     id: quickOrder.delivery?.id ?? "",
                     imageUrl: quickOrder.delivery?.imageUrl),
                 title: Text(quickOrder.delivery?.name ?? ""),
-                subtitle: Text("delivery".tr),
+                subtitle: quickOrder.deliveryPickedTime != null
+                    ? Text("delivery_picked_time".trParams(
+                        {"hour": quickOrder.deliveryPickedTime!.timeFormat()}))
+                    : null,
                 trailing: IconButton(
                   onPressed: () {
                     launch("tel://${quickOrder.delivery?.phone}");

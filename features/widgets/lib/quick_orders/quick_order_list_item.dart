@@ -8,9 +8,10 @@ class QuickOrderListItem extends StatelessWidget {
   final QuickOrder quickOrder;
   final Function(QuickOrder)? pickOrder;
   final Function(QuickOrder)? deliverOrder;
+  final Function(QuickOrder)? onLongPress;
 
   const QuickOrderListItem(
-      {Key? key, required this.quickOrder, this.pickOrder, this.deliverOrder})
+      {Key? key, required this.quickOrder, this.pickOrder, this.deliverOrder,this.onLongPress})
       : super(key: key);
 
   @override
@@ -21,18 +22,19 @@ class QuickOrderListItem extends StatelessWidget {
         pickOrder: pickOrder,
         deliverOrder: deliverOrder,
       )),
+      onLongPress: () => onLongPress?.call(quickOrder),
       leading: OrderStatusWidget(
         orderStatus: quickOrder.orderStatus,
       ),
       title: quickOrder.user?.name != null
           ? Text(
-              quickOrder.user?.name ?? "",
-              style: Get.textTheme.bodyText2,
-            )
+        quickOrder.user?.name ?? "",
+        style: Get.textTheme.bodyText2,
+      )
           : Text(
-              quickOrder.phoneNumber ?? "",
-              style: Get.textTheme.bodyText2,
-            ),
+        quickOrder.phoneNumber ?? "",
+        style: Get.textTheme.bodyText2,
+      ),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -43,8 +45,19 @@ class QuickOrderListItem extends StatelessWidget {
           ),
         ],
       ),
-      trailing:
+      trailing: Column(
+        children: [
           Text(quickOrder.inCity == true ? "in_menouf".tr : "out_menouf".tr),
+          if (quickOrder.price != null)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "${quickOrder.price.toString()} ${"le".tr}",
+                style: TextStyle(color: Get.textTheme.bodyText1?.color),
+              ),
+            )
+        ],
+      ),
     );
   }
 }
