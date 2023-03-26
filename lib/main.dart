@@ -49,12 +49,12 @@ class MyApp extends StatelessWidget {
               color: Colors.black),
         ),
       ),
-      // localizationsDelegates: const [
-      //   GlobalMaterialLocalizations.delegate
-      // ],
-      // supportedLocales: const [
-      //   Locale('ar')
-      // ],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate
+      ],
+      supportedLocales: const [
+        Locale('ar')
+      ],
       translations: Messages(),
       // your translations
       locale: const Locale("ar"),

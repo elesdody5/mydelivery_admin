@@ -1,3 +1,4 @@
+import 'package:delivery/deliverd_orders/delivered_orders/widgets/orders_list_tile.dart';
 import 'package:widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:widgets/empty_widget.dart';
@@ -28,6 +29,9 @@ class AllDeliveredQuickOrdersScreen extends StatelessWidget {
                       hint: "search_address".tr,
                     ),
                   ),
+                  OrdersListTile(
+                      ordersNumber: provider.filteredQuickOrders.length.toString(),
+                      onDateSelected: provider.dateFilter),
                   Expanded(
                     child: provider.filteredQuickOrders.isEmpty
                         ? Center(

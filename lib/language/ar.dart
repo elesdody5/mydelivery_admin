@@ -175,6 +175,7 @@ Map<String, String> arJson = {
   "available_orders": "الطلبات المتاحة",
   "orders": "الطلبات",
   "delivered_orders": "الطلبات التي تم توصيلها",
+  "total_orders":"اجمالي عدد الطلبات",
   "category": "التصنيف",
   "add_category": "اضافة تصنيف",
   "add_product": "اضافة منتج",

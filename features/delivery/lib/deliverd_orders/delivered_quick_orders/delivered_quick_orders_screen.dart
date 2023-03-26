@@ -59,20 +59,20 @@ class DeliveredQuickOrdersScreen extends StatelessWidget {
                             ),
                           )
                         : Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
                                 Expanded(
                                   child: QuickOrdersListView(
                                     orders: provider.filteredOrders,
                                   ),
                                 ),
-                              // OutlinedButton(
-                              //   onPressed: null,
-                              //   child: Text(
-                              //     "${"coin".tr} ${provider.totalCoins} ",
-                              //   ),
-                              // ),
+                                OutlinedButton(
+                                  onPressed: null,
+                                  child: Text(
+                                    "${"total_orders".tr} ${provider.ordersCount} ",
+                                  ),
+                                ),
                                 ElevatedButton(
                                   onPressed: provider.updateOrdersStatus,
                                   child: Text("delete_history".tr),
@@ -83,7 +83,7 @@ class DeliveredQuickOrdersScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                        ),
+                          ),
                   ],
                 ),
               )),

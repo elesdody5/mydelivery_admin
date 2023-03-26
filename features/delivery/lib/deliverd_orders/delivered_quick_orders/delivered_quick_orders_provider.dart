@@ -27,14 +27,18 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
       if (updateDeliveredQuickOrderCount != null) {
         updateDeliveredQuickOrderCount!(_orders.length);
       }
+      getOrdersCount();
       notifyListeners();
     }
   }
 
-  // void getOrdersCount() {
-  //   var list = filteredOrders.where((element) => (element.count ?? 0) > 1);
-  //   ordersCount = filteredOrders.length +
-  // }
+  void getOrdersCount() {
+    var count = 0;
+    for (var element in filteredOrders) {
+      count += element.count ?? 1;
+    }
+    ordersCount = count;
+  }
 
   void dateFilter(DateTimeRange? dateTime) {
     filteredOrders = filteredOrders
