@@ -51,7 +51,7 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   }
 
   @override
-  Future<Result> addDeliveryToOrders(List<Order> orders) async {
+  Future<Result> addDeliveryToOrders(List<ShopOrder> orders) async {
     Result<User> delivery = await getUserData();
     if (delivery.succeeded()) {
       return _fireStoreService.addDeliveryToOrders(
@@ -62,17 +62,17 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   }
 
   @override
-  Stream<List<Order>> getAvailableOrdersStream() {
+  Stream<List<ShopOrder>> getAvailableOrdersStream() {
     return _fireStoreService.getAvailableOrdersStream();
   }
 
   @override
-  Future<Stream<List<Order>>> getCurrentDeliveryOrders(String userId) async {
+  Future<Stream<List<ShopOrder>>> getCurrentDeliveryOrders(String userId) async {
     return _fireStoreService.getCurrentDeliveryOrders(userId ?? "");
   }
 
   @override
-  Future<List<Order>> getDeliveredOrdersForDelivery(String userId) async {
+  Future<List<ShopOrder>> getDeliveredOrdersForDelivery(String userId) async {
     return _fireStoreService.getDeliveredOrdersForDelivery(userId ?? "");
   }
 
@@ -150,7 +150,7 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   }
 
   @override
-  Future<List<Order>> getAllOrders() {
+  Future<List<ShopOrder>> getAllOrders() {
     return _fireStoreService.getAllOrders();
   }
 
@@ -170,17 +170,17 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   }
 
   @override
-  Future<List<Order>> getAvailableOrders() {
+  Future<List<ShopOrder>> getAvailableOrders() {
     return _fireStoreService.getAvailableOrders();
   }
 
   @override
-  Future<List<Order>> getDeliveredOrders() {
+  Future<List<ShopOrder>> getDeliveredOrders() {
     return _fireStoreService.getDeliveredOrders();
   }
 
   @override
-  Future<List<Order>> getWithDeliveryOrders() {
+  Future<List<ShopOrder>> getWithDeliveryOrders() {
     return _fireStoreService.getWithDeliveryOrders();
   }
 

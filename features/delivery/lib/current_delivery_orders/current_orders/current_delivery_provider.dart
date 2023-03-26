@@ -6,7 +6,7 @@ import 'package:delivery/data/repository/delivery_repository_imp.dart';
 
 class CurrentDeliveryOrdersProvider extends BaseProvider {
   final DeliveryRepository _repository;
-  List<Order> orders = [];
+  List<ShopOrder> orders = [];
   void Function(int)? updateCurrentOrderCount;
 
   CurrentDeliveryOrdersProvider(
@@ -14,7 +14,7 @@ class CurrentDeliveryOrdersProvider extends BaseProvider {
       : _repository = repository ?? DeliveryRepositoryImp();
 
   Future<void> getDeliveryOrders(String userId) async {
-    Stream<List<Order>> stream = await _repository.getCurrentDeliveryOrders(userId);
+    Stream<List<ShopOrder>> stream = await _repository.getCurrentDeliveryOrders(userId);
     stream.listen((event) {
       orders = event;
       if (updateCurrentOrderCount != null) {

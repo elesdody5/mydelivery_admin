@@ -6,7 +6,7 @@ import 'order_action_model.dart';
 import 'order_list_item.dart';
 
 class OrdersListView extends StatelessWidget {
-  final List<Order> orders;
+  final List<ShopOrder> orders;
 
   final List<OrderActionModel>? orderActions;
   final Function(OrderStatus, String)? updateOrderStatus;

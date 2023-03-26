@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 
 import 'order_status.dart';
 
-class Order {
+class ShopOrder {
   String? id;
   int? deliveryPrice;
   List<CartItem>? _cartItems;
@@ -19,7 +19,7 @@ class Order {
   String? imageUrl;
   String? audioUrl;
 
-  Order(
+  ShopOrder(
       {this.id,
       this.user,
       this.dateTime,
@@ -57,7 +57,7 @@ class Order {
     return totalPrice;
   }
 
-  factory Order.fromJson(Map<String, dynamic>? json, String id) => Order(
+  factory ShopOrder.fromJson(Map<String, dynamic>? json, String id) => ShopOrder(
         id: id,
         dateTime: json?["time"] != null ? DateTime.parse(json?['time']) : null,
         cartItems: List<CartItem>.from(

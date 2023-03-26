@@ -4,19 +4,19 @@ import 'package:core/model/order.dart';
 import 'package:core/model/order_status.dart';
 
 abstract class FireStoreService {
-  Stream<List<Order>> getCurrentDeliveryOrders(String deliveryId);
+  Stream<List<ShopOrder>> getCurrentDeliveryOrders(String deliveryId);
 
-  Future<List<Order>> getDeliveredOrdersForDelivery(String deliveryId);
+  Future<List<ShopOrder>> getDeliveredOrdersForDelivery(String deliveryId);
 
-  Stream<List<Order>> getAvailableOrdersStream();
+  Stream<List<ShopOrder>> getAvailableOrdersStream();
 
-  Future<List<Order>> getAvailableOrders();
+  Future<List<ShopOrder>> getAvailableOrders();
 
-  Future<List<Order>> getDeliveredOrders();
+  Future<List<ShopOrder>> getDeliveredOrders();
 
-  Future<List<Order>> getWithDeliveryOrders();
+  Future<List<ShopOrder>> getWithDeliveryOrders();
 
-  Future<Result> addDeliveryToOrders(User delivery, List<Order> orders);
+  Future<Result> addDeliveryToOrders(User delivery, List<ShopOrder> orders);
 
   Future<void> updateOrderStatus(OrderStatus orderStatus, String orderId);
 
@@ -24,7 +24,7 @@ abstract class FireStoreService {
 
   Future<int> getDeliveryCoins(String deliveryId);
 
-  Future<List<Order>> getAllOrders();
+  Future<List<ShopOrder>> getAllOrders();
 
   Future<void> updateOrdersStatus(List<String> ordersId);
 }

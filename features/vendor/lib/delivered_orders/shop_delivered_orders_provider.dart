@@ -8,10 +8,10 @@ class ShopDeliveredOrdersProvider extends BaseProvider {
 
   ShopDeliveredOrdersProvider({VendorRepository? vendorRepository})
       : _repository = vendorRepository ?? VendorRepositoryImp();
-  List<Order> orders = [];
+  List<ShopOrder> orders = [];
 
   Future<void> getShopDeliveredOrders() async {
-    List<Order> orders = await _repository.getShopDelivered();
+    List<ShopOrder> orders = await _repository.getShopDelivered();
     this.orders = orders;
     notifyListeners();
   }

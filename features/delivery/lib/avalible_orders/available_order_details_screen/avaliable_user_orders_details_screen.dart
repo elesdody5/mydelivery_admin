@@ -41,7 +41,7 @@ class AvailableUserOrdersDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Order>? orders = Get.arguments;
+    List<ShopOrder>? orders = Get.arguments;
 
     provider =
         Provider.of<AvailableUserOrdersDetailsProvider>(context, listen: false);

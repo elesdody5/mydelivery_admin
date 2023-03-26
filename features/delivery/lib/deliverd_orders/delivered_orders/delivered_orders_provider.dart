@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 class DeliveredOrdersProvider extends BaseProvider {
   final DeliveryRepository _repository;
-  List<Order> filteredOrders = [];
-  List<Order> _orders = [];
+  List<ShopOrder> filteredOrders = [];
+  List<ShopOrder> _orders = [];
   void Function(int)? updateDeliveredOrderCount;
 
   DeliveredOrdersProvider(

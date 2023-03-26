@@ -6,7 +6,7 @@ import 'package:user_profile/data/repository/user_repository_imp.dart';
 
 class CurrentUserOrdersProvider extends BaseProvider {
   final UserRepository _repository;
-  List<Order> orders = [];
+  List<ShopOrder> orders = [];
   void Function(int)? updateCurrentOrderCount;
 
   CurrentUserOrdersProvider(
@@ -14,7 +14,7 @@ class CurrentUserOrdersProvider extends BaseProvider {
       : _repository = repository ?? UserRepositoryImp();
 
   Future<void> getUserOrders(String userId) async {
-    Stream<List<Order>> stream = _repository.getCurrentUserOrders(userId);
+    Stream<List<ShopOrder>> stream = _repository.getCurrentUserOrders(userId);
     stream.listen((event) {
       orders = event;
       if (updateCurrentOrderCount != null) {

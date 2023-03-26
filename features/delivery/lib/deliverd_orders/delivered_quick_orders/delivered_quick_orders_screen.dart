@@ -67,6 +67,12 @@ class DeliveredQuickOrdersScreen extends StatelessWidget {
                                     orders: provider.filteredOrders,
                                   ),
                                 ),
+                              // OutlinedButton(
+                              //   onPressed: null,
+                              //   child: Text(
+                              //     "${"coin".tr} ${provider.totalCoins} ",
+                              //   ),
+                              // ),
                                 ElevatedButton(
                                   onPressed: provider.updateOrdersStatus,
                                   child: Text("delete_history".tr),

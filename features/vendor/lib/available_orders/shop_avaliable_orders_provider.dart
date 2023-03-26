@@ -9,10 +9,10 @@ class ShopAvailableOrdersProvider extends BaseProvider {
 
   ShopAvailableOrdersProvider({VendorRepository? vendorRepository})
       : _repository = vendorRepository ?? VendorRepositoryImp();
-  List<Order> orders = [];
+  List<ShopOrder> orders = [];
 
   Future<void> getShopOrders() async {
-    Stream<List<Order>> stream = await _repository.getShopOrders();
+    Stream<List<ShopOrder>> stream = await _repository.getShopOrders();
     stream.listen((event) {
       orders = event;
       notifyListeners();

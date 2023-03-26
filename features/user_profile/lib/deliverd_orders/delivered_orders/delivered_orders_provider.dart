@@ -8,8 +8,8 @@ import '../../data/repository/user_repository_imp.dart';
 
 class DeliveredOrdersProvider extends BaseProvider {
   final UserRepository _repository;
-  List<Order> filteredOrders = [];
-  List<Order> _orders = [];
+  List<ShopOrder> filteredOrders = [];
+  List<ShopOrder> _orders = [];
   void Function(int)? updateDeliveredOrderCount;
 
   DeliveredOrdersProvider(

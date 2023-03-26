@@ -9,7 +9,7 @@ import '../../record/quick_order_record_player.dart';
 import 'details_list_tile.dart';
 
 class OrderDetails extends StatelessWidget {
-  final Order order;
+  final ShopOrder order;
 
   const OrderDetails({Key? key, required this.order}) : super(key: key);
 

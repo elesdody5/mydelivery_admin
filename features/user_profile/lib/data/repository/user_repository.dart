@@ -11,12 +11,12 @@ abstract class UserRepository {
 
   Future<Result<User>> getUserDetails();
 
-  Stream<List<Order>> getCurrentUserOrders(String userId);
+  Stream<List<ShopOrder>> getCurrentUserOrders(String userId);
 
   Future<Result<List<QuickOrder>>> getCurrentUserQuickOrders(String userId);
 
   Future<Result<List<QuickOrder>>> getDeliveredQuickOrders(String userId) ;
 
-  Future<List<Order>> getDeliveredOrdersForUser(String userId) ;
+  Future<List<ShopOrder>> getDeliveredOrdersForUser(String userId) ;
 
 }

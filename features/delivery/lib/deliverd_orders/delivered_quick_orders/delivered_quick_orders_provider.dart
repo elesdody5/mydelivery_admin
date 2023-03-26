@@ -11,6 +11,7 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
   List<QuickOrder> _orders = [];
   void Function(int)? updateDeliveredQuickOrderCount;
   bool? inCityFilter;
+  int? ordersCount;
 
   DeliveredQuickOrdersProvider(
       {DeliveryRepository? deliveryRepository,
@@ -29,6 +30,11 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
       notifyListeners();
     }
   }
+
+  // void getOrdersCount() {
+  //   var list = filteredOrders.where((element) => (element.count ?? 0) > 1);
+  //   ordersCount = filteredOrders.length +
+  // }
 
   void dateFilter(DateTimeRange? dateTime) {
     filteredOrders = filteredOrders

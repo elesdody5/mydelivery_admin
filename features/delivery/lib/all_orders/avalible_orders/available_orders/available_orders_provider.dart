@@ -9,8 +9,8 @@ import 'package:delivery/data/repository/delivery_repository_imp.dart';
 class AllAvailableOrdersProvider extends BaseProvider {
   List<User?> users = [];
   final DeliveryRepository _repository;
-  List<Order> filteredOrders = [];
-  List<Order> _orders = [];
+  List<ShopOrder> filteredOrders = [];
+  List<ShopOrder> _orders = [];
   void Function(int)? updateAvailableOrderCount;
 
   AllAvailableOrdersProvider(
@@ -18,7 +18,7 @@ class AllAvailableOrdersProvider extends BaseProvider {
       : _repository = repository ?? DeliveryRepositoryImp();
 
   void getAvailableOrders() async {
-    List<Order> ordersStream = await _repository.getAvailableOrders();
+    List<ShopOrder> ordersStream = await _repository.getAvailableOrders();
     _orders = ordersStream;
     filteredOrders = [..._orders];
     users = _orders.map((order) => order.user).toSet().toList();

@@ -28,9 +28,9 @@ class HomePage extends StatelessWidget {
           icon: Icons.add,
           direction: SpeedDialDirection.right,
           children: [
-            SpeedDialChild(
-                label: "quick_order".tr,
-                onTap: () => Get.toNamed(quickOrderForm)),
+            // SpeedDialChild(
+            //     label: "quick_order".tr,
+            //     onTap: () => Get.toNamed(quickOrderForm)),
             SpeedDialChild(
                 label: "send_notification".tr,
                 onTap: () => Get.dialog(NotificationDialog(
@@ -227,6 +227,36 @@ class HomePage extends StatelessWidget {
                     ]),
               ),
               onTap: () => Get.toNamed(allOrdersScreen),
+            ),
+            _buildTile(
+              Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              const Material(
+                                  color: Colors.blue,
+                                  shape: CircleBorder(),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(16.0),
+                                    child: Icon(Icons.send,
+                                        color: Colors.white, size: 30.0),
+                                  )),
+                              const Padding(
+                                  padding: EdgeInsets.only(bottom: 16.0)),
+                              Text('send_quick_order'.tr,
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 20.0)),
+                            ]),
+                      ])),
+              onTap: () => Get.toNamed(quickOrderForm),
             ),
             _buildTile(
               Padding(

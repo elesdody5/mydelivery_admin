@@ -192,6 +192,7 @@ Map<String, String> arJson = {
   "connect_via_phone": "التواصل عبر الهاتف",
   "enable_orders": "تشغيل الطلبات",
   "send_notification": "ارسال اشعار",
+  "send_quick_order": "ارسال طلب سريع",
   "send": "ارسال",
   "notification_title": "العنوان",
   "notification_message": "الرسالة",

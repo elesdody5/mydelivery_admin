@@ -5,8 +5,8 @@ import 'package:delivery/data/repository/delivery_repository.dart';
 import 'package:delivery/data/repository/delivery_repository_imp.dart';
 
 class AllWithDeliveryOrdersProvider extends BaseProvider {
-  List<Order> _orders = [];
-  List<Order> filteredOrders = [];
+  List<ShopOrder> _orders = [];
+  List<ShopOrder> filteredOrders = [];
   final DeliveryRepository _repository;
   void Function(int)? updateWithDeliveryOrderCount;
 

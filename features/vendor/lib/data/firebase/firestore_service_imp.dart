@@ -11,7 +11,7 @@ class FireStoreServiceImp implements FireStoreService {
       : _fireStore = fireStore ?? FirebaseFirestore.instance;
 
   @override
-  Stream<List<Order>> getAvailableShopOrders(String shopId) {
+  Stream<List<ShopOrder>> getAvailableShopOrders(String shopId) {
     final stream = _fireStore
         .collection("orders")
         .where("shop._id", isEqualTo: shopId)
@@ -20,11 +20,11 @@ class FireStoreServiceImp implements FireStoreService {
       OrderStatus.refusedFromShop.enumToString()
     ]).snapshots();
     return stream.map((event) =>
-        event.docs.map((e) => Order.fromJson(e.data(), e.id)).toList());
+        event.docs.map((e) => ShopOrder.fromJson(e.data(), e.id)).toList());
   }
 
   @override
-  Future<List<Order>> getDeliveredOrdersForShop(String deliveryId) async {
+  Future<List<ShopOrder>> getDeliveredOrdersForShop(String deliveryId) async {
     final response = await _fireStore
         .collection("orders")
         .where("shop._id", isEqualTo: deliveryId)
@@ -33,7 +33,7 @@ class FireStoreServiceImp implements FireStoreService {
       OrderStatus.refusedFromShop.enumToString()
     ]).get();
     return response.docs
-        .map((doc) => Order.fromJson(doc.data(), doc.id))
+        .map((doc) => ShopOrder.fromJson(doc.data(), doc.id))
         .toList();
   }
 

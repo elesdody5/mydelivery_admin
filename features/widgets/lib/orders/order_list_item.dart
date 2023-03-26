@@ -10,7 +10,7 @@ import 'bottom_sheet_details/order_details.dart';
 import 'order_status.dart';
 
 class OrderListItem extends StatelessWidget {
-  final Order order;
+  final ShopOrder order;
   final List<OrderActionModel>? orderActions;
   final Function(OrderStatus, String)? updateOrderStatus;
 

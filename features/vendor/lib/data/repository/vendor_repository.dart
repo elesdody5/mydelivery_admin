@@ -33,11 +33,11 @@ abstract class VendorRepository {
 
   Future<Result<User>> getUserData();
 
-  Future<Stream<List<Order>>> getShopOrders();
+  Future<Stream<List<ShopOrder>>> getShopOrders();
 
   Future<void> updateOrderStatus(String orderId, OrderStatus orderStatus);
 
-  Future<List<Order>> getShopDelivered();
+  Future<List<ShopOrder>> getShopDelivered();
 
   Future<Result> removeSubCategory(String id);
 

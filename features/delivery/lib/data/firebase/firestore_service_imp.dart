@@ -14,7 +14,7 @@ class FireStoreServiceImp implements FireStoreService {
       : _fireStore = fireStore ?? FirebaseFirestore.instance;
 
   @override
-  Stream<List<Order>> getCurrentDeliveryOrders(String deliveryId) {
+  Stream<List<ShopOrder>> getCurrentDeliveryOrders(String deliveryId) {
     final stream = _fireStore
         .collection("orders")
         .where("delivery._id", isEqualTo: deliveryId)
@@ -22,33 +22,33 @@ class FireStoreServiceImp implements FireStoreService {
             isNotEqualTo: OrderStatus.delivered.enumToString())
         .snapshots();
     return stream.map((event) =>
-        event.docs.map((e) => Order.fromJson(e.data(), e.id)).toList());
+        event.docs.map((e) => ShopOrder.fromJson(e.data(), e.id)).toList());
   }
 
   @override
-  Future<List<Order>> getDeliveredOrdersForDelivery(String deliveryId) async {
+  Future<List<ShopOrder>> getDeliveredOrdersForDelivery(String deliveryId) async {
     final response = await _fireStore
         .collection("orders")
         .where("delivery._id", isEqualTo: deliveryId)
         .where("orderStatus", isEqualTo: OrderStatus.delivered.enumToString())
         .get();
     return response.docs
-        .map((doc) => Order.fromJson(doc.data(), doc.id))
+        .map((doc) => ShopOrder.fromJson(doc.data(), doc.id))
         .toList();
   }
 
   @override
-  Stream<List<Order>> getAvailableOrdersStream() {
+  Stream<List<ShopOrder>> getAvailableOrdersStream() {
     final stream = _fireStore
         .collection("orders")
         .where("delivery", isNull: true)
         .snapshots(includeMetadataChanges: true);
     return stream.map((event) =>
-        event.docs.map((e) => Order.fromJson(e.data(), e.id)).toList());
+        event.docs.map((e) => ShopOrder.fromJson(e.data(), e.id)).toList());
   }
 
   @override
-  Future<Result> addDeliveryToOrders(User delivery, List<Order> orders) async {
+  Future<Result> addDeliveryToOrders(User delivery, List<ShopOrder> orders) async {
     final ordersCollection = _fireStore.collection("orders");
     WriteBatch batch = _fireStore.batch();
     for (var order in orders) {
@@ -102,45 +102,45 @@ class FireStoreServiceImp implements FireStoreService {
   }
 
   @override
-  Future<List<Order>> getAllOrders() async {
+  Future<List<ShopOrder>> getAllOrders() async {
     final response = await _fireStore.collection("orders").get();
     return response.docs
-        .map((doc) => Order.fromJson(doc.data(), doc.id))
+        .map((doc) => ShopOrder.fromJson(doc.data(), doc.id))
         .toList();
   }
 
   @override
-  Future<List<Order>> getAvailableOrders() async {
+  Future<List<ShopOrder>> getAvailableOrders() async {
     final orders = await _fireStore
         .collection("orders")
         .where("delivery", isNull: true)
         .orderBy("time", descending: true)
         .get();
     return orders.docs
-        .map((doc) => Order.fromJson(doc.data(), doc.id))
+        .map((doc) => ShopOrder.fromJson(doc.data(), doc.id))
         .toList();
   }
 
   @override
-  Future<List<Order>> getWithDeliveryOrders() async {
+  Future<List<ShopOrder>> getWithDeliveryOrders() async {
     final orders = await _fireStore
         .collection("orders")
         .where("orderStatus",isEqualTo: OrderStatus.withDelivery)
         .get();
     return orders.docs
-        .map((doc) => Order.fromJson(doc.data(), doc.id))
+        .map((doc) => ShopOrder.fromJson(doc.data(), doc.id))
         .toList();
   }
 
   @override
-  Future<List<Order>> getDeliveredOrders() async {
+  Future<List<ShopOrder>> getDeliveredOrders() async {
     final orders = await _fireStore
         .collection("orders")
         .where("orderStatus", isEqualTo: OrderStatus.delivered.enumToString())
         .orderBy("time", descending: true)
         .get();
     return orders.docs
-        .map((doc) => Order.fromJson(doc.data(), doc.id))
+        .map((doc) => ShopOrder.fromJson(doc.data(), doc.id))
         .toList();
   }
 

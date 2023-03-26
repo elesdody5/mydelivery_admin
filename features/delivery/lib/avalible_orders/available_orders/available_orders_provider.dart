@@ -9,7 +9,7 @@ import 'package:delivery/data/repository/delivery_repository_imp.dart';
 class AvailableOrdersProvider extends BaseProvider {
   List<User?> users = [];
   final DeliveryRepository _repository;
-  List<Order> orders = [];
+  List<ShopOrder> orders = [];
   void Function(int)? updateAvailableOrderCount;
 
   AvailableOrdersProvider(
@@ -17,7 +17,7 @@ class AvailableOrdersProvider extends BaseProvider {
       : _repository = repository ?? DeliveryRepositoryImp();
 
   void getAvailableOrders() {
-    Stream<List<Order>> ordersStream = _repository.getAvailableOrdersStream();
+    Stream<List<ShopOrder>> ordersStream = _repository.getAvailableOrdersStream();
     ordersStream.listen((orders) {
       this.orders = orders;
       users = orders.map((order) => order.user).toSet().toList();
@@ -29,7 +29,7 @@ class AvailableOrdersProvider extends BaseProvider {
   }
 
   void navigateToUserOrderDetails(String userId) {
-    List<Order> selectedOrders =
+    List<ShopOrder> selectedOrders =
         orders.where((element) => element.user?.id == userId).toList();
     navigation.value = Destination(
         routeName: availableOrderDetailsScreen, argument: selectedOrders);

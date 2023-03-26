@@ -7,7 +7,7 @@ import 'package:widgets/orders/bottom_sheet_details/order_details.dart';
 import '../order_action_model.dart';
 
 class OrderBottomSheetActions extends StatelessWidget {
-  final Order order;
+  final ShopOrder order;
   final List<OrderActionModel>? orderActions;
   final Function(OrderStatus, String)? updateOrderStatus;
 

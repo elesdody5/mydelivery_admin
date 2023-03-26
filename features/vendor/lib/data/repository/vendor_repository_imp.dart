@@ -125,7 +125,7 @@ class VendorRepositoryImp implements VendorRepository {
   }
 
   @override
-  Future<Stream<List<Order>>> getShopOrders() async {
+  Future<Stream<List<ShopOrder>>> getShopOrders() async {
     String? shopId = await _sharedPreferencesManager.getVendorShopId();
     return _fireStoreService.getAvailableShopOrders(shopId ?? "");
   }
@@ -136,7 +136,7 @@ class VendorRepositoryImp implements VendorRepository {
   }
 
   @override
-  Future<List<Order>> getShopDelivered() async {
+  Future<List<ShopOrder>> getShopDelivered() async {
     String? shopId = await _sharedPreferencesManager.getVendorShopId();
     return _fireStoreService.getDeliveredOrdersForShop(shopId ?? "");
   }

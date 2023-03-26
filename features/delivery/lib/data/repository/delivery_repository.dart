@@ -10,19 +10,19 @@ abstract class DeliveryRepository {
 
   Future<Result<User>> getRemoteUserDetails(String deliveyId);
 
-  Stream<List<Order>> getAvailableOrdersStream();
+  Stream<List<ShopOrder>> getAvailableOrdersStream();
 
-  Future<List<Order>> getAvailableOrders();
+  Future<List<ShopOrder>> getAvailableOrders();
 
-  Future<List<Order>> getWithDeliveryOrders();
+  Future<List<ShopOrder>> getWithDeliveryOrders();
 
-  Future<List<Order>> getDeliveredOrders();
+  Future<List<ShopOrder>> getDeliveredOrders();
 
-  Future<Result> addDeliveryToOrders(List<Order> orders);
+  Future<Result> addDeliveryToOrders(List<ShopOrder> orders);
 
-  Future<Stream<List<Order>>> getCurrentDeliveryOrders(String userId);
+  Future<Stream<List<ShopOrder>>> getCurrentDeliveryOrders(String userId);
 
-  Future<List<Order>> getDeliveredOrdersForDelivery(String userId);
+  Future<List<ShopOrder>> getDeliveredOrdersForDelivery(String userId);
 
   Future<void> updateOrderStatus(String orderId, OrderStatus orderStatus);
 
@@ -52,7 +52,7 @@ abstract class DeliveryRepository {
 
   Future<Result<List<QuickOrder>>> getAllQuickOrders();
 
-  Future<List<Order>> getAllOrders();
+  Future<List<ShopOrder>> getAllOrders();
 
   Future<Result<List<QuickOrder>>> getAllDeliveredQuickOrders();
 

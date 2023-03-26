@@ -53,7 +53,7 @@ class UserRepositoryImp implements UserRepository {
   }
 
   @override
-  Stream<List<Order>> getCurrentUserOrders(String userId) {
+  Stream<List<ShopOrder>> getCurrentUserOrders(String userId) {
     return _fireStoreService.getCurrentUserOrders(userId);
   }
 
@@ -68,7 +68,7 @@ class UserRepositoryImp implements UserRepository {
   }
 
   @override
-  Future<List<Order>> getDeliveredOrdersForUser(String userId) {
+  Future<List<ShopOrder>> getDeliveredOrdersForUser(String userId) {
     return _fireStoreService.getDeliveredOrdersForUser(userId);
   }
 }

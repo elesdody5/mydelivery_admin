@@ -30,13 +30,14 @@ dependencies:
   form_builder_image_picker: ^2.0.0
   flutter_speed_dial: ^5.0.0+1
   mime: ^1.0.1
-  cloud_firestore: ^3.1.17
+  cloud_firestore: ^4.4.5
   animated_text_kit: ^4.2.1
   curved_navigation_bar: ^1.0.3
   flutter_rating_bar: ^4.0.1
   record: ^4.4.0
   audioplayers: ^1.0.0
-
+  flutter_typeahead: ^4.3.1
+  flutter_contacts: ^1.1.6
 
 
 dev_dependencies:
