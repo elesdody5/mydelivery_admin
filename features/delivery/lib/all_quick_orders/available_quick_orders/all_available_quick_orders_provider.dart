@@ -33,4 +33,16 @@ class AllAvailableQuickOrdersProvider extends BaseProvider {
         .toList(growable: false);
     notifyListeners();
   }
+  Future<void> deleteQuickOrder(QuickOrder quickOrder) async {
+    isLoading.value = true;
+    Result result = await _repository.removeQuickOrder(quickOrder.id);
+    if (result.succeeded()) {
+      _orders.remove(quickOrder);
+      filteredQuickOrders = [..._orders];
+    } else {
+      errorMessage.value = "something_went_wrong";
+    }
+    isLoading.value = false;
+    notifyListeners();
+  }
 }

@@ -1,3 +1,5 @@
+import 'package:core/domain/quick_order.dart';
+import 'package:core/utils/utils.dart';
 import 'package:widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:widgets/empty_widget.dart';
@@ -11,12 +13,40 @@ import 'all_available_quick_orders_provider.dart';
 class AllAvailableQuickOrdersScreen extends StatelessWidget {
   const AllAvailableQuickOrdersScreen({Key? key}) : super(key: key);
 
+  void _setupListener(AllAvailableQuickOrdersProvider provider) {
+    setupErrorMessageListener(provider.errorMessage);
+    setupLoadingListener(provider.isLoading);
+    setupSuccessMessageListener(provider.successMessage);
+  }
+
+  void _showAlertDialog(
+      AllAvailableQuickOrdersProvider provider, QuickOrder quickOrder) {
+    Get.dialog(AlertDialog(
+      title: Text("are_you_sure".tr),
+      content: Text("do_you_to_remove_shop".tr),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Get.back();
+            provider.deleteQuickOrder(quickOrder);
+          },
+          child: Text("yes".tr),
+        ),
+        TextButton(
+          onPressed: () => Get.back(),
+          child: Text("cancel".tr),
+        )
+      ],
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
+    final provider =
+        Provider.of<AllAvailableQuickOrdersProvider>(context, listen: false);
+    _setupListener(provider);
     return FutureWithLoadingProgress(
-      future:
-          Provider.of<AllAvailableQuickOrdersProvider>(context, listen: false)
-              .getAvailableDeliveryOrders,
+      future: provider.getAvailableDeliveryOrders,
       child: Consumer<AllAvailableQuickOrdersProvider>(
           builder: (_, provider, child) => Column(
                 children: [
@@ -39,6 +69,8 @@ class AllAvailableQuickOrdersScreen extends StatelessWidget {
                           )
                         : QuickOrdersListView(
                             orders: provider.filteredQuickOrders,
+                            onLongPress: (quickOrder) =>
+                                _showAlertDialog(provider, quickOrder),
                           ),
                   ),
                 ],
