@@ -6,4 +6,6 @@ abstract class RemoteDataSource {
   Future<Result> sendQuickOrder(QuickOrder quickOrder);
 
   Future<Result<List<Shop>>> getAllShops();
+
+  Future<Result> updateQuickOrder(QuickOrder quickOrder) ;
 }

@@ -6,10 +6,16 @@ class QuickOrdersListView extends StatelessWidget {
   final List<QuickOrder> orders;
   final Function(QuickOrder)? pickOrder;
   final Function(QuickOrder)? deliverOrder;
-  final Function(QuickOrder)? onLongPress;
+  final Function(QuickOrder)? deleteQuickOrder;
+  final Function(QuickOrder)? updateQuickOrder;
 
   const QuickOrdersListView(
-      {Key? key, required this.orders, this.pickOrder, this.deliverOrder,this.onLongPress})
+      {Key? key,
+      required this.orders,
+      this.pickOrder,
+      this.deliverOrder,
+      this.deleteQuickOrder,
+      this.updateQuickOrder})
       : super(key: key);
 
   @override
@@ -20,7 +26,8 @@ class QuickOrdersListView extends StatelessWidget {
         quickOrder: orders[index],
         pickOrder: pickOrder,
         deliverOrder: deliverOrder,
-        onLongPress: onLongPress,
+        deleteQuickOrder: deleteQuickOrder,
+        updateQuickOrder: updateQuickOrder,
       ),
       separatorBuilder: (context, index) => const Divider(
         thickness: 1,

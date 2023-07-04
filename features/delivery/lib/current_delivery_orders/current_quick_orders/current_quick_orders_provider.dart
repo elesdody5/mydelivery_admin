@@ -53,4 +53,11 @@ class CurrentQuickOrderProvider extends BaseProvider {
     isLoading.value = false;
     notifyListeners();
   }
+  void updateQuickOrderInList(QuickOrder? quickOrder) {
+    if (quickOrder != null) {
+      int index = orders.indexWhere((element) => element.id == quickOrder.id);
+      orders[index] = quickOrder;
+      notifyListeners();
+    }
+  }
 }

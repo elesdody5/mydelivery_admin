@@ -14,7 +14,7 @@ class ApiServiceImp implements ApiService {
   ApiServiceImp({Dio? dio}) : _dio = dio ?? DioBuilder.getDio();
 
   @override
-  Future<ApiResponse> sendQuickOrder(QuickOrder quickOrder) async {
+  Future<ApiResponse> addQuickOrder(QuickOrder quickOrder) async {
     try {
       final response = await _dio.post(quickOrderUrl,
           queryParameters: {"userType": "delivery"},
@@ -62,5 +62,15 @@ class ApiServiceImp implements ApiService {
     List<Shop> shops = [];
     response.data["shops"].forEach((json) => shops.add(Shop.fromJson(json)));
     return ApiResponse(responseData: shops);
+  }
+  @override
+  Future<ApiResponse> removeQuickOrder(String? id) async {
+    final response = await _dio
+        .delete(quickOrderUrl, queryParameters: {"quickOrderId": id});
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print("error message is ${response.data['message']}");
+      return ApiResponse(errorMessage: response.data['message']);
+    }
+    return ApiResponse(responseData: true);
   }
 }

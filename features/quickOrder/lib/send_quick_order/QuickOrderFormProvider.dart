@@ -17,30 +17,39 @@ class QuickOrderFormProvider extends BaseProvider {
   List<PhoneContact> phoneContacts = [];
 
   QuickOrderFormProvider({Repository? repository})
-      : _repository = repository ?? MainRepository();
+      : _repository = repository ?? QuickOrderRepository();
 
   Future<void> sendQuickOrder() async {
     isLoading.value = true;
-    quickOrder.dateTime = DateTime.now();
-    Result result = await _repository.sendQuickOrder(quickOrder);
+    Result result;
+    if (quickOrder.id != null) {
+      result = await _repository.updateQuickOrder(quickOrder);
+    } else {
+      result = await addQuickOrder();
+    }
     isLoading.value = false;
     if (result.succeeded()) {
       successMessage.value = "quick_order_successfully";
     } else {
       errorMessage.value = "something_went_wrong";
     }
-    quickOrder = QuickOrder();
   }
 
-  Future<void> init() async {
+  Future<Result> addQuickOrder() async {
+    quickOrder.dateTime = DateTime.now();
+    return await _repository.sendQuickOrder(quickOrder);
+  }
+
+  Future<void> init(QuickOrder? quickOrder) async {
+    setInitQuickOrder(quickOrder);
     await Future.wait([getShops(), getContacts()]);
+    notifyListeners();
   }
 
   Future<void> getShops() async {
     Result result = await _repository.getAllShops();
     if (result.succeeded()) {
       shops = result.getDataIfSuccess();
-      notifyListeners();
     }
   }
 
@@ -66,7 +75,6 @@ class QuickOrderFormProvider extends BaseProvider {
         }
         return PhoneContact(name: contact.displayName, number: number);
       }).toList();
-      notifyListeners();
     }
   }
 
@@ -83,5 +91,11 @@ class QuickOrderFormProvider extends BaseProvider {
   String _reverseNumber(String number) {
     List<String> numbers = number.split(" ");
     return numbers.join("");
+  }
+
+  void setInitQuickOrder(QuickOrder? quickOrder) {
+    if (quickOrder != null) {
+      this.quickOrder = quickOrder;
+    }
   }
 }

@@ -4,7 +4,6 @@ import 'package:core/model/http_exception.dart';
 import 'package:core/model/response.dart';
 import 'package:core/model/shop.dart';
 
-
 import 'network/api_service.dart';
 import 'network/api_service_imp.dart';
 import 'remote_data_source.dart';
@@ -30,15 +29,27 @@ class RemoteDataSourceImp implements RemoteDataSource {
     }
   }
 
-
   @override
-  Future<Result> sendQuickOrder(QuickOrder quickOrder) async {
-    var response = await _apiService.sendQuickOrder(quickOrder);
+  Future<Result<QuickOrder>> sendQuickOrder(QuickOrder quickOrder) async {
+    var response = await _apiService.addQuickOrder(quickOrder);
     return _getResultFromResponse(response);
   }
+
   @override
   Future<Result<List<Shop>>> getAllShops() async {
     var response = await _apiService.getAllShops();
     return _getResultFromResponse(response);
+  }
+
+  @override
+  Future<Result> updateQuickOrder(QuickOrder quickOrder) async {
+    var removeResponse = await _apiService.removeQuickOrder(quickOrder.id);
+    Result result = _getResultFromResponse(removeResponse);
+    if (result.succeeded()) {
+      var response = await _apiService.addQuickOrder(quickOrder);
+      return _getResultFromResponse(response);
+    } else {
+      return _getResultFromResponse(removeResponse);
+    }
   }
 }

@@ -33,6 +33,7 @@ class AllAvailableQuickOrdersProvider extends BaseProvider {
         .toList(growable: false);
     notifyListeners();
   }
+
   Future<void> deleteQuickOrder(QuickOrder quickOrder) async {
     isLoading.value = true;
     Result result = await _repository.removeQuickOrder(quickOrder.id);
@@ -44,5 +45,14 @@ class AllAvailableQuickOrdersProvider extends BaseProvider {
     }
     isLoading.value = false;
     notifyListeners();
+  }
+
+  void updateQuickOrderInList(QuickOrder? quickOrder) {
+    if (quickOrder != null) {
+      int index = _orders.indexWhere((element) => element.id == quickOrder.id);
+      _orders[index] = quickOrder;
+      filteredQuickOrders = [..._orders];
+      notifyListeners();
+    }
   }
 }

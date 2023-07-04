@@ -1,4 +1,5 @@
 import 'package:core/domain/quick_order.dart';
+import 'package:core/screens.dart';
 import 'package:core/utils/utils.dart';
 import 'package:delivery/current_delivery_orders/current_quick_orders/current_quick_orders_provider.dart';
 import 'package:widgets/quick_orders/quick_orders_list_view.dart';
@@ -60,8 +61,13 @@ class CurrentQuickOrdersScreen extends StatelessWidget {
               : QuickOrdersListView(
                   orders: provider.orders,
                   deliverOrder: provider.changeQuickOrderStatus,
-                  onLongPress: (quickOrder) =>
+                  deleteQuickOrder: (quickOrder) =>
                       _showAlertDialog(provider, quickOrder),
+                  updateQuickOrder: (quickOrder) async {
+                    QuickOrder result = await Get.toNamed(quickOrderForm,
+                        arguments: quickOrder);
+                    provider.updateQuickOrderInList(result);
+                  },
                 )),
     );
   }

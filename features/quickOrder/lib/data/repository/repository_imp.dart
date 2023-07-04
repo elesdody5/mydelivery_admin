@@ -7,11 +7,11 @@ import '../remote/remote_data_source.dart';
 import '../remote/remote_data_source_im.dart';
 
 
-class MainRepository implements Repository {
+class QuickOrderRepository implements Repository {
   final RemoteDataSource _remoteDataSource;
 
 
-  MainRepository(
+  QuickOrderRepository(
       {RemoteDataSource? remoteDataSource})
       : _remoteDataSource = remoteDataSource ?? RemoteDataSourceImp();
   @override
@@ -21,5 +21,10 @@ class MainRepository implements Repository {
   @override
   Future<Result<List<Shop>>> getAllShops() {
     return _remoteDataSource.getAllShops();
+  }
+
+  @override
+  Future<Result> updateQuickOrder(QuickOrder quickOrder) {
+    return _remoteDataSource.updateQuickOrder(quickOrder);
   }
 }

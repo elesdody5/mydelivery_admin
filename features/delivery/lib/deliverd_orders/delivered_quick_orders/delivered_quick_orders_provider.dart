@@ -83,4 +83,26 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
         _orders.where((element) => element.inCity == inCity).toList();
     notifyListeners();
   }
+
+  Future<void> deleteQuickOrder(QuickOrder quickOrder) async {
+    isLoading.value = true;
+    Result result = await _repository.removeQuickOrder(quickOrder.id);
+    if (result.succeeded()) {
+      _orders.remove(quickOrder);
+      filteredOrders = [..._orders];
+    } else {
+      errorMessage.value = "something_went_wrong";
+    }
+    isLoading.value = false;
+    notifyListeners();
+  }
+
+  void updateQuickOrderInList(QuickOrder? quickOrder) {
+    if (quickOrder != null) {
+      int index = _orders.indexWhere((element) => element.id == quickOrder.id);
+      _orders[index] = quickOrder;
+      filteredOrders = [..._orders];
+      notifyListeners();
+    }
+  }
 }

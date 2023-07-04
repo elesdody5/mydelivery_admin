@@ -59,4 +59,26 @@ class AllDeliveredQuickOrdersProvider extends BaseProvider {
         firstDay?.month == secondDay?.month &&
         firstDay?.day == secondDay?.day;
   }
+
+  Future<void> deleteQuickOrder(QuickOrder quickOrder) async {
+    isLoading.value = true;
+    Result result = await _repository.removeQuickOrder(quickOrder.id);
+    if (result.succeeded()) {
+      _orders.remove(quickOrder);
+      filteredQuickOrders = [..._orders];
+    } else {
+      errorMessage.value = "something_went_wrong";
+    }
+    isLoading.value = false;
+    notifyListeners();
+  }
+
+  void updateQuickOrderInList(QuickOrder? quickOrder) {
+    if (quickOrder != null) {
+      int index = _orders.indexWhere((element) => element.id == quickOrder.id);
+      _orders[index] = quickOrder;
+      filteredQuickOrders = [..._orders];
+      notifyListeners();
+    }
+  }
 }

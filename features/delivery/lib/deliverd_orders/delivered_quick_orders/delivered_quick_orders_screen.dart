@@ -1,3 +1,5 @@
+import 'package:core/domain/quick_order.dart';
+import 'package:core/screens.dart';
 import 'package:core/utils/utils.dart';
 import 'package:delivery/deliverd_orders/delivered_quick_orders/delivered_quick_orders_provider.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,27 @@ class DeliveredQuickOrdersScreen extends StatelessWidget {
     setupErrorMessageListener(provider.errorMessage);
     setupLoadingListener(provider.isLoading);
     setupSuccessMessageListener(provider.successMessage);
+  }
+
+  void _showAlertDialog(
+      DeliveredQuickOrdersProvider provider, QuickOrder quickOrder) {
+    Get.dialog(AlertDialog(
+      title: Text("are_you_sure".tr),
+      content: Text("do_you_to_remove_shop".tr),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Get.back();
+            provider.deleteQuickOrder(quickOrder);
+          },
+          child: Text("yes".tr),
+        ),
+        TextButton(
+          onPressed: () => Get.back(),
+          child: Text("cancel".tr),
+        )
+      ],
+    ));
   }
 
   @override
@@ -65,6 +88,14 @@ class DeliveredQuickOrdersScreen extends StatelessWidget {
                                 Expanded(
                                   child: QuickOrdersListView(
                                     orders: provider.filteredOrders,
+                                    deleteQuickOrder: (quickOrder) =>
+                                        _showAlertDialog(provider, quickOrder),
+                                    updateQuickOrder: (quickOrder) async {
+                                      QuickOrder result = await Get.toNamed(
+                                          quickOrderForm,
+                                          arguments: quickOrder);
+                                      provider.updateQuickOrderInList(result);
+                                    },
                                   ),
                                 ),
                                 OutlinedButton(

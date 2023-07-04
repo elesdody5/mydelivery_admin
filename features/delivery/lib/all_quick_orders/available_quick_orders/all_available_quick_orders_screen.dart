@@ -1,4 +1,5 @@
 import 'package:core/domain/quick_order.dart';
+import 'package:core/screens.dart';
 import 'package:core/utils/utils.dart';
 import 'package:widgets/search_widget.dart';
 import 'package:flutter/material.dart';
@@ -69,8 +70,14 @@ class AllAvailableQuickOrdersScreen extends StatelessWidget {
                           )
                         : QuickOrdersListView(
                             orders: provider.filteredQuickOrders,
-                            onLongPress: (quickOrder) =>
+                            deleteQuickOrder: (quickOrder) =>
                                 _showAlertDialog(provider, quickOrder),
+                            updateQuickOrder: (quickOrder) async {
+                              QuickOrder result = await Get.toNamed(
+                                  quickOrderForm,
+                                  arguments: quickOrder);
+                              provider.updateQuickOrderInList(result);
+                            },
                           ),
                   ),
                 ],
