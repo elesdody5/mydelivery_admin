@@ -3,7 +3,7 @@ import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
 import 'package:core/model/shop.dart';
-import 'package:dashboard/domain/model/PhoneContact.dart';
+import 'package:quickorder/domain/model/PhoneContact.dart';
 
 import '../data/repository/repository.dart';
 import '../data/repository/repository_imp.dart';
@@ -54,6 +54,7 @@ class QuickOrderFormProvider extends BaseProvider {
           contacts.where((element) => element.phones.isNotEmpty).map((contact) {
         String number = contact.phones.first.number;
         number = number.replaceAll("+", "");
+
         if (_hasWitheSpaces(number)) {
           number = _reverseNumber(number);
         }
