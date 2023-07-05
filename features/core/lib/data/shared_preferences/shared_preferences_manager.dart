@@ -5,6 +5,7 @@
 import 'dart:convert';
 
 import 'package:core/const.dart';
+import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/user.dart';
 import 'package:core/domain/user_type.dart';
 import 'package:core/utils/utils.dart';
@@ -138,5 +139,22 @@ class SharedPreferencesManagerImp implements SharedPreferencesManager {
   Future<void> saveUserPhone(String phone) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setString(phoneKey, phone);
+  }
+
+  @override
+  Future<QuickOrder?> getScheduledQuickOrder() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? quickOrderJson = sharedPreferences.getString(quickOrderKey);
+    if (quickOrderJson == null) return null;
+    sharedPreferences.remove(quickOrderKey);
+    return QuickOrder.fromJson(json.decode(quickOrderJson));
+  }
+
+  @override
+  Future<void> saveScheduleQuickOrder(QuickOrder quickOrder) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var quickOrderJson = await quickOrder.toJson();
+    String quickOrderEncoded = json.encode(quickOrderJson);
+    sharedPreferences.setString(quickOrderKey, quickOrderEncoded);
   }
 }

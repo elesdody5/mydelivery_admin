@@ -1,3 +1,4 @@
+import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/user.dart';
 import 'package:core/domain/user_type.dart';
 
@@ -31,8 +32,16 @@ abstract class SharedPreferencesManager {
   Future<void> saveVendorShopId(String shopId);
 
   Future<String?> getVendorShopId();
+
   Future<void> saveUserPhone(String phone);
+
   Future<void> saveUserPassword(String password);
+
   Future<String?> getUserPhone();
+
   Future<String?> getUserPassword();
+
+  Future<void> saveScheduleQuickOrder(QuickOrder quickOrder);
+
+  Future<QuickOrder?> getScheduledQuickOrder();
 }

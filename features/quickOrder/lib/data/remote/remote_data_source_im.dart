@@ -30,7 +30,7 @@ class RemoteDataSourceImp implements RemoteDataSource {
   }
 
   @override
-  Future<Result<QuickOrder>> sendQuickOrder(QuickOrder quickOrder) async {
+  Future<Result> sendQuickOrder(QuickOrder quickOrder) async {
     var response = await _apiService.addQuickOrder(quickOrder);
     return _getResultFromResponse(response);
   }

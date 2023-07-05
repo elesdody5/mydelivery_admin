@@ -33,6 +33,7 @@ class QuickOrderFormProvider extends BaseProvider {
     } else {
       errorMessage.value = "something_went_wrong";
     }
+    quickOrder = QuickOrder();
   }
 
   Future<Result> addQuickOrder() async {
@@ -97,5 +98,11 @@ class QuickOrderFormProvider extends BaseProvider {
     if (quickOrder != null) {
       this.quickOrder = quickOrder;
     }
+  }
+
+  Future<void> scheduleQuickOrder(Duration duration) async {
+    quickOrder.dateTime = DateTime.now();
+    await _repository.scheduleQuickOrder(duration, quickOrder);
+    successMessage.value = "quick_order_successfully";
   }
 }

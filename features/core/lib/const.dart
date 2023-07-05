@@ -7,6 +7,7 @@ const localKey = "LOCAL";
 const userTypeKey = "type";
 const notificationTokenKey = "notificationToken";
 const shopIdKey = "shop_id";
+const quickOrderKey = "quickOrder";
 
 const cartItemTableName = "cartItem";
 

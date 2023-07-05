@@ -8,4 +8,6 @@ abstract class Repository {
   Future<Result<List<Shop>>> getAllShops();
 
   Future<Result> updateQuickOrder(QuickOrder quickOrder);
+
+  Future<void> scheduleQuickOrder(Duration duration, QuickOrder quickOrder);
 }

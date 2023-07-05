@@ -68,6 +68,27 @@ class QuickOrderForm extends StatelessWidget {
     }
   }
 
+  Future<void> _pickMinutes(QuickOrderFormProvider provider) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: Get.context!,
+      initialTime: TimeOfDay.now().replacing(hour: 0, minute: 0),
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+          child: child!,
+        );
+      },
+      initialEntryMode: TimePickerEntryMode.input,
+      helpText: 'schedule_quick_order'.tr,
+      confirmText: 'confirm'.tr,
+    );
+    if (picked != null) {
+      final int hours = picked.hour;
+      final int minutes = picked.minute;
+      provider.scheduleQuickOrder(Duration(hours: hours, minutes: minutes));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     QuickOrder? quickOrder = Get.arguments;
@@ -278,6 +299,28 @@ class QuickOrderForm extends StatelessWidget {
                           child: Text(provider.quickOrder.id == null
                               ? "confirm".tr
                               : "update".tr)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: OutlinedButton(
+                          onPressed: () {
+                            if (_formKey.currentState?.validate() == true) {
+                              _formKey.currentState?.save();
+                              _pickMinutes(provider);
+                            }
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.schedule_outlined,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text("schedule_quick_order".tr),
+                              ),
+                            ],
+                          )),
                     )
                   ],
                 ),
