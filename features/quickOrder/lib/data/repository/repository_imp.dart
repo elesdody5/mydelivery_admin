@@ -5,6 +5,9 @@ import 'package:core/data/shared_preferences/user_manager_interface.dart';
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/model/shop.dart';
+import 'package:quickorder/data/local/entity/local_quick_order.dart';
+import 'package:quickorder/data/local/entity/local_quick_order_table.dart';
+import 'package:quickorder/data/local/quick_order_local_data_source.dart';
 import 'package:quickorder/data/repository/repository.dart';
 
 import '../remote/remote_data_source.dart';
@@ -12,11 +15,13 @@ import '../remote/remote_data_source_im.dart';
 
 class QuickOrderRepository implements Repository {
   final RemoteDataSource _remoteDataSource;
-  final SharedPreferencesManager _sharedPreferencesManager;
+  final QuickOrderLocalDataSource _localDataSource;
 
-  QuickOrderRepository({RemoteDataSource? remoteDataSource})
+  QuickOrderRepository(
+      {RemoteDataSource? remoteDataSource,
+      QuickOrderLocalDataSource? localDataSource})
       : _remoteDataSource = remoteDataSource ?? RemoteDataSourceImp(),
-        _sharedPreferencesManager = SharedPreferencesManagerImp();
+        _localDataSource = QuickOrderLocalDataSource();
 
   @override
   Future<Result> sendQuickOrder(QuickOrder quickOrder) {
@@ -36,18 +41,27 @@ class QuickOrderRepository implements Repository {
   @override
   Future<void> scheduleQuickOrder(
       Duration duration, QuickOrder quickOrder) async {
-    _sharedPreferencesManager.saveScheduleQuickOrder(quickOrder);
+    int id =
+        await _localDataSource.insertQuickOrder(quickOrder.toLocalQuickOrder());
     await AndroidAlarmManager.initialize();
-    await AndroidAlarmManager.periodic(
-        duration, quickOrder.hashCode, addQuickOrder);
+    await AndroidAlarmManager.oneShot(duration, id, addQuickOrder,
+        exact: true, params: {LocalQuickOrderTable.columnId: id});
   }
 
   @pragma('vm:entry-point')
-  static void addQuickOrder() async {
-    QuickOrder? quickOrder =
-        await SharedPreferencesManagerImp().getScheduledQuickOrder();
-    if (quickOrder != null) {
-      RemoteDataSourceImp().sendQuickOrder(quickOrder);
+  static void addQuickOrder(Map<String, dynamic> extras) async {
+    int? id = extras[LocalQuickOrderTable.columnId];
+    QuickOrderLocalDataSource localDataSource = QuickOrderLocalDataSource();
+    if (id != null) {
+      LocalQuickOrder? localQuickOrder =
+          await localDataSource.getQuickOrder(id);
+      await localDataSource.deleteQuickOrder(id);
+
+      if (localQuickOrder != null) {
+        QuickOrder quickOrder = localQuickOrder.toQuickOrder();
+        quickOrder.dateTime = DateTime.now();
+        await RemoteDataSourceImp().sendQuickOrder(quickOrder);
+      }
     }
   }
 }

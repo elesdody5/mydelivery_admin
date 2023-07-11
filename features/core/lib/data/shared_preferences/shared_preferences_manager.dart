@@ -140,21 +140,4 @@ class SharedPreferencesManagerImp implements SharedPreferencesManager {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setString(phoneKey, phone);
   }
-
-  @override
-  Future<QuickOrder?> getScheduledQuickOrder() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String? quickOrderJson = sharedPreferences.getString(quickOrderKey);
-    if (quickOrderJson == null) return null;
-    sharedPreferences.remove(quickOrderKey);
-    return QuickOrder.fromJson(json.decode(quickOrderJson));
-  }
-
-  @override
-  Future<void> saveScheduleQuickOrder(QuickOrder quickOrder) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var quickOrderJson = await quickOrder.toJson();
-    String quickOrderEncoded = json.encode(quickOrderJson);
-    sharedPreferences.setString(quickOrderKey, quickOrderEncoded);
-  }
 }

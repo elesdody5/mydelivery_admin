@@ -41,7 +41,4 @@ abstract class SharedPreferencesManager {
 
   Future<String?> getUserPassword();
 
-  Future<void> saveScheduleQuickOrder(QuickOrder quickOrder);
-
-  Future<QuickOrder?> getScheduledQuickOrder();
 }

@@ -28,26 +28,28 @@ class QuickOrder {
 
   QuickOrder(
       {this.id,
-        this.address,
-        this.inCity,
-        this.delivery,
-        this.user,
-        this.description,
-        this.orderStatus,
-        this.phoneNumber,
-        this.count,
-        this.dateTime,
-        this.imageUrl,
-        this.audioUrl,
-        this.deliveryPickedTime,
-        this.price});
+      this.address,
+      this.inCity,
+      this.delivery,
+      this.user,
+      this.description,
+      this.orderStatus,
+      this.phoneNumber,
+      this.count,
+      this.dateTime,
+      this.imageUrl,
+      this.audioUrl,
+      this.deliveryPickedTime,
+      this.price,
+      this.recordFile,
+      this.imageFile});
 
   factory QuickOrder.fromJson(Map<String, dynamic> json) => QuickOrder(
       id: json['_id'],
       address: json['address'],
       inCity: json["inCity"],
       delivery:
-      json['delivery'] != null ? User.fromJson(json['delivery']) : null,
+          json['delivery'] != null ? User.fromJson(json['delivery']) : null,
       user: (json['user'] != null && json['user'] is! String)
           ? User.fromJson(json['user'])
           : null,
@@ -84,8 +86,8 @@ class QuickOrder {
       "withDeliveryTime": deliveryPickedTime?.toIso8601String(),
       "photo": imageFile != null
           ? await MultipartFile.fromFile(imageFile!.path,
-          filename: imageFile?.path.split('/').last ?? "",
-          contentType: MediaType(mimeTypeData![0], mimeTypeData[1]))
+              filename: imageFile?.path.split('/').last ?? "",
+              contentType: MediaType(mimeTypeData![0], mimeTypeData[1]))
           : null
     };
   }
