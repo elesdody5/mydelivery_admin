@@ -25,6 +25,10 @@ class QuickOrderRepository implements Repository {
 
   @override
   Future<Result> sendQuickOrder(QuickOrder quickOrder) {
+    if (quickOrder.id != null) {
+      _localDataSource
+          .deleteQuickOrder(int.tryParse(quickOrder.id ?? "0") ?? 0);
+    }
     return _remoteDataSource.sendQuickOrder(quickOrder);
   }
 
@@ -44,24 +48,42 @@ class QuickOrderRepository implements Repository {
     int id =
         await _localDataSource.insertQuickOrder(quickOrder.toLocalQuickOrder());
     await AndroidAlarmManager.initialize();
-    await AndroidAlarmManager.oneShot(duration, id, addQuickOrder,
-        exact: true, params: {LocalQuickOrderTable.columnId: id});
+    await AndroidAlarmManager.oneShot(
+      duration,
+      id,
+      addQuickOrder,
+      exact: true,
+    );
   }
 
   @pragma('vm:entry-point')
-  static void addQuickOrder(Map<String, dynamic> extras) async {
-    int? id = extras[LocalQuickOrderTable.columnId];
+  static void addQuickOrder(int id) async {
     QuickOrderLocalDataSource localDataSource = QuickOrderLocalDataSource();
-    if (id != null) {
-      LocalQuickOrder? localQuickOrder =
-          await localDataSource.getQuickOrder(id);
-      await localDataSource.deleteQuickOrder(id);
+    LocalQuickOrder? localQuickOrder = await localDataSource.getQuickOrder(id);
+    await localDataSource.deleteQuickOrder(id);
 
-      if (localQuickOrder != null) {
-        QuickOrder quickOrder = localQuickOrder.toQuickOrder();
-        quickOrder.dateTime = DateTime.now();
-        await RemoteDataSourceImp().sendQuickOrder(quickOrder);
-      }
+    if (localQuickOrder != null) {
+      QuickOrder quickOrder = localQuickOrder.toQuickOrder();
+      await RemoteDataSourceImp().sendQuickOrder(quickOrder);
     }
+  }
+
+  @override
+  Future<Result<List<QuickOrder>>> getScheduledQuickOrder() async {
+    List<LocalQuickOrder>? localQuickOrders =
+        await _localDataSource.getScheduledQuickOrder();
+    if (localQuickOrders != null) {
+      return Success(localQuickOrders.map((e) => e.toQuickOrder()).toList());
+    } else {
+      return Success(List.empty());
+    }
+  }
+
+  @override
+  Future<void> deleteScheduledQuickOrder(QuickOrder quickOrder) async {
+    await AndroidAlarmManager.initialize();
+    await AndroidAlarmManager.cancel(int.tryParse(quickOrder.id ?? "0") ?? 0);
+    await _localDataSource
+        .deleteQuickOrder(int.tryParse(quickOrder.id ?? "0") ?? 0);
   }
 }

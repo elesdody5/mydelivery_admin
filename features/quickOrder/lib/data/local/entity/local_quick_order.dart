@@ -11,7 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:mime/mime.dart';
 
 class LocalQuickOrder {
-  String? id;
+  int? id;
   String? address;
   bool? inCity;
   String? description;
@@ -30,13 +30,15 @@ class LocalQuickOrder {
       this.phoneNumber,
       this.count,
       this.dateTime,
+      this.imagePath,
+      this.recordPath,
       this.price});
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
       'address': address,
-      'inCity': inCity,
+      'inCity': inCity == true ? 1 : 0,
       'description': description,
       'phoneNumber': phoneNumber,
       'count': count,
@@ -47,17 +49,18 @@ class LocalQuickOrder {
     };
   }
 
-  LocalQuickOrder.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        address = json['address'],
-        inCity = json['inCity'],
-        description = json['description'],
-        phoneNumber = json['phoneNumber'],
-        count = json['count'],
-        dateTime = DateTime.tryParse(json['dateTime']),
-        imagePath = json['imageFilePath'],
-        recordPath = json['recordFilePath'],
-        price = json['price'];
+  factory LocalQuickOrder.fromJson(Map<String, dynamic> json) =>
+      LocalQuickOrder(
+          id: json['id'],
+          address: json['address'],
+          inCity: json['inCity'] == 1 ? true : false,
+          description: json['description'],
+          phoneNumber: json['phoneNumber'],
+          count: json['count'],
+          dateTime: DateTime.tryParse(json['dateTime']),
+          imagePath: json['imageFilePath'],
+          recordPath: json['recordFilePath'],
+          price: json['price']);
 
   String? get formattedTime {
     if (dateTime == null) return null;
@@ -80,20 +83,6 @@ class LocalQuickOrder {
 extension QuickOrderExtension on QuickOrder {
   LocalQuickOrder toLocalQuickOrder() {
     return LocalQuickOrder(
-      address: address,
-      inCity: inCity,
-      description: description,
-      phoneNumber: phoneNumber,
-      count: count,
-      dateTime: dateTime,
-      price: price,
-    );
-  }
-}
-
-extension LocalQuickOrderExtension on LocalQuickOrder {
-  QuickOrder toQuickOrder() {
-    return QuickOrder(
         address: address,
         inCity: inCity,
         description: description,
@@ -101,6 +90,24 @@ extension LocalQuickOrderExtension on LocalQuickOrder {
         count: count,
         dateTime: dateTime,
         price: price,
+        imagePath: imageFile?.path,
+        recordPath: recordFile?.path);
+  }
+}
+
+extension LocalQuickOrderExtension on LocalQuickOrder {
+  QuickOrder toQuickOrder() {
+    return QuickOrder(
+        id: id.toString(),
+        address: address,
+        inCity: inCity,
+        description: description,
+        phoneNumber: phoneNumber,
+        count: count,
+        dateTime: dateTime,
+        price: price,
+        imageUrl: this.imagePath,
+        audioUrl: recordPath,
         imageFile: this.imagePath != null ? File(this.imagePath!) : null,
         recordFile: recordPath != null ? File(recordPath!) : null);
   }

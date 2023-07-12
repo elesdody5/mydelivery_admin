@@ -72,7 +72,6 @@ class QuickOrder {
       mimeTypeData = lookupMimeType(imageFile!.path)?.split('/');
     }
     return {
-      "_id": id,
       "address": address,
       "inCity": inCity,
       "delivery": delivery?.id,

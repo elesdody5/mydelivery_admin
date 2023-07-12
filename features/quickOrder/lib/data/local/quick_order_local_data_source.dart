@@ -1,3 +1,5 @@
+import 'package:core/domain/quick_order.dart';
+import 'package:core/domain/result.dart';
 import 'package:quickorder/data/local/dao/quick_order_dao.dart';
 import 'package:quickorder/data/local/entity/local_quick_order.dart';
 
@@ -17,5 +19,9 @@ class QuickOrderLocalDataSource {
 
   Future<void> deleteQuickOrder(int id) {
     return _dao.deleteQuickOrder(id);
+  }
+
+  Future<List<LocalQuickOrder>?> getScheduledQuickOrder(){
+    return _dao.getScheduledQuickOrder();
   }
 }

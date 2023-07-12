@@ -41,6 +41,8 @@ import 'package:delivery/delivery_profile/profile_screen.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:authentication/signup/signup_provider.dart';
+import 'package:quickorder/scheduled_quick_order/scheduled_quick_order_provider.dart';
+import 'package:quickorder/scheduled_quick_order/scheduled_quick_order_screen.dart';
 import 'package:quickorder/send_quick_order/QuickOrderFormProvider.dart';
 import 'package:quickorder/send_quick_order/quick_order_form.dart';
 import 'package:user_profile/current_user_orders/all_current_user_orders.dart';
@@ -221,6 +223,13 @@ List<GetPage> appPages = [
     page: () => ChangeNotifierProvider.value(
       value: QuickOrderFormProvider(),
       child: QuickOrderForm(),
+    ),
+  ),
+  GetPage(
+    name: scheduledQuickOrders,
+    page: () => ChangeNotifierProvider.value(
+      value: ScheduledQuickOrdersProvider(),
+      child: const ScheduledQuickOrderScreen(),
     ),
   )
 ];

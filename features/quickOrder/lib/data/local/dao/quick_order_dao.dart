@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:quickorder/data/local/entity/local_quick_order.dart';
 import 'package:quickorder/data/local/entity/local_quick_order_table.dart';
 
@@ -32,5 +34,13 @@ class QuickOrderDao {
       where: '${LocalQuickOrderTable.columnId} = ?',
       whereArgs: [id],
     );
+  }
+
+  Future<List<LocalQuickOrder>?> getScheduledQuickOrder() async {
+    final db = await _instance.database;
+    final quickOrdersJson = await db.query(LocalQuickOrderTable.tableName);
+    return quickOrdersJson
+        .map((quickOrder) => LocalQuickOrder.fromJson(quickOrder))
+        .toList();
   }
 }

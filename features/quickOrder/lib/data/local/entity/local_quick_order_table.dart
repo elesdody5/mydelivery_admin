@@ -18,17 +18,16 @@ class LocalQuickOrderTable {
   static Future create(Database db,int version) async {
     await db.execute('''
       CREATE TABLE $tableName (
-        $columnId TEXT PRIMARY KEY,
-        $columnAddress TEXT NOT NULL,
-        $columnInCity INTEGER NOT NULL,
-        $columnDescription TEXT NOT NULL,
-        $columnPhoneNumber TEXT NOT NULL,
-        $columnCount INTEGER NOT NULL,
-        $columnDateTime TEXT NOT NULL,
+        $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
+        $columnAddress TEXT,
+        $columnInCity INTEGER,
+        $columnDescription TEXT,
+        $columnPhoneNumber TEXT,
+        $columnCount INTEGER,
+        $columnDateTime TEXT ,
         $columnImageFilePath TEXT,
         $columnRecordFilePath TEXT,
-        $columnPrice INTEGER NOT NULL,
-        $columnDeliveryPickedTime TEXT NOT NULL
+        $columnPrice INTEGER
       )
     ''');
   }

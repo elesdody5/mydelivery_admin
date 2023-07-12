@@ -17,7 +17,7 @@ class AllWithDeliveryQuickOrdersScreen extends StatelessWidget {
       AllWithDeliveryQuickOrdersProvider provider, QuickOrder quickOrder) {
     Get.dialog(AlertDialog(
       title: Text("are_you_sure".tr),
-      content: Text("do_you_to_remove_shop".tr),
+      content: Text("do_you_to_remove_order".tr),
       actions: [
         TextButton(
           onPressed: () {

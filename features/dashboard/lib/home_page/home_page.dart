@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
         floatingActionButton: SpeedDial(
           animatedIconTheme: const IconThemeData(size: 22.0),
           icon: Icons.add,
-          direction: SpeedDialDirection.right,
+          direction: SpeedDialDirection.left,
           children: [
             // SpeedDialChild(
             //     label: "quick_order".tr,
@@ -39,6 +39,7 @@ class HomePage extends StatelessWidget {
                     )))
           ],
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
         appBar: AppBar(
           elevation: 2.0,
           backgroundColor: Colors.white,
@@ -202,6 +203,30 @@ class HomePage extends StatelessWidget {
                     ]),
               ),
               onTap: () => Get.toNamed(quickOrdersScreen),
+            ),_buildTile(
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const Material(
+                          color: Colors.greenAccent,
+                          shape: CircleBorder(),
+                          child: Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Icon(Icons.alarm,
+                                color: Colors.white, size: 30.0),
+                          )),
+                      const Padding(padding: EdgeInsets.only(bottom: 16.0)),
+                      Text('scheduled_quick_order'.tr,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 20.0)),
+                    ]),
+              ),
+              onTap: () => Get.toNamed(scheduledQuickOrders),
             ),
             _buildTile(
               Padding(

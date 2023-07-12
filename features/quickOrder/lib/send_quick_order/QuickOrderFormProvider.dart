@@ -101,7 +101,7 @@ class QuickOrderFormProvider extends BaseProvider {
   }
 
   Future<void> scheduleQuickOrder(Duration duration) async {
-    quickOrder.dateTime = DateTime.now();
+    quickOrder.dateTime = DateTime.now().add(duration);
     await _repository.scheduleQuickOrder(duration, quickOrder);
     successMessage.value = "quick_order_successfully";
   }
