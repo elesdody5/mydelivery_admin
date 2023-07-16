@@ -24,12 +24,14 @@ class QuickOrderRepository implements Repository {
         _localDataSource = QuickOrderLocalDataSource();
 
   @override
-  Future<Result> sendQuickOrder(QuickOrder quickOrder) {
-    if (quickOrder.id != null) {
+  Future<Result> sendQuickOrder(QuickOrder quickOrder) async {
+    Result result = await _remoteDataSource.sendQuickOrder(quickOrder);
+
+    if (quickOrder.id != null && result.succeeded()) {
       _localDataSource
           .deleteQuickOrder(int.tryParse(quickOrder.id ?? "0") ?? 0);
     }
-    return _remoteDataSource.sendQuickOrder(quickOrder);
+    return result;
   }
 
   @override
@@ -60,11 +62,13 @@ class QuickOrderRepository implements Repository {
   static void addQuickOrder(int id) async {
     QuickOrderLocalDataSource localDataSource = QuickOrderLocalDataSource();
     LocalQuickOrder? localQuickOrder = await localDataSource.getQuickOrder(id);
-    await localDataSource.deleteQuickOrder(id);
 
     if (localQuickOrder != null) {
       QuickOrder quickOrder = localQuickOrder.toQuickOrder();
-      await RemoteDataSourceImp().sendQuickOrder(quickOrder);
+      Result result = await RemoteDataSourceImp().sendQuickOrder(quickOrder);
+      if (result.succeeded()) {
+        await localDataSource.deleteQuickOrder(id);
+      }
     }
   }
 

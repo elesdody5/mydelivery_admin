@@ -102,6 +102,7 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
       int index = _orders.indexWhere((element) => element.id == quickOrder.id);
       _orders[index] = quickOrder;
       filteredOrders = [..._orders];
+      getOrdersCount();
       notifyListeners();
     }
   }
