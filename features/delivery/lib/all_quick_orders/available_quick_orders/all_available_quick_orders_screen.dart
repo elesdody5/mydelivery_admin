@@ -48,40 +48,48 @@ class AllAvailableQuickOrdersScreen extends StatelessWidget {
     _setupListener(provider);
     return FutureWithLoadingProgress(
       future: provider.getAvailableDeliveryOrders,
-      child: Consumer<AllAvailableQuickOrdersProvider>(
-          builder: (_, provider, child) => Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 10),
-                    child: SearchWidget(
-                      search: provider.searchQuickOrder,
-                      hint: "search_address".tr,
+      child: RefreshIndicator(
+        onRefresh: provider.getAvailableDeliveryOrders,
+        child: Consumer<AllAvailableQuickOrdersProvider>(
+            builder: (_, provider, child) => Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
+                      child: SearchWidget(
+                        search: provider.searchQuickOrder,
+                        hint: "search_address".tr,
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: provider.filteredQuickOrders.isEmpty
-                        ? Center(
-                            child: EmptyWidget(
-                              title: "empty_orders".tr,
-                              icon:
-                                  Image.asset('assets/images/notification.png'),
+                    Expanded(
+                      child: provider.filteredQuickOrders.isEmpty
+                          ? Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ListView(children: [
+                                Center(
+                                  child: EmptyWidget(
+                                    title: "empty_orders".tr,
+                                    icon: Image.asset(
+                                        'assets/images/notification.png'),
+                                  ),
+                                ),
+                              ]),
+                            )
+                          : QuickOrdersListView(
+                              orders: provider.filteredQuickOrders,
+                              deleteQuickOrder: (quickOrder) =>
+                                  _showAlertDialog(provider, quickOrder),
+                              updateQuickOrder: (quickOrder) async {
+                                QuickOrder result = await Get.toNamed(
+                                    quickOrderForm,
+                                    arguments: quickOrder);
+                                provider.updateQuickOrderInList(result);
+                              },
                             ),
-                          )
-                        : QuickOrdersListView(
-                            orders: provider.filteredQuickOrders,
-                            deleteQuickOrder: (quickOrder) =>
-                                _showAlertDialog(provider, quickOrder),
-                            updateQuickOrder: (quickOrder) async {
-                              QuickOrder result = await Get.toNamed(
-                                  quickOrderForm,
-                                  arguments: quickOrder);
-                              provider.updateQuickOrderInList(result);
-                            },
-                          ),
-                  ),
-                ],
-              )),
+                    ),
+                  ],
+                )),
+      ),
     );
   }
 }
