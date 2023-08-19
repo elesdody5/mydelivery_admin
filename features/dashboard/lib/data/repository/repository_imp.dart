@@ -1,5 +1,6 @@
 import 'package:core/data/shared_preferences/shared_preferences_manager.dart';
 import 'package:core/data/shared_preferences/user_manager_interface.dart';
+import 'package:core/domain/city.dart';
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
@@ -132,5 +133,20 @@ class MainRepository implements Repository {
   @override
   Future<void> logout() {
     return _sharedPreferencesManager.deleteUserData();
+  }
+
+  @override
+  Future<Result<List<City>>> getCities() {
+    return _fireStoreService.getCities();
+  }
+
+  @override
+  Future<Result> addNewCity(City city) {
+    return _fireStoreService.addNewCity(city);
+  }
+
+  @override
+  Future<Result> updateCity(City city) {
+    return _fireStoreService.updateCity(city);
   }
 }

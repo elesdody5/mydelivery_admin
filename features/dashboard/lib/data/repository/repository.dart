@@ -5,6 +5,7 @@ import 'package:core/model/category.dart';
 import 'package:core/model/offer.dart';
 import 'package:core/model/product.dart';
 import 'package:core/model/shop.dart';
+import 'package:core/domain/city.dart';
 import 'package:dashboard/domain/model/notification_message.dart';
 import 'package:dashboard/domain/model/order_settings.dart';
 
@@ -49,5 +50,11 @@ abstract class Repository {
 
   Future<Result> removeShopById(String id);
 
-  Future<void>logout() ;
+  Future<void> logout();
+
+  Future<Result<List<City>>> getCities();
+
+  Future<Result> addNewCity(City city);
+
+  Future<Result> updateCity(City currentCity);
 }

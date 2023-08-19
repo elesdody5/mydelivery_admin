@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:core/base_provider.dart';
+import 'package:core/domain/city.dart';
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
@@ -15,6 +18,8 @@ class QuickOrderFormProvider extends BaseProvider {
   User? user;
   List<Shop> shops = [];
   List<PhoneContact> phoneContacts = [];
+  List<City> cities = [];
+  bool showCities = false;
 
   QuickOrderFormProvider({Repository? repository})
       : _repository = repository ?? QuickOrderRepository();
@@ -36,6 +41,11 @@ class QuickOrderFormProvider extends BaseProvider {
     quickOrder = QuickOrder();
   }
 
+  void toggleCitiesVisibility(bool showCities){
+    this.showCities = showCities;
+    notifyListeners();
+  }
+
   Future<Result> addQuickOrder() async {
     quickOrder.dateTime = DateTime.now();
     return await _repository.sendQuickOrder(quickOrder);
@@ -43,7 +53,7 @@ class QuickOrderFormProvider extends BaseProvider {
 
   Future<void> init(QuickOrder? quickOrder) async {
     setInitQuickOrder(quickOrder);
-    await Future.wait([getShops(), getContacts()]);
+    await Future.wait([getShops(), getContacts(), getCities()]);
     notifyListeners();
   }
 
@@ -51,6 +61,13 @@ class QuickOrderFormProvider extends BaseProvider {
     Result result = await _repository.getAllShops();
     if (result.succeeded()) {
       shops = result.getDataIfSuccess();
+    }
+  }
+
+  Future<void> getCities() async {
+    Result result = await _repository.getCities();
+    if (result.succeeded()) {
+      cities = result.getDataIfSuccess();
     }
   }
 

@@ -219,4 +219,7 @@ Map<String, String> arJson = {
   "add_record": "اضافة تسجيل",
   "not_admin_user":"لايمكن الدخول كاأدمن",
   "play_record": "سماع التسجيل",
+  "cities_out_menouf":"مدن خارج منوف",
+  "city_added_successfully":"تم اضافة المدينة",
+  "city_added_error":"لم يتم اضافة المدينة",
 };

@@ -1,3 +1,4 @@
+import 'package:core/domain/city.dart';
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/model/shop.dart';
@@ -14,4 +15,6 @@ abstract class Repository {
   Future<Result<List<QuickOrder>>> getScheduledQuickOrder();
 
   Future<void> deleteScheduledQuickOrder(QuickOrder quickOrder);
+  Future<Result<List<City>>> getCities() ;
+
 }

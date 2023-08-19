@@ -2,9 +2,12 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:core/const.dart';
 import 'package:core/data/shared_preferences/shared_preferences_manager.dart';
 import 'package:core/data/shared_preferences/user_manager_interface.dart';
+import 'package:core/domain/city.dart';
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/model/shop.dart';
+import 'package:quickorder/data/firebase/firestore_service.dart';
+import 'package:quickorder/data/firebase/firestore_service_imp.dart';
 import 'package:quickorder/data/local/entity/local_quick_order.dart';
 import 'package:quickorder/data/local/entity/local_quick_order_table.dart';
 import 'package:quickorder/data/local/quick_order_local_data_source.dart';
@@ -16,12 +19,15 @@ import '../remote/remote_data_source_im.dart';
 class QuickOrderRepository implements Repository {
   final RemoteDataSource _remoteDataSource;
   final QuickOrderLocalDataSource _localDataSource;
+  final FireStoreService _fireStoreService;
 
   QuickOrderRepository(
       {RemoteDataSource? remoteDataSource,
-      QuickOrderLocalDataSource? localDataSource})
+      QuickOrderLocalDataSource? localDataSource,
+      FireStoreService? fireStoreService})
       : _remoteDataSource = remoteDataSource ?? RemoteDataSourceImp(),
-        _localDataSource = QuickOrderLocalDataSource();
+        _localDataSource = QuickOrderLocalDataSource(),
+        _fireStoreService = FireStoreServiceImp();
 
   @override
   Future<Result> sendQuickOrder(QuickOrder quickOrder) async {
@@ -89,5 +95,10 @@ class QuickOrderRepository implements Repository {
     await AndroidAlarmManager.cancel(int.tryParse(quickOrder.id ?? "0") ?? 0);
     await _localDataSource
         .deleteQuickOrder(int.tryParse(quickOrder.id ?? "0") ?? 0);
+  }
+
+  @override
+  Future<Result<List<City>>> getCities() {
+    return _fireStoreService.getCities();
   }
 }

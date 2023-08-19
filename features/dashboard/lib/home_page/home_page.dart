@@ -1,5 +1,6 @@
 import 'package:core/screens.dart';
 import 'package:core/utils/utils.dart';
+import 'package:dashboard/cities/cities_dialog.dart';
 import 'package:dashboard/home_page/home_provider.dart';
 import 'package:dashboard/home_page/widgets/notification_dialog.dart';
 import 'package:dashboard/settings/settings_alert_dialog.dart';
@@ -7,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+
+import '../cities/cities_dialog_provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,9 +31,12 @@ class HomePage extends StatelessWidget {
           icon: Icons.add,
           direction: SpeedDialDirection.left,
           children: [
-            // SpeedDialChild(
-            //     label: "quick_order".tr,
-            //     onTap: () => Get.toNamed(quickOrderForm)),
+            SpeedDialChild(
+                label: "cities_out_menouf".tr,
+                onTap: () => Get.dialog(
+                    ChangeNotifierProvider.value(
+                        value: CitiesDialogProvider(),
+                        child: CitiesDialog()))),
             SpeedDialChild(
                 label: "send_notification".tr,
                 onTap: () => Get.dialog(NotificationDialog(
@@ -203,7 +209,8 @@ class HomePage extends StatelessWidget {
                     ]),
               ),
               onTap: () => Get.toNamed(quickOrdersScreen),
-            ),_buildTile(
+            ),
+            _buildTile(
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(

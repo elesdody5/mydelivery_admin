@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cool_alert/cool_alert.dart';
 import 'package:core/base_provider.dart';
+import 'package:core/domain/city.dart';
 import 'package:core/domain/quick_order.dart';
 import 'package:core/model/shop.dart';
 import 'package:core/utils/styles.dart';
@@ -121,6 +122,8 @@ class QuickOrderForm extends StatelessWidget {
                         name: 'type',
                         initialValue: provider.quickOrder.inCity ?? true,
                         validator: FormBuilderValidators.required(context),
+                        onChanged: (bool? inMenouf) => provider
+                            .toggleCitiesVisibility(!(inMenouf ?? false)),
                         onSaved: (bool? value) =>
                             provider.quickOrder.inCity = value,
                         options: [
@@ -134,6 +137,27 @@ class QuickOrderForm extends StatelessWidget {
                             .toList(growable: false),
                       ),
                     ),
+                    if (provider.showCities)
+                      Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: FormBuilderDropdown<City>(
+                          decoration: InputDecoration(
+                              labelText: 'cities_out_menouf'.tr),
+                          name: 'cities',
+                          onChanged: (City? value) {
+                            if (value != null) {
+                              _priceController.text = value.price.toString();
+                              _typeAheadController.text = "${value.name}  " ?? "";
+                            }
+                          },
+                          items: provider.cities
+                              .map((city) => DropdownMenuItem(
+                                    value: city,
+                                    child: Text(city.name ?? ""),
+                                  ))
+                              .toList(growable: false),
+                        ),
+                      ),
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: FormBuilderDropdown(
