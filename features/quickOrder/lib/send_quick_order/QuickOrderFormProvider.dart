@@ -21,6 +21,8 @@ class QuickOrderFormProvider extends BaseProvider {
   List<City> cities = [];
   bool showCities = false;
 
+  City? selectedCity;
+
   QuickOrderFormProvider({Repository? repository})
       : _repository = repository ?? QuickOrderRepository();
 

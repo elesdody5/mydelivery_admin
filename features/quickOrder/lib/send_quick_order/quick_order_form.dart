@@ -121,7 +121,7 @@ class QuickOrderForm extends StatelessWidget {
                         decoration: InputDecoration(labelText: 'type'.tr),
                         name: 'type',
                         initialValue: provider.quickOrder.inCity ?? true,
-                        validator: FormBuilderValidators.required(context),
+                        validator: FormBuilderValidators.required(),
                         onChanged: (bool? inMenouf) => provider
                             .toggleCitiesVisibility(!(inMenouf ?? false)),
                         onSaved: (bool? value) =>
@@ -147,7 +147,9 @@ class QuickOrderForm extends StatelessWidget {
                           onChanged: (City? value) {
                             if (value != null) {
                               _priceController.text = value.price.toString();
-                              _typeAheadController.text = "${value.name}  " ?? "";
+                              _typeAheadController.text =
+                                  "${value.name}  " ?? "";
+                              provider.selectedCity = value;
                             }
                           },
                           items: provider.cities
@@ -166,11 +168,9 @@ class QuickOrderForm extends StatelessWidget {
                         name: 'count',
                         initialValue: provider.quickOrder.count ?? 1,
                         onChanged: (int? value) {
-                          if (value != null) {
-                            _priceController.text = (value * 10).toString();
-                          }
+                          onCountChange(value, provider);
                         },
-                        validator: FormBuilderValidators.required(context),
+                        validator: FormBuilderValidators.required(),
                         onSaved: (int? value) =>
                             provider.quickOrder.count = value,
                         items: [1, 2, 3, 4, 5]
@@ -354,5 +354,16 @@ class QuickOrderForm extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void onCountChange(int? value, QuickOrderFormProvider provider) {
+    if (value != null) {
+      if (provider.showCities) {
+        _priceController.text =
+            (value * (provider.selectedCity?.price ?? 1)).toString();
+      } else {
+        _priceController.text = (value * 10).toString();
+      }
+    }
   }
 }

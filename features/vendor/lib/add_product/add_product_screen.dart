@@ -6,7 +6,6 @@ import 'package:core/model/category.dart';
 import 'package:core/model/product.dart';
 import 'package:core/utils/styles.dart';
 import 'package:core/utils/utils.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
@@ -95,9 +94,7 @@ class AddProductScreen extends StatelessWidget {
                     name: "subcategory",
                     decoration: formInputDecoration(label: "category".tr),
                     validator: FormBuilderValidators.compose([
-                      FormBuilderValidators.required(
-                        context,
-                      ),
+                      FormBuilderValidators.required(),
                     ]),
                     onSaved: (Category? subCategory) =>
                         provider.product.subCategoryId = subCategory?.id,
@@ -117,9 +114,7 @@ class AddProductScreen extends StatelessWidget {
                       onSaved: (String? name) => provider.product.name = name,
                       decoration: formInputDecoration(label: "name".tr),
                       validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(
-                          context,
-                        ),
+                        FormBuilderValidators.required(),
                       ])),
                 ),
                 Padding(
@@ -132,9 +127,7 @@ class AddProductScreen extends StatelessWidget {
                           provider.product.price = num.parse(price ?? "0"),
                       decoration: formInputDecoration(label: "price".tr),
                       validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(
-                          context,
-                        ),
+                        FormBuilderValidators.required(),
                       ])),
                 ),
                 Padding(
@@ -147,9 +140,7 @@ class AddProductScreen extends StatelessWidget {
                       decoration: formInputDecoration(
                           label: "${"description".tr} (${"optional".tr})"),
                       validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(
-                          context,
-                        ),
+                        FormBuilderValidators.required(),
                       ])),
                 ),
                 Padding(

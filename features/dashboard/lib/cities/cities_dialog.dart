@@ -85,7 +85,7 @@ class CitiesDialog extends StatelessWidget {
                             }
                           },
                           decoration: formInputDecoration(label: "name".tr),
-                          validator: FormBuilderValidators.required(context,
+                          validator: FormBuilderValidators.required(
                               errorText: "please_enter_name".tr)),
                     ),
                     Padding(
@@ -99,7 +99,7 @@ class CitiesDialog extends StatelessWidget {
                           },
                           keyboardType: TextInputType.number,
                           decoration: formInputDecoration(label: "price".tr),
-                          validator: FormBuilderValidators.required(context,
+                          validator: FormBuilderValidators.required(
                               errorText: "price".tr)),
                     )
                   ],

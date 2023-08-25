@@ -79,7 +79,7 @@ class ProfileScreen extends StatelessWidget {
                               label: "user_name".tr,
                               suffixIcon:
                                   const Icon(Icons.supervised_user_circle)),
-                          validator: FormBuilderValidators.required(context,
+                          validator: FormBuilderValidators.required(
                               errorText: "please_enter_name".tr)),
                     ),
                     Padding(
@@ -94,11 +94,9 @@ class ProfileScreen extends StatelessWidget {
                               suffixIcon: const Icon(Icons.phone)),
                           validator: FormBuilderValidators.compose([
                             FormBuilderValidators.required(
-                              context,
                               errorText: 'please_enter_valid_phone'.tr,
                             ),
                             FormBuilderValidators.match(
-                              context,
                               r'(^(?:[+0]9)?[0-9]{10,12}$)',
                               errorText: 'please_enter_valid_phone'.tr,
                             ),
@@ -113,7 +111,8 @@ class ProfileScreen extends StatelessWidget {
                           initialValue: provider.user?.address,
                           decoration: formInputDecoration(
                               label: "address".tr,
-                              suffixIcon: const Icon(Icons.my_location_rounded)),
+                              suffixIcon:
+                                  const Icon(Icons.my_location_rounded)),
                         )),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -157,7 +156,8 @@ class ProfileScreen extends StatelessWidget {
                                 arguments: provider.user?.id),
                             title: Text("current_orders".tr)),
                         ListTile(
-                            onTap: () => Get.toNamed(deliveryDeliveredOrdersScreen,
+                            onTap: () => Get.toNamed(
+                                deliveryDeliveredOrdersScreen,
                                 arguments: provider.user?.id),
                             title: Text("delivered_orders".tr)),
                       ],

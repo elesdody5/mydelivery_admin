@@ -45,7 +45,7 @@ class NotificationDialog extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: FormBuilderTextField(
                   name: 'title',
-                  validator: FormBuilderValidators.required(Get.context!),
+                  validator: FormBuilderValidators.required(),
                   onSaved: (String? title) => notificationMessage.title = title,
                   decoration:
                       formInputDecoration(label: 'notification_title'.tr),
@@ -56,7 +56,7 @@ class NotificationDialog extends StatelessWidget {
                 child: FormBuilderTextField(
                   name: 'body',
                   maxLines: 2,
-                  validator: FormBuilderValidators.required(Get.context!),
+                  validator: FormBuilderValidators.required(),
                   onSaved: (String? body) => notificationMessage.message = body,
                   decoration:
                       formInputDecoration(label: 'notification_message'.tr),
@@ -69,9 +69,7 @@ class NotificationDialog extends StatelessWidget {
                   decoration: formInputDecoration(label: "user".tr),
                   initialValue: UserType.user,
                   validator: FormBuilderValidators.compose([
-                    FormBuilderValidators.required(
-                      context,
-                    ),
+                    FormBuilderValidators.required(),
                   ]),
                   onSaved: (UserType? userType) =>
                       notificationMessage.userType = userType,

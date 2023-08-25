@@ -47,7 +47,7 @@ class DeliveryProfileScreen extends StatelessWidget {
                       decoration: formInputDecoration(
                           label: "delivery_name".tr,
                           suffixIcon: const Icon(Icons.supervised_user_circle)),
-                      validator: FormBuilderValidators.required(context,
+                      validator: FormBuilderValidators.required(
                           errorText: "please_enter_name".tr)),
                 ),
                 Padding(
@@ -63,11 +63,11 @@ class DeliveryProfileScreen extends StatelessWidget {
                           suffixIcon: const Icon(Icons.phone)),
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(
-                          context,
+
                           errorText: 'please_enter_valid_phone'.tr,
                         ),
                         FormBuilderValidators.match(
-                          context,
+
                           r'(^(?:[+0]9)?[0-9]{10,12}$)',
                           errorText: 'please_enter_valid_phone'.tr,
                         ),
@@ -89,7 +89,7 @@ class DeliveryProfileScreen extends StatelessWidget {
                           suffixIcon: const Icon(Icons.my_location_rounded)),
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(
-                          context,
+
                           errorText: 'please_enter_address'.tr,
                         ),
                       ])),

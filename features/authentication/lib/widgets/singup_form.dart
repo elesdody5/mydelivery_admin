@@ -69,7 +69,7 @@ class SignupForm extends StatelessWidget {
                   if (name != null) signUpModel.name = name;
                 },
                 decoration: formInputDecoration(label: "user_name".tr),
-                validator: FormBuilderValidators.required(context,
+                validator: FormBuilderValidators.required(
                     errorText: "please_enter_name".tr)),
           ),
           Padding(
@@ -82,11 +82,9 @@ class SignupForm extends StatelessWidget {
                 decoration: formInputDecoration(label: "phone".tr),
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(
-                    context,
                     errorText: 'please_enter_valid_phone'.tr,
                   ),
                   FormBuilderValidators.match(
-                    context,
                     r'(^(?:[+0]9)?[0-9]{10,12}$)',
                     errorText: 'please_enter_valid_phone'.tr,
                   ),
@@ -114,7 +112,6 @@ class SignupForm extends StatelessWidget {
                 decoration: formInputDecoration(label: "password".tr),
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(
-                    context,
                     errorText: 'please_enter_valid_password'.tr,
                   ),
                 ])),

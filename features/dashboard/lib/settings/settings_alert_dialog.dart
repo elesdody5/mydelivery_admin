@@ -32,7 +32,7 @@ class SettingsAlertDialog extends StatelessWidget {
               initialValue: orderSettings?.enableOrders,
               onChanged: (bool? value) => orderSettings?.enableOrders = value,
               title: Text("enable_orders".tr),
-              validator: FormBuilderValidators.required(context),
+              validator: FormBuilderValidators.required(),
             ),
             FormBuilderTextField(
                 name: "firstOrder",
@@ -42,7 +42,7 @@ class SettingsAlertDialog extends StatelessWidget {
                   orderSettings?.firstRidePrice = int.parse(firstOrder ?? "0");
                 },
                 decoration: formInputDecoration(label: "first_drive".tr),
-                validator: FormBuilderValidators.required(context)),
+                validator: FormBuilderValidators.required()),
             FormBuilderTextField(
                 name: "otherOrders",
                 keyboardType: TextInputType.number,
@@ -51,7 +51,7 @@ class SettingsAlertDialog extends StatelessWidget {
                   orderSettings?.otherRidePrice = int.parse(firstOrder ?? "0");
                 },
                 decoration: formInputDecoration(label: "other_drive".tr),
-                validator: FormBuilderValidators.required(context)),
+                validator: FormBuilderValidators.required()),
           ],
         ),
       ),
