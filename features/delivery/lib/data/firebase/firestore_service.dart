@@ -27,4 +27,8 @@ abstract class FireStoreService {
   Future<List<ShopOrder>> getAllOrders();
 
   Future<void> updateOrdersStatus(List<String> ordersId);
+
+  Future<Result<bool>> isUpdated(String deliveryId) ;
+
+  Future<void> removeIsUpdatedStatus(String deliveryId) ;
 }

@@ -73,6 +73,8 @@ Map<String, String> arJson = {
   'new_password': "كلمة المرور",
   "confirm_password": "تأكيد كلمة المرور",
   "update": "تعديل",
+  "latest_version":"اخر تحديث",
+  "do_you_to_remove_update_status":"هل تريد حذف حالة التحديث",
   "pick_prescription": "صورة الروشتة",
   "home_visit": "زيارة منزلية",
   "continue": "متابعة",

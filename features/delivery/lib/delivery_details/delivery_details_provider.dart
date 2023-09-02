@@ -7,19 +7,31 @@ import 'package:delivery/data/repository/delivery_repository_imp.dart';
 class DeliveryDetailsProvider extends BaseProvider {
   final DeliveryRepository _repository;
 
+  var isUpdated = false;
+
   DeliveryDetailsProvider({DeliveryRepository? repository})
       : _repository = repository ?? DeliveryRepositoryImp();
   int coins = 0;
   bool isBlocked = false;
 
   Future<void> init(String deliveryId) async {
-    await Future.wait(
-        [getDeliveryCoins(deliveryId), getDeliveryBlockState(deliveryId)]);
+    await Future.wait([
+      getDeliveryCoins(deliveryId),
+      getDeliveryBlockState(deliveryId),
+      checkLatestUpdate(deliveryId)
+    ]);
   }
 
   Future<void> getDeliveryCoins(String deliveryId) async {
     coins = await _repository.getDeliveryCoins(deliveryId);
     notifyListeners();
+  }
+
+  Future<void> checkLatestUpdate(String deliveryId) async {
+    Result<bool> result = await _repository.isUpdated(deliveryId);
+    if (result.succeeded()) {
+      isUpdated = result.getDataIfSuccess();
+    }
   }
 
   Future<void> getDeliveryBlockState(String deliveryId) async {
@@ -41,6 +53,16 @@ class DeliveryDetailsProvider extends BaseProvider {
       } else {
         errorMessage.value = "update_profile_error_message";
       }
+      notifyListeners();
+    }
+  }
+
+  void deleteUpdatedStatus(String? deliveryId) async {
+    if (deliveryId != null) {
+      isLoading.value = true;
+      await _repository.removeIsUpdatedStatus(deliveryId);
+      isLoading.value = false;
+      isUpdated = false;
       notifyListeners();
     }
   }

@@ -26,7 +26,8 @@ class FireStoreServiceImp implements FireStoreService {
   }
 
   @override
-  Future<List<ShopOrder>> getDeliveredOrdersForDelivery(String deliveryId) async {
+  Future<List<ShopOrder>> getDeliveredOrdersForDelivery(
+      String deliveryId) async {
     final response = await _fireStore
         .collection("orders")
         .where("delivery._id", isEqualTo: deliveryId)
@@ -48,7 +49,8 @@ class FireStoreServiceImp implements FireStoreService {
   }
 
   @override
-  Future<Result> addDeliveryToOrders(User delivery, List<ShopOrder> orders) async {
+  Future<Result> addDeliveryToOrders(
+      User delivery, List<ShopOrder> orders) async {
     final ordersCollection = _fireStore.collection("orders");
     WriteBatch batch = _fireStore.batch();
     for (var order in orders) {
@@ -125,7 +127,7 @@ class FireStoreServiceImp implements FireStoreService {
   Future<List<ShopOrder>> getWithDeliveryOrders() async {
     final orders = await _fireStore
         .collection("orders")
-        .where("orderStatus",isEqualTo: OrderStatus.withDelivery)
+        .where("orderStatus", isEqualTo: OrderStatus.withDelivery)
         .get();
     return orders.docs
         .map((doc) => ShopOrder.fromJson(doc.data(), doc.id))
@@ -153,5 +155,21 @@ class FireStoreServiceImp implements FireStoreService {
           {"orderStatus": OrderStatus.done.enumToString()});
     }
     return await batch.commit();
+  }
+
+  @override
+  Future<Result<bool>> isUpdated(String deliveryId) async {
+    final deliveryDoc =
+        await _fireStore.collection("userUpdates").doc(deliveryId).get();
+
+    bool? isUpdated = deliveryDoc.data()?["isUpdated"];
+    return Success(isUpdated ?? false);
+  }
+
+  @override
+  Future<void> removeIsUpdatedStatus(String deliveryId) async {
+    final deliveryDoc = _fireStore.collection("userUpdates").doc(deliveryId);
+
+    await deliveryDoc.set({"isUpdated": false});
   }
 }

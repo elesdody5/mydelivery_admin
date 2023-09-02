@@ -2,7 +2,6 @@ import 'package:core/domain/user.dart';
 import 'package:core/screens.dart';
 import 'package:core/utils/utils.dart';
 import 'package:delivery/delivery_details/delivery_details_provider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:widgets/future_with_loading_progress.dart';
@@ -16,6 +15,26 @@ class DeliveryDetailsScreen extends StatelessWidget {
     setupErrorMessageListener(provider.errorMessage);
     setupLoadingListener(provider.isLoading);
     setupNavigationListener(provider.navigation);
+  }
+
+  void _showRemoveUpdateStatusDialog(DeliveryDetailsProvider provider,String? deliveryId) {
+    Get.dialog(AlertDialog(
+      title: Text("are_you_sure".tr),
+      content: Text("do_you_to_remove_update_status".tr),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Get.back();
+            provider.deleteUpdatedStatus(deliveryId);
+          },
+          child: Text("yes".tr),
+        ),
+        TextButton(
+          onPressed: () => Get.back(),
+          child: Text("cancel".tr),
+        )
+      ],
+    ));
   }
 
   @override
@@ -88,6 +107,23 @@ class DeliveryDetailsScreen extends StatelessWidget {
                     style: Get.textTheme.bodyText2,
                   ),
                   trailing: Text("${provider.coins}"),
+                ),
+                ListTile(
+                  onLongPress: ()=>_showRemoveUpdateStatusDialog(provider, delivery.id),
+                  leading: const Icon(
+                    Icons.update,
+                    size: 20,
+                    color: Colors.blue,
+                  ),
+                  title: Text(
+                    "latest_version".tr,
+                    style: Get.textTheme.bodyText2,
+                  ),
+                  trailing: Icon(
+                    Icons.circle_rounded,
+                    size: 20,
+                    color: provider.isUpdated ? Colors.green : Colors.red,
+                  ),
                 ),
                 ListTile(
                   leading: const Icon(

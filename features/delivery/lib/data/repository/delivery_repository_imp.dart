@@ -198,4 +198,14 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   Future<Result> removeQuickOrder(String? id) {
     return _remoteDataSource.removeQuickOrder(id);
   }
+
+  @override
+  Future<Result<bool>> isUpdated(String deliveryId) {
+    return _fireStoreService.isUpdated(deliveryId);
+  }
+
+  @override
+  Future<void> removeIsUpdatedStatus(String deliveryId) {
+    return _fireStoreService.removeIsUpdatedStatus(deliveryId);
+  }
 }
