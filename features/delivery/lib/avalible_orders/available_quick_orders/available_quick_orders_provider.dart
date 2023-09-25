@@ -3,6 +3,7 @@ import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:delivery/data/repository/delivery_repository.dart';
 import 'package:delivery/data/repository/delivery_repository_imp.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class AvailableQuickOrderProvider extends BaseProvider {
   final DeliveryRepository _repository;
@@ -15,7 +16,9 @@ class AvailableQuickOrderProvider extends BaseProvider {
       : _repository = deliveryRepository ?? DeliveryRepositoryImp();
 
   Future<void> getAvailableQuickOrders() async {
-    Result result = await _repository.getAvailableQuickOrders();
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+    Result result = await _repository.getAvailableQuickOrders(packageInfo.version);
     if (result.succeeded()) {
       orders = result.getDataIfSuccess();
       if (updateAvailableQuickOrderCount != null) {

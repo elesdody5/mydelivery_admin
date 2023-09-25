@@ -28,10 +28,10 @@ class DeliveryApiServiceImp implements DeliveryApiService {
   }
 
   @override
-  Future<ApiResponse<List<QuickOrder>>> getAvailableQuickOrders() async {
-    final response = await _dio.get(
-      deliveryOrdersUrl,
-    );
+  Future<ApiResponse<List<QuickOrder>>> getAvailableQuickOrders(
+      String? version) async {
+    final response = await _dio
+        .get(deliveryOrdersUrl, queryParameters: {"version": version});
     if (response.statusCode != 200 && response.statusCode != 201) {
       print("error message is ${response.data['message']}");
       return ApiResponse(errorMessage: response.data['message']);

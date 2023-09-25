@@ -6,7 +6,7 @@ import 'package:core/model/review.dart';
 abstract class DeliveryRemoteDataSource {
   Future<Result<User>> getUserById(String userId);
 
-  Future<Result<List<QuickOrder>>> getAvailableQuickOrders();
+  Future<Result<List<QuickOrder>>> getAvailableQuickOrders(String? value);
 
   Future<Result> pickQuickOrder(String quickOrderId, String deliveryId);
 

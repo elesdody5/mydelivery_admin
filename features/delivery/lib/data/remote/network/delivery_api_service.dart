@@ -6,7 +6,7 @@ import 'package:core/model/review.dart';
 abstract class DeliveryApiService {
   Future<ApiResponse> getUserById(String userId);
 
-  Future<ApiResponse<List<QuickOrder>>> getAvailableQuickOrders();
+  Future<ApiResponse<List<QuickOrder>>> getAvailableQuickOrders(String? version);
 
   Future<ApiResponse> pickQuickOrder(String quickOrderId, String deliveryId);
 

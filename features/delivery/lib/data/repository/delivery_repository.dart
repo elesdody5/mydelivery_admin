@@ -26,7 +26,7 @@ abstract class DeliveryRepository {
 
   Future<void> updateOrderStatus(String orderId, OrderStatus orderStatus);
 
-  Future<Result<List<QuickOrder>>> getAvailableQuickOrders();
+  Future<Result<List<QuickOrder>>> getAvailableQuickOrders(String? version);
 
   Future<Result> pickQuickOrder(String quickOrderId);
 

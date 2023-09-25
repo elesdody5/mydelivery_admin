@@ -19,7 +19,7 @@ class AllQuickOrdersScreen extends StatelessWidget {
     final provider =
         Provider.of<AllQuickOrdersProvider>(context, listen: false);
     return DefaultTabController(
-        length: 2,
+        length: 3,
         child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
@@ -46,15 +46,15 @@ class AllQuickOrdersScreen extends StatelessWidget {
                       ),
                     );
                   }),
-                  // Consumer<AllQuickOrdersProvider>(
-                  //     builder: (context, provider, child) {
-                  //   return Tab(
-                  //     child: Text(
-                  //       "${"delivered".tr} (${provider.deliveredQuickOrdersCount})",
-                  //       style: Get.textTheme.bodyText2,
-                  //     ),
-                  //   );
-                  // }),
+                  Consumer<AllQuickOrdersProvider>(
+                      builder: (context, provider, child) {
+                    return Tab(
+                      child: Text(
+                        "${"delivered".tr} (${provider.deliveredQuickOrdersCount})",
+                        style: Get.textTheme.bodyText2,
+                      ),
+                    );
+                  }),
                 ],
               ),
             ),
@@ -72,12 +72,12 @@ class AllQuickOrdersScreen extends StatelessWidget {
                           provider.setWithDeliveryQuickOrdersCount),
                   child: const AllWithDeliveryQuickOrdersScreen(),
                 ),
-                // ChangeNotifierProvider.value(
-                //   value: AllDeliveredQuickOrdersProvider(
-                //       updateDeliveredQuickOrderCount:
-                //           provider.setDeliveredQuickOrdersCount),
-                //   child: const AllDeliveredQuickOrdersScreen(),
-                // ),
+                ChangeNotifierProvider.value(
+                  value: AllDeliveredQuickOrdersProvider(
+                      updateDeliveredQuickOrderCount:
+                          provider.setDeliveredQuickOrdersCount),
+                  child: const AllDeliveredQuickOrdersScreen(),
+                ),
               ],
             )));
   }
