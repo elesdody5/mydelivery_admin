@@ -4,7 +4,8 @@ class LoginResponse {
   String? token;
   String? userId;
   UserType? userType;
+  String? userPhone;
 
   LoginResponse(
-      {required this.token, required this.userType, required this.userId});
+      {required this.token, required this.userType, required this.userId,required this.userPhone});
 }

@@ -27,6 +27,7 @@ class AuthRepositoryImp implements AuthRepository {
       await _userManager.saveUserPassword(password);
       await _userManager.saveToken(loginData.token);
       await _userManager.saveUserType(loginData.userType);
+      await _userManager.saveAdminId(loginData.userId);
     }
     return loginResponse;
   }
@@ -40,8 +41,6 @@ class AuthRepositoryImp implements AuthRepository {
     }
     return loginResponse;
   }
-
-
 
   @override
   Future<Result<String>> forgetPassword(String email) async {

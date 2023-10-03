@@ -6,7 +6,7 @@ import 'package:core/domain/result.dart';
 import 'package:core/domain/user_type.dart';
 
 abstract class AutoLoginUseCase {
-  Future<UserType?> invoke();
+  Future<LoginResponse?> invoke();
 }
 
 class AutoLoginUseCaseImp implements AutoLoginUseCase {
@@ -16,10 +16,10 @@ class AutoLoginUseCaseImp implements AutoLoginUseCase {
       : _authRepository = authRepository ?? AuthRepositoryImp();
 
   @override
-  Future<UserType?> invoke() async {
+  Future<LoginResponse?> invoke() async {
     Result<LoginResponse> loginResponse = await _authRepository.autoLogin();
     if (loginResponse.succeeded())
-      return loginResponse.getDataIfSuccess().userType;
+      return loginResponse.getDataIfSuccess();
     return null;
   }
 }

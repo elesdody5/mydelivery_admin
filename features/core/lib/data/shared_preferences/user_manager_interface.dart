@@ -23,7 +23,11 @@ abstract class SharedPreferencesManager {
 
   Future<void> saveUserId(String? userId);
 
+  Future<void> saveAdminId(String? userId);
+
   Future<String?> getUserId();
+
+  Future<String?> getAdminId();
 
   Future<User?> getUserDetails();
 
@@ -40,5 +44,4 @@ abstract class SharedPreferencesManager {
   Future<String?> getUserPhone();
 
   Future<String?> getUserPassword();
-
 }

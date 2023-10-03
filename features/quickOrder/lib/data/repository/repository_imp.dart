@@ -5,6 +5,7 @@ import 'package:core/data/shared_preferences/user_manager_interface.dart';
 import 'package:core/domain/city.dart';
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
+import 'package:core/domain/user.dart';
 import 'package:core/model/shop.dart';
 import 'package:quickorder/data/firebase/firestore_service.dart';
 import 'package:quickorder/data/firebase/firestore_service_imp.dart';
@@ -20,6 +21,7 @@ class QuickOrderRepository implements Repository {
   final RemoteDataSource _remoteDataSource;
   final QuickOrderLocalDataSource _localDataSource;
   final FireStoreService _fireStoreService;
+  final SharedPreferencesManager _sharedPreferencesManager;
 
   QuickOrderRepository(
       {RemoteDataSource? remoteDataSource,
@@ -27,18 +29,28 @@ class QuickOrderRepository implements Repository {
       FireStoreService? fireStoreService})
       : _remoteDataSource = remoteDataSource ?? RemoteDataSourceImp(),
         _localDataSource = QuickOrderLocalDataSource(),
-        _fireStoreService = FireStoreServiceImp();
+        _fireStoreService = FireStoreServiceImp(),
+        _sharedPreferencesManager = SharedPreferencesManagerImp();
 
   @override
   Future<Result> sendQuickOrder(QuickOrder quickOrder) async {
+    String? id = await _sharedPreferencesManager.getAdminId();
+    quickOrder.user = User(id: id);
     Result result = await _remoteDataSource.sendQuickOrder(quickOrder);
 
-    if (quickOrder.id != null && result.succeeded()) {
-      _localDataSource
-          .deleteQuickOrder(int.tryParse(quickOrder.id ?? "0") ?? 0);
+    if (hasLocalIdAndSentSuccessfully(quickOrder, result)) {
+      deleteFromLocalDataSource(quickOrder);
     }
     return result;
   }
+
+  void deleteFromLocalDataSource(QuickOrder quickOrder) {
+    _localDataSource.deleteQuickOrder(int.tryParse(quickOrder.id ?? "0") ?? 0);
+  }
+
+  bool hasLocalIdAndSentSuccessfully(
+          QuickOrder quickOrder, Result<dynamic> result) =>
+      quickOrder.id != null && result.succeeded();
 
   @override
   Future<Result<List<Shop>>> getAllShops() {

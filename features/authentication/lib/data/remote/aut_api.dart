@@ -33,8 +33,8 @@ class AuthApiServiceImp implements AuthApiService {
       String? userId = responseData['user']['_id'];
       addInterceptor(token);
       return ApiResponse(
-          responseData:
-              LoginResponse(token: token, userType: type, userId: userId));
+          responseData: LoginResponse(
+              token: token, userType: type, userId: userId, userPhone: phone));
     } catch (e) {
       print(e);
       if (e is DioError) {
@@ -48,7 +48,8 @@ class AuthApiServiceImp implements AuthApiService {
   Future<ApiResponse<LoginResponse>> signUp(SignUpModel signUpModel) async {
     try {
       final response = await _dio.post(SIGN_UP,
-          data: FormData.fromMap(await signUpModel.toJson()), queryParameters: {"lang": "lang".tr});
+          data: FormData.fromMap(await signUpModel.toJson()),
+          queryParameters: {"lang": "lang".tr});
 
       if (response.statusCode != 200 && response.statusCode != 201) {
         print(response.data['message']);
@@ -59,8 +60,11 @@ class AuthApiServiceImp implements AuthApiService {
       UserType? type = stringToEnum(responseData['userType']);
       String? userId = responseData['userId'];
       return ApiResponse(
-          responseData:
-              LoginResponse(token: token, userType: type, userId: userId));
+          responseData: LoginResponse(
+              token: token,
+              userType: type,
+              userId: userId,
+              userPhone: signUpModel.phone));
     } catch (error) {
       print(error);
       return ApiResponse(errorMessage: "Something went wrong");

@@ -1,4 +1,5 @@
 const userIdKey = "user_id";
+const adminIdKey = "admin_id";
 const phoneKey = "phone";
 const passwordKey = "password";
 const userKey = "user";
