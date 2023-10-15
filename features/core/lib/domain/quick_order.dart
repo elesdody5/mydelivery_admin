@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:core/domain/address.dart';
 import 'package:core/domain/user.dart';
 import 'package:core/model/order_status.dart';
 import 'package:dio/dio.dart';
@@ -10,7 +11,7 @@ import 'package:mime/mime.dart';
 
 class QuickOrder {
   String? id;
-  String? address;
+  Address? address;
   bool? inCity;
   User? delivery;
   User? user;
@@ -46,7 +47,7 @@ class QuickOrder {
 
   factory QuickOrder.fromJson(Map<String, dynamic> json) => QuickOrder(
       id: json['_id'],
-      address: json['address'],
+      address: Address.fromJson(json['address']),
       inCity: json["inCity"],
       delivery:
           json['delivery'] != null ? User.fromJson(json['delivery']) : null,
@@ -72,7 +73,7 @@ class QuickOrder {
       mimeTypeData = lookupMimeType(imageFile!.path)?.split('/');
     }
     return {
-      "address": address,
+      "address": address?.toJson(),
       "inCity": inCity,
       "delivery": delivery?.id,
       "user": user?.id,

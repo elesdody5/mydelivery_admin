@@ -3,6 +3,7 @@ import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:delivery/data/repository/delivery_repository.dart';
 import 'package:delivery/data/repository/delivery_repository_imp.dart';
+import 'package:core/domain/address.dart';
 
 class AllWithDeliveryQuickOrdersProvider extends BaseProvider {
   List<QuickOrder> _orders = [];
@@ -14,9 +15,9 @@ class AllWithDeliveryQuickOrdersProvider extends BaseProvider {
       {DeliveryRepository? repository, this.updateWithDeliveryQuickOrderCount})
       : _repository = repository ?? DeliveryRepositoryImp();
 
-  void searchQuickOrder(String quickOrderDetails) {
+  void searchQuickOrder(String address) {
     filteredQuickOrders = _orders
-        .where((order) => order.address?.contains(quickOrderDetails) == true)
+        .where((order) => order.address?.contains(address) == true)
         .toList(growable: false);
     notifyListeners();
   }

@@ -1,18 +1,13 @@
 import 'dart:io';
 
+import 'package:core/domain/address.dart';
 import 'package:core/domain/quick_order.dart';
-import 'package:core/domain/user.dart';
-import 'package:core/model/order_status.dart';
-import 'package:core/utils/utils.dart';
-import 'package:dio/dio.dart';
 import 'package:get/get_utils/get_utils.dart';
-import 'package:http_parser/http_parser.dart';
 import 'package:intl/intl.dart';
-import 'package:mime/mime.dart';
 
 class LocalQuickOrder {
   int? id;
-  String? address;
+  Address? address;
   bool? inCity;
   String? description;
   String? phoneNumber;
@@ -37,7 +32,7 @@ class LocalQuickOrder {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'address': address,
+      'address': address?.toJson(),
       'inCity': inCity == true ? 1 : 0,
       'description': description,
       'phoneNumber': phoneNumber,
@@ -52,7 +47,7 @@ class LocalQuickOrder {
   factory LocalQuickOrder.fromJson(Map<String, dynamic> json) =>
       LocalQuickOrder(
           id: json['id'],
-          address: json['address'],
+          address: Address.fromJson(json['address']),
           inCity: json['inCity'] == 1 ? true : false,
           description: json['description'],
           phoneNumber: json['phoneNumber'],

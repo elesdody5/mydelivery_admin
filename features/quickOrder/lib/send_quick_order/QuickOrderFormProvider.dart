@@ -1,10 +1,9 @@
-import 'dart:ffi';
-
 import 'package:core/base_provider.dart';
 import 'package:core/domain/city.dart';
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
+import 'package:core/domain/address.dart' as address;
 import 'package:core/model/shop.dart';
 import 'package:quickorder/domain/model/PhoneContact.dart';
 
@@ -14,7 +13,7 @@ import 'package:flutter_contacts/flutter_contacts.dart';
 
 class QuickOrderFormProvider extends BaseProvider {
   final Repository _repository;
-  QuickOrder quickOrder = QuickOrder();
+  QuickOrder quickOrder = QuickOrder(address: address.Address());
   User? user;
   List<Shop> shops = [];
   List<PhoneContact> phoneContacts = [];
@@ -43,7 +42,7 @@ class QuickOrderFormProvider extends BaseProvider {
     quickOrder = QuickOrder();
   }
 
-  void toggleCitiesVisibility(bool showCities){
+  void toggleCitiesVisibility(bool showCities) {
     this.showCities = showCities;
     notifyListeners();
   }

@@ -72,13 +72,13 @@ class QuickOrderListItem extends StatelessWidget {
               style: Get.textTheme.bodyText2,
             )
           : Text(
-              quickOrder.phoneNumber ?? "",
+              quickOrder.phoneNumber?.replaceAll(" ", "") ?? "",
               style: Get.textTheme.bodyText2,
             ),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (quickOrder.address != null) Text(quickOrder.address ?? ""),
+          if (quickOrder.user?.address != null) Text(quickOrder.user!.address!),
           Text(
             " ${quickOrder.formattedDate}  ${quickOrder.formattedTime} ",
             textDirection: TextDirection.ltr,

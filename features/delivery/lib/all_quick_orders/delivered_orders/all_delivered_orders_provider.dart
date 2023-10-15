@@ -1,4 +1,5 @@
 import 'package:core/base_provider.dart';
+import 'package:core/domain/address.dart';
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:delivery/data/repository/delivery_repository.dart';
@@ -28,9 +29,9 @@ class AllDeliveredQuickOrdersProvider extends BaseProvider {
     }
   }
 
-  void searchQuickOrder(String quickOrderDetails) {
+  void searchQuickOrder(String address) {
     filteredQuickOrders = _orders
-        .where((order) => order.address?.contains(quickOrderDetails) == true)
+        .where((order) => order.address?.contains(address) == true)
         .toList(growable: false);
     notifyListeners();
   }

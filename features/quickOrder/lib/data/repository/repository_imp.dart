@@ -1,5 +1,4 @@
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
-import 'package:core/const.dart';
 import 'package:core/data/shared_preferences/shared_preferences_manager.dart';
 import 'package:core/data/shared_preferences/user_manager_interface.dart';
 import 'package:core/domain/city.dart';
@@ -10,7 +9,6 @@ import 'package:core/model/shop.dart';
 import 'package:quickorder/data/firebase/firestore_service.dart';
 import 'package:quickorder/data/firebase/firestore_service_imp.dart';
 import 'package:quickorder/data/local/entity/local_quick_order.dart';
-import 'package:quickorder/data/local/entity/local_quick_order_table.dart';
 import 'package:quickorder/data/local/quick_order_local_data_source.dart';
 import 'package:quickorder/data/repository/repository.dart';
 

@@ -64,7 +64,7 @@ class QuickOrderForm extends StatelessWidget {
     if (quickOrder != null) {
       _phoneController.text = quickOrder.phoneNumber ?? "";
       _priceController.text = quickOrder.price?.toString() ?? "";
-      _typeAheadController.text = quickOrder.address ?? "";
+      _typeAheadController.text = quickOrder.address?.startDestination ?? "";
       _descriptionController.text = quickOrder.description ?? "";
     }
   }
@@ -208,36 +208,56 @@ class QuickOrderForm extends StatelessWidget {
                           },
                         )),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Flexible(
                           flex: 3,
-                          child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TypeAheadFormField<Shop>(
-                                textFieldConfiguration: TextFieldConfiguration(
-                                  decoration:
-                                      formInputDecoration(label: 'address'.tr),
-                                  controller: _typeAheadController,
-                                ),
-                                onSuggestionSelected: (Shop shop) {
-                                  _typeAheadController.text = shop.name ?? "";
-                                },
-                                onSaved: (String? value) =>
-                                    provider.quickOrder.address = value,
-                                itemBuilder: (BuildContext context, Shop shop) {
-                                  return ListTile(
-                                    title: Text(shop.name ?? ""),
-                                    subtitle: Text(shop.address ?? ""),
-                                  );
-                                },
-                                suggestionsCallback: (pattern) {
-                                  return provider.shops.where((shop) =>
-                                      shop.name
-                                          ?.toLowerCase()
-                                          .contains(pattern.toLowerCase()) ??
-                                      false);
-                                },
-                              )),
+                          child: Column(
+                            children: [
+                              Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TypeAheadFormField<Shop>(
+                                    textFieldConfiguration:
+                                        TextFieldConfiguration(
+                                      decoration:
+                                          formInputDecoration(label: 'from'.tr),
+                                      controller: _typeAheadController,
+                                    ),
+                                    onSuggestionSelected: (Shop shop) {
+                                      _typeAheadController.text =
+                                          shop.name ?? "";
+                                    },
+                                    onSaved: (String? value) => provider
+                                        .quickOrder
+                                        .address
+                                        ?.startDestination = value,
+                                    itemBuilder:
+                                        (BuildContext context, Shop shop) {
+                                      return ListTile(
+                                        title: Text(shop.name ?? ""),
+                                        subtitle: Text(shop.address ?? ""),
+                                      );
+                                    },
+                                    suggestionsCallback: (pattern) {
+                                      return provider.shops.where((shop) =>
+                                          shop.name?.toLowerCase().contains(
+                                              pattern.toLowerCase()) ??
+                                          false);
+                                    },
+                                  )),
+                              Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: FormBuilderTextField(
+                                    name: 'addressTo',
+                                    onSaved: (String? endDestination) {
+                                      provider.quickOrder.address
+                                          ?.endDestination = endDestination;
+                                    },
+                                    decoration:
+                                        formInputDecoration(label: "to".tr),
+                                  )),
+                            ],
+                          ),
                         ),
                         Flexible(
                           flex: 1,
