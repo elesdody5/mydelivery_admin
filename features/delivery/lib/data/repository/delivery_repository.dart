@@ -66,7 +66,8 @@ abstract class DeliveryRepository {
 
   Future<Result> removeQuickOrder(String? id);
 
-  Future<Result<bool>> isUpdated(String deliveryId) ;
 
-  Future<void> removeIsUpdatedStatus(String deliveryId) ;
+  Future<Result<bool>> isAddressHidden(String deliveryId);
+
+  Future<Result> updateAddressVisibilityState(String id, bool isHidden);
 }

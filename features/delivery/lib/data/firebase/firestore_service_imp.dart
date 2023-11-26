@@ -158,18 +158,27 @@ class FireStoreServiceImp implements FireStoreService {
   }
 
   @override
-  Future<Result<bool>> isUpdated(String deliveryId) async {
-    final deliveryDoc =
-        await _fireStore.collection("userUpdates").doc(deliveryId).get();
+  Future<Result<bool>> isAddressHidden(String deliveryId) async {
+    final deliveryDoc = await _fireStore
+        .collection("HideQuickOrderAddress")
+        .doc(deliveryId)
+        .get();
 
-    bool? isUpdated = deliveryDoc.data()?["isUpdated"];
-    return Success(isUpdated ?? false);
+    bool? isHidden = deliveryDoc.data()?["isAddressHidden"];
+    return Success(isHidden ?? false);
   }
 
   @override
-  Future<void> removeIsUpdatedStatus(String deliveryId) async {
-    final deliveryDoc = _fireStore.collection("userUpdates").doc(deliveryId);
+  Future<Result> updateAddressVisibility(
+      String deliveryId, bool isHidden) async {
+    try {
+      final deliveryDoc =
+          _fireStore.collection("HideQuickOrderAddress").doc(deliveryId);
 
-    await deliveryDoc.set({"isUpdated": false});
+      await deliveryDoc.set({"isAddressHidden": isHidden});
+      return Success(true);
+    } on Exception catch (e) {
+      return Error(e);
+    }
   }
 }

@@ -28,7 +28,7 @@ abstract class FireStoreService {
 
   Future<void> updateOrdersStatus(List<String> ordersId);
 
-  Future<Result<bool>> isUpdated(String deliveryId) ;
+  Future<Result<bool>> isAddressHidden(String deliveryId);
 
-  Future<void> removeIsUpdatedStatus(String deliveryId) ;
+  Future<Result> updateAddressVisibility(String id, bool isHidden);
 }

@@ -78,7 +78,9 @@ class QuickOrderListItem extends StatelessWidget {
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (quickOrder.user?.address != null) Text(quickOrder.user!.address!),
+          Text(quickOrder.address?.startDestination ??
+              quickOrder.address?.fullAddress ??
+              ""),
           Text(
             " ${quickOrder.formattedDate}  ${quickOrder.formattedTime} ",
             textDirection: TextDirection.ltr,

@@ -13,12 +13,13 @@ class DeliveryDetailsProvider extends BaseProvider {
       : _repository = repository ?? DeliveryRepositoryImp();
   int coins = 0;
   bool isBlocked = false;
+  bool isAddressHidden = false;
 
   Future<void> init(String deliveryId) async {
     await Future.wait([
       getDeliveryCoins(deliveryId),
       getDeliveryBlockState(deliveryId),
-      checkLatestUpdate(deliveryId)
+      getAddressVisibilityState(deliveryId)
     ]);
   }
 
@@ -27,17 +28,19 @@ class DeliveryDetailsProvider extends BaseProvider {
     notifyListeners();
   }
 
-  Future<void> checkLatestUpdate(String deliveryId) async {
-    Result<bool> result = await _repository.isUpdated(deliveryId);
-    if (result.succeeded()) {
-      isUpdated = result.getDataIfSuccess();
-    }
-  }
-
   Future<void> getDeliveryBlockState(String deliveryId) async {
     Result<User> result = await _repository.getRemoteUserDetails(deliveryId);
     if (result.succeeded()) {
       isBlocked = result.getDataIfSuccess().isBlocked;
+      notifyListeners();
+    }
+  }
+
+  Future<void> getAddressVisibilityState(String deliveryId) async {
+    Result<bool> result =
+        await _repository.isAddressHidden(deliveryId);
+    if (result.succeeded()) {
+      isAddressHidden = result.getDataIfSuccess();
       notifyListeners();
     }
   }
@@ -56,13 +59,17 @@ class DeliveryDetailsProvider extends BaseProvider {
       notifyListeners();
     }
   }
-
-  void deleteUpdatedStatus(String? deliveryId) async {
-    if (deliveryId != null) {
+  Future<void> updateAddressVisibilityState(String? id, bool isHidden) async {
+    if (id != null) {
       isLoading.value = true;
-      await _repository.removeIsUpdatedStatus(deliveryId);
+      Result result =
+          await _repository.updateAddressVisibilityState(id, isHidden);
       isLoading.value = false;
-      isUpdated = false;
+      if (result.succeeded()) {
+        isAddressHidden = isHidden;
+      } else {
+        errorMessage.value = "update_profile_error_message";
+      }
       notifyListeners();
     }
   }

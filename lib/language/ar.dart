@@ -226,4 +226,5 @@ Map<String, String> arJson = {
   "cities_out_menouf": "مدن خارج منوف",
   "city_added_successfully": "تم اضافة المدينة",
   "city_added_error": "لم يتم اضافة المدينة",
+  "hide_address": "اخفاء العنوان"
 };

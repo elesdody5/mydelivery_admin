@@ -17,25 +17,6 @@ class DeliveryDetailsScreen extends StatelessWidget {
     setupNavigationListener(provider.navigation);
   }
 
-  void _showRemoveUpdateStatusDialog(DeliveryDetailsProvider provider,String? deliveryId) {
-    Get.dialog(AlertDialog(
-      title: Text("are_you_sure".tr),
-      content: Text("do_you_to_remove_update_status".tr),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Get.back();
-            provider.deleteUpdatedStatus(deliveryId);
-          },
-          child: Text("yes".tr),
-        ),
-        TextButton(
-          onPressed: () => Get.back(),
-          child: Text("cancel".tr),
-        )
-      ],
-    ));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,20 +90,19 @@ class DeliveryDetailsScreen extends StatelessWidget {
                   trailing: Text("${provider.coins}"),
                 ),
                 ListTile(
-                  onLongPress: ()=>_showRemoveUpdateStatusDialog(provider, delivery.id),
                   leading: const Icon(
-                    Icons.update,
+                    Icons.visibility_off,
                     size: 20,
-                    color: Colors.blue,
+                    color: Colors.greenAccent,
                   ),
                   title: Text(
-                    "latest_version".tr,
+                    "hide_address".tr,
                     style: Get.textTheme.bodyText2,
                   ),
-                  trailing: Icon(
-                    Icons.circle_rounded,
-                    size: 20,
-                    color: provider.isUpdated ? Colors.green : Colors.red,
+                  trailing: Switch(
+                    value: provider.isAddressHidden,
+                    onChanged: (bool value) => provider
+                        .updateAddressVisibilityState(delivery.id, value),
                   ),
                 ),
                 ListTile(

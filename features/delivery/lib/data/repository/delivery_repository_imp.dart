@@ -200,12 +200,12 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   }
 
   @override
-  Future<Result<bool>> isUpdated(String deliveryId) {
-    return _fireStoreService.isUpdated(deliveryId);
+  Future<Result<bool>> isAddressHidden(String deliveryId) {
+    return _fireStoreService.isAddressHidden(deliveryId);
   }
 
   @override
-  Future<void> removeIsUpdatedStatus(String deliveryId) {
-    return _fireStoreService.removeIsUpdatedStatus(deliveryId);
+  Future<Result> updateAddressVisibilityState(String id, bool isHidden) {
+    return _fireStoreService.updateAddressVisibility(id,isHidden);
   }
 }
