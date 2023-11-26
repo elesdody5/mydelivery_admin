@@ -50,12 +50,12 @@ class QuickOrderDetails extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "${"from".tr} : ${quickOrder.address?.startDestination}",
+                "${"from".tr} : ${quickOrder.address?.startDestination ?? ""}",
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               Text(
-                "${"to".tr} : ${quickOrder.address?.endDestination}",
+                "${"to".tr} : ${quickOrder.address?.endDestination ?? ""}",
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               )

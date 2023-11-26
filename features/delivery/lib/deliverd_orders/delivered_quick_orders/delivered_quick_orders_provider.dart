@@ -4,6 +4,7 @@ import 'package:core/domain/result.dart';
 import 'package:delivery/data/repository/delivery_repository.dart';
 import 'package:delivery/data/repository/delivery_repository_imp.dart';
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart';
 
 class DeliveredQuickOrdersProvider extends BaseProvider {
   final DeliveryRepository _repository;
@@ -12,6 +13,7 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
   void Function(int)? updateDeliveredQuickOrderCount;
   bool? inCityFilter;
   int? ordersCount;
+  int? totalPrice;
 
   DeliveredQuickOrdersProvider(
       {DeliveryRepository? deliveryRepository,
@@ -28,6 +30,7 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
         updateDeliveredQuickOrderCount!(_orders.length);
       }
       getOrdersCount();
+      getTotalPrice();
       notifyListeners();
     }
   }
@@ -38,6 +41,10 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
       count += element.count ?? 1;
     }
     ordersCount = count;
+  }
+
+  void getTotalPrice() {
+    totalPrice = filteredOrders.map((e) => e.price ?? 0).sum;
   }
 
   void dateFilter(DateTimeRange? dateTime) {

@@ -20,6 +20,7 @@ Map<String, String> arJson = {
   "search_hint": "نجبلك منين",
   "open": "مفتوح",
   "delivery_price": "تكلفة التوصيل",
+  "total_delivery_price": "اجمالي تكلفة التوصيل",
   "close": "مغلق يبدأ من @hour",
   "delivery_picked_time": "تم الاستلام الساعة @hour ",
   "settings": "الاعدادات",

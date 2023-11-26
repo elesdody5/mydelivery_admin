@@ -104,6 +104,12 @@ class DeliveredQuickOrdersScreen extends StatelessWidget {
                                     "${"total_orders".tr} ${provider.ordersCount} ",
                                   ),
                                 ),
+                                OutlinedButton(
+                                  onPressed: null,
+                                  child: Text(
+                                    "${"total_delivery_price".tr} ${provider.totalPrice ?? "0"} ",
+                                  ),
+                                ),
                                 ElevatedButton(
                                   onPressed: provider.updateOrdersStatus,
                                   child: Text("delete_history".tr),
