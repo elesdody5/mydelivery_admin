@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/city.dart';
-import 'package:dashboard/domain/model/order_settings.dart';
+import 'package:core/model/order_settings.dart';
 
 import 'firestore_service.dart';
 

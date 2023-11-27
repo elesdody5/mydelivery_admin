@@ -6,7 +6,7 @@ import 'package:core/screens.dart';
 import 'package:dashboard/data/repository/repository.dart';
 import 'package:dashboard/data/repository/repository_imp.dart';
 import 'package:dashboard/domain/model/notification_message.dart';
-import 'package:dashboard/domain/model/order_settings.dart';
+import 'package:core/model/order_settings.dart';
 
 class HomeProvider extends BaseProvider {
   final Repository _repository;

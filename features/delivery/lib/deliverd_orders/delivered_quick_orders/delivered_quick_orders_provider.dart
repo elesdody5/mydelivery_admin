@@ -110,6 +110,7 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
       _orders[index] = quickOrder;
       filteredOrders = [..._orders];
       getOrdersCount();
+      getTotalPrice();
       notifyListeners();
     }
   }

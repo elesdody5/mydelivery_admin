@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/city.dart';
-
+import 'package:core/model/order_settings.dart';
 import 'firestore_service.dart';
 
 class FireStoreServiceImp implements FireStoreService {
@@ -23,6 +23,16 @@ class FireStoreServiceImp implements FireStoreService {
     }
   }
 
-
+  @override
+  Future<Result<OrderSettings>> getOrderSettings() async {
+    try {
+      final settingsCollection = _fireStore.collection('settings');
+      final doc = await settingsCollection.get();
+      final ridePrice = OrderSettings.fromJson(doc.docs.first.data());
+      return Success(ridePrice);
+    } on Exception catch (e) {
+      return Error(e);
+    }
+  }
 
 }

@@ -1,6 +1,5 @@
 import 'package:core/utils/styles.dart';
-import 'package:dashboard/domain/model/order_settings.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:core/model/order_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';

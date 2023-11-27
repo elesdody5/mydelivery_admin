@@ -5,6 +5,7 @@ import 'package:core/domain/city.dart';
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
+import 'package:core/model/order_settings.dart';
 import 'package:core/model/shop.dart';
 import 'package:quickorder/data/firebase/firestore_service.dart';
 import 'package:quickorder/data/firebase/firestore_service_imp.dart';
@@ -110,5 +111,10 @@ class QuickOrderRepository implements Repository {
   @override
   Future<Result<List<City>>> getCities() {
     return _fireStoreService.getCities();
+  }
+
+  @override
+  Future<Result<OrderSettings>> getOrderSettings() {
+    return _fireStoreService.getOrderSettings();
   }
 }

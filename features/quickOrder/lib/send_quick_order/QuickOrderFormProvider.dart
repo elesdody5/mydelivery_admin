@@ -4,6 +4,7 @@ import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
 import 'package:core/domain/address.dart' as address;
+import 'package:core/model/order_settings.dart';
 import 'package:core/model/shop.dart';
 import 'package:quickorder/domain/model/PhoneContact.dart';
 
@@ -19,7 +20,7 @@ class QuickOrderFormProvider extends BaseProvider {
   List<PhoneContact> phoneContacts = [];
   List<City> cities = [];
   bool showCities = false;
-
+  OrderSettings? settings;
   City? selectedCity;
 
   QuickOrderFormProvider({Repository? repository})
@@ -54,7 +55,7 @@ class QuickOrderFormProvider extends BaseProvider {
 
   Future<void> init(QuickOrder? quickOrder) async {
     setInitQuickOrder(quickOrder);
-    await Future.wait([getShops(), getContacts(), getCities()]);
+    await Future.wait([getShops(), getContacts(), getCities(),getSettings()]);
     notifyListeners();
   }
 
@@ -122,5 +123,12 @@ class QuickOrderFormProvider extends BaseProvider {
     quickOrder.dateTime = DateTime.now().add(duration);
     await _repository.scheduleQuickOrder(duration, quickOrder);
     successMessage.value = "quick_order_successfully";
+  }
+  Future<void> getSettings() async {
+    Result<OrderSettings> result = await _repository.getOrderSettings();
+    if (result.succeeded()) {
+      OrderSettings settings = result.getDataIfSuccess();
+      quickOrder.price = settings.firstRidePrice;
+    }
   }
 }

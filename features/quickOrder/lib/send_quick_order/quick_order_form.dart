@@ -28,8 +28,7 @@ class QuickOrderForm extends StatelessWidget {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
 
-  final TextEditingController _priceController =
-      TextEditingController(text: "10");
+  final TextEditingController _priceController = TextEditingController();
 
   void _setupListener(QuickOrderFormProvider provider) {
     setupErrorMessageListener(provider.errorMessage);
@@ -109,6 +108,8 @@ class QuickOrderForm extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Consumer<QuickOrderFormProvider>(
                 builder: (context, provider, key) {
+              _priceController.text =
+                  provider.quickOrder.price?.toString() ?? "10";
               return FormBuilder(
                 key: _formKey,
                 child: Column(
@@ -147,8 +148,7 @@ class QuickOrderForm extends StatelessWidget {
                           onChanged: (City? value) {
                             if (value != null) {
                               _priceController.text = value.price.toString();
-                              _typeAheadController.text =
-                                  "${value.name}  " ?? "";
+                              _typeAheadController.text = value.name ?? "";
                               provider.selectedCity = value;
                             }
                           },

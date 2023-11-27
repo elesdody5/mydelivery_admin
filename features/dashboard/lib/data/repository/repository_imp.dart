@@ -14,7 +14,7 @@ import 'package:dashboard/data/remote/remote_data_source.dart';
 import 'package:dashboard/data/remote/remote_data_source_im.dart';
 import 'package:dashboard/data/repository/repository.dart';
 import 'package:dashboard/domain/model/notification_message.dart';
-import 'package:dashboard/domain/model/order_settings.dart';
+import 'package:core/model/order_settings.dart';
 
 class MainRepository implements Repository {
   final RemoteDataSource _remoteDataSource;
