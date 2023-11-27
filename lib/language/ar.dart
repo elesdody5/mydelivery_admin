@@ -144,7 +144,7 @@ Map<String, String> arJson = {
   "pm": "مساء",
   "first_drive": "سعر اول اوصيلة",
   "other_drive": "سعر باقي التوصيلات",
-  "delivery": "الطيار",
+  "delivery": "الكابتن",
   "waiting": "إنتظار",
   "refusedFromShop": "رفض من المتجر",
   "from": "من",

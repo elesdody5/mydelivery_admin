@@ -13,6 +13,7 @@ class Address {
       List<String>? addresses = address?.split("/");
       startDestination = addresses?[0];
       endDestination = addresses?[1];
+      if (endDestination == "null") endDestination = null;
     } else {
       fullAddress = address;
     }
@@ -22,13 +23,13 @@ class Address {
         endDestination: endDestination);
   }
 
-  String toJson() => "$startDestination/$endDestination";
+  String toJson() => "${startDestination ?? ""}/${endDestination ?? ""} ";
 }
 
 extension SearchAddress on Address {
   bool? contains(String address) {
     return fullAddress != null
         ? fullAddress?.contains(address)
-        : endDestination?.contains(address);
+        : startDestination?.contains(address);
   }
 }
