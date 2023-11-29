@@ -27,6 +27,7 @@ class SplashProvider extends BaseProvider {
   bool checkIfAdminOrSpecialUser(LoginResponse? loginResponse) {
     return loginResponse?.userType?.name == UserType.admin.name ||
         loginResponse?.userPhone == "01004404662" ||
+        loginResponse?.userPhone == "01033723390" ||
         loginResponse?.userPhone == "01004733487";
   }
 }

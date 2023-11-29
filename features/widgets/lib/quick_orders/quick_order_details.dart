@@ -53,32 +53,6 @@ class QuickOrderDetails extends StatelessWidget {
                 child: QuickOrderAddress(
                     quickOrder: quickOrder, address: quickOrder.address),
               ),
-            if (quickOrder.phoneNumber != null &&
-                quickOrder.phoneNumber?.isNotEmpty == true)
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("contact_number".tr),
-                        TextButton(
-                          onPressed: () => launchUrl(
-                              Uri.parse("tel://${quickOrder.phoneNumber}")),
-                          child: Text(
-                            quickOrder.phoneNumber?.replaceAll(" ", "") ?? "",
-                            style: const TextStyle(color: Colors.blue),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  const Divider(
-                    thickness: 1,
-                  ),
-                ],
-              ),
             if (quickOrder.delivery != null)
               ListTile(
                 leading: UserAvatar(
@@ -112,7 +86,7 @@ class QuickOrderDetails extends StatelessWidget {
                 title: quickOrder.user?.name != null
                     ? Text(quickOrder.user?.name ?? "")
                     : Text(
-                        quickOrder.phoneNumber ?? "",
+                        quickOrder.startDestinationPhoneNumber ?? "",
                       ),
                 subtitle: Text(quickOrder.user?.address ?? ""),
                 trailing: IconButton(
@@ -120,7 +94,7 @@ class QuickOrderDetails extends StatelessWidget {
                     if (quickOrder.user?.name != null) {
                       launch("tel://${quickOrder.user?.phone}");
                     } else {
-                      launch("tel://${quickOrder.phoneNumber}");
+                      launch("tel://${quickOrder.startDestinationPhoneNumber}");
                     }
                   },
                   icon: Icon(

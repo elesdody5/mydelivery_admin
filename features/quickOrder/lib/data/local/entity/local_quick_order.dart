@@ -10,7 +10,8 @@ class LocalQuickOrder {
   Address? address;
   bool? inCity;
   String? description;
-  String? phoneNumber;
+  String? startDestinationPhoneNumber;
+  String? endDestinationPhoneNumber;
   int? count;
   DateTime? dateTime;
   String? imagePath;
@@ -22,7 +23,8 @@ class LocalQuickOrder {
       this.address,
       this.inCity,
       this.description,
-      this.phoneNumber,
+      this.startDestinationPhoneNumber,
+      this.endDestinationPhoneNumber,
       this.count,
       this.dateTime,
       this.imagePath,
@@ -35,7 +37,8 @@ class LocalQuickOrder {
       'address': address?.toJson(),
       'inCity': inCity == true ? 1 : 0,
       'description': description,
-      'phoneNumber': phoneNumber,
+      "phoneNumber":
+          "${startDestinationPhoneNumber ?? ""}/${endDestinationPhoneNumber ?? ""}",
       'count': count,
       'dateTime': dateTime?.toIso8601String(),
       'imageFilePath': imagePath,
@@ -50,7 +53,8 @@ class LocalQuickOrder {
           address: Address.fromJson(json['address']),
           inCity: json['inCity'] == 1 ? true : false,
           description: json['description'],
-          phoneNumber: json['phoneNumber'],
+          startDestinationPhoneNumber: parseStartPhone(json['phoneNumber']),
+          endDestinationPhoneNumber: parseEndPhone(json['phoneNumber']),
           count: json['count'],
           dateTime: DateTime.tryParse(json['dateTime']),
           imagePath: json['imageFilePath'],
@@ -73,6 +77,22 @@ class LocalQuickOrder {
     String formattedDate = dateFormat.format(dateTime!);
     return formattedDate;
   }
+
+  static String? parseStartPhone(String? userPhone) {
+    if (userPhone?.contains("/") == true) {
+      return userPhone?.split("/").firstOrNull;
+    } else {
+      return userPhone;
+    }
+  }
+
+  static String? parseEndPhone(String? userPhone) {
+    if (userPhone?.contains("/") == true) {
+      return userPhone?.split("/")[1];
+    } else {
+      return null;
+    }
+  }
 }
 
 extension QuickOrderExtension on QuickOrder {
@@ -81,7 +101,8 @@ extension QuickOrderExtension on QuickOrder {
         address: address,
         inCity: inCity,
         description: description,
-        phoneNumber: phoneNumber,
+        startDestinationPhoneNumber: startDestinationPhoneNumber,
+        endDestinationPhoneNumber: endDestinationPhoneNumber,
         count: count,
         dateTime: dateTime,
         price: price,
@@ -97,7 +118,8 @@ extension LocalQuickOrderExtension on LocalQuickOrder {
         address: address,
         inCity: inCity,
         description: description,
-        phoneNumber: phoneNumber,
+        startDestinationPhoneNumber: startDestinationPhoneNumber,
+        endDestinationPhoneNumber: endDestinationPhoneNumber,
         count: count,
         dateTime: dateTime,
         price: price,

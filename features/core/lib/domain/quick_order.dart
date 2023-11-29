@@ -17,7 +17,8 @@ class QuickOrder {
   User? user;
   String? description;
   OrderStatus? orderStatus;
-  String? phoneNumber;
+  String? startDestinationPhoneNumber;
+  String? endDestinationPhoneNumber;
   int? count;
   DateTime? dateTime;
   File? imageFile;
@@ -35,7 +36,8 @@ class QuickOrder {
       this.user,
       this.description,
       this.orderStatus,
-      this.phoneNumber,
+      this.startDestinationPhoneNumber,
+      this.endDestinationPhoneNumber,
       this.count,
       this.dateTime,
       this.imageUrl,
@@ -56,7 +58,8 @@ class QuickOrder {
           : null,
       description: json['description'],
       orderStatus: stringToEnum(json['status']),
-      phoneNumber: json['userPhone'],
+      startDestinationPhoneNumber: parseStartPhone(json['userPhone']),
+      endDestinationPhoneNumber: parseEndPhone(json['userPhone']),
       count: json['count'],
       imageUrl: json['photo'],
       audioUrl: json['audio'],
@@ -79,7 +82,8 @@ class QuickOrder {
       "user": user?.id,
       "description": description,
       "status": orderStatus?.enumToString(),
-      "userPhone": phoneNumber,
+      "userPhone":
+          "${startDestinationPhoneNumber ?? ""}/${endDestinationPhoneNumber ?? ""}",
       "count": count,
       "date": dateTime?.toIso8601String(),
       "price": price,
@@ -118,5 +122,21 @@ class QuickOrder {
     var dateFormat = DateFormat("yyyy-MM-dd");
     String formattedDate = dateFormat.format(dateTime!);
     return formattedDate;
+  }
+
+  static String? parseStartPhone(String? userPhone) {
+    if (userPhone?.contains("/") == true) {
+      return userPhone?.split("/").firstOrNull;
+    } else {
+      return userPhone;
+    }
+  }
+
+  static String? parseEndPhone(String? userPhone) {
+    if (userPhone?.contains("/") == true) {
+      return userPhone?.split("/")[1];
+    } else {
+      return null;
+    }
   }
 }

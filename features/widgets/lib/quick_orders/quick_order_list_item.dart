@@ -72,7 +72,7 @@ class QuickOrderListItem extends StatelessWidget {
               style: Get.textTheme.bodyText2,
             )
           : Text(
-              quickOrder.phoneNumber?.replaceAll(" ", "") ?? "",
+              quickOrder.startDestinationPhoneNumber?.replaceAll(" ", "") ?? "",
               style: Get.textTheme.bodyText2,
             ),
       subtitle: Column(

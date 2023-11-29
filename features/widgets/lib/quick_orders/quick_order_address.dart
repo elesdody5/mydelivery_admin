@@ -2,6 +2,7 @@ import 'package:core/domain/address.dart';
 import 'package:core/domain/quick_order.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class QuickOrderAddress extends StatelessWidget {
   const QuickOrderAddress({
@@ -27,24 +28,69 @@ class QuickOrderAddress extends StatelessWidget {
           ),
         ),
         address?.fullAddress != null
-            ? Text(
-                address!.fullAddress!,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    address!.fullAddress!,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                  TextButton(
+                    onPressed: () => launchUrl(Uri.parse(
+                        "tel://${quickOrder.startDestinationPhoneNumber}")),
+                    child: Text(
+                      quickOrder.startDestinationPhoneNumber
+                              ?.replaceAll(" ", "") ??
+                          "",
+                      style: const TextStyle(color: Colors.blue),
+                    ),
+                  )
+                ],
               )
             : Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
-                    "${"from".tr} : ${quickOrder.address?.startDestination ?? ""}",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        "${"from".tr} : ${quickOrder.address?.startDestination ?? ""}",
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
+                      TextButton(
+                        onPressed: () => launchUrl(Uri.parse(
+                            "tel://${quickOrder.startDestinationPhoneNumber}")),
+                        child: Text(
+                          quickOrder.startDestinationPhoneNumber
+                                  ?.replaceAll(" ", "") ??
+                              "",
+                          style: const TextStyle(color: Colors.blue),
+                        ),
+                      )
+                    ],
                   ),
-                  Text(
-                    "${"to".tr} : ${quickOrder.address?.endDestination ?? ""}",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        "${"to".tr} : ${quickOrder.address?.endDestination ?? ""}",
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
+                      TextButton(
+                        onPressed: () => launchUrl(Uri.parse(
+                            "tel://${quickOrder.endDestinationPhoneNumber}")),
+                        child: Text(
+                          quickOrder.endDestinationPhoneNumber
+                                  ?.replaceAll(" ", "") ??
+                              "",
+                          style: const TextStyle(color: Colors.blue),
+                        ),
+                      )
+                    ],
                   )
                 ],
               ),
