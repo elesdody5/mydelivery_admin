@@ -269,4 +269,17 @@ class ApiServiceImp implements ApiService {
 
     return ApiResponse(responseData: true);
   }
+
+  @override
+  Future<ApiResponse> updateUserType(String userId, UserType userType) async {
+    final response = await _dio.patch(usersUrl,
+        queryParameters: {"userId": userId},
+        data: {"userType": userType.enmToString()});
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print("error message is ${response.data['message']}");
+      return ApiResponse(errorMessage: response.data['message']);
+    }
+
+    return ApiResponse(responseData: true);
+  }
 }

@@ -68,6 +68,7 @@ Map<String, String> arJson = {
   "empty_favourite_title": "لايوجد لديك تفضيلات ",
   "empty_favourite_subtitle": "ابدأ باضافة محلات للمفضلة",
   "change_password": "تغير كلمة المرور",
+  "change": "تغير",
   "change_quick_order": "تغير طلب سريع",
   "update_password_success_message": "تم تغير كلمة المرور بنجاح",
   'old_password': "كلمة المرور القديمة",

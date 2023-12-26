@@ -13,7 +13,7 @@ class SplashProvider extends BaseProvider {
 
   Future<void> autoLogin() async {
     LoginResponse? loginResponse = await _autoLoginUseCase.invoke();
-    if (checkIfAdminOrSpecialUser(loginResponse)) {
+    if (checkIfAdminOrDelivery(loginResponse)) {
       navigation.value = Destination(
           routeName: homeScreen,
           argument: loginResponse?.userPhone,
@@ -24,10 +24,8 @@ class SplashProvider extends BaseProvider {
     }
   }
 
-  bool checkIfAdminOrSpecialUser(LoginResponse? loginResponse) {
+  bool checkIfAdminOrDelivery(LoginResponse? loginResponse) {
     return loginResponse?.userType?.name == UserType.admin.name ||
-        loginResponse?.userPhone == "01004404662" ||
-        loginResponse?.userPhone == "01033723390" ||
-        loginResponse?.userPhone == "01004733487";
+        loginResponse?.userType?.name == UserType.delivery.name;
   }
 }

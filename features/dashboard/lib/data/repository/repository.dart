@@ -1,6 +1,7 @@
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
+import 'package:core/domain/user_type.dart';
 import 'package:core/model/category.dart';
 import 'package:core/model/offer.dart';
 import 'package:core/model/product.dart';
@@ -57,4 +58,6 @@ abstract class Repository {
   Future<Result> addNewCity(City city);
 
   Future<Result> updateCity(City currentCity);
+
+  Future<Result> updateUserType(String userId, UserType userType);
 }

@@ -4,6 +4,7 @@ import 'package:core/domain/city.dart';
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
+import 'package:core/domain/user_type.dart';
 import 'package:core/model/category.dart';
 import 'package:core/model/offer.dart';
 import 'package:core/model/product.dart';
@@ -148,5 +149,10 @@ class MainRepository implements Repository {
   @override
   Future<Result> updateCity(City city) {
     return _fireStoreService.updateCity(city);
+  }
+
+  @override
+  Future<Result> updateUserType(String userId, UserType userType) {
+    return _remoteDataSource.updateUserType(userId, userType);
   }
 }

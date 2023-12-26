@@ -1,4 +1,5 @@
 import 'package:core/domain/quick_order.dart';
+import 'package:core/domain/user_type.dart';
 import 'package:core/model/category.dart';
 import 'package:core/model/offer.dart';
 import 'package:core/model/product.dart';
@@ -37,7 +38,9 @@ abstract class ApiService {
 
   Future<ApiResponse> deleteNotificationById(String id);
 
-  Future<ApiResponse> blockUser(String id,bool block) ;
+  Future<ApiResponse> blockUser(String id, bool block);
 
-  Future<ApiResponse>  removeShopById(String id) ;
+  Future<ApiResponse> removeShopById(String id);
+
+  Future<ApiResponse> updateUserType(String userId,UserType userType);
 }

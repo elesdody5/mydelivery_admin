@@ -2,6 +2,8 @@ import 'package:core/base_provider.dart';
 import 'package:core/domain/navigation.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
+import 'package:core/domain/user_type.dart';
+import 'package:core/res.dart';
 import 'package:core/screens.dart';
 import 'package:dashboard/data/repository/repository.dart';
 import 'package:dashboard/data/repository/repository_imp.dart';
@@ -13,6 +15,7 @@ class UsersListProvider extends BaseProvider {
 
   UsersListProvider({Repository? repository})
       : _repository = repository ?? MainRepository();
+  UserType? selectedUserType;
 
   Future<void> getAllUsers() async {
     Result<List<User>> result = await _repository.getAllUsers();
@@ -49,5 +52,25 @@ class UsersListProvider extends BaseProvider {
       filteredUsers = [...users];
     }
     notifyListeners();
+  }
+
+  void onTypeSelected(User user, UserType? type) {
+    user.userType = type;
+    selectedUserType = type;
+    notifyListeners();
+  }
+
+  void updateUserType(User user) async {
+    if (user.userType != null) {
+      isLoading.value = true;
+      Result result =
+          await _repository.updateUserType(user.id ?? "", user.userType!);
+      isLoading.value = false;
+      if (result.succeeded()) {
+        successMessage.value = "update_profile_successful_message";
+      } else {
+        errorMessage.value = "update_profile_error_message";
+      }
+    }
   }
 }

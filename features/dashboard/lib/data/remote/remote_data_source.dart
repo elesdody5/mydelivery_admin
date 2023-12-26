@@ -1,6 +1,7 @@
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
+import 'package:core/domain/user_type.dart';
 import 'package:core/model/category.dart';
 import 'package:core/model/offer.dart';
 import 'package:core/model/product.dart';
@@ -38,7 +39,9 @@ abstract class RemoteDataSource {
 
   Future<Result> deleteNotificationById(String id);
 
-  Future<Result> blockUser(String id,bool block);
+  Future<Result> blockUser(String id, bool block);
 
-  Future<Result> removeShopById(String id) ;
+  Future<Result> removeShopById(String id);
+
+  Future<Result> updateUserType(String userId, UserType userType);
 }

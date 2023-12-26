@@ -1,6 +1,7 @@
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
+import 'package:core/domain/user_type.dart';
 import 'package:core/model/category.dart';
 import 'package:core/model/http_exception.dart';
 import 'package:core/model/offer.dart';
@@ -126,14 +127,20 @@ class RemoteDataSourceImp implements RemoteDataSource {
   }
 
   @override
-  Future<Result> blockUser(String id,bool block)async {
-    var response = await _apiService.blockUser(id,block);
+  Future<Result> blockUser(String id, bool block) async {
+    var response = await _apiService.blockUser(id, block);
     return _getResultFromResponse(response);
   }
 
   @override
-  Future<Result> removeShopById(String id) async{
+  Future<Result> removeShopById(String id) async {
     var response = await _apiService.removeShopById(id);
+    return _getResultFromResponse(response);
+  }
+
+  @override
+  Future<Result> updateUserType(String userId, UserType userType) async {
+    var response = await _apiService.updateUserType(userId, userType);
     return _getResultFromResponse(response);
   }
 }
