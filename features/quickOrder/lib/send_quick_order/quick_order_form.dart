@@ -373,6 +373,7 @@ class QuickOrderForm extends StatelessWidget {
                     FormBuilderTextField(
                       name: "description",
                       controller: _descriptionController,
+                      enableSuggestions: true,
                       minLines: 3,
                       maxLines: 6,
                       onTap: () {

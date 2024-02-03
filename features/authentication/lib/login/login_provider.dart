@@ -20,9 +20,7 @@ class LoginProvider extends BaseProvider {
             forgetPasswordUseCase ?? ForgetPasswordUseCaseImp();
 
   void _navigate(String phone, UserType? userType) {
-    if (userType?.name == UserType.admin.name ||
-        phone == "01004404662" ||
-        phone == "01004733487") {
+    if (userType == UserType.admin || userType == UserType.delivery) {
       navigation.value = Destination(
           routeName: homeScreen, argument: phone, removeFromStack: true);
     } else {

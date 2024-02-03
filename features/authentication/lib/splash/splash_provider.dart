@@ -25,7 +25,7 @@ class SplashProvider extends BaseProvider {
   }
 
   bool checkIfAdminOrDelivery(LoginResponse? loginResponse) {
-    return loginResponse?.userType?.name == UserType.admin.name ||
-        loginResponse?.userType?.name == UserType.delivery.name;
+    return loginResponse?.userType == UserType.admin ||
+        loginResponse?.userType == UserType.delivery;
   }
 }

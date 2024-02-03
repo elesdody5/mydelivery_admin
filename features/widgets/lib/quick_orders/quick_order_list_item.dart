@@ -54,6 +54,14 @@ class QuickOrderListItem extends StatelessWidget {
     ));
   }
 
+  String _textAddress() {
+    if (quickOrder.address?.startDestination != null) {
+      return "${quickOrder.address?.startDestination ?? ""}  ${"to".tr}  ${quickOrder.address?.endDestination ?? ""}";
+    } else {
+      return quickOrder.address?.fullAddress ?? "";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -78,9 +86,7 @@ class QuickOrderListItem extends StatelessWidget {
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(quickOrder.address?.startDestination ??
-              quickOrder.address?.fullAddress ??
-              ""),
+          Text(_textAddress()),
           Text(
             " ${quickOrder.formattedDate}  ${quickOrder.formattedTime} ",
             textDirection: TextDirection.ltr,
