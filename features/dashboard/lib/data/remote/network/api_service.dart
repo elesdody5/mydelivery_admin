@@ -42,5 +42,5 @@ abstract class ApiService {
 
   Future<ApiResponse> removeShopById(String id);
 
-  Future<ApiResponse> updateUserType(String userId,UserType userType);
+  Future<ApiResponse> updateUserType(String userId, UserType userType);
 }

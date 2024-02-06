@@ -27,7 +27,8 @@ class AuthRepositoryImp implements AuthRepository {
       await _userManager.saveUserPassword(password);
       await _userManager.saveToken(loginData.token);
       await _userManager.saveUserType(loginData.userType);
-      await _userManager.saveAdminId(loginData.userId);
+      await _userManager.saveAdminId(loginData.user?.id);
+      if (loginData.user != null) await _userManager.saveAdminDetails(loginData.user!);
     }
     return loginResponse;
   }

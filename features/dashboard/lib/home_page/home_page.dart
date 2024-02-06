@@ -3,6 +3,7 @@ import 'package:core/utils/utils.dart';
 import 'package:dashboard/cities/cities_dialog.dart';
 import 'package:dashboard/home_page/home_provider.dart';
 import 'package:dashboard/home_page/widgets/notification_dialog.dart';
+import 'package:dashboard/home_page/widgets/password_dialog.dart';
 import 'package:dashboard/settings/settings_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,6 +22,10 @@ class HomePage extends StatelessWidget {
     setupNavigationListener(provider.navigation);
   }
 
+  void _openPasswordDialog(HomeProvider provider) {
+    Get.dialog(PasswordDialog(submitPassword: provider.onPasswordEntered));
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<HomeProvider>(context, listen: false);
@@ -33,10 +38,8 @@ class HomePage extends StatelessWidget {
           children: [
             SpeedDialChild(
                 label: "cities_out_menouf".tr,
-                onTap: () => Get.dialog(
-                    ChangeNotifierProvider.value(
-                        value: CitiesDialogProvider(),
-                        child: CitiesDialog()))),
+                onTap: () => Get.dialog(ChangeNotifierProvider.value(
+                    value: CitiesDialogProvider(), child: CitiesDialog()))),
             SpeedDialChild(
                 label: "send_notification".tr,
                 onTap: () => Get.dialog(NotificationDialog(
@@ -57,10 +60,10 @@ class HomePage extends StatelessWidget {
           actions: <Widget>[
             Container(
               margin: const EdgeInsets.only(left: 8.0),
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const <Widget>[
+                children: <Widget>[
                   Text('My Delivery',
                       style: TextStyle(
                           color: Colors.blue,
@@ -324,6 +327,32 @@ class HomePage extends StatelessWidget {
                       children: <Widget>[
                         const Material(
                             color: Colors.green,
+                            shape: CircleBorder(),
+                            child: Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Icon(Icons.attach_money,
+                                  color: Colors.white, size: 30.0),
+                            )),
+                        const Padding(padding: EdgeInsets.only(bottom: 16.0)),
+                        Text('debts'.tr,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 24.0)),
+                      ]),
+                ), onTap: () async {
+              await provider.getSettings();
+              _openPasswordDialog(provider);
+            }),
+            _buildTile(
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        const Material(
+                            color: Colors.amber,
                             shape: CircleBorder(),
                             child: Padding(
                               padding: EdgeInsets.all(16.0),

@@ -16,7 +16,6 @@ class CitiesDialogProvider extends BaseProvider {
     Result result = await _repository.getCities();
     if (result.succeeded()) {
       cities = result.getDataIfSuccess();
-      print(cities);
       notifyListeners();
     }
   }

@@ -3,6 +3,7 @@ const adminIdKey = "admin_id";
 const phoneKey = "phone";
 const passwordKey = "password";
 const userKey = "user";
+const adminKey = "user";
 const tokenKey = 'token';
 const localKey = "LOCAL";
 const userTypeKey = "type";

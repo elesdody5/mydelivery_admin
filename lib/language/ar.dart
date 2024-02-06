@@ -33,6 +33,7 @@ Map<String, String> arJson = {
   "update_product_successful_message": "تم تعديل بنجاح",
   "update_product_error_message": "لايمكن تعديل",
   "home": "الرئيسية",
+  "debts":"ديون",
   "pending_notification_message": "يريد @name حجز موعد يوم @day",
   "confirmed_notification_message": "لقد تم الموافقة على حجز @name بنجاح",
   "rejected_notification_message": "لقد تم رفض حجز",
@@ -92,6 +93,7 @@ Map<String, String> arJson = {
   "do_you_to_remove_vendor": "هل تريد حذف هذا التاجر",
   "do_you_to_remove_shop": "هل تريد حذف هذا المحل",
   "do_you_to_remove_offer": "هل تريد حذف هذا العرض",
+  "do_you_to_remove": "هل تريد حذف",
   "do_you_to_remove_notification": "هل تريد حذف هذا الاشعار",
   "yes": "نعم",
   "time": "اوقات العمل",
@@ -228,5 +230,6 @@ Map<String, String> arJson = {
   "cities_out_menouf": "مدن خارج منوف",
   "city_added_successfully": "تم اضافة المدينة",
   "city_added_error": "لم يتم اضافة المدينة",
-  "hide_address": "اخفاء العنوان"
+  "hide_address": "اخفاء العنوان",
+  "add_debts":"اضافة ديون",
 };

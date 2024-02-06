@@ -7,6 +7,7 @@ import 'package:core/model/offer.dart';
 import 'package:core/model/product.dart';
 import 'package:core/model/shop.dart';
 import 'package:core/domain/city.dart';
+import 'package:dashboard/domain/model/debt.dart';
 import 'package:dashboard/domain/model/notification_message.dart';
 import 'package:core/model/order_settings.dart';
 
@@ -57,7 +58,13 @@ abstract class Repository {
 
   Future<Result> addNewCity(City city);
 
+  Future<Result> addDebts(Debt debt);
+
   Future<Result> updateCity(City currentCity);
 
   Future<Result> updateUserType(String userId, UserType userType);
+
+  Future<Result<List<Debt>>> getAllDebts();
+
+  Future<Result>removeDebt(String? id);
 }

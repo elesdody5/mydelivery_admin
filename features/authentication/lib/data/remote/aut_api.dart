@@ -2,6 +2,7 @@ import 'package:authentication/data/model/login_response.dart';
 import 'package:authentication/data/model/reset_password_model.dart';
 import 'package:authentication/domin/model/signup_model.dart';
 import 'package:core/data/remote/network_service.dart';
+import 'package:core/domain/user.dart';
 import 'package:core/domain/user_type.dart';
 import 'package:core/model/response.dart';
 import 'package:dio/dio.dart';
@@ -30,11 +31,11 @@ class AuthApiServiceImp implements AuthApiService {
       final responseData = response.data;
       String token = responseData['token'];
       UserType? type = stringToEnum(responseData['user']['userType']);
-      String? userId = responseData['user']['_id'];
+      User? user = User.fromJson(responseData['user']);
       addInterceptor(token);
       return ApiResponse(
           responseData: LoginResponse(
-              token: token, userType: type, userId: userId, userPhone: phone));
+              token: token, userType: type, user: user, userPhone: phone));
     } catch (e) {
       print(e);
       if (e is DioError) {
@@ -58,12 +59,11 @@ class AuthApiServiceImp implements AuthApiService {
       final responseData = response.data;
       String token = responseData['token'];
       UserType? type = stringToEnum(responseData['userType']);
-      String? userId = responseData['userId'];
       return ApiResponse(
           responseData: LoginResponse(
               token: token,
               userType: type,
-              userId: userId,
+              user: null,
               userPhone: signUpModel.phone));
     } catch (error) {
       print(error);

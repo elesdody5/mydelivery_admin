@@ -68,4 +68,12 @@ class HomeProvider extends BaseProvider {
     navigation.value =
         Destination(routeName: loginScreenRouteName, removeFromStack: true);
   }
+
+  void onPasswordEntered(String password) {
+    if (orderSettings?.password == password) {
+      navigation.value = Destination(routeName: debtsScreen);
+    } else {
+      errorMessage.value = "password_not_match";
+    }
+  }
 }

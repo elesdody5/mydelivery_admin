@@ -6,6 +6,8 @@ import 'package:authentication/splash/splash_screen.dart';
 import 'package:core/screens.dart';
 import 'package:dashboard/categories/categories_provider.dart';
 import 'package:dashboard/categories/categories_screen.dart';
+import 'package:dashboard/debts/debts_provider.dart';
+import 'package:dashboard/debts/debts_screen.dart';
 import 'package:dashboard/home_page/home_page.dart';
 import 'package:dashboard/notifications_list/notification_list_screen.dart';
 import 'package:dashboard/notifications_list/notification_provider.dart';
@@ -230,6 +232,13 @@ List<GetPage> appPages = [
     page: () => ChangeNotifierProvider.value(
       value: ScheduledQuickOrdersProvider(),
       child: const ScheduledQuickOrderScreen(),
+    ),
+  ),
+  GetPage(
+    name: debtsScreen,
+    page: () => ChangeNotifierProvider.value(
+      value: DebtsProvider(),
+      child: const DebtsScreen(),
     ),
   )
 ];

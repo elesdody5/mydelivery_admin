@@ -57,8 +57,9 @@ class SharedPreferencesManagerImp implements SharedPreferencesManager {
   @override
   Future<void> saveUserType(UserType? userType) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    if (userType != null)
+    if (userType != null) {
       sharedPreferences.setString(userTypeKey, userType.enmToString());
+    }
   }
 
   @override
@@ -81,6 +82,7 @@ class SharedPreferencesManagerImp implements SharedPreferencesManager {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.getString(userIdKey);
   }
+
   @override
   Future<String?> getAdminId() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -92,6 +94,7 @@ class SharedPreferencesManagerImp implements SharedPreferencesManager {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (userId != null) sharedPreferences.setString(userIdKey, userId);
   }
+
   @override
   Future<void> saveAdminId(String? userId) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -113,6 +116,22 @@ class SharedPreferencesManagerImp implements SharedPreferencesManager {
     Map<String, dynamic> userJson = user.toJson();
     String userDetails = json.encode(userJson);
     sharedPreferences.setString(userKey, userDetails);
+  }
+  @override
+  Future<void> saveAdminDetails(User user) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    Map<String, dynamic> userJson = user.toJson();
+    String userDetails = json.encode(userJson);
+    sharedPreferences.setString(adminKey, userDetails);
+  }
+
+  @override
+  Future<User?> getAdminDetails() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? userDetails = sharedPreferences.getString(adminKey);
+    if (userDetails == null) return null;
+    Map<String, dynamic> userJson = json.decode(userDetails);
+    return User.fromJson(userJson);
   }
 
   @override
