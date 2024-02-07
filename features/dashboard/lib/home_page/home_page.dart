@@ -78,11 +78,13 @@ class HomePage extends StatelessWidget {
           crossAxisCount: 2,
           crossAxisSpacing: 12.0,
           mainAxisSpacing: 12.0,
+          childAspectRatio: 1.2,
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           children: <Widget>[
             _buildTile(
               Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -90,6 +92,7 @@ class HomePage extends StatelessWidget {
                         Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               const Material(
                                   color: Colors.blue,
@@ -121,7 +124,7 @@ class HomePage extends StatelessWidget {
                           color: Colors.teal,
                           shape: CircleBorder(),
                           child: Padding(
-                            padding: EdgeInsets.all(16.0),
+                            padding: EdgeInsets.all(12.0),
                             child: Icon(
                               Icons.pedal_bike,
                               color: Colors.white,
@@ -140,57 +143,8 @@ class HomePage extends StatelessWidget {
             ),
             _buildTile(
               Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      const Material(
-                          color: Colors.blueGrey,
-                          shape: CircleBorder(),
-                          child: Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: Icon(Icons.account_circle_rounded,
-                                color: Colors.white, size: 30.0),
-                          )),
-                      const Padding(padding: EdgeInsets.only(bottom: 16.0)),
-                      Text('vendor'.tr,
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 24.0)),
-                    ]),
-              ),
-              onTap: () => Get.toNamed(vendorsListScreen),
-            ),
-            _buildTile(
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      const Material(
-                          color: Colors.deepPurpleAccent,
-                          shape: CircleBorder(),
-                          child: Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: Icon(Icons.store,
-                                color: Colors.white, size: 30.0),
-                          )),
-                      const Padding(padding: EdgeInsets.only(bottom: 16.0)),
-                      Text('shops'.tr,
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 24.0)),
-                    ]),
-              ),
-              onTap: () => Get.toNamed(categoriesScreenRouteName),
-            ),
-            _buildTile(
-              Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -215,7 +169,8 @@ class HomePage extends StatelessWidget {
             ),
             _buildTile(
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -237,31 +192,6 @@ class HomePage extends StatelessWidget {
                     ]),
               ),
               onTap: () => Get.toNamed(scheduledQuickOrders),
-            ),
-            _buildTile(
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      const Material(
-                          color: Colors.orangeAccent,
-                          shape: CircleBorder(),
-                          child: Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: Icon(Icons.shopping_cart,
-                                color: Colors.white, size: 30.0),
-                          )),
-                      const Padding(padding: EdgeInsets.only(bottom: 16.0)),
-                      Text('orders'.tr,
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 24.0)),
-                    ]),
-              ),
-              onTap: () => Get.toNamed(allOrdersScreen),
             ),
             _buildTile(
               Padding(
@@ -294,8 +224,114 @@ class HomePage extends StatelessWidget {
               onTap: () => Get.toNamed(quickOrderForm),
             ),
             _buildTile(
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        const Material(
+                            color: Colors.green,
+                            shape: CircleBorder(),
+                            child: Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Icon(Icons.attach_money,
+                                  color: Colors.white, size: 30.0),
+                            )),
+                        const Padding(padding: EdgeInsets.only(bottom: 16.0)),
+                        Text('debts'.tr,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 24.0)),
+                      ]),
+                ), onTap: () async {
+              await provider.getSettings();
+              _openPasswordDialog(provider);
+            }),
+            _buildTile(
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const Material(
+                          color: Colors.blueGrey,
+                          shape: CircleBorder(),
+                          child: Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Icon(Icons.account_circle_rounded,
+                                color: Colors.white, size: 30.0),
+                          )),
+                      const Padding(padding: EdgeInsets.only(bottom: 16.0)),
+                      Text('vendor'.tr,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 24.0)),
+                    ]),
+              ),
+              onTap: () => Get.toNamed(vendorsListScreen),
+            ),
+            _buildTile(
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const Material(
+                          color: Colors.deepPurpleAccent,
+                          shape: CircleBorder(),
+                          child: Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Icon(Icons.store,
+                                color: Colors.white, size: 30.0),
+                          )),
+                      const Padding(padding: EdgeInsets.only(bottom: 16.0)),
+                      Text('shops'.tr,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 24.0)),
+                    ]),
+              ),
+              onTap: () => Get.toNamed(categoriesScreenRouteName),
+            ),
+            _buildTile(
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const Material(
+                          color: Colors.orangeAccent,
+                          shape: CircleBorder(),
+                          child: Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Icon(Icons.shopping_cart,
+                                color: Colors.white, size: 30.0),
+                          )),
+                      const Padding(padding: EdgeInsets.only(bottom: 16.0)),
+                      Text('orders'.tr,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 24.0)),
+                    ]),
+              ),
+              onTap: () => Get.toNamed(allOrdersScreen),
+            ),
+            _buildTile(
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -320,33 +356,8 @@ class HomePage extends StatelessWidget {
             ),
             _buildTile(
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const Material(
-                            color: Colors.green,
-                            shape: CircleBorder(),
-                            child: Padding(
-                              padding: EdgeInsets.all(16.0),
-                              child: Icon(Icons.attach_money,
-                                  color: Colors.white, size: 30.0),
-                            )),
-                        const Padding(padding: EdgeInsets.only(bottom: 16.0)),
-                        Text('debts'.tr,
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 24.0)),
-                      ]),
-                ), onTap: () async {
-              await provider.getSettings();
-              _openPasswordDialog(provider);
-            }),
-            _buildTile(
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -374,7 +385,8 @@ class HomePage extends StatelessWidget {
             }),
             _buildTile(
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -398,7 +410,8 @@ class HomePage extends StatelessWidget {
                 onTap: () => Get.toNamed(notificationsScreenRouteName)),
             _buildTile(
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,

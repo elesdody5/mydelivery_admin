@@ -262,6 +262,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  debts:
+    dependency: "direct main"
+    description:
+      path: "features/debts"
+      relative: true
+    source: path
+    version: "0.0.1"
   delivery:
     dependency: "direct main"
     description:

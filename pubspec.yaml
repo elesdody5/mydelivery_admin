@@ -21,6 +21,8 @@ dependencies:
     path: features/user_profile
   vendor:
     path: features/vendor
+  debts:
+    path: features/debts
 
   quickorder:
     path: features/quickOrder

@@ -1,6 +1,7 @@
-import 'package:dashboard/domain/model/debt.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../domain/model/debt.dart';
 
 class DebtsListItem extends StatelessWidget {
   final Debt debt;

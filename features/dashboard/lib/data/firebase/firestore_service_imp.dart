@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/city.dart';
 import 'package:core/model/order_settings.dart';
-import 'package:dashboard/domain/model/debt.dart';
-
 import 'firestore_service.dart';
 
 class FireStoreServiceImp implements FireStoreService {
@@ -65,42 +63,6 @@ class FireStoreServiceImp implements FireStoreService {
     try {
       final cityDoc = _fireStore.collection('cities').doc(city.id);
       await cityDoc.update(city.toJson());
-      return Success(true);
-    } on Exception catch (e) {
-      return Error(e);
-    }
-  }
-
-  @override
-  Future<Result<List<Debt>>> getAllDebts() async {
-    try {
-      final debtsCollection = _fireStore.collection('debts');
-      final debtsDocs = await debtsCollection.get();
-      final debts = debtsDocs.docs
-          .map((doc) => Debt.fromJson(doc.data(), doc.id))
-          .toList();
-      return Success(debts);
-    } on Exception catch (e) {
-      return Error(e);
-    }
-  }
-
-  @override
-  Future<Result> addDebt(Debt debt) async {
-    try {
-      final debtsCollection = _fireStore.collection('debts');
-      debtsCollection.add(debt.toJson());
-      return Success(true);
-    } on Exception catch (e) {
-      return Error(e);
-    }
-  }
-
-  @override
-  Future<Result> removeDebt(String? id) async {
-    try {
-      final debtsCollection = _fireStore.collection('debts');
-      await debtsCollection.doc(id).delete();
       return Success(true);
     } on Exception catch (e) {
       return Error(e);

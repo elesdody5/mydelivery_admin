@@ -1,13 +1,12 @@
 import 'package:core/utils/utils.dart';
-import 'package:dashboard/debts/debts_provider.dart';
-import 'package:dashboard/debts/widgets/debts_dialog.dart';
-import 'package:dashboard/debts/widgets/debts_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:widgets/future_with_loading_progress.dart';
 import 'package:provider/provider.dart';
-
 import '../domain/model/debt.dart';
+import 'debts_provider.dart';
+import 'widgets/debts_dialog.dart';
+import 'widgets/debts_list_item.dart';
 
 class DebtsScreen extends StatelessWidget {
   const DebtsScreen({Key? key}) : super(key: key);

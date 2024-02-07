@@ -1,15 +1,16 @@
 import 'package:core/base_provider.dart';
 import 'package:core/domain/result.dart';
-import 'package:dashboard/data/repository/repository.dart';
-import 'package:dashboard/data/repository/repository_imp.dart';
-import 'package:dashboard/domain/model/debt.dart';
+import 'package:debts/debts/data/debts_repository_imp.dart';
+import 'package:debts/domain/debts_repository.dart';
+
+import '../domain/model/debt.dart';
 
 class DebtsProvider extends BaseProvider {
   List<Debt> debts = [];
-  final Repository _repository;
+  final DebtsRepository _repository;
 
-  DebtsProvider({Repository? repository})
-      : _repository = repository ?? MainRepository();
+  DebtsProvider({DebtsRepository? repository})
+      : _repository = repository ?? DebtsRepositoryImp();
 
   Future<void> getAllDebts() async {
     Result<List<Debt>> result = await _repository.getAllDebts();

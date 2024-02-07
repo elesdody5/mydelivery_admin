@@ -6,8 +6,7 @@ import 'package:authentication/splash/splash_screen.dart';
 import 'package:core/screens.dart';
 import 'package:dashboard/categories/categories_provider.dart';
 import 'package:dashboard/categories/categories_screen.dart';
-import 'package:dashboard/debts/debts_provider.dart';
-import 'package:dashboard/debts/debts_screen.dart';
+
 import 'package:dashboard/home_page/home_page.dart';
 import 'package:dashboard/notifications_list/notification_list_screen.dart';
 import 'package:dashboard/notifications_list/notification_provider.dart';
@@ -21,6 +20,8 @@ import 'package:dashboard/shops/shops_provider.dart';
 import 'package:dashboard/shops/shops_screen.dart';
 import 'package:dashboard/users_list_screen/user_list_proivder.dart';
 import 'package:dashboard/users_list_screen/user_list_screen.dart';
+import 'package:debts/debts/debts_provider.dart';
+import 'package:debts/debts/debts_screen.dart';
 import 'package:delivery/all_orders/AllOrdersProvider.dart';
 import 'package:delivery/all_orders/all_orders_screen.dart';
 import 'package:delivery/all_quick_orders/all_quick_orders_provider.dart';

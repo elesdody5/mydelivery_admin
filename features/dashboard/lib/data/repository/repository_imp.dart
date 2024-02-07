@@ -14,7 +14,6 @@ import 'package:dashboard/data/firebase/firestore_service_imp.dart';
 import 'package:dashboard/data/remote/remote_data_source.dart';
 import 'package:dashboard/data/remote/remote_data_source_im.dart';
 import 'package:dashboard/data/repository/repository.dart';
-import 'package:dashboard/domain/model/debt.dart';
 import 'package:dashboard/domain/model/notification_message.dart';
 import 'package:core/model/order_settings.dart';
 
@@ -148,13 +147,6 @@ class MainRepository implements Repository {
   }
 
   @override
-  Future<Result> addDebts(Debt debt) async {
-    User? admin = await _sharedPreferencesManager.getAdminDetails();
-    debt.userAdded = admin;
-    return _fireStoreService.addDebt(debt);
-  }
-
-  @override
   Future<Result> updateCity(City city) {
     return _fireStoreService.updateCity(city);
   }
@@ -164,13 +156,5 @@ class MainRepository implements Repository {
     return _remoteDataSource.updateUserType(userId, userType);
   }
 
-  @override
-  Future<Result<List<Debt>>> getAllDebts() {
-    return _fireStoreService.getAllDebts();
-  }
 
-  @override
-  Future<Result> removeDebt(String? id) {
-    return _fireStoreService.removeDebt(id);
-  }
 }
