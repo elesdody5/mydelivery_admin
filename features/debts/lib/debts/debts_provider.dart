@@ -1,8 +1,8 @@
 import 'package:core/base_provider.dart';
 import 'package:core/domain/result.dart';
-import 'package:debts/debts/data/debts_repository_imp.dart';
 import 'package:debts/domain/debts_repository.dart';
 
+import '../data/debts_repository_imp.dart';
 import '../domain/model/debt.dart';
 
 class DebtsProvider extends BaseProvider {
@@ -22,9 +22,10 @@ class DebtsProvider extends BaseProvider {
 
   Future<void> addDebt(Debt debt) async {
     isLoading.value = true;
-    Result result = await _repository.addDebts(debt);
+    Result<String> result = await _repository.addDebts(debt);
     isLoading.value = false;
     if (result.succeeded()) {
+      debt.id = result.getDataIfSuccess();
       debts.add(debt);
       notifyListeners();
     } else {
@@ -35,12 +36,20 @@ class DebtsProvider extends BaseProvider {
   Future<void> removeDebt(Debt debt) async {
     isLoading.value = true;
     Result result = await _repository.removeDebt(debt.id);
-    isLoading.value = true;
+    isLoading.value = false;
     if (result.succeeded()) {
       debts.remove(debt);
       notifyListeners();
     } else {
       errorMessage.value = "something_went_wrong";
+    }
+  }
+
+  void updateDebt(Debt? debt) {
+    if (debt != null) {
+      int index = debts.indexWhere((element) => element.id == debt.id);
+      if (index != -1) debts[index] = debt;
+      notifyListeners();
     }
   }
 }

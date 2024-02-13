@@ -22,6 +22,9 @@ import 'package:dashboard/users_list_screen/user_list_proivder.dart';
 import 'package:dashboard/users_list_screen/user_list_screen.dart';
 import 'package:debts/debts/debts_provider.dart';
 import 'package:debts/debts/debts_screen.dart';
+import 'package:debts/debts_transactions/debts_transactions_provider.dart';
+import 'package:debts/debts_transactions/debts_transactions_screen.dart';
+import 'package:debts/domain/model/debts_transactions.dart';
 import 'package:delivery/all_orders/AllOrdersProvider.dart';
 import 'package:delivery/all_orders/all_orders_screen.dart';
 import 'package:delivery/all_quick_orders/all_quick_orders_provider.dart';
@@ -240,6 +243,13 @@ List<GetPage> appPages = [
     page: () => ChangeNotifierProvider.value(
       value: DebtsProvider(),
       child: const DebtsScreen(),
+    ),
+  ),
+  GetPage(
+    name: debtTransactionsScreen,
+    page: () => ChangeNotifierProvider.value(
+      value: DebtsTransactionsProvider(),
+      child: const DebtsTransactionsScreen(),
     ),
   )
 ];

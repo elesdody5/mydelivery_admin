@@ -232,4 +232,7 @@ Map<String, String> arJson = {
   "city_added_error": "لم يتم اضافة المدينة",
   "hide_address": "اخفاء العنوان",
   "add_debts":"اضافة ديون",
+  "deduction":"خصم",
+  "error_deduction":" لا يمكن خصم اكثر من @amount",
+  "adding":"اضافة"
 };

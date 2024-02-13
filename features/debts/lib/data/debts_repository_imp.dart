@@ -1,7 +1,8 @@
 import 'package:core/data/shared_preferences/user_manager_interface.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
-import 'package:debts/debts/data/remote/firebase/firebase_service.dart';
+import 'package:debts/data/remote/firebase/firebase_service.dart';
+import 'package:debts/domain/model/debts_transactions.dart';
 
 import '../../domain/debts_repository.dart';
 import '../../domain/model/debt.dart';
@@ -24,14 +25,36 @@ class DebtsRepositoryImp implements DebtsRepository {
   }
 
   @override
-  Future<Result> removeDebt(String? id) {
-    return _firebaseService.removeDebt(id);
+  Future<Result> removeDebt(String? id) async {
+    await _firebaseService.removeDebt(id);
+    return removeDebtTransactions(id);
+  }
+
+  Future<Result> removeDebtTransactions(String? debtId) {
+    return _firebaseService.removeDebtTransactions(debtId);
   }
 
   @override
-  Future<Result> addDebts(Debt debt) async {
+  Future<Result<String>> addDebts(Debt debt) async {
     User? admin = await _sharedPreferencesManager.getAdminDetails();
     debt.userAdded = admin;
     return _firebaseService.addDebt(debt);
+  }
+
+  @override
+  Future<Result<List<DebtTransaction>>> getDebtTransactions(String id) {
+    return _firebaseService.getDebtTransactions(id);
+  }
+
+  @override
+  Future<Result> addDebtTransaction(DebtTransaction debtTransaction) async {
+    User? admin = await _sharedPreferencesManager.getAdminDetails();
+    debtTransaction.userAdded = admin;
+    return _firebaseService.addDebtTransaction(debtTransaction);
+  }
+
+  @override
+  Future<Result> updateDebt(Debt debt) {
+    return _firebaseService.updateDebt(debt);
   }
 }

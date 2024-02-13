@@ -34,3 +34,4 @@ const String deliveryProfileScreen = "/delivery_profile_screen";
 const String quickOrderForm ="/quick_order_screen";
 const String scheduledQuickOrders="/scheduled_quick_order";
 const String debtsScreen ="/debts_screen";
+const String debtTransactionsScreen = "/debt_transactions_screen";

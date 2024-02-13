@@ -1,3 +1,4 @@
+import 'package:core/screens.dart';
 import 'package:core/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,6 +37,12 @@ class DebtsScreen extends StatelessWidget {
     ));
   }
 
+  void onDebtsListTap(DebtsProvider provider, Debt debt) async {
+    Debt updateDebt =
+        await Get.toNamed(debtTransactionsScreen, arguments: debt);
+      provider.updateDebt(updateDebt);
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<DebtsProvider>(context, listen: false);
@@ -58,6 +65,7 @@ class DebtsScreen extends StatelessWidget {
                   itemCount: provider.debts.length,
                   itemBuilder: (context, index) => DebtsListItem(
                       debt: provider.debts[index],
+                      onTap: (debt) => onDebtsListTap(provider, debt),
                       onLongPress: (debt) => _showAlertDialog(provider, debt))),
             )));
   }

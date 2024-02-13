@@ -18,6 +18,7 @@ class DebtsDialog extends StatelessWidget {
     try {
       if (_fbKey.currentState?.validate() == true) {
         _fbKey.currentState?.save();
+        debt.createdAt = DateTime.now();
         Get.back();
         addDebts(debt);
       }
@@ -47,11 +48,21 @@ class DebtsDialog extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: FormBuilderTextField(
+                  name: 'phone',
+                  keyboardType: TextInputType.phone,
+                  validator: FormBuilderValidators.required(),
+                  onSaved: (String? phone) => debt.phone = phone,
+                  decoration: formInputDecoration(label: "${"phone".tr} (${"optional".tr})" ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FormBuilderTextField(
                   name: 'price',
                   keyboardType: TextInputType.number,
                   validator: FormBuilderValidators.required(),
                   onSaved: (String? price) =>
-                      debt.price = double.parse(price ?? "0"),
+                      debt.totalAmount = double.parse(price ?? "0"),
                   decoration: formInputDecoration(label: 'price'.tr),
                 ),
               ),

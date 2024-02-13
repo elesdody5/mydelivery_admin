@@ -75,7 +75,7 @@ void hideLoadingProgress() {
 
 extension FormtDate on DateTime {
   String customFormat() {
-    final df = DateFormat('dd/MM/yyyy');
+    final df = DateFormat('yyyy-MM-dd');
     return df.format(this);
   }
 
