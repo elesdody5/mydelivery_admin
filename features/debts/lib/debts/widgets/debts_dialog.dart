@@ -55,17 +55,6 @@ class DebtsDialog extends StatelessWidget {
                   decoration: formInputDecoration(label: "${"phone".tr} (${"optional".tr})" ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FormBuilderTextField(
-                  name: 'price',
-                  keyboardType: TextInputType.number,
-                  validator: FormBuilderValidators.required(),
-                  onSaved: (String? price) =>
-                      debt.totalAmount = double.parse(price ?? "0"),
-                  decoration: formInputDecoration(label: 'price'.tr),
-                ),
-              ),
             ],
           )),
       actions: [

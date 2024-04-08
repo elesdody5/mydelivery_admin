@@ -51,6 +51,8 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
     filteredOrders = filteredOrders
         .where((element) => _inRange(element.dateTime, dateTime))
         .toList();
+    getOrdersCount();
+    getTotalPrice();
     notifyListeners();
   }
 
@@ -74,7 +76,7 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
 
   void updateOrdersStatus() async {
     isLoading.value = true;
-    List<String> ordersId = _orders.map((order) => order.id ?? "").toList();
+    List<String> ordersId = filteredOrders.map((order) => order.id ?? "").toList();
     await _repository.updateQuickOrdersStatus(ordersId);
     isLoading.value = false;
     filteredOrders.clear();

@@ -6,7 +6,8 @@ import '../data/debts_repository_imp.dart';
 import '../domain/model/debt.dart';
 
 class DebtsProvider extends BaseProvider {
-  List<Debt> debts = [];
+  List<Debt> _debts = [];
+  List<Debt> filteredDebts = [];
   final DebtsRepository _repository;
 
   DebtsProvider({DebtsRepository? repository})
@@ -15,7 +16,8 @@ class DebtsProvider extends BaseProvider {
   Future<void> getAllDebts() async {
     Result<List<Debt>> result = await _repository.getAllDebts();
     if (result.succeeded()) {
-      debts = result.getDataIfSuccess();
+      _debts = result.getDataIfSuccess();
+      filteredDebts = [..._debts];
       notifyListeners();
     }
   }
@@ -26,7 +28,8 @@ class DebtsProvider extends BaseProvider {
     isLoading.value = false;
     if (result.succeeded()) {
       debt.id = result.getDataIfSuccess();
-      debts.add(debt);
+      _debts.add(debt);
+      filteredDebts = [..._debts];
       notifyListeners();
     } else {
       errorMessage.value = "something_went_wrong";
@@ -38,7 +41,8 @@ class DebtsProvider extends BaseProvider {
     Result result = await _repository.removeDebt(debt.id);
     isLoading.value = false;
     if (result.succeeded()) {
-      debts.remove(debt);
+      _debts.remove(debt);
+      filteredDebts = [..._debts];
       notifyListeners();
     } else {
       errorMessage.value = "something_went_wrong";
@@ -47,9 +51,23 @@ class DebtsProvider extends BaseProvider {
 
   void updateDebt(Debt? debt) {
     if (debt != null) {
-      int index = debts.indexWhere((element) => element.id == debt.id);
-      if (index != -1) debts[index] = debt;
+      int index = _debts.indexWhere((element) => element.id == debt.id);
+      if (index != -1) {
+        _debts[index] = debt;
+        filteredDebts = [..._debts];
+      }
       notifyListeners();
     }
+  }
+
+  void search(String debtTitle) {
+    if (debtTitle.isNotEmpty) {
+      filteredDebts = _debts.where((element) {
+        return element.title?.toLowerCase().contains(debtTitle) ?? false;
+      }).toList();
+    } else {
+      filteredDebts = [..._debts];
+    }
+    notifyListeners();
   }
 }
