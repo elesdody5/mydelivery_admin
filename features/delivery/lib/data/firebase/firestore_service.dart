@@ -1,6 +1,7 @@
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
 import 'package:core/model/order.dart';
+import 'package:core/model/order_settings.dart';
 import 'package:core/model/order_status.dart';
 
 abstract class FireStoreService {
@@ -31,4 +32,6 @@ abstract class FireStoreService {
   Future<Result<bool>> isAddressHidden(String deliveryId);
 
   Future<Result> updateAddressVisibility(String id, bool isHidden);
+
+  Future<Result<OrderSettings>> getOrderSettings();
 }

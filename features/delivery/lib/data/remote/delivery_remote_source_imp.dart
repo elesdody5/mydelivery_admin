@@ -29,7 +29,8 @@ class DeliveryRemoteDataSourceImp implements DeliveryRemoteDataSource {
   }
 
   @override
-  Future<Result<List<QuickOrder>>> getAvailableQuickOrders(String? version) async {
+  Future<Result<List<QuickOrder>>> getAvailableQuickOrders(
+      String? version) async {
     var response = await _deliveryApiService.getAvailableQuickOrders(version);
     return _getResultFromResponse(response);
   }
@@ -121,13 +122,19 @@ class DeliveryRemoteDataSourceImp implements DeliveryRemoteDataSource {
   }
 
   @override
-  Future<Result> updateQuickOrdersStatus(List<String> ordersId) async {
-    var response = await _deliveryApiService.updateOrders(ordersId);
+  Future<Result<User>> updateQuickOrdersStatusToDone(
+      List<String> ordersId,
+      String deliveryId,
+      int totalOrders,
+      double ordersMoney,
+      double profitPercent) async {
+    var response = await _deliveryApiService.updateOrders(
+        ordersId, deliveryId, totalOrders, ordersMoney, profitPercent);
     return _getResultFromResponse(response);
   }
 
   @override
-  Future<Result> removeQuickOrder(String? id) async{
+  Future<Result> removeQuickOrder(String? id) async {
     var response = await _deliveryApiService.removeQuickOrder(id);
     return _getResultFromResponse(response);
   }

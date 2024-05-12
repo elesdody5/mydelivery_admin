@@ -33,7 +33,7 @@ Map<String, String> arJson = {
   "update_product_successful_message": "تم تعديل بنجاح",
   "update_product_error_message": "لايمكن تعديل",
   "home": "الرئيسية",
-  "debts":"ديون",
+  "debts": "ديون",
   "pending_notification_message": "يريد @name حجز موعد يوم @day",
   "confirmed_notification_message": "لقد تم الموافقة على حجز @name بنجاح",
   "rejected_notification_message": "لقد تم رفض حجز",
@@ -186,6 +186,8 @@ Map<String, String> arJson = {
   "orders": "الطلبات",
   "delivered_orders": "الطلبات التي تم توصيلها",
   "total_orders": "اجمالي عدد الطلبات",
+  "total_orders_money": "اجمالي الايرادات",
+  "account_balance": "رصيد الحساب",
   "category": "التصنيف",
   "add_category": "اضافة تصنيف",
   "add_product": "اضافة منتج",
@@ -231,8 +233,9 @@ Map<String, String> arJson = {
   "city_added_successfully": "تم اضافة المدينة",
   "city_added_error": "لم يتم اضافة المدينة",
   "hide_address": "اخفاء العنوان",
-  "add_debts":"اضافة ديون",
-  "deduction":"خصم",
-  "error_deduction":" لا يمكن خصم اكثر من @amount",
-  "adding":"اضافة"
+  "add_debts": "اضافة ديون",
+  "deduction": "خصم",
+  "error_deduction": " لا يمكن خصم اكثر من @amount",
+  "adding": "اضافة",
+  "office_percent": "نسبة المكتب"
 };

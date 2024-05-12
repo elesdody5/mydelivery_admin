@@ -3,6 +3,7 @@ import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
 import 'package:core/model/http_exception.dart';
 import 'package:core/model/order.dart';
+import 'package:core/model/order_settings.dart';
 import 'package:core/model/order_status.dart';
 
 import 'firestore_service.dart';
@@ -177,6 +178,17 @@ class FireStoreServiceImp implements FireStoreService {
 
       await deliveryDoc.set({"isAddressHidden": isHidden});
       return Success(true);
+    } on Exception catch (e) {
+      return Error(e);
+    }
+  }
+  @override
+  Future<Result<OrderSettings>> getOrderSettings() async {
+    try {
+      final settingsCollection = _fireStore.collection('settings');
+      final doc = await settingsCollection.get();
+      final ridePrice = OrderSettings.fromJson(doc.docs.first.data());
+      return Success(ridePrice);
     } on Exception catch (e) {
       return Error(e);
     }

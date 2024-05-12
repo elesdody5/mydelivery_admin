@@ -1,3 +1,4 @@
+import 'package:core/domain/user.dart';
 import 'package:delivery/deliverd_orders/all_delivered_orders_provider.dart';
 import 'package:delivery/deliverd_orders/delivered_orders/delivered_orders_provider.dart';
 import 'package:delivery/deliverd_orders/delivered_orders/delivered_orders_screen.dart';
@@ -14,7 +15,7 @@ class DeliveryDeliveredOrdersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider =
         Provider.of<DeliveryDeliveredOrdersProvider>(context, listen: false);
-    String deliveryId = Get.arguments;
+    User delivery = Get.arguments;
     return DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -51,7 +52,7 @@ class DeliveryDeliveredOrdersScreen extends StatelessWidget {
                     updateDeliveredQuickOrderCount:
                         provider.setDeliveredQuickOrdersCount),
                 child: DeliveredQuickOrdersScreen(
-                  deliveryId: deliveryId,
+                  delivery: delivery,
                 ),
               ),
               ChangeNotifierProvider.value(
@@ -59,7 +60,7 @@ class DeliveryDeliveredOrdersScreen extends StatelessWidget {
                     updateDeliveredOrderCount:
                         provider.setDeliveredOrdersCount),
                 child: DeliveredOrdersScreen(
-                  deliveryId: deliveryId,
+                  deliveryId: delivery.id ?? "",
                 ),
               ),
             ],

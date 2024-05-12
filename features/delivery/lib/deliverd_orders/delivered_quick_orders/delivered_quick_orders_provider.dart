@@ -1,10 +1,12 @@
 import 'package:core/base_provider.dart';
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
+import 'package:core/domain/user.dart';
 import 'package:delivery/data/repository/delivery_repository.dart';
 import 'package:delivery/data/repository/delivery_repository_imp.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
+import 'package:core/model/order_settings.dart';
 
 class DeliveredQuickOrdersProvider extends BaseProvider {
   final DeliveryRepository _repository;
@@ -14,11 +16,19 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
   bool? inCityFilter;
   int? ordersCount;
   int? totalPrice;
+  double? profitPercent;
+  OrderSettings? orderSettings;
+  User? delivery;
 
   DeliveredQuickOrdersProvider(
       {DeliveryRepository? deliveryRepository,
       this.updateDeliveredQuickOrderCount})
       : _repository = deliveryRepository ?? DeliveryRepositoryImp();
+
+  Future<void> init(User? delivery) async {
+    await Future.wait(
+        [getOrderSettings(), getDeliveredDeliveryOrders(delivery?.id ?? "")]);
+  }
 
   Future<void> getDeliveredDeliveryOrders(String deliveryId) async {
     Result<List<QuickOrder>> result =
@@ -35,12 +45,21 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
     }
   }
 
+  Future<void> getOrderSettings() async {
+    Result result = await _repository.getOrderSettings();
+    if (result.succeeded()) {
+      orderSettings = result.getDataIfSuccess();
+    }
+  }
+
   void getOrdersCount() {
     var count = 0;
     for (var element in filteredOrders) {
       count += element.count ?? 1;
     }
     ordersCount = count;
+    profitPercent =
+        -(ordersCount! * (orderSettings?.profitPercent ?? 0)).toDouble();
   }
 
   void getTotalPrice() {
@@ -74,14 +93,25 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
         firstDay?.day == secondDay?.day;
   }
 
-  void updateOrdersStatus() async {
+  void updateOrdersStatusToDone(String deliveryId) async {
     isLoading.value = true;
-    List<String> ordersId = filteredOrders.map((order) => order.id ?? "").toList();
-    await _repository.updateQuickOrdersStatus(ordersId);
+    List<String> ordersIds =
+        filteredOrders.map((order) => order.id ?? "").toList();
+    Result result = await _repository.updateQuickOrdersStatusToDone(
+        ordersIds,
+        deliveryId,
+        ordersCount ?? 0,
+        totalPrice?.toDouble() ?? 0,
+        profitPercent ?? 0);
+
     isLoading.value = false;
-    filteredOrders.clear();
-    if (updateDeliveredQuickOrderCount != null) {
-      updateDeliveredQuickOrderCount!(_orders.length);
+    if (result.succeeded()) {
+      delivery = result.getDataIfSuccess();
+      filteredOrders.clear();
+      if (updateDeliveredQuickOrderCount != null) {
+        updateDeliveredQuickOrderCount!(_orders.length);
+      }
+      successMessage.value = "update_product_successful_message";
     }
     notifyListeners();
   }

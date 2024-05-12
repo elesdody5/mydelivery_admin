@@ -14,34 +14,41 @@ class DeliveryDetailsProvider extends BaseProvider {
   int coins = 0;
   bool isBlocked = false;
   bool isAddressHidden = false;
+  User? delivery;
 
-  Future<void> init(String deliveryId) async {
+  Future<void> init(User? delivery) async {
+    this.delivery = delivery;
     await Future.wait([
-      getDeliveryCoins(deliveryId),
-      getDeliveryBlockState(deliveryId),
-      getAddressVisibilityState(deliveryId)
+      getDeliveryCoins(delivery?.id),
+      getDeliveryBlockState(delivery?.id),
+      getAddressVisibilityState(delivery?.id)
     ]);
   }
 
-  Future<void> getDeliveryCoins(String deliveryId) async {
-    coins = await _repository.getDeliveryCoins(deliveryId);
+  Future<void> getDeliveryCoins(String? deliveryId) async {
+    if (deliveryId != null) {
+      coins = await _repository.getDeliveryCoins(deliveryId);
+    }
     notifyListeners();
   }
 
-  Future<void> getDeliveryBlockState(String deliveryId) async {
-    Result<User> result = await _repository.getRemoteUserDetails(deliveryId);
-    if (result.succeeded()) {
-      isBlocked = result.getDataIfSuccess().isBlocked;
-      notifyListeners();
+  Future<void> getDeliveryBlockState(String? deliveryId) async {
+    if (deliveryId != null) {
+      Result<User> result = await _repository.getRemoteUserDetails(deliveryId);
+      if (result.succeeded()) {
+        isBlocked = result.getDataIfSuccess().isBlocked;
+        notifyListeners();
+      }
     }
   }
 
-  Future<void> getAddressVisibilityState(String deliveryId) async {
-    Result<bool> result =
-        await _repository.isAddressHidden(deliveryId);
-    if (result.succeeded()) {
-      isAddressHidden = result.getDataIfSuccess();
-      notifyListeners();
+  Future<void> getAddressVisibilityState(String? deliveryId) async {
+    if (deliveryId != null) {
+      Result<bool> result = await _repository.isAddressHidden(deliveryId);
+      if (result.succeeded()) {
+        isAddressHidden = result.getDataIfSuccess();
+        notifyListeners();
+      }
     }
   }
 
@@ -59,6 +66,7 @@ class DeliveryDetailsProvider extends BaseProvider {
       notifyListeners();
     }
   }
+
   Future<void> updateAddressVisibilityState(String? id, bool isHidden) async {
     if (id != null) {
       isLoading.value = true;
@@ -72,5 +80,10 @@ class DeliveryDetailsProvider extends BaseProvider {
       }
       notifyListeners();
     }
+  }
+
+  void updateTotalDeliveredOrder(User updatedDelivery) {
+    delivery = updatedDelivery;
+    notifyListeners();
   }
 }

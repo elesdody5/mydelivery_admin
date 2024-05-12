@@ -4,6 +4,7 @@ import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
 import 'package:core/model/order.dart';
+import 'package:core/model/order_settings.dart';
 import 'package:core/model/order_status.dart';
 import 'package:core/model/review.dart';
 import 'package:delivery/data/firebase/firestore_service.dart';
@@ -67,7 +68,8 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   }
 
   @override
-  Future<Stream<List<ShopOrder>>> getCurrentDeliveryOrders(String userId) async {
+  Future<Stream<List<ShopOrder>>> getCurrentDeliveryOrders(
+      String userId) async {
     return _fireStoreService.getCurrentDeliveryOrders(userId ?? "");
   }
 
@@ -185,8 +187,14 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   }
 
   @override
-  Future<Result> updateQuickOrdersStatus(List<String> ordersId) {
-    return _remoteDataSource.updateQuickOrdersStatus(ordersId);
+  Future<Result<User>> updateQuickOrdersStatusToDone(
+      List<String> ordersId,
+      deliveryId,
+      int totalOrders,
+      double totalOrdersMoney,
+      double profitPercent) {
+    return _remoteDataSource.updateQuickOrdersStatusToDone(
+        ordersId,deliveryId, totalOrders, totalOrdersMoney, profitPercent);
   }
 
   @override
@@ -206,6 +214,11 @@ class DeliveryRepositoryImp implements DeliveryRepository {
 
   @override
   Future<Result> updateAddressVisibilityState(String id, bool isHidden) {
-    return _fireStoreService.updateAddressVisibility(id,isHidden);
+    return _fireStoreService.updateAddressVisibility(id, isHidden);
+  }
+
+  @override
+  Future<Result<OrderSettings>> getOrderSettings() {
+    return _fireStoreService.getOrderSettings();
   }
 }

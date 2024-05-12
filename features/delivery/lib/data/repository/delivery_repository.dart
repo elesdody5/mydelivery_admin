@@ -2,6 +2,7 @@ import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
 import 'package:core/model/order.dart';
+import 'package:core/model/order_settings.dart';
 import 'package:core/model/order_status.dart';
 import 'package:core/model/review.dart';
 
@@ -60,14 +61,16 @@ abstract class DeliveryRepository {
 
   Future<Result> updatedDeliveryBlockStates(String id, bool isBlocked);
 
-  Future<Result> updateQuickOrdersStatus(List<String> ordersId);
+  Future<Result> updateQuickOrdersStatusToDone(List<String> ordersId,
+      deliveryId, int totalOrders, double totalOrderMoney, double profitPercent);
 
   Future<void> updateOrdersStatus(List<String> ordersId);
 
   Future<Result> removeQuickOrder(String? id);
 
-
   Future<Result<bool>> isAddressHidden(String deliveryId);
 
   Future<Result> updateAddressVisibilityState(String id, bool isHidden);
+
+  Future<Result<OrderSettings>> getOrderSettings();
 }

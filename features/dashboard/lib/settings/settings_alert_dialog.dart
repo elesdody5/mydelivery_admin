@@ -46,10 +46,20 @@ class SettingsAlertDialog extends StatelessWidget {
                 name: "otherOrders",
                 keyboardType: TextInputType.number,
                 initialValue: orderSettings?.otherRidePrice.toString(),
-                onSaved: (String? firstOrder) {
-                  orderSettings?.otherRidePrice = int.parse(firstOrder ?? "0");
+                onSaved: (String? otherRide) {
+                  orderSettings?.otherRidePrice = int.parse(otherRide ?? "0");
                 },
                 decoration: formInputDecoration(label: "other_drive".tr),
+                validator: FormBuilderValidators.required()),
+            FormBuilderTextField(
+                name: "office_percent",
+                keyboardType: TextInputType.number,
+                initialValue: orderSettings?.profitPercent.toString() ?? "0",
+                onSaved: (String? profitPercent) {
+                  orderSettings?.profitPercent =
+                      double.parse(profitPercent ?? "0");
+                },
+                decoration: formInputDecoration(label: "office_percent".tr),
                 validator: FormBuilderValidators.required()),
           ],
         ),

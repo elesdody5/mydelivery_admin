@@ -57,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     autoLogin(context);
     return Scaffold(
-      backgroundColor: Get.theme.primaryColor,
+      backgroundColor: Colors.white,
       body: Center(
         child: AnimatedContainer(
           duration: Duration(milliseconds: 500),

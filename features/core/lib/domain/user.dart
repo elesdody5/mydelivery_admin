@@ -17,6 +17,9 @@ class User {
   String? longitude;
   int? coins;
   bool isBlocked;
+  int? totalOrders;
+  num? totalOrdersMoney;
+  num? accountBalance;
 
   User(
       {this.userType,
@@ -29,6 +32,9 @@ class User {
       this.longitude,
       this.imageFile,
       this.coins,
+      this.totalOrders,
+      this.accountBalance,
+      this.totalOrdersMoney,
       this.isBlocked = false});
 
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -41,6 +47,9 @@ class User {
       longitude: json["address"]?["longitude"],
       userType: stringToEnum(json['userType']?.toLowerCase()),
       coins: json['score'],
+      accountBalance: json['accountBalance'],
+      totalOrders: json['totalOrders'],
+      totalOrdersMoney: json['totalOrdersMoney'],
       isBlocked: json['blocked'] ?? false);
 
   Future<Map<String, dynamic>> toJsonWithImage() async {
@@ -54,6 +63,9 @@ class User {
       'username': name,
       'phone': phone,
       'userType': userType?.enmToString(),
+      'totalOrders': totalOrders,
+      'totalOrdersMoney': totalOrdersMoney,
+      'accountBalance': accountBalance,
       "fullAddress": address,
       "address": {'lattitude': latitude, "longitude": longitude},
       "photo": imageFile != null
@@ -72,7 +84,10 @@ class User {
         "fullAddress": address,
         "address": {'lattitude': latitude, "longitude": longitude},
         "photo": imageUrl,
-        "score": coins
+        "score": coins,
+        'totalOrders': totalOrders,
+        'totalOrdersMoney': totalOrdersMoney,
+        'accountBalance': accountBalance,
       };
 
   @override
@@ -84,6 +99,9 @@ class User {
           name == other.name &&
           address == other.address &&
           phone == other.phone &&
+          totalOrders == other.totalOrders &&
+          totalOrdersMoney == other.totalOrdersMoney &&
+          accountBalance == other.accountBalance &&
           imageUrl == other.imageUrl &&
           userType == other.userType;
 
@@ -93,11 +111,14 @@ class User {
       name.hashCode ^
       address.hashCode ^
       phone.hashCode ^
+      totalOrdersMoney.hashCode ^
+      totalOrders.hashCode ^
+      accountBalance.hashCode ^
       imageUrl.hashCode ^
       userType.hashCode;
 
   @override
   String toString() {
-    return 'User{id: $id, name: $name, address: $address, phone: $phone, imageUrl: $imageUrl, userType: $userType}';
+    return 'User{id: $id, name: $name, address: $address, phone: $phone, imageUrl: $imageUrl, imageFile: $imageFile, userType: $userType, latitude: $latitude, longitude: $longitude, coins: $coins, isBlocked: $isBlocked, totalOrders: $totalOrders, totalOrdersMoney: $totalOrdersMoney, accountBalance: $accountBalance}';
   }
 }

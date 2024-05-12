@@ -17,7 +17,6 @@ class DeliveryDetailsScreen extends StatelessWidget {
     setupNavigationListener(provider.navigation);
   }
 
-
   @override
   Widget build(BuildContext context) {
     final provider =
@@ -27,7 +26,7 @@ class DeliveryDetailsScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: FutureWithLoadingProgress(
-          future: () => provider.init(delivery.id ?? ""),
+          future: () => provider.init(delivery),
           child: Consumer<DeliveryDetailsProvider>(
               builder: (context, provider, key) {
             return Column(
@@ -51,6 +50,54 @@ class DeliveryDetailsScreen extends StatelessWidget {
                   ),
                 ),
                 const Divider(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("delivered_orders".tr),
+                          ),
+                          Text(
+                            provider.delivery?.totalOrders.toString() ?? "0",
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("total_orders_money".tr),
+                          ),
+                          Text(
+                            "${provider.delivery?.totalOrdersMoney.toString() ?? "0"} ${"le".tr}",
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+                const Divider(),
+                ListTile(
+                  leading: const Icon(
+                    Icons.account_balance_wallet_rounded,
+                    color: Colors.brown,
+                  ),
+                  title: Text(
+                    "account_balance".tr,
+                    style: Get.textTheme.bodyText2,
+                  ),
+                  trailing: Text(
+                      "${provider.delivery?.accountBalance.toString() ?? 0} ${"le".tr}",
+                      style: const TextStyle(
+                          color: Colors.red, fontWeight: FontWeight.bold)),
+                ),
                 ListTile(
                   leading: Image.asset(
                     'assets/images/profile.png',
@@ -135,8 +182,8 @@ class DeliveryDetailsScreen extends StatelessWidget {
                             arguments: delivery.id),
                         title: Text("current_orders".tr)),
                     ListTile(
-                        onTap: () => Get.toNamed(deliveryDeliveredOrdersScreen,
-                            arguments: delivery.id),
+                        onTap: () =>
+                            openDeliveredOrdersScreen(delivery, provider),
                         title: Text("delivered_orders".tr)),
                   ],
                 )
@@ -146,5 +193,17 @@ class DeliveryDetailsScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void openDeliveredOrdersScreen(
+      User delivery, DeliveryDetailsProvider provider) async {
+    try {
+      User updatedDelivery = await Get.toNamed(
+          deliveryDeliveredOrdersScreen,
+          arguments: delivery);
+      provider.updateTotalDeliveredOrder(updatedDelivery);
+    } on Exception catch (e) {
+      printError(info: e.toString());
+    }
   }
 }

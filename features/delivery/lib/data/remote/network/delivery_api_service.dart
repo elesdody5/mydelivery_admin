@@ -6,7 +6,8 @@ import 'package:core/model/review.dart';
 abstract class DeliveryApiService {
   Future<ApiResponse> getUserById(String userId);
 
-  Future<ApiResponse<List<QuickOrder>>> getAvailableQuickOrders(String? version);
+  Future<ApiResponse<List<QuickOrder>>> getAvailableQuickOrders(
+      String? version);
 
   Future<ApiResponse> pickQuickOrder(String quickOrderId, String deliveryId);
 
@@ -35,7 +36,8 @@ abstract class DeliveryApiService {
 
   Future<ApiResponse> updateDeliveryBlockStates(String id, bool isBlocked);
 
-  Future<ApiResponse> updateOrders(List<String> ordersId);
+  Future<ApiResponse<User>> updateOrders(List<String> ordersId, String deliveryId,
+      int totalOrders, double totalOrdersMoney, double profitPercent);
 
   Future<ApiResponse> removeQuickOrder(String? id);
 }

@@ -212,15 +212,22 @@ class DeliveryApiServiceImp implements DeliveryApiService {
   }
 
   @override
-  Future<ApiResponse> updateOrders(List<String> ordersId) async {
-    final response = await _dio.patch(updateQuickOrders,
-        queryParameters: {"status": OrderStatus.done.enumToString()},
-        data: {"quickOrders": ordersId});
+  Future<ApiResponse<User>> updateOrders(List<String> ordersId, String deliveryId,
+      int totalOrders, double totalOrdersMoney, double profitPercent) async {
+    final response = await _dio.patch(updateQuickOrders, queryParameters: {
+      "status": OrderStatus.done.enumToString(),
+      "deliveryId": deliveryId,
+      "totalOrders": totalOrders,
+      "ordersTotalMoney": totalOrdersMoney,
+      "profit": profitPercent
+    }, data: {
+      "quickOrders": ordersId
+    });
     if (response.statusCode != 200 && response.statusCode != 201) {
       print("error message is ${response.data['message']}");
       return ApiResponse(errorMessage: response.data['message']);
     }
-    return ApiResponse(responseData: true);
+    return ApiResponse(responseData: User.fromJson(response.data['user']));
   }
 
   @override
