@@ -16,8 +16,8 @@ class DebtsTransactionsScreen extends StatelessWidget {
   void _showTransactionDialog(
       DebtsTransactionsProvider provider, TransactionType type) {
     Get.dialog(TransactionDialog(
-        addTransaction: (amount) =>
-            provider.addTransaction(type, double.parse(amount))));
+        addTransaction: (amount, reason) =>
+            provider.addTransaction(type, double.parse(amount), reason)));
   }
 
   void _setupListener(DebtsTransactionsProvider provider) {

@@ -159,6 +159,7 @@ Map<String, String> arJson = {
   "on_my_way": "في الطريق",
   "delivered": "تم التوصيل",
   "ready": "جاهز",
+  "reason": " السبب",
   "total_order": "مجموع الطلبات:",
   "total": "مجموع التوصيل:",
   "confirm_order": "تاكيد الطلب",

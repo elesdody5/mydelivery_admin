@@ -22,9 +22,9 @@ class DebtsListItem extends StatelessWidget {
         debt.userAdded?.name ?? "",
         style: const TextStyle(color: Colors.redAccent),
       ),
-      trailing: Text(
-        "${debt.totalAmount?.toString() ?? ""} ${"le".tr}",
-      ),
+      // trailing: Text(
+      //   "${debt.totalAmount?.toString() ?? ""} ${"le".tr}",
+      // ),
     );
   }
 }

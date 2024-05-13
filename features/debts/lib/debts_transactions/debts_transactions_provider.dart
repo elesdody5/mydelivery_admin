@@ -5,6 +5,7 @@ import 'package:core/domain/result.dart';
 import 'package:debts/data/debts_repository_imp.dart';
 import 'package:debts/domain/debts_repository.dart';
 import 'package:debts/domain/model/debts_transactions.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import '../domain/model/debt.dart';
 
@@ -23,14 +24,18 @@ class DebtsTransactionsProvider extends BaseProvider {
           await _debtsRepository.getDebtTransactions(debt.id!);
       if (result.succeeded()) {
         transactions = result.getDataIfSuccess();
+        if (transactions.isNotEmpty) {
+          await Future(() => calculateTotalDebt(transactions));
+        }
       }
     }
   }
 
-  Future<void> addTransaction(TransactionType type, double amount) async {
+  Future<void> addTransaction(
+      TransactionType type, double amount, String reason) async {
     if (addToDebt(type, amount)) {
       isLoading.value = true;
-      await createTransaction(type, amount);
+      await createTransaction(type, amount, reason);
       await _debtsRepository.updateDebt(debt);
       isLoading.value = false;
     } else {
@@ -46,23 +51,17 @@ class DebtsTransactionsProvider extends BaseProvider {
         debt.totalAmount = (debt.totalAmount ?? 0) + amount;
         return true;
       case TransactionType.deduction:
-        return deductFromDebt(amount);
+        debt.totalAmount = (debt.totalAmount ?? 0) - amount;
+        return true;
     }
   }
 
-  bool deductFromDebt(double amount) {
-    if (amount > (debt.totalAmount ?? 0)) {
-      return false;
-    } else {
-      debt.totalAmount = (debt.totalAmount ?? 0) - amount;
-      return true;
-    }
-  }
-
-  Future<void> createTransaction(TransactionType type, double amount) async {
+  Future<void> createTransaction(
+      TransactionType type, double amount, String reason) async {
     final debtTransaction = DebtTransaction(
         transactionType: type,
         amount: amount,
+        reason: reason,
         debtId: debt.id,
         createdAt: DateTime.now());
 
@@ -72,5 +71,15 @@ class DebtsTransactionsProvider extends BaseProvider {
     } else {
       errorMessage.value = "something_went_wrong";
     }
+  }
+
+  void calculateTotalDebt(List<DebtTransaction> transactions) {
+    var total = 0.0;
+    for (var transaction in transactions) {
+      total = transaction.transactionType == TransactionType.adding
+          ? total + (transaction.amount ?? 0)
+          : total - (transaction.amount ?? 0);
+    }
+    debt.totalAmount = -1 * total;
   }
 }

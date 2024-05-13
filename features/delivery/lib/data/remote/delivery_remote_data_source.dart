@@ -41,4 +41,7 @@ abstract class DeliveryRemoteDataSource {
       double profitPercent);
 
   Future<Result> removeQuickOrder(String? id);
+
+  Future<Result> updateDeliveryAccountBalance(
+      String deliveryId, double accountBalance);
 }

@@ -1,6 +1,7 @@
 import 'package:core/base_provider.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
+import 'package:core/res.dart';
 import 'package:delivery/data/repository/delivery_repository.dart';
 import 'package:delivery/data/repository/delivery_repository_imp.dart';
 
@@ -85,5 +86,19 @@ class DeliveryDetailsProvider extends BaseProvider {
   void updateTotalDeliveredOrder(User updatedDelivery) {
     delivery = updatedDelivery;
     notifyListeners();
+  }
+
+  Future<void> updateBalance(double amount) async {
+    var accountBalance = (delivery?.accountBalance ?? 0) + amount;
+    isLoading.value = true;
+    Result result = await _repository.updateDeliveryAccountBalance(
+        delivery?.id ?? "", accountBalance);
+    isLoading.value = false;
+    if (result.succeeded()) {
+      delivery?.accountBalance = accountBalance;
+      notifyListeners();
+    } else {
+      errorMessage.value = "something_went_wrong";
+    }
   }
 }

@@ -9,6 +9,7 @@ class DebtTransaction {
   DateTime? createdAt;
   double? amount;
   TransactionType? transactionType;
+  String? reason;
 
   DebtTransaction(
       {this.id,
@@ -16,6 +17,7 @@ class DebtTransaction {
       this.userAdded,
       this.createdAt,
       this.amount,
+      this.reason,
       this.transactionType});
 
   factory DebtTransaction.fromJson(Map<String, dynamic> json, String? id) =>
@@ -27,6 +29,7 @@ class DebtTransaction {
               ? DateTime.parse(json['created_at'])
               : null,
           amount: json["amount"],
+          reason: json['reason'],
           transactionType: TransactionType.values.firstWhere(
               (element) => element.name == json['transaction_type']));
 
@@ -35,6 +38,7 @@ class DebtTransaction {
         "user": userAdded?.toJson(),
         "created_at": createdAt?.toIso8601String(),
         "amount": amount,
+        "reason": reason,
         "transaction_type": transactionType?.name
       };
 }

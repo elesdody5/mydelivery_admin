@@ -61,8 +61,12 @@ abstract class DeliveryRepository {
 
   Future<Result> updatedDeliveryBlockStates(String id, bool isBlocked);
 
-  Future<Result> updateQuickOrdersStatusToDone(List<String> ordersId,
-      deliveryId, int totalOrders, double totalOrderMoney, double profitPercent);
+  Future<Result> updateQuickOrdersStatusToDone(
+      List<String> ordersId,
+      deliveryId,
+      int totalOrders,
+      double totalOrderMoney,
+      double profitPercent);
 
   Future<void> updateOrdersStatus(List<String> ordersId);
 
@@ -73,4 +77,7 @@ abstract class DeliveryRepository {
   Future<Result> updateAddressVisibilityState(String id, bool isHidden);
 
   Future<Result<OrderSettings>> getOrderSettings();
+
+  Future<Result> updateDeliveryAccountBalance(
+      String deliveryId, double accountBalance);
 }

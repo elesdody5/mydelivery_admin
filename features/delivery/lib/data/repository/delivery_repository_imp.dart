@@ -194,7 +194,7 @@ class DeliveryRepositoryImp implements DeliveryRepository {
       double totalOrdersMoney,
       double profitPercent) {
     return _remoteDataSource.updateQuickOrdersStatusToDone(
-        ordersId,deliveryId, totalOrders, totalOrdersMoney, profitPercent);
+        ordersId, deliveryId, totalOrders, totalOrdersMoney, profitPercent);
   }
 
   @override
@@ -220,5 +220,12 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   @override
   Future<Result<OrderSettings>> getOrderSettings() {
     return _fireStoreService.getOrderSettings();
+  }
+
+  @override
+  Future<Result> updateDeliveryAccountBalance(
+      String deliveryId, double accountBalance) {
+    return _remoteDataSource.updateDeliveryAccountBalance(
+        deliveryId, accountBalance);
   }
 }

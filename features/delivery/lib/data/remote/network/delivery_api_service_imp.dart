@@ -212,8 +212,12 @@ class DeliveryApiServiceImp implements DeliveryApiService {
   }
 
   @override
-  Future<ApiResponse<User>> updateOrders(List<String> ordersId, String deliveryId,
-      int totalOrders, double totalOrdersMoney, double profitPercent) async {
+  Future<ApiResponse<User>> updateOrders(
+      List<String> ordersId,
+      String deliveryId,
+      int totalOrders,
+      double totalOrdersMoney,
+      double profitPercent) async {
     final response = await _dio.patch(updateQuickOrders, queryParameters: {
       "status": OrderStatus.done.enumToString(),
       "deliveryId": deliveryId,
@@ -234,6 +238,21 @@ class DeliveryApiServiceImp implements DeliveryApiService {
   Future<ApiResponse> removeQuickOrder(String? id) async {
     final response = await _dio
         .delete(quickOrdersUrl, queryParameters: {"quickOrderId": id});
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print("error message is ${response.data['message']}");
+      return ApiResponse(errorMessage: response.data['message']);
+    }
+    return ApiResponse(responseData: true);
+  }
+
+  @override
+  Future<ApiResponse> updateDeliveryAccountBalance(
+      String? deliveryId, double accountBalance) async {
+    final response = await _dio.patch(userUrl, queryParameters: {
+      "userId": deliveryId,
+    }, data: {
+      "accountBalance": accountBalance
+    });
     if (response.statusCode != 200 && response.statusCode != 201) {
       print("error message is ${response.data['message']}");
       return ApiResponse(errorMessage: response.data['message']);

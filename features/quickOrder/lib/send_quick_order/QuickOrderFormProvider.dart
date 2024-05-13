@@ -40,7 +40,6 @@ class QuickOrderFormProvider extends BaseProvider {
     } else {
       errorMessage.value = "something_went_wrong";
     }
-    quickOrder = QuickOrder();
   }
 
   void toggleCitiesVisibility(bool showCities) {

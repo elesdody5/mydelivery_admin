@@ -18,6 +18,7 @@ class FirebaseService {
           .toList();
       return Success(debts);
     } on Exception catch (e) {
+      print(e);
       return Error(e);
     }
   }

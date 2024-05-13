@@ -44,9 +44,18 @@ class DebtTransactionListItem extends StatelessWidget {
             ),
           ],
         ),
-        subtitle: Text(
-          transaction.userAdded?.name ?? "",
-          style: const TextStyle(color: Colors.redAccent),
+        subtitle: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              transaction.reason ?? "",
+            ),
+            Text(
+              transaction.userAdded?.name ?? "",
+              style: const TextStyle(color: Colors.redAccent),
+            ),
+          ],
         ),
         trailing: Column(
           mainAxisAlignment: MainAxisAlignment.center,

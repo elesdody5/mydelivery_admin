@@ -36,8 +36,14 @@ abstract class DeliveryApiService {
 
   Future<ApiResponse> updateDeliveryBlockStates(String id, bool isBlocked);
 
-  Future<ApiResponse<User>> updateOrders(List<String> ordersId, String deliveryId,
-      int totalOrders, double totalOrdersMoney, double profitPercent);
+  Future<ApiResponse<User>> updateOrders(
+      List<String> ordersId,
+      String deliveryId,
+      int totalOrders,
+      double totalOrdersMoney,
+      double profitPercent);
 
   Future<ApiResponse> removeQuickOrder(String? id);
+
+  Future<ApiResponse> updateDeliveryAccountBalance(String? deliveryId,double accountBalance);
 }
