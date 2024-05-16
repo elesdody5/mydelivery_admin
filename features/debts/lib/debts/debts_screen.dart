@@ -1,3 +1,4 @@
+import 'package:core/domain/PhoneContact.dart';
 import 'package:core/screens.dart';
 import 'package:core/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,15 @@ class DebtsScreen extends StatelessWidget {
   void onDebtsListTap(DebtsProvider provider, Debt debt) async {
     Debt updateDebt =
         await Get.toNamed(debtTransactionsScreen, arguments: debt);
-      provider.updateDebt(updateDebt);
+    provider.updateDebt(updateDebt);
+  }
+
+  void _showDebtsDialog(DebtsProvider provider) async {
+    List<PhoneContact> phoneContacts = await provider.getPhoneContacts();
+    Get.dialog(DebtsDialog(
+      addDebts: provider.addDebt,
+      phoneContacts: phoneContacts,
+    ));
   }
 
   @override
@@ -53,8 +62,7 @@ class DebtsScreen extends StatelessWidget {
           title: Text("debts".tr),
         ),
         floatingActionButton: FloatingActionButton(
-            onPressed: () =>
-                Get.dialog(DebtsDialog(addDebts: provider.addDebt)),
+            onPressed: () => _showDebtsDialog(provider),
             child: const Icon(Icons.add)),
         body: FutureWithLoadingProgress(
             future: provider.getAllDebts,
@@ -75,7 +83,8 @@ class DebtsScreen extends StatelessWidget {
                         itemBuilder: (context, index) => DebtsListItem(
                             debt: provider.filteredDebts[index],
                             onTap: (debt) => onDebtsListTap(provider, debt),
-                            onLongPress: (debt) => _showAlertDialog(provider, debt))),
+                            onLongPress: (debt) =>
+                                _showAlertDialog(provider, debt))),
                   ),
                 ],
               ),

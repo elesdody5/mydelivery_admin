@@ -3,16 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:core/domain/PhoneContact.dart';
 
 import '../../domain/model/debt.dart';
 
 class DebtsDialog extends StatelessWidget {
   final Debt debt = Debt();
   final Function(Debt) addDebts;
-
-  DebtsDialog({Key? key, required this.addDebts}) : super(key: key);
+  final List<PhoneContact> phoneContacts;
+  DebtsDialog({Key? key, required this.addDebts, required this.phoneContacts}) : super(key: key);
 
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
+  final TextEditingController _phoneController = TextEditingController();
 
   void _submit() {
     try {
@@ -46,14 +49,31 @@ class DebtsDialog extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FormBuilderTextField(
-                  name: 'phone',
-                  keyboardType: TextInputType.phone,
-                  onSaved: (String? phone) => debt.phone = phone,
-                  decoration: formInputDecoration(label: "${"phone".tr} (${"optional".tr})" ),
-                ),
-              ),
+                  padding: const EdgeInsets.all(8.0),
+                  child: TypeAheadFormField<PhoneContact>(
+                    textFieldConfiguration: TextFieldConfiguration(
+                      decoration:
+                      formInputDecoration(label: 'phone'.tr),
+                      controller: _phoneController,
+                    ),
+                    onSuggestionSelected: (PhoneContact contact) {
+                      _phoneController.text = contact.number;
+                    },
+                    onSaved: (String? value) => debt.phone = value,
+                    itemBuilder: (BuildContext context,
+                        PhoneContact contact) {
+                      return ListTile(
+                        title: Text(contact.name),
+                        subtitle: Text(contact.number),
+                      );
+                    },
+                    suggestionsCallback: (pattern) {
+                      return phoneContacts.where(
+                              (contact) => contact.name
+                              .toLowerCase()
+                              .contains(pattern.toLowerCase()));
+                    },
+                  )),
             ],
           )),
       actions: [

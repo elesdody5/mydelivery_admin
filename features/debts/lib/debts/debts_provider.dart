@@ -1,6 +1,8 @@
 import 'package:core/base_provider.dart';
+import 'package:core/domain/PhoneContact.dart';
 import 'package:core/domain/result.dart';
 import 'package:debts/domain/debts_repository.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 
 import '../data/debts_repository_imp.dart';
 import '../domain/model/debt.dart';
@@ -69,5 +71,49 @@ class DebtsProvider extends BaseProvider {
       filteredDebts = [..._debts];
     }
     notifyListeners();
+  }
+
+  Future<List<PhoneContact>> getPhoneContacts() async {
+    List<PhoneContact> phoneContacts = [];
+    // Request contact permission
+    if (await FlutterContacts.requestPermission()) {
+      // Get all contacts (lightly fetched)
+      isLoading.value = true;
+      List<Contact> contacts =
+          await FlutterContacts.getContacts(withProperties: true);
+      phoneContacts =
+          contacts.where((element) => element.phones.isNotEmpty).map((contact) {
+        String number = contact.phones.first.number;
+        number = number.replaceAll("+", "");
+
+        if (_hasWitheSpaces(number)) {
+          number = _reverseNumber(number);
+        }
+        if (_hasDashes(number)) {
+          number = _removeDashes(number);
+        }
+        if (_startWith(number)) {
+          number = _removeFirstNumber(number);
+        }
+        return PhoneContact(name: contact.displayName, number: number);
+      }).toList();
+    }
+    isLoading.value = false;
+    return phoneContacts;
+  }
+
+  bool _hasWitheSpaces(String number) => number.trim().contains(" ");
+
+  bool _startWith(String number) => number.trim().indexOf("2") == 0;
+
+  bool _hasDashes(String number) => number.trim().contains("-");
+
+  String _removeDashes(String number) => number.replaceAll("-", "");
+
+  String _removeFirstNumber(String number) => number.replaceFirst("2", "");
+
+  String _reverseNumber(String number) {
+    List<String> numbers = number.split(" ");
+    return numbers.join("");
   }
 }

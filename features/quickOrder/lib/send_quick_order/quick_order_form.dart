@@ -7,7 +7,7 @@ import 'package:core/domain/quick_order.dart';
 import 'package:core/model/shop.dart';
 import 'package:core/utils/styles.dart';
 import 'package:core/utils/utils.dart';
-import 'package:quickorder/domain/model/PhoneContact.dart';
+import 'package:core/domain/PhoneContact.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
@@ -66,6 +66,9 @@ class QuickOrderForm extends StatelessWidget {
       _fromPhoneController.text = quickOrder.startDestinationPhoneNumber ?? "";
       _priceController.text = quickOrder.price?.toString() ?? "";
       _fromAddressController.text = quickOrder.address?.startDestination ?? "";
+      _toAddressController.text = quickOrder.address?.endDestination ?? "";
+      _fromPhoneController.text = quickOrder.startDestinationPhoneNumber ?? "";
+      _toPhoneController.text = quickOrder.endDestinationPhoneNumber ?? "";
       _descriptionController.text = quickOrder.description ?? "";
     }
   }

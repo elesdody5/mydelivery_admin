@@ -6,7 +6,7 @@ import 'package:core/domain/user.dart';
 import 'package:core/domain/address.dart' as address;
 import 'package:core/model/order_settings.dart';
 import 'package:core/model/shop.dart';
-import 'package:quickorder/domain/model/PhoneContact.dart';
+import 'package:core/domain/PhoneContact.dart';
 
 import '../data/repository/repository.dart';
 import '../data/repository/repository_imp.dart';
