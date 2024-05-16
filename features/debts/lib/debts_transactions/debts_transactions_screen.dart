@@ -25,6 +25,10 @@ class DebtsTransactionsScreen extends StatelessWidget {
     setupLoadingListener(provider.isLoading);
   }
 
+  Color amountColor(double amount) {
+    return amount > 0 ? Colors.green : Colors.red;
+  }
+
   @override
   Widget build(BuildContext context) {
     Debt debt = Get.arguments;
@@ -47,8 +51,10 @@ class DebtsTransactionsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 ListTile(
-                  title:
-                      Text("${debt.totalAmount?.toString() ?? ""} ${"le".tr}"),
+                  title: Text(
+                    "${debt.totalAmount?.toString() ?? "0"} ${"le".tr}",
+                    style: TextStyle(color: amountColor(debt.totalAmount ?? 0)),
+                  ),
                   subtitle: debt.createdAt != null
                       ? Text(debt.createdAt?.customFormat() ?? "")
                       : null,

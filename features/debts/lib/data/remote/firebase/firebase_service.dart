@@ -46,7 +46,7 @@ class FirebaseService {
   Future<Result> updateDebt(Debt debt) async {
     try {
       final debtDoc = _fireStore.collection('debts').doc(debt.id);
-      debtDoc.update(debt.toJson());
+      await debtDoc.update(debt.toJson());
       return Success(true);
     } on Exception catch (e) {
       return Error(e);
@@ -74,7 +74,7 @@ class FirebaseService {
   Future<Result> addDebtTransaction(DebtTransaction debtTransaction) async {
     try {
       final debtsTransactions = _fireStore.collection('debtsTransactions');
-      debtsTransactions.add(debtTransaction.toJson());
+      await debtsTransactions.add(debtTransaction.toJson());
       return Success(true);
     } on Exception catch (e) {
       return Error(e);
