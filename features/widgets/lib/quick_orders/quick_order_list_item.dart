@@ -11,6 +11,7 @@ class QuickOrderListItem extends StatelessWidget {
   final Function(QuickOrder)? deleteQuickOrder;
   final Function(QuickOrder)? updateQuickOrder;
   final Function(QuickOrder)? sendQuickOrder;
+  final Function(QuickOrder)? removeQuickOrderDebt;
 
   const QuickOrderListItem(
       {Key? key,
@@ -19,7 +20,8 @@ class QuickOrderListItem extends StatelessWidget {
       this.deliverOrder,
       this.deleteQuickOrder,
       this.updateQuickOrder,
-      this.sendQuickOrder})
+      this.sendQuickOrder,
+      this.removeQuickOrderDebt})
       : super(key: key);
 
   void _showAlertDialog() {
@@ -43,12 +45,20 @@ class QuickOrderListItem extends StatelessWidget {
                 },
                 child: Text("send_now".tr)),
           const Divider(),
-          TextButton(
-              onPressed: () {
-                Get.back();
-                deleteQuickOrder?.call(quickOrder);
-              },
-              child: Text("delete".tr)),
+          if (deleteQuickOrder != null)
+            TextButton(
+                onPressed: () {
+                  Get.back();
+                  deleteQuickOrder?.call(quickOrder);
+                },
+                child: Text("delete".tr)),
+          if (removeQuickOrderDebt != null)
+            TextButton(
+                onPressed: () {
+                  Get.back();
+                  removeQuickOrderDebt?.call(quickOrder);
+                },
+                child: Text("delete".tr)),
         ],
       ),
     ));

@@ -44,4 +44,9 @@ abstract class DeliveryRemoteDataSource {
 
   Future<Result> updateDeliveryAccountBalance(
       String deliveryId, double accountBalance);
+
+  Future<Result<List<QuickOrder>>> getDeliveryQuickOrdersWithDebts(
+      String deliveryId);
+
+  Future<Result> updateQuickOrderDebt(String? quickOrderId, double debt);
 }

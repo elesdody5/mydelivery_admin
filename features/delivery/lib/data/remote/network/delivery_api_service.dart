@@ -45,5 +45,12 @@ abstract class DeliveryApiService {
 
   Future<ApiResponse> removeQuickOrder(String? id);
 
-  Future<ApiResponse> updateDeliveryAccountBalance(String? deliveryId,double accountBalance);
+  Future<ApiResponse> updateDeliveryAccountBalance(
+      String? deliveryId, double accountBalance);
+
+  Future<ApiResponse<List<QuickOrder>>> getDeliveryQuickOrdersWithDebts(
+      String deliveryId);
+
+  Future<ApiResponse> updateQuickOrderDebt(
+      String? quickOrderId, double debt);
 }
