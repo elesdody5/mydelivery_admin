@@ -26,6 +26,7 @@ class QuickOrder {
   String? audioUrl;
   File? recordFile;
   int? price;
+  double? debt;
   DateTime? deliveryPickedTime;
 
   QuickOrder(
@@ -44,6 +45,7 @@ class QuickOrder {
       this.audioUrl,
       this.deliveryPickedTime,
       this.price,
+      this.debt,
       this.recordFile,
       this.imageFile});
 
@@ -67,7 +69,8 @@ class QuickOrder {
       deliveryPickedTime: json["withDeliveryTime"] != null
           ? DateTime.parse(json['withDeliveryTime'])
           : null,
-      price: json['price']);
+      price: json['price'],
+      debt: json['debt']);
 
   Future<Map<String, dynamic>> toJson() async {
     List<String>? mimeTypeData;
@@ -87,6 +90,7 @@ class QuickOrder {
       "count": count,
       "date": dateTime?.toIso8601String(),
       "price": price,
+      "debt": debt,
       "withDeliveryTime": deliveryPickedTime?.toIso8601String(),
       "photo": imageFile != null
           ? await MultipartFile.fromFile(imageFile!.path,

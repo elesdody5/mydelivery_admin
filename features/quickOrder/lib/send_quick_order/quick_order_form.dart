@@ -64,7 +64,7 @@ class QuickOrderForm extends StatelessWidget {
   void _setInitValue(QuickOrder? quickOrder) {
     if (quickOrder != null) {
       _fromPhoneController.text = quickOrder.startDestinationPhoneNumber ?? "";
-      _priceController.text = quickOrder.price?.toString() ?? "";
+      // _priceController.text = quickOrder.price?.toString() ?? "";
       _fromAddressController.text = quickOrder.address?.startDestination ?? "";
       _toAddressController.text = quickOrder.address?.endDestination ?? "";
       _fromPhoneController.text = quickOrder.startDestinationPhoneNumber ?? "";
@@ -93,7 +93,9 @@ class QuickOrderForm extends StatelessWidget {
       provider.scheduleQuickOrder(Duration(hours: hours, minutes: minutes));
     }
   }
-
+void _setInitQuickOrderPrice(String? price){
+    _priceController.text = price?? "10";
+}
   @override
   Widget build(BuildContext context) {
     QuickOrder? quickOrder = Get.arguments;
@@ -113,56 +115,14 @@ class QuickOrderForm extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Consumer<QuickOrderFormProvider>(
                 builder: (context, provider, key) {
-              return FormBuilder(
+                  _priceController.text =
+                      provider.quickOrder.price?.toString() ?? "10";
+                  return FormBuilder(
                 key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: FormBuilderRadioGroup<bool>(
-                        decoration: InputDecoration(labelText: 'type'.tr),
-                        name: 'type',
-                        initialValue: provider.quickOrder.inCity ?? true,
-                        validator: FormBuilderValidators.required(),
-                        onChanged: (bool? inMenouf) => provider
-                            .toggleCitiesVisibility(!(inMenouf ?? false)),
-                        onSaved: (bool? value) =>
-                            provider.quickOrder.inCity = value,
-                        options: [
-                          "in_menouf",
-                          "out_menouf",
-                        ]
-                            .map((type) => FormBuilderFieldOption(
-                                  value: type == "in_menouf",
-                                  child: Text(type.tr),
-                                ))
-                            .toList(growable: false),
-                      ),
-                    ),
-                    if (provider.showCities)
-                      Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: FormBuilderDropdown<City>(
-                          decoration: InputDecoration(
-                              labelText: 'cities_out_menouf'.tr),
-                          name: 'cities',
-                          onChanged: (City? value) {
-                            if (value != null) {
-                              _priceController.text = value.price.toString();
-                              _fromAddressController.text = value.name ?? "";
-                              provider.selectedCity = value;
-                            }
-                          },
-                          items: provider.cities
-                              .map((city) => DropdownMenuItem(
-                                    value: city,
-                                    child: Text(city.name ?? ""),
-                                  ))
-                              .toList(growable: false),
-                        ),
-                      ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [

@@ -54,8 +54,13 @@ class QuickOrderFormProvider extends BaseProvider {
 
   Future<void> init(QuickOrder? quickOrder) async {
     setInitQuickOrder(quickOrder);
-    await Future.wait([getShops(), getContacts(), getCities(),getSettings()]);
+    await Future.wait([getShops(), getContacts(), getCities(), getSettings()]);
+    _setInitQuickOrderPrice();
     notifyListeners();
+  }
+
+  _setInitQuickOrderPrice() {
+    quickOrder.price ??= settings?.firstRidePrice;
   }
 
   Future<void> getShops() async {
@@ -123,11 +128,11 @@ class QuickOrderFormProvider extends BaseProvider {
     await _repository.scheduleQuickOrder(duration, quickOrder);
     successMessage.value = "quick_order_successfully";
   }
+
   Future<void> getSettings() async {
     Result<OrderSettings> result = await _repository.getOrderSettings();
     if (result.succeeded()) {
-      OrderSettings settings = result.getDataIfSuccess();
-      quickOrder.price = settings.firstRidePrice;
+      settings = result.getDataIfSuccess();
     }
   }
 }
