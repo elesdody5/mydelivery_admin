@@ -22,6 +22,7 @@ class QuickOrderFormProvider extends BaseProvider {
   bool showCities = false;
   OrderSettings? settings;
   City? selectedCity;
+  bool showDebtSection = false;
 
   QuickOrderFormProvider({Repository? repository})
       : _repository = repository ?? QuickOrderRepository();
@@ -134,5 +135,10 @@ class QuickOrderFormProvider extends BaseProvider {
     if (result.succeeded()) {
       settings = result.getDataIfSuccess();
     }
+  }
+
+  void addQuickOrderDebt() {
+    showDebtSection = true;
+    notifyListeners();
   }
 }

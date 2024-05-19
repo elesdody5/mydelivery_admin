@@ -47,6 +47,22 @@ class QuickOrderDetails extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            if ((quickOrder.debt ?? 0) > 0)
+              Column(
+                children: [
+                  ListTile(
+                    leading: const Icon(Icons.info),
+                    title: Text("custody".tr),
+                    trailing: Text(
+                      "${quickOrder.debt?.toString() ?? "0"} ${"le".tr} ",
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ),
+                  const Divider(
+                    thickness: 1,
+                  ),
+                ],
+              ),
             if (quickOrder.address != null)
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),

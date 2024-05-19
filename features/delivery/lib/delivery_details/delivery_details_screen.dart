@@ -66,7 +66,8 @@ class DeliveryDetailsScreen extends StatelessWidget {
                             ),
                             Text(
                               provider.delivery?.totalOrders.toString() ?? "0",
-                              style: const TextStyle(fontWeight: FontWeight.bold),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
                             )
                           ],
                         ),
@@ -78,7 +79,8 @@ class DeliveryDetailsScreen extends StatelessWidget {
                             ),
                             Text(
                               "${provider.delivery?.totalOrdersMoney.toString() ?? "0"} ${"le".tr}",
-                              style: const TextStyle(fontWeight: FontWeight.bold),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
                             )
                           ],
                         )
@@ -103,6 +105,18 @@ class DeliveryDetailsScreen extends StatelessWidget {
                         add: (amount) =>
                             provider.updateBalance(double.parse(amount)))),
                   ),
+                  ListTile(
+                      leading: const Icon(
+                        Icons.receipt_long,
+                        color: Colors.grey,
+                      ),
+                      title: Text(
+                        "custody".tr,
+                        style: Get.textTheme.bodyText2,
+                      ),
+                      trailing: const Icon(Icons.arrow_forward_ios_rounded,size: 20,),
+                      onTap: () => Get.toNamed(deliveryQuickOrdersWithDebts,
+                          arguments: provider.delivery?.id)),
                   ListTile(
                     leading: Image.asset(
                       'assets/images/profile.png',

@@ -93,9 +93,7 @@ class QuickOrderForm extends StatelessWidget {
       provider.scheduleQuickOrder(Duration(hours: hours, minutes: minutes));
     }
   }
-void _setInitQuickOrderPrice(String? price){
-    _priceController.text = price?? "10";
-}
+
   @override
   Widget build(BuildContext context) {
     QuickOrder? quickOrder = Get.arguments;
@@ -115,14 +113,34 @@ void _setInitQuickOrderPrice(String? price){
             padding: const EdgeInsets.all(8.0),
             child: Consumer<QuickOrderFormProvider>(
                 builder: (context, provider, key) {
-                  _priceController.text =
-                      provider.quickOrder.price?.toString() ?? "10";
-                  return FormBuilder(
+              _priceController.text =
+                  provider.quickOrder.price?.toString() ?? "10";
+              return FormBuilder(
                 key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
+                    if (!provider.showDebtSection)
+                      ListTile(
+                        leading: const Icon(Icons.add),
+                        title: Text("add_custody".tr),
+                        onTap: provider.addQuickOrderDebt,
+                      ),
+                    if (provider.showDebtSection)
+                    Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FormBuilderTextField(
+                          initialValue: provider.quickOrder.debt?.toString(),
+                          name: 'debt',
+                          onSaved: (String? debt) {
+                            if (debt != null) {
+                              provider.quickOrder.debt = double.tryParse(debt);
+                            }
+                          },
+                          decoration: formInputDecoration(
+                              label: "custody".tr, suffixText: "le".tr),
+                        )),
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -251,8 +269,8 @@ void _setInitQuickOrderPrice(String? price){
                                 onSuggestionSelected: (Shop shop) {
                                   _toAddressController.text = shop.name ?? "";
                                 },
-                                onSaved: (String? value) => provider.quickOrder
-                                    .address?.endDestination = value,
+                                onSaved: (String? value) => provider
+                                    .quickOrder.address?.endDestination = value,
                                 itemBuilder: (BuildContext context, Shop shop) {
                                   return ListTile(
                                     title: Text(shop.name ?? ""),

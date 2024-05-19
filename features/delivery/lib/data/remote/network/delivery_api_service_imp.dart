@@ -259,4 +259,36 @@ class DeliveryApiServiceImp implements DeliveryApiService {
     }
     return ApiResponse(responseData: true);
   }
+
+  @override
+  Future<ApiResponse<List<QuickOrder>>> getDeliveryQuickOrdersWithDebts(
+      String deliveryId) async {
+    final response = await _dio.get(quickOrdersWithDebtsUrl, queryParameters: {
+      "deliveryId": deliveryId,
+    });
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print("error message is ${response.data['message']}");
+      return ApiResponse(errorMessage: response.data['message']);
+    }
+    List<QuickOrder> orders = [];
+    response.data['data']
+        .forEach((json) => orders.add(QuickOrder.fromJson(json)));
+    return ApiResponse(responseData: orders);
+  }
+
+  @override
+  Future<ApiResponse> updateQuickOrderDebt(
+      String? quickOrderId, double debt) async {
+    final response = await _dio.patch(quickOrdersUrl, queryParameters: {
+      "quickOrderId": quickOrderId,
+    }, data: {
+      "debt": debt
+    });
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print("error message is ${response.data['message']}");
+      return ApiResponse(errorMessage: response.data['message']);
+    }
+
+    return ApiResponse(responseData: true);
+  }
 }

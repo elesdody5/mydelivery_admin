@@ -146,4 +146,19 @@ class DeliveryRemoteDataSourceImp implements DeliveryRemoteDataSource {
         deliveryId, accountBalance);
     return _getResultFromResponse(response);
   }
+
+  @override
+  Future<Result<List<QuickOrder>>> getDeliveryQuickOrdersWithDebts(
+      String deliveryId) async {
+    var response =
+        await _deliveryApiService.getDeliveryQuickOrdersWithDebts(deliveryId);
+    return _getResultFromResponse(response);
+  }
+
+  @override
+  Future<Result> updateQuickOrderDebt(String? quickOrderId, double debt) async {
+    var response =
+        await _deliveryApiService.updateQuickOrderDebt(quickOrderId, debt);
+    return _getResultFromResponse(response);
+  }
 }

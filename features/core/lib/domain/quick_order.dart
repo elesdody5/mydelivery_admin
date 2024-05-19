@@ -26,7 +26,7 @@ class QuickOrder {
   String? audioUrl;
   File? recordFile;
   int? price;
-  double? debt;
+  num? debt;
   DateTime? deliveryPickedTime;
 
   QuickOrder(

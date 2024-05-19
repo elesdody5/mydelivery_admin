@@ -24,7 +24,6 @@ import 'package:debts/debts/debts_provider.dart';
 import 'package:debts/debts/debts_screen.dart';
 import 'package:debts/debts_transactions/debts_transactions_provider.dart';
 import 'package:debts/debts_transactions/debts_transactions_screen.dart';
-import 'package:debts/domain/model/debts_transactions.dart';
 import 'package:delivery/all_orders/AllOrdersProvider.dart';
 import 'package:delivery/all_orders/all_orders_screen.dart';
 import 'package:delivery/all_quick_orders/all_quick_orders_provider.dart';
@@ -44,6 +43,8 @@ import 'package:delivery/delivery_list/delivery_list_screen.dart';
 import 'package:delivery/delivery_reviews/delivery_reviews_provider.dart';
 import 'package:delivery/delivery_reviews/delivery_reviews_screen.dart';
 import 'package:delivery/delivery_profile/profile_screen.dart';
+import 'package:delivery/quick_orders_with_debts/quick_orders_with_debts_provider.dart';
+import 'package:delivery/quick_orders_with_debts/quick_orders_with_debts_screen.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:authentication/signup/signup_provider.dart';
@@ -250,6 +251,13 @@ List<GetPage> appPages = [
     page: () => ChangeNotifierProvider.value(
       value: DebtsTransactionsProvider(),
       child: const DebtsTransactionsScreen(),
+    ),
+  ),
+  GetPage(
+    name: deliveryQuickOrdersWithDebts,
+    page: () => ChangeNotifierProvider.value(
+      value: QuickOrdersWithDebtsProvider(),
+      child: const QuickOrdersWithDebtsScreen(),
     ),
   )
 ];

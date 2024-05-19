@@ -238,5 +238,9 @@ Map<String, String> arJson = {
   "nondeductible": "تسديد دين",
   "error_deduction": " لا يمكن خصم اكثر من @amount",
   "adding_debt": "اضافة دين",
-  "office_percent": "نسبة المكتب"
+  "adding": "اضافة",
+  "office_percent": "نسبة المكتب",
+  "add_custody":"اضافة عهدة",
+  "custody":"عهدة",
+  "do_you_to_remove_from_debts":"هل تريد حذف من عهدة الطيار"
 };

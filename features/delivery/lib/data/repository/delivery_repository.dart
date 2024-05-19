@@ -80,4 +80,9 @@ abstract class DeliveryRepository {
 
   Future<Result> updateDeliveryAccountBalance(
       String deliveryId, double accountBalance);
+
+  Future<Result<List<QuickOrder>>> getDeliveryQuickOrderWithDebts(
+      String deliveryId);
+
+  Future<Result> updateQuickOrderDebt(String? quickOrderId, double debt);
 }
