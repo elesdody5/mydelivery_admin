@@ -25,8 +25,29 @@ class DebtsTransactionsScreen extends StatelessWidget {
     setupLoadingListener(provider.isLoading);
   }
 
-  Color amountColor(double amount) {
-    return amount > 0 ? Colors.green : Colors.red;
+  Color amountColor(TransactionType? type) {
+    return type == TransactionType.adding ? Colors.red : Colors.green;
+  }
+
+  void _showAlertDialog(
+      DebtsTransactionsProvider provider, DebtTransaction transaction) {
+    Get.dialog(AlertDialog(
+      title: Text("are_you_sure".tr),
+      content: Text("do_you_to_remove".tr),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Get.back();
+            provider.removeTransaction(transaction);
+          },
+          child: Text("yes".tr),
+        ),
+        TextButton(
+          onPressed: () => Get.back(),
+          child: Text("cancel".tr),
+        )
+      ],
+    ));
   }
 
   @override
@@ -52,8 +73,8 @@ class DebtsTransactionsScreen extends StatelessWidget {
               children: [
                 ListTile(
                   title: Text(
-                    "${debt.totalAmount?.toString() ?? "0"} ${"le".tr}",
-                    style: TextStyle(color: amountColor(debt.totalAmount ?? 0)),
+                    "${((debt.totalAmount ?? 0) * -1)} ${"le".tr}",
+                    style: TextStyle(color: amountColor(debt.type)),
                   ),
                   subtitle: debt.createdAt != null
                       ? Text(debt.createdAt?.customFormat() ?? "")
@@ -73,7 +94,10 @@ class DebtsTransactionsScreen extends StatelessWidget {
                 ),
                 Expanded(
                     child: DebtsTransactionsList(
-                        transactions: provider.transactions)),
+                  transactions: provider.transactions,
+                  onLongPress: (transaction) =>
+                      _showAlertDialog(provider, transaction),
+                )),
                 ButtonBar(
                   buttonPadding: const EdgeInsets.all(10),
                   mainAxisSize: MainAxisSize.max,
@@ -81,24 +105,24 @@ class DebtsTransactionsScreen extends StatelessWidget {
                   children: [
                     ElevatedButton(
                         onPressed: () => _showTransactionDialog(
-                            provider, TransactionType.deduction),
-                        child: Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: Get.width / 6),
-                          child: Text("deduction".tr),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green)),
-                    ElevatedButton(
-                        onPressed: () => _showTransactionDialog(
                             provider, TransactionType.adding),
                         child: Padding(
                           padding:
                               EdgeInsets.symmetric(horizontal: Get.width / 6),
-                          child: Text("adding".tr),
+                          child: Text("adding_debt".tr),
                         ),
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red)),
+                    ElevatedButton(
+                        onPressed: () => _showTransactionDialog(
+                            provider, TransactionType.deduction),
+                        child: Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: Get.width / 6),
+                          child: Text("nondeductible".tr),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green)),
                   ],
                 )
               ],

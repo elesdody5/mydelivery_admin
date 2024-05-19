@@ -8,6 +8,8 @@ abstract class DebtsRepository {
 
   Future<Result> removeDebt(String? id);
 
+  Future<Result> removeTransaction(String? transactionId);
+
   Future<Result<String>> addDebts(Debt debt);
 
   Future<Result<List<DebtTransaction>>> getDebtTransactions(String id);

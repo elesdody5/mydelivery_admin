@@ -247,8 +247,9 @@ class HomePage extends StatelessWidget {
                                 fontSize: 24.0)),
                       ]),
                 ), onTap: () async {
-              await provider.getSettings();
-              _openPasswordDialog(provider);
+              // await provider.getSettings();
+              // _openPasswordDialog(provider);
+              Get.toNamed(debtsScreen);
             }),
             _buildTile(
               Padding(

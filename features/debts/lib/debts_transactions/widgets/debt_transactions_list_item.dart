@@ -5,8 +5,10 @@ import 'package:get/get.dart';
 
 class DebtTransactionListItem extends StatelessWidget {
   final DebtTransaction transaction;
+  final Function(DebtTransaction) onLongPress;
 
-  const DebtTransactionListItem({Key? key, required this.transaction})
+  const DebtTransactionListItem(
+      {Key? key, required this.transaction, required this.onLongPress})
       : super(key: key);
 
   IconData transactionIcon() {
@@ -24,6 +26,7 @@ class DebtTransactionListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+        onLongPress: () => onLongPress(transaction),
         leading: Container(
           width: 40,
           height: 40,
@@ -49,9 +52,6 @@ class DebtTransactionListItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              transaction.reason ?? "",
-            ),
-            Text(
               transaction.userAdded?.name ?? "",
               style: const TextStyle(color: Colors.redAccent),
             ),
@@ -65,8 +65,13 @@ class DebtTransactionListItem extends StatelessWidget {
               style: TextStyle(color: transactionColor()),
             ),
             Text(
-              "${transaction.transactionType?.name.tr}",
+              transaction.transactionType == TransactionType.deduction
+                  ? "nondeductible".tr
+                  : "adding_debt".tr,
               style: TextStyle(color: transactionColor()),
+            ),
+            Text(
+              transaction.reason ?? "",
             ),
           ],
         ));

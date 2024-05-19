@@ -41,6 +41,7 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
       }
       getOrdersCount();
       getTotalPrice();
+      getProfitPercent();
       notifyListeners();
     }
   }
@@ -58,8 +59,11 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
       count += element.count ?? 1;
     }
     ordersCount = count;
+  }
+
+  void getProfitPercent(){
     profitPercent =
-        -(ordersCount! * (orderSettings?.profitPercent ?? 0)).toDouble();
+    -((totalPrice??0) * (orderSettings?.profitPercent ?? 0)/100).toDouble();
   }
 
   void getTotalPrice() {

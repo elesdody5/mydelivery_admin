@@ -113,8 +113,6 @@ class QuickOrderForm extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Consumer<QuickOrderFormProvider>(
                 builder: (context, provider, key) {
-              _priceController.text =
-                  provider.quickOrder.price?.toString() ?? "10";
               return FormBuilder(
                 key: _formKey,
                 child: Column(

@@ -156,7 +156,7 @@ class DeliveredQuickOrdersScreen extends StatelessWidget {
                                 OutlinedButton(
                                   onPressed: null,
                                   child: Text(
-                                    "${"office_percent".tr} ${provider.profitPercent ?? "0"} ",
+                                    "${"office_percent".tr} ${provider.profitPercent ?? "0"}",
                                   ),
                                 ),
                                 ElevatedButton(

@@ -59,7 +59,7 @@ class SettingsAlertDialog extends StatelessWidget {
                   orderSettings?.profitPercent =
                       double.parse(profitPercent ?? "0");
                 },
-                decoration: formInputDecoration(label: "office_percent".tr),
+                decoration: formInputDecoration(label: "office_percent".tr,suffixIcon: const Icon(Icons.percent)),
                 validator: FormBuilderValidators.required()),
           ],
         ),

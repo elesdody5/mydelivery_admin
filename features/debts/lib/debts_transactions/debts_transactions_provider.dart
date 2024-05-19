@@ -45,13 +45,29 @@ class DebtsTransactionsProvider extends BaseProvider {
     notifyListeners();
   }
 
+  Future<void> removeTransaction(DebtTransaction transition) async {
+    isLoading.value = true;
+    Result result = await _debtsRepository.removeTransaction(transition.id);
+    if (result.succeeded()) {
+      transactions.remove(transition);
+    }
+    isLoading.value = false;
+    notifyListeners();
+  }
+
   bool addToDebt(TransactionType type, double amount) {
     switch (type) {
       case TransactionType.adding:
         debt.totalAmount = (debt.totalAmount ?? 0) + amount;
+        debt.type = (debt.totalAmount ?? 0) > 0
+            ? TransactionType.adding
+            : TransactionType.deduction;
         return true;
       case TransactionType.deduction:
         debt.totalAmount = (debt.totalAmount ?? 0) - amount;
+        debt.type = (debt.totalAmount ?? 0) > 0
+            ? TransactionType.adding
+            : TransactionType.deduction;
         return true;
     }
   }
@@ -80,6 +96,7 @@ class DebtsTransactionsProvider extends BaseProvider {
           ? total + (transaction.amount ?? 0)
           : total - (transaction.amount ?? 0);
     }
-    debt.totalAmount = -1 * total;
+    debt.totalAmount = total;
+    debt.type = total > 0 ? TransactionType.adding : TransactionType.deduction;
   }
 }

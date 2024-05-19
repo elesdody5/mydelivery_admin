@@ -30,6 +30,11 @@ class DebtsRepositoryImp implements DebtsRepository {
     return removeDebtTransactions(id);
   }
 
+  @override
+  Future<Result> removeTransaction(String? id) async {
+    return _firebaseService.removeTransaction(id);
+  }
+
   Future<Result> removeDebtTransactions(String? debtId) {
     return _firebaseService.removeDebtTransactions(debtId);
   }

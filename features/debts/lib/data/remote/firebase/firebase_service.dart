@@ -97,4 +97,14 @@ class FirebaseService {
       return Error(e);
     }
   }
+
+  Future<Result> removeTransaction(String? transactionId) async {
+    try {
+      final debtsCollection = _fireStore.collection('debtsTransactions');
+      await debtsCollection.doc(transactionId).delete();
+      return Success(true);
+    } on Exception catch (e) {
+      return Error(e);
+    }
+  }
 }
