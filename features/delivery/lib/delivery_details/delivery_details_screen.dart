@@ -128,7 +128,7 @@ class DeliveryDetailsScreen extends StatelessWidget {
                       style: Get.textTheme.bodyText2,
                     ),
                     onTap: () =>
-                        Get.toNamed(deliveryProfileScreen, arguments: delivery),
+                        Get.toNamed(profileScreenRouteName, arguments: delivery),
                   ),
                   ListTile(
                     leading: const Icon(

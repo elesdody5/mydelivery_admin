@@ -8,13 +8,12 @@ class ProfileProvider extends BaseProvider {
   User? user;
   final UserRepository _repository;
 
-
   ProfileProvider({UserRepository? repository})
       : _repository = repository ?? UserRepositoryImp();
 
   void decreaseScore() {
     if (user?.coins != null && user!.coins! > 0) {
-      user?.coins = user!.coins!  - 1;
+      user?.coins = user!.coins! - 1;
       notifyListeners();
     }
   }
@@ -37,11 +36,15 @@ class ProfileProvider extends BaseProvider {
     }
   }
 
-  Future<void> getUserDetails() async {
-    Result<User> result = await _repository.getUserDetails();
-    if (result.succeeded()) {
-      user = result.getDataIfSuccess();
-      notifyListeners();
+  Future<void> getUserDetails(User? user) async {
+    if (user != null) {
+      this.user = user;
+    } else {
+      Result<User> result = await _repository.getUserDetails();
+      if (result.succeeded()) {
+        user = result.getDataIfSuccess();
+      }
     }
+    notifyListeners();
   }
 }

@@ -30,7 +30,7 @@ class UsersListProvider extends BaseProvider {
     isLoading.value = true;
     await _repository.saveCurrentUserId(user.id ?? "");
     isLoading.value = false;
-    navigation.value = Destination(routeName: profileScreenRouteName);
+    navigation.value = Destination(routeName: profileScreenRouteName,argument: user);
   }
 
   Future<void> blockUser(User user) async {

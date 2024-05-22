@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:core/domain/user.dart';
+import 'package:core/domain/user_type.dart';
 import 'package:core/screens.dart';
 import 'package:core/utils/styles.dart';
 import 'package:core/utils/utils.dart';
@@ -33,6 +35,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    User? user = Get.arguments;
     final provider = Provider.of<ProfileProvider>(context, listen: false);
     _setupListener(provider);
     return Scaffold(
@@ -40,7 +43,7 @@ class ProfileScreen extends StatelessWidget {
           title: Text("profile".tr),
         ),
         body: FutureWithLoadingProgress(
-          future: provider.getUserDetails,
+          future: () => provider.getUserDetails(user),
           child: Consumer<ProfileProvider>(builder: (context, provider, child) {
             return SingleChildScrollView(
               child: FormBuilder(
@@ -72,9 +75,9 @@ class ProfileScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: FormBuilderTextField(
                           name: "name",
-                          enabled: false,
-                          readOnly: true,
+                          enabled: user?.userType == UserType.delivery,
                           initialValue: provider.user?.name,
+                          onSaved: (name) => provider.user?.name = name,
                           decoration: formInputDecoration(
                               label: "user_name".tr,
                               suffixIcon:
@@ -142,26 +145,27 @@ class ProfileScreen extends StatelessWidget {
                             ],
                           )),
                     ),
-                    ExpansionTile(
-                      expandedCrossAxisAlignment: CrossAxisAlignment.start,
-                      title: Text("orders".tr),
-                      leading: Image.asset(
-                        'assets/images/delivery-man.png',
-                        width: 20,
-                        height: 20,
+                    if (user?.userType != UserType.delivery)
+                      ExpansionTile(
+                        expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                        title: Text("orders".tr),
+                        leading: Image.asset(
+                          'assets/images/delivery-man.png',
+                          width: 20,
+                          height: 20,
+                        ),
+                        children: [
+                          ListTile(
+                              onTap: () => Get.toNamed(currentUserOrdersScreen,
+                                  arguments: provider.user?.id),
+                              title: Text("current_orders".tr)),
+                          ListTile(
+                              onTap: () => Get.toNamed(
+                                  deliveryDeliveredOrdersScreen,
+                                  arguments: provider.user?.id),
+                              title: Text("delivered_orders".tr)),
+                        ],
                       ),
-                      children: [
-                        ListTile(
-                            onTap: () => Get.toNamed(currentUserOrdersScreen,
-                                arguments: provider.user?.id),
-                            title: Text("current_orders".tr)),
-                        ListTile(
-                            onTap: () => Get.toNamed(
-                                deliveryDeliveredOrdersScreen,
-                                arguments: provider.user?.id),
-                            title: Text("delivered_orders".tr)),
-                      ],
-                    ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(

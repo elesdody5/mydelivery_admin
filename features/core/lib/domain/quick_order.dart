@@ -32,7 +32,7 @@ class QuickOrder {
   QuickOrder(
       {this.id,
       this.address,
-      this.inCity,
+      this.inCity = true,
       this.delivery,
       this.user,
       this.description,
