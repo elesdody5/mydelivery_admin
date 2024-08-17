@@ -12,6 +12,7 @@ class QuickOrderListItem extends StatelessWidget {
   final Function(QuickOrder)? updateQuickOrder;
   final Function(QuickOrder)? sendQuickOrder;
   final Function(QuickOrder)? removeQuickOrderDebt;
+  final Function(QuickOrder)? sendWhatsappMessage;
 
   const QuickOrderListItem(
       {Key? key,
@@ -21,6 +22,7 @@ class QuickOrderListItem extends StatelessWidget {
       this.deleteQuickOrder,
       this.updateQuickOrder,
       this.sendQuickOrder,
+      this.sendWhatsappMessage,
       this.removeQuickOrderDebt})
       : super(key: key);
 
@@ -30,6 +32,14 @@ class QuickOrderListItem extends StatelessWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          if (sendWhatsappMessage != null)
+            TextButton(
+                onPressed: () {
+                  Get.back();
+                  sendWhatsappMessage?.call(quickOrder);
+                },
+                child: Text("send_whats_app".tr)),
+          const Divider(),
           if (updateQuickOrder != null)
             TextButton(
                 onPressed: () {
@@ -87,19 +97,23 @@ class QuickOrderListItem extends StatelessWidget {
       title: quickOrder.user?.name != null
           ? Text(
               quickOrder.user?.name ?? "",
-              style: Get.textTheme.bodyText2,
+              style: Get.textTheme.bodySmall,
             )
           : Text(
               quickOrder.startDestinationPhoneNumber?.replaceAll(" ", "") ?? "",
-              style: Get.textTheme.bodyText2,
+              style: Get.textTheme.bodySmall,
             ),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(_textAddress()),
+          Text(
+            _textAddress(),
+            style: Get.textTheme.bodySmall,
+          ),
           Text(
             " ${quickOrder.formattedDate}  ${quickOrder.formattedTime} ",
             textDirection: TextDirection.ltr,
+            style: Get.textTheme.bodySmall,
           ),
         ],
       ),
@@ -111,7 +125,7 @@ class QuickOrderListItem extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 "${quickOrder.price.toString()} ${"le".tr}",
-                style: TextStyle(color: Get.textTheme.bodyText1?.color),
+                style: TextStyle(color: Get.textTheme.bodyMedium?.color),
               ),
             )
         ],

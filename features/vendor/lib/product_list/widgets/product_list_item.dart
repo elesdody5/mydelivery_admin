@@ -73,7 +73,7 @@ class ProductListItem extends StatelessWidget {
             child: Text(
               "${product.price.toString()} ${"le".tr}",
               style: TextStyle(
-                  color: Get.theme.textTheme.bodyText1?.color, fontSize: 12),
+                  color: Get.theme.textTheme.bodyMedium?.color, fontSize: 12),
             ),
           )
         ],

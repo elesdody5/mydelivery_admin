@@ -10,7 +10,7 @@ import 'package:mockito/mockito.dart';
 import 'test_remote_auth.mocks.dart';
 
 @GenerateMocks([Response],
-    customMocks: [MockSpec<Dio>(returnNullOnMissingStub: true)])
+    customMocks: [MockSpec<Dio>()])
 void main() {
   late AuthApiService remoteAuth;
   late Dio dio;

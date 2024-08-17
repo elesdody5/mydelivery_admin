@@ -37,12 +37,12 @@ class MyApp extends StatelessWidget {
         appBarTheme: const AppBarTheme(
             color: Color(0xfffeed01), foregroundColor: Colors.black),
         textTheme: const TextTheme(
-          bodyText1: TextStyle(
+          bodyMedium: TextStyle(
               letterSpacing: 1,
               fontWeight: FontWeight.w700,
               fontSize: 18,
               color: Color(0xfff45b55)),
-          bodyText2: TextStyle(
+          bodySmall: TextStyle(
               letterSpacing: 1,
               fontWeight: FontWeight.w700,
               fontSize: 12,

@@ -83,6 +83,7 @@ Map<String, String> arJson = {
   "continue": "متابعة",
   "reminder_title": "ذكير الدواء",
   "open_whats_app": "اضغط لفتح الواتساب",
+  "send_whats_app": "ارسال الواتساب",
   "are_you_sure": "هل انت متأكد",
   "do_you_to_remove_delivery": "هل تريد حذف هذا الطيار",
   "do_you_to_remove_order": "هل تريد حذف هذا الطلب",
@@ -116,7 +117,6 @@ Map<String, String> arJson = {
   "show_all": "عرض الكل",
   "something_went_wrong": "حدث خطأ برجاء اعادة المحاولة لاحقأ",
   "slogan": "صحتك .. ببساطة",
-  "reminder_body": "موعد الدواء (@medicine)",
   "cancel": "الغاء",
   "please_contact_user": "يرجي الاتصال بصاحب الطلب",
   "order_successfully": "لقد تم الطلب بنجاح يرجي متابعة حالة الطلب",
@@ -240,7 +240,18 @@ Map<String, String> arJson = {
   "adding_debt": "اضافة دين",
   "adding": "اضافة",
   "office_percent": "نسبة المكتب",
-  "add_custody":"اضافة عهدة",
-  "custody":"عهدة",
-  "do_you_to_remove_from_debts":"هل تريد حذف من عهدة الطيار"
+  "add_custody": "اضافة عهدة",
+  "custody": "عهدة",
+  "do_you_to_remove_from_debts": "هل تريد حذف من عهدة الطيار",
+  "quick_order_whatsapp_form_message":
+      "تم إستلام الطلب وهو الأن فى مرحلة التجهيز "
+          "\n"
+          "الوقت : @time"
+          "\n"
+          "======================="
+          "\n"
+          "اسم الدليفرى :@delivery"
+          "\n"
+          "رقم الهاتف :@delivery_phone"
+          "\n"
 };

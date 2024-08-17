@@ -10,6 +10,7 @@ class QuickOrdersListView extends StatelessWidget {
   final Function(QuickOrder)? updateQuickOrder;
   final Function(QuickOrder)? sendQuickOrder;
   final Function(QuickOrder)? removeQuickOrderDebt;
+  final Function(QuickOrder)? sendWhatsappMessage;
 
   const QuickOrdersListView(
       {Key? key,
@@ -19,6 +20,7 @@ class QuickOrdersListView extends StatelessWidget {
       this.deleteQuickOrder,
       this.updateQuickOrder,
       this.sendQuickOrder,
+      this.sendWhatsappMessage,
       this.removeQuickOrderDebt})
       : super(key: key);
 
@@ -34,6 +36,7 @@ class QuickOrdersListView extends StatelessWidget {
         updateQuickOrder: updateQuickOrder,
         sendQuickOrder: sendQuickOrder,
         removeQuickOrderDebt: removeQuickOrderDebt,
+        sendWhatsappMessage: sendWhatsappMessage,
       ),
       separatorBuilder: (context, index) => const Divider(
         thickness: 1,

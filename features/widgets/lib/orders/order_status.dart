@@ -75,12 +75,12 @@ class OrderStatusWidget extends StatelessWidget {
       case OrderStatus.inProgress:
         return Text(
           "inProgress".tr,
-          style: TextStyle(color: Get.textTheme.bodyText1?.color),
+          style: TextStyle(color: Get.textTheme.bodyMedium?.color),
         );
       case OrderStatus.withDelivery:
         return Text(
           "on_my_way".tr,
-          style: TextStyle(color: Get.textTheme.bodyText1?.color),
+          style: TextStyle(color: Get.textTheme.bodyMedium?.color),
         );
       case OrderStatus.delivered:
         return Text(

@@ -1,5 +1,6 @@
 import 'package:core/domain/quick_order.dart';
 import 'package:core/screens.dart';
+import 'package:core/utils/utils.dart';
 import 'package:delivery/all_quick_orders/with_delivery_quick_orders/all_with_delivery_quick_orders_provider.dart';
 import 'package:widgets/search_widget.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ import 'package:widgets/empty_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get.dart';
 import 'package:widgets/future_with_loading_progress.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'package:widgets/quick_orders/quick_orders_list_view.dart';
 
 class AllWithDeliveryQuickOrdersScreen extends StatelessWidget {
@@ -32,6 +33,24 @@ class AllWithDeliveryQuickOrdersScreen extends StatelessWidget {
         )
       ],
     ));
+  }
+
+  Future<void> openWhatsapp(QuickOrder quickOrder) async {
+    if (quickOrder.endDestinationPhoneNumber != null &&
+        quickOrder.endDestinationPhoneNumber!.isNotEmpty) {
+      var whatsappUrl =
+          "whatsapp://send?phone=+2${quickOrder.endDestinationPhoneNumber}"
+          "&text=${"quick_order_whatsapp_form_message".trParams({
+            "time": quickOrder.deliveryPickedTime?.timeFormat() ?? "",
+            "delivery": quickOrder.delivery?.name ?? "",
+            "delivery_phone": quickOrder.delivery?.phone ?? "",
+          })}";
+
+      // bool foundWhatsapp = await canLaunch(whatsappUrl);
+      launch(whatsappUrl);
+    } else {
+      showErrorDialog("please_enter_valid_phone".tr);
+    }
   }
 
   @override
@@ -64,6 +83,7 @@ class AllWithDeliveryQuickOrdersScreen extends StatelessWidget {
                             orders: provider.filteredQuickOrders,
                             deleteQuickOrder: (quickOrder) =>
                                 _showAlertDialog(provider, quickOrder),
+                            sendWhatsappMessage: openWhatsapp,
                             updateQuickOrder: (quickOrder) async {
                               QuickOrder result = await Get.toNamed(
                                   quickOrderForm,

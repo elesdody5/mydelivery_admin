@@ -32,7 +32,7 @@ class AllOrdersScreen extends StatelessWidget {
                     return Tab(
                       child: Text(
                         "${"waitingDelivery".tr} (${provider.availableOrdersCount})",
-                        style: Get.textTheme.bodyText2,
+                        style: Get.textTheme.bodySmall,
                       ),
                     );
                   }),
@@ -41,7 +41,7 @@ class AllOrdersScreen extends StatelessWidget {
                     return Tab(
                       child: Text(
                         "${"withDelivery".tr} (${provider.withDeliveryOrdersCount})",
-                        style: Get.textTheme.bodyText2,
+                        style: Get.textTheme.bodySmall,
                       ),
                     );
                   }),
@@ -50,7 +50,7 @@ class AllOrdersScreen extends StatelessWidget {
                     return Tab(
                       child: Text(
                         "${"delivered".tr} (${provider.deliveredOrdersCount})",
-                        style: Get.textTheme.bodyText2,
+                        style: Get.textTheme.bodySmall,
                       ),
                     );
                   }),

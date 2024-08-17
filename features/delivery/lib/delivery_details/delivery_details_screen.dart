@@ -95,7 +95,7 @@ class DeliveryDetailsScreen extends StatelessWidget {
                     ),
                     title: Text(
                       "account_balance".tr,
-                      style: Get.textTheme.bodyText2,
+                      style: Get.textTheme.bodySmall,
                     ),
                     trailing: Text(
                         "${provider.delivery?.accountBalance.toString() ?? 0} ${"le".tr}",
@@ -112,7 +112,7 @@ class DeliveryDetailsScreen extends StatelessWidget {
                       ),
                       title: Text(
                         "custody".tr,
-                        style: Get.textTheme.bodyText2,
+                        style: Get.textTheme.bodySmall,
                       ),
                       trailing: const Icon(Icons.arrow_forward_ios_rounded,size: 20,),
                       onTap: () => Get.toNamed(deliveryQuickOrdersWithDebts,
@@ -125,7 +125,7 @@ class DeliveryDetailsScreen extends StatelessWidget {
                     ),
                     title: Text(
                       "profile".tr,
-                      style: Get.textTheme.bodyText2,
+                      style: Get.textTheme.bodySmall,
                     ),
                     onTap: () =>
                         Get.toNamed(profileScreenRouteName, arguments: delivery),
@@ -138,7 +138,7 @@ class DeliveryDetailsScreen extends StatelessWidget {
                     ),
                     title: Text(
                       "reviews".tr,
-                      style: Get.textTheme.bodyText2,
+                      style: Get.textTheme.bodySmall,
                     ),
                     onTap: () => Get.toNamed(deliveryReviewsScreenRouteName,
                         arguments: delivery),
@@ -151,7 +151,7 @@ class DeliveryDetailsScreen extends StatelessWidget {
                     ),
                     title: Text(
                       "coins".tr,
-                      style: Get.textTheme.bodyText2,
+                      style: Get.textTheme.bodySmall,
                     ),
                     trailing: Text("${provider.coins}"),
                   ),
@@ -163,7 +163,7 @@ class DeliveryDetailsScreen extends StatelessWidget {
                     ),
                     title: Text(
                       "hide_address".tr,
-                      style: Get.textTheme.bodyText2,
+                      style: Get.textTheme.bodySmall,
                     ),
                     trailing: Switch(
                       value: provider.isAddressHidden,
@@ -179,7 +179,7 @@ class DeliveryDetailsScreen extends StatelessWidget {
                     ),
                     title: Text(
                       "block".tr,
-                      style: Get.textTheme.bodyText2,
+                      style: Get.textTheme.bodySmall,
                     ),
                     trailing: Switch(
                       value: provider.isBlocked,

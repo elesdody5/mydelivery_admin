@@ -128,19 +128,20 @@ class QuickOrderForm extends StatelessWidget {
                         onTap: provider.addQuickOrderDebt,
                       ),
                     if (provider.showDebtSection)
-                    Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FormBuilderTextField(
-                          initialValue: provider.quickOrder.debt?.toString(),
-                          name: 'debt',
-                          onSaved: (String? debt) {
-                            if (debt != null) {
-                              provider.quickOrder.debt = double.tryParse(debt);
-                            }
-                          },
-                          decoration: formInputDecoration(
-                              label: "custody".tr, suffixText: "le".tr),
-                        )),
+                      Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: FormBuilderTextField(
+                            initialValue: provider.quickOrder.debt?.toString(),
+                            name: 'debt',
+                            onSaved: (String? debt) {
+                              if (debt != null) {
+                                provider.quickOrder.debt =
+                                    double.tryParse(debt);
+                              }
+                            },
+                            decoration: formInputDecoration(
+                                label: "custody".tr, suffixText: "le".tr),
+                          )),
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -195,17 +196,18 @@ class QuickOrderForm extends StatelessWidget {
                           flex: 2,
                           child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: TypeAheadFormField<Shop>(
-                                textFieldConfiguration: TextFieldConfiguration(
+                              child: TypeAheadField<Shop>(
+                                builder: (context, controller, focus) =>
+                                    TextField(
+                                  focusNode: focus,
+                                  autofocus: true,
                                   decoration:
                                       formInputDecoration(label: 'from'.tr),
                                   controller: _fromAddressController,
                                 ),
-                                onSuggestionSelected: (Shop shop) {
+                                onSelected: (Shop shop) {
                                   _fromAddressController.text = shop.name ?? "";
                                 },
-                                onSaved: (String? value) => provider.quickOrder
-                                    .address?.startDestination = value,
                                 itemBuilder: (BuildContext context, Shop shop) {
                                   return ListTile(
                                     title: Text(shop.name ?? ""),
@@ -213,11 +215,12 @@ class QuickOrderForm extends StatelessWidget {
                                   );
                                 },
                                 suggestionsCallback: (pattern) {
-                                  return provider.shops.where((shop) =>
-                                      shop.name
-                                          ?.toLowerCase()
-                                          .contains(pattern.toLowerCase()) ??
-                                      false);
+                                  return provider.shops
+                                      .where((shop) =>
+                                          shop.name?.toLowerCase().contains(
+                                              pattern.toLowerCase()) ??
+                                          false)
+                                      .toList();
                                 },
                               )),
                         ),
@@ -225,17 +228,18 @@ class QuickOrderForm extends StatelessWidget {
                           flex: 2,
                           child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: TypeAheadFormField<PhoneContact>(
-                                textFieldConfiguration: TextFieldConfiguration(
+                              child: TypeAheadField<PhoneContact>(
+                                builder: (context, controller, focus) =>
+                                    TextField(
+                                  focusNode: focus,
+                                  autofocus: true,
                                   decoration:
                                       formInputDecoration(label: 'phone'.tr),
                                   controller: _fromPhoneController,
                                 ),
-                                onSuggestionSelected: (PhoneContact contact) {
+                                onSelected: (PhoneContact contact) {
                                   _fromPhoneController.text = contact.number;
                                 },
-                                onSaved: (String? value) => provider.quickOrder
-                                    .startDestinationPhoneNumber = value,
                                 itemBuilder: (BuildContext context,
                                     PhoneContact contact) {
                                   return ListTile(
@@ -243,11 +247,12 @@ class QuickOrderForm extends StatelessWidget {
                                     subtitle: Text(contact.number),
                                   );
                                 },
-                                suggestionsCallback: (pattern) {
-                                  return provider.phoneContacts.where(
-                                      (contact) => contact.name
+                                suggestionsCallback: (pattern) async {
+                                  return provider.phoneContacts
+                                      .where((contact) => contact.name
                                           .toLowerCase()
-                                          .contains(pattern.toLowerCase()));
+                                          .contains(pattern.toLowerCase()))
+                                      .toList();
                                 },
                               )),
                         ),
@@ -260,17 +265,18 @@ class QuickOrderForm extends StatelessWidget {
                           flex: 2,
                           child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: TypeAheadFormField<Shop>(
-                                textFieldConfiguration: TextFieldConfiguration(
+                              child: TypeAheadField<Shop>(
+                                builder: (context, controller, focus) =>
+                                    TextField(
+                                  focusNode: focus,
+                                  autofocus: true,
                                   decoration:
                                       formInputDecoration(label: 'to'.tr),
                                   controller: _toAddressController,
                                 ),
-                                onSuggestionSelected: (Shop shop) {
+                                onSelected: (Shop shop) {
                                   _toAddressController.text = shop.name ?? "";
                                 },
-                                onSaved: (String? value) => provider
-                                    .quickOrder.address?.endDestination = value,
                                 itemBuilder: (BuildContext context, Shop shop) {
                                   return ListTile(
                                     title: Text(shop.name ?? ""),
@@ -278,11 +284,12 @@ class QuickOrderForm extends StatelessWidget {
                                   );
                                 },
                                 suggestionsCallback: (pattern) {
-                                  return provider.shops.where((shop) =>
-                                      shop.name
-                                          ?.toLowerCase()
-                                          .contains(pattern.toLowerCase()) ??
-                                      false);
+                                  return provider.shops
+                                      .where((shop) =>
+                                          shop.name?.toLowerCase().contains(
+                                              pattern.toLowerCase()) ??
+                                          false)
+                                      .toList();
                                 },
                               )),
                         ),
@@ -290,17 +297,18 @@ class QuickOrderForm extends StatelessWidget {
                           flex: 2,
                           child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: TypeAheadFormField<PhoneContact>(
-                                textFieldConfiguration: TextFieldConfiguration(
+                              child: TypeAheadField<PhoneContact>(
+                                builder: (context, controller, focus) =>
+                                    TextField(
+                                  focusNode: focus,
+                                  autofocus: true,
                                   decoration:
                                       formInputDecoration(label: 'phone'.tr),
                                   controller: _toPhoneController,
                                 ),
-                                onSuggestionSelected: (PhoneContact contact) {
+                                onSelected: (PhoneContact contact) {
                                   _toPhoneController.text = contact.number;
                                 },
-                                onSaved: (String? value) => provider.quickOrder
-                                    .endDestinationPhoneNumber = value,
                                 itemBuilder: (BuildContext context,
                                     PhoneContact contact) {
                                   return ListTile(
@@ -309,10 +317,11 @@ class QuickOrderForm extends StatelessWidget {
                                   );
                                 },
                                 suggestionsCallback: (pattern) {
-                                  return provider.phoneContacts.where(
-                                      (contact) => contact.name
+                                  return provider.phoneContacts
+                                      .where((contact) => contact.name
                                           .toLowerCase()
-                                          .contains(pattern.toLowerCase()));
+                                          .contains(pattern.toLowerCase()))
+                                      .toList();
                                 },
                               )),
                         ),
@@ -377,6 +386,16 @@ class QuickOrderForm extends StatelessWidget {
                           onPressed: () {
                             if (_formKey.currentState?.validate() == true) {
                               _formKey.currentState?.save();
+                              provider.quickOrder.startDestinationPhoneNumber =
+                                  _fromPhoneController.value.text;
+                              provider.quickOrder.address?.startDestination =
+                                  _fromAddressController.value.text;
+
+                              provider.quickOrder.endDestinationPhoneNumber =
+                                  _toPhoneController.value.text;
+                              provider.quickOrder.address?.endDestination =
+                                  _toAddressController.value.text;
+
                               provider.sendQuickOrder();
                             }
                           },

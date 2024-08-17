@@ -42,7 +42,7 @@ class LoginForm extends StatelessWidget {
                 decoration: formInputDecoration(label: "phone".tr),
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.match(
-                    r'(^(?:[+0]9)?[0-9]{10,12}$)',
+                    RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)'),
                     errorText: 'please_enter_valid_phone'.tr,
                   ),
                 ])),

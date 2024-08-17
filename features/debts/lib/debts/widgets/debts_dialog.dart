@@ -12,7 +12,9 @@ class DebtsDialog extends StatelessWidget {
   final Debt debt = Debt();
   final Function(Debt) addDebts;
   final List<PhoneContact> phoneContacts;
-  DebtsDialog({Key? key, required this.addDebts, required this.phoneContacts}) : super(key: key);
+
+  DebtsDialog({Key? key, required this.addDebts, required this.phoneContacts})
+      : super(key: key);
 
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
   final TextEditingController _phoneController = TextEditingController();
@@ -50,28 +52,29 @@ class DebtsDialog extends StatelessWidget {
               ),
               Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: TypeAheadFormField<PhoneContact>(
-                    textFieldConfiguration: TextFieldConfiguration(
-                      decoration:
-                      formInputDecoration(label: 'phone'.tr),
+                  child: TypeAheadField<PhoneContact>(
+                    builder: (context, controller, focus) => TextField(
+                      focusNode: focus,
+                      autofocus: true,
+                      decoration: formInputDecoration(label: 'phone'.tr),
                       controller: _phoneController,
                     ),
-                    onSuggestionSelected: (PhoneContact contact) {
+                    onSelected: (PhoneContact contact) {
                       _phoneController.text = contact.number;
                     },
-                    onSaved: (String? value) => debt.phone = value,
-                    itemBuilder: (BuildContext context,
-                        PhoneContact contact) {
+                    // onSaved: (String? value) => debt.phone = value,
+                    itemBuilder: (BuildContext context, PhoneContact contact) {
                       return ListTile(
                         title: Text(contact.name),
                         subtitle: Text(contact.number),
                       );
                     },
                     suggestionsCallback: (pattern) {
-                      return phoneContacts.where(
-                              (contact) => contact.name
+                      return phoneContacts
+                          .where((contact) => contact.name
                               .toLowerCase()
-                              .contains(pattern.toLowerCase()));
+                              .contains(pattern.toLowerCase()))
+                          .toList();
                     },
                   )),
             ],

@@ -79,7 +79,7 @@ class HomePage extends StatelessWidget {
           crossAxisSpacing: 12.0,
           mainAxisSpacing: 12.0,
           childAspectRatio: 1.2,
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
           children: <Widget>[
             _buildTile(
               Padding(
@@ -115,7 +115,7 @@ class HomePage extends StatelessWidget {
             ),
             _buildTile(
               Padding(
-                padding: const EdgeInsets.all(24.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,7 +124,7 @@ class HomePage extends StatelessWidget {
                           color: Colors.teal,
                           shape: CircleBorder(),
                           child: Padding(
-                            padding: EdgeInsets.all(12.0),
+                            padding: EdgeInsets.all(10.0),
                             child: Icon(
                               Icons.pedal_bike,
                               color: Colors.white,

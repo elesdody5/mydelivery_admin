@@ -33,7 +33,7 @@ class AllQuickOrdersScreen extends StatelessWidget {
                     return Tab(
                       child: Text(
                         "${"waitingDelivery".tr} (${provider.availableQuickOrdersCount})",
-                        style: Get.textTheme.bodyText2,
+                        style: Get.textTheme.bodySmall,
                       ),
                     );
                   }),
@@ -42,7 +42,7 @@ class AllQuickOrdersScreen extends StatelessWidget {
                     return Tab(
                       child: Text(
                         "${"withDelivery".tr} (${provider.withDeliveryQuickOrdersCount})",
-                        style: Get.textTheme.bodyText2,
+                        style: Get.textTheme.bodySmall,
                       ),
                     );
                   }),
@@ -51,7 +51,7 @@ class AllQuickOrdersScreen extends StatelessWidget {
                     return Tab(
                       child: Text(
                         "${"delivered".tr} (${provider.deliveredQuickOrdersCount})",
-                        style: Get.textTheme.bodyText2,
+                        style: Get.textTheme.bodySmall,
                       ),
                     );
                   }),

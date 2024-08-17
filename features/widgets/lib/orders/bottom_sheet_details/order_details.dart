@@ -20,7 +20,7 @@ class OrderDetails extends StatelessWidget {
                 "${"quantity".tr} ${cartItem.quantity} ${cartItem.product?.name ?? ""}"),
             subtitle: Text(
               "${cartItem.price.toString()} ${"le".tr}",
-              style: TextStyle(color: Get.textTheme.bodyText1?.color),
+              style: TextStyle(color: Get.textTheme.bodyMedium?.color),
             ),
           )
         : Text(cartItem.product?.description ?? "");

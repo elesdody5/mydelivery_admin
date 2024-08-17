@@ -29,7 +29,7 @@ class UserDeliveredOrdersScreen extends StatelessWidget {
                   return Tab(
                     child: Text(
                       "${"quick_order".tr} (${provider.deliveredQuickOrdersCount})",
-                      style: Get.textTheme.bodyText2,
+                      style: Get.textTheme.bodySmall,
                     ),
                   );
                 }),
@@ -38,7 +38,7 @@ class UserDeliveredOrdersScreen extends StatelessWidget {
                   return Tab(
                     child: Text(
                       "${"orders".tr} (${provider.deliveredOrdersCount})",
-                      style: Get.textTheme.bodyText2,
+                      style: Get.textTheme.bodySmall,
                     ),
                   );
                 }),
