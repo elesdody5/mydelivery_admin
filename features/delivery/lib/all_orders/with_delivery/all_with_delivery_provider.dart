@@ -1,5 +1,4 @@
 import 'package:core/base_provider.dart';
-import 'package:core/domain/result.dart';
 import 'package:core/model/order.dart';
 import 'package:delivery/data/repository/delivery_repository.dart';
 import 'package:delivery/data/repository/delivery_repository_imp.dart';

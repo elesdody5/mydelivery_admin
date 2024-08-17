@@ -231,7 +231,7 @@ class DeliveryRepositoryImp implements DeliveryRepository {
 
   @override
   Future<Result<List<QuickOrder>>> getDeliveryQuickOrderWithDebts(
-      String deliveryId) {
+      String? deliveryId) {
     return _remoteDataSource.getDeliveryQuickOrdersWithDebts(deliveryId);
   }
 

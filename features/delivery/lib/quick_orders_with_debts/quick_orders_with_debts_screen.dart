@@ -34,7 +34,7 @@ class QuickOrdersWithDebtsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String deliveryId = Get.arguments;
+    String? deliveryId = Get.arguments;
     final provider =
         Provider.of<QuickOrdersWithDebtsProvider>(context, listen: false);
     setupErrorMessageListener(provider.errorMessage);

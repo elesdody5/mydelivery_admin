@@ -49,7 +49,7 @@ abstract class DeliveryApiService {
       String? deliveryId, double accountBalance);
 
   Future<ApiResponse<List<QuickOrder>>> getDeliveryQuickOrdersWithDebts(
-      String deliveryId);
+      String? deliveryId);
 
   Future<ApiResponse> updateQuickOrderDebt(
       String? quickOrderId, double debt);

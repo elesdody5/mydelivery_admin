@@ -98,7 +98,7 @@ class DeliveryDetailsScreen extends StatelessWidget {
                       style: Get.textTheme.bodySmall,
                     ),
                     trailing: Text(
-                        "${provider.delivery?.accountBalance.toString() ?? 0} ${"le".tr}",
+                        "${provider.delivery?.accountBalance?.floor().toString() ?? 0} ${"le".tr}",
                         style: const TextStyle(
                             color: Colors.red, fontWeight: FontWeight.bold)),
                     onTap: () => Get.dialog(AddMoneyDialog(

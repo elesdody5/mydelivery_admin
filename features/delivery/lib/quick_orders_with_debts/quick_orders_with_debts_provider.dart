@@ -12,7 +12,7 @@ class QuickOrdersWithDebtsProvider extends BaseProvider {
   QuickOrdersWithDebtsProvider({DeliveryRepository? repository})
       : _repository = repository ?? DeliveryRepositoryImp();
 
-  Future<void> getDeliveryQuickOrdersWithDebts(String deliveryId) async {
+  Future<void> getDeliveryQuickOrdersWithDebts(String? deliveryId) async {
     Result<List<QuickOrder>> result =
         await _repository.getDeliveryQuickOrderWithDebts(deliveryId);
     if (result.succeeded()) {
