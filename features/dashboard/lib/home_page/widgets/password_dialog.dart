@@ -5,9 +5,12 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 
 class PasswordDialog extends StatelessWidget {
-  final Function(String) submitPassword;
+  final Function(String, String) submitPassword;
+  final String destination;
 
-  PasswordDialog({Key? key, required this.submitPassword}) : super(key: key);
+  PasswordDialog(
+      {Key? key, required this.submitPassword, required this.destination})
+      : super(key: key);
 
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
   final TextEditingController _passwordController = TextEditingController();
@@ -16,7 +19,7 @@ class PasswordDialog extends StatelessWidget {
     try {
       if (_fbKey.currentState?.validate() == true) {
         Get.back();
-        submitPassword(_passwordController.text);
+        submitPassword(_passwordController.text, destination);
       }
     } on Exception catch (e) {
       print(e);

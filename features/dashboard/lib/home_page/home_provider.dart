@@ -69,7 +69,7 @@ class HomeProvider extends BaseProvider {
         Destination(routeName: loginScreenRouteName, removeFromStack: true);
   }
 
-  void onPasswordEntered(String password) {
+  void onPasswordEntered(String password,String destination) {
     if (orderSettings?.password == password) {
       navigation.value = Destination(routeName: debtsScreen);
     } else {

@@ -23,8 +23,11 @@ class HomePage extends StatelessWidget {
     setupNavigationListener(provider.navigation);
   }
 
-  void _openPasswordDialog(HomeProvider provider) {
-    Get.dialog(PasswordDialog(submitPassword: provider.onPasswordEntered));
+  void _openPasswordDialog(HomeProvider provider, String destination) {
+    Get.dialog(PasswordDialog(
+      submitPassword: provider.onPasswordEntered,
+      destination: destination,
+    ));
   }
 
   @override
@@ -254,36 +257,36 @@ class HomePage extends StatelessWidget {
                                 fontSize: 24.0)),
                       ]),
                 ), onTap: () async {
-              // await provider.getSettings();
-              // _openPasswordDialog(provider);
-              Get.toNamed(debtsScreen);
+              await provider.getSettings();
+              _openPasswordDialog(provider, debtsScreen);
             }),
             _buildTile(
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      const Material(
-                          color: Colors.brown,
-                          shape: CircleBorder(),
-                          child: Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: Icon(Icons.receipt,
-                                color: Colors.white, size: 30.0),
-                          )),
-                      const Padding(padding: EdgeInsets.only(bottom: 16.0)),
-                      Text('custody'.tr,
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 24.0)),
-                    ]),
-              ),
-              onTap: () => Get.toNamed(deliveryQuickOrdersWithDebts),
-            ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        const Material(
+                            color: Colors.brown,
+                            shape: CircleBorder(),
+                            child: Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Icon(Icons.receipt,
+                                  color: Colors.white, size: 30.0),
+                            )),
+                        const Padding(padding: EdgeInsets.only(bottom: 16.0)),
+                        Text('custody'.tr,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 24.0)),
+                      ]),
+                ), onTap: () async {
+              await provider.getSettings();
+              _openPasswordDialog(provider, deliveryQuickOrdersWithDebts);
+            }),
             _buildTile(
               Padding(
                 padding:
