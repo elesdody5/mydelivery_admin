@@ -1,6 +1,7 @@
 import 'package:core/screens.dart';
 import 'package:core/utils/utils.dart';
 import 'package:dashboard/cities/cities_dialog.dart';
+import 'package:dashboard/feedback/feedback_message_dialog.dart';
 import 'package:dashboard/home_page/home_provider.dart';
 import 'package:dashboard/home_page/widgets/notification_dialog.dart';
 import 'package:dashboard/home_page/widgets/password_dialog.dart';
@@ -34,18 +35,24 @@ class HomePage extends StatelessWidget {
         floatingActionButton: SpeedDial(
           animatedIconTheme: const IconThemeData(size: 22.0),
           icon: Icons.add,
-          direction: SpeedDialDirection.left,
+          direction: SpeedDialDirection.up,
           children: [
             SpeedDialChild(
                 label: "cities_out_menouf".tr,
+                labelStyle: const TextStyle(color: Colors.black),
                 onTap: () => Get.dialog(ChangeNotifierProvider.value(
                     value: CitiesDialogProvider(), child: CitiesDialog()))),
             SpeedDialChild(
+                label: "Feedback",
+                labelStyle: const TextStyle(color: Colors.black),
+                onTap: () => Get.dialog(FeedbackMessageDialog())),
+            SpeedDialChild(
                 label: "send_notification".tr,
+                labelStyle: const TextStyle(color: Colors.black),
                 onTap: () => Get.dialog(NotificationDialog(
                       notificationMessage: provider.notificationMessage,
                       sendNotification: provider.sendNotification,
-                    )))
+                    ))),
           ],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,

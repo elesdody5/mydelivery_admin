@@ -11,11 +11,12 @@ var roundedButtonStyle = ButtonStyle(
             side: BorderSide(color: Get.theme.primaryColor))));
 
 InputDecoration formInputDecoration(
-        {String? label, Widget? suffixIcon, String? suffixText}) =>
+        {String? label, Widget? suffixIcon, String? suffixText,String? errorText}) =>
     InputDecoration(
       labelText: label,
       suffixIcon: suffixIcon,
       suffixText: suffixText,
+      errorText: errorText,
       enabledBorder: UnderlineInputBorder(
         borderSide: BorderSide(color: Get.theme.primaryIconTheme.color!),
       ),

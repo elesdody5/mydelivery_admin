@@ -38,13 +38,19 @@ class AllWithDeliveryQuickOrdersScreen extends StatelessWidget {
   Future<void> openWhatsapp(QuickOrder quickOrder) async {
     if (quickOrder.endDestinationPhoneNumber != null &&
         quickOrder.endDestinationPhoneNumber!.isNotEmpty) {
-      var whatsappUrl =
-          "whatsapp://send?phone=+2${quickOrder.endDestinationPhoneNumber}"
-          "&text=${"quick_order_whatsapp_form_message".trParams({
-            "time": quickOrder.deliveryPickedTime?.timeFormat() ?? "",
-            "delivery": quickOrder.delivery?.name ?? "",
-            "delivery_phone": quickOrder.delivery?.phone ?? "",
-          })}";
+      var phone = quickOrder.endDestinationPhoneNumber?.contains("+2") == true
+          ? quickOrder.endDestinationPhoneNumber
+          : "+2${quickOrder.endDestinationPhoneNumber}";
+
+      var message =
+          Uri.encodeComponent("quick_order_whatsapp_form_message".trParams({
+        "time": quickOrder.deliveryPickedTime?.timeFormat() ?? "",
+        "delivery": quickOrder.delivery?.name ?? "",
+        "phone": quickOrder.delivery?.phone ?? "",
+      }));
+
+      var whatsappUrl = "whatsapp://send?phone=$phone"
+          "&text=$message";
 
       // bool foundWhatsapp = await canLaunch(whatsappUrl);
       launch(whatsappUrl);
