@@ -51,8 +51,7 @@ class LocationManagerImp implements LocationManager {
   Future<String?> getUserAddress() async {
     if (_checkHasLocationData()) {
       List<geo.Placemark> placeMarks = await geo.placemarkFromCoordinates(
-          _locationData!.latitude!, _locationData!.longitude!,
-          localeIdentifier: "ar");
+          _locationData!.latitude!, _locationData!.longitude!);
       geo.Placemark placeMark = placeMarks.first;
       String address = "${placeMark.locality} , ${placeMark.thoroughfare}";
       return address;

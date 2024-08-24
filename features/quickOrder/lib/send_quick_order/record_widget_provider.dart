@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 
 class RecordProvider with ChangeNotifier {
-  final record = Record();
+  final record = AudioRecorder();
   final AudioPlayer player = AudioPlayer();
   bool isRecording = false;
   bool isPlaying = false;
@@ -26,7 +26,7 @@ class RecordProvider with ChangeNotifier {
   void startRecord() async {
     if (await record.hasPermission()) {
       final file = await _createLevelFile();
-      await record.start(path: file.path);
+      await record.start(const RecordConfig(),path: file.path);
       recordDuration = 0;
       _startTimer();
       isRecording = true;
