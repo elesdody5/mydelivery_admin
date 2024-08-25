@@ -21,6 +21,18 @@ class HomePage extends StatelessWidget {
     setupLoadingListener(provider.isLoading);
     setupSuccessMessageListener(provider.successMessage);
     setupNavigationListener(provider.navigation);
+    setupSettingListener(provider);
+  }
+
+  void setupSettingListener(HomeProvider provider) {
+    ever(provider.openSettings, (bool openSettings) {
+      if (openSettings) {
+        Get.dialog(SettingsAlertDialog(
+            orderSettings: provider.orderSettings,
+            updateOrderSettings: provider.updateSettings));
+        provider.openSettings.value = false;
+      }
+    });
   }
 
   void _openPasswordDialog(HomeProvider provider, String destination) {
@@ -416,9 +428,10 @@ class HomePage extends StatelessWidget {
                       ]),
                 ), onTap: () async {
               await provider.getSettings();
-              Get.dialog(SettingsAlertDialog(
-                  orderSettings: provider.orderSettings,
-                  updateOrderSettings: provider.updateSettings));
+              _openPasswordDialog(provider, settingsDialog);
+              // Get.dialog(SettingsAlertDialog(
+              //     orderSettings: provider.orderSettings,
+              //     updateOrderSettings: provider.updateSettings));
             }),
             _buildTile(
                 Padding(

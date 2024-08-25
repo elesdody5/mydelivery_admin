@@ -4,6 +4,7 @@ import 'package:authentication/domin/login_usecase/login_usecase.dart';
 import 'package:core/base_provider.dart';
 import 'package:core/domain/navigation.dart';
 import 'package:core/domain/result.dart';
+import 'package:core/domain/user.dart';
 import 'package:core/domain/user_type.dart';
 import 'package:core/screens.dart';
 import 'package:get/get.dart';
@@ -19,8 +20,10 @@ class LoginProvider extends BaseProvider {
         _forgetPasswordUseCase =
             forgetPasswordUseCase ?? ForgetPasswordUseCaseImp();
 
-  void _navigate(String phone, UserType? userType) {
-    if (userType == UserType.admin || userType == UserType.delivery) {
+  void _navigate(String phone, User? user) {
+    if ((user?.userType == UserType.admin ||
+            user?.userType == UserType.delivery) &&
+        user?.isAdminBlocked == false) {
       navigation.value = Destination(
           routeName: homeScreen, argument: phone, removeFromStack: true);
     } else {
@@ -35,7 +38,7 @@ class LoginProvider extends BaseProvider {
           await _loginUseCase.invoke(phone, password);
       isLoading.value = false;
       if (result.succeeded()) {
-        _navigate(phone, result.getDataIfSuccess().userType);
+        _navigate(phone, result.getDataIfSuccess().user);
       } else if (result.isNetworkError()) {
         errorMessage.value = "network_error".tr;
       } else {

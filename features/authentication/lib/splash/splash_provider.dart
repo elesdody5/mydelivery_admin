@@ -13,7 +13,7 @@ class SplashProvider extends BaseProvider {
 
   Future<void> autoLogin() async {
     LoginResponse? loginResponse = await _autoLoginUseCase.invoke();
-    if (checkIfAdminOrDelivery(loginResponse)) {
+    if (checkIfAdminOrDelivery(loginResponse) && loginResponse?.user?.isAdminBlocked == false) {
       navigation.value = Destination(
           routeName: homeScreen,
           argument: loginResponse?.userPhone,

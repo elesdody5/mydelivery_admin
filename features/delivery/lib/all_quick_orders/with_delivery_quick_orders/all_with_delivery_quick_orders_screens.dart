@@ -44,7 +44,6 @@ class AllWithDeliveryQuickOrdersScreen extends StatelessWidget {
 
       var message =
           Uri.encodeComponent("quick_order_whatsapp_form_message".trParams({
-        "time": quickOrder.deliveryPickedTime?.timeFormat() ?? "",
         "delivery": quickOrder.delivery?.name ?? "",
         "phone": quickOrder.delivery?.phone ?? "",
       }));

@@ -53,4 +53,6 @@ abstract class DeliveryApiService {
 
   Future<ApiResponse> updateQuickOrderDebt(
       String? quickOrderId, double debt);
+
+  updatedDeliveryAdminBlockState(String id, bool isAdminBlocked) ;
 }

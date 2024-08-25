@@ -239,4 +239,10 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   Future<Result> updateQuickOrderDebt(String? quickOrderId, double debt) {
     return _remoteDataSource.updateQuickOrderDebt(quickOrderId, debt);
   }
+
+  @override
+  Future<Result> updatedDeliveryAdminBlockState(String id, bool isAdminBlocked) {
+    return _remoteDataSource.updatedDeliveryAdminBlockState(id, isAdminBlocked);
+
+  }
 }

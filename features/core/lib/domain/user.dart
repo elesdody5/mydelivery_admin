@@ -17,6 +17,7 @@ class User {
   String? longitude;
   int? coins;
   bool isBlocked;
+  bool? isAdminBlocked;
   int? totalOrders;
   num? totalOrdersMoney;
   num? accountBalance;
@@ -32,6 +33,7 @@ class User {
       this.longitude,
       this.imageFile,
       this.coins,
+      this.isAdminBlocked,
       this.totalOrders,
       this.accountBalance,
       this.totalOrdersMoney,
@@ -50,7 +52,9 @@ class User {
       accountBalance: json['accountBalance'],
       totalOrders: json['totalOrders'],
       totalOrdersMoney: json['totalOrdersMoney'],
-      isBlocked: json['blocked'] ?? false);
+      isBlocked: json['blocked'] ?? false,
+      isAdminBlocked: json['adminBlocked'] ?? false,
+  );
 
   Future<Map<String, dynamic>> toJsonWithImage() async {
     List<String>? mimeTypeData;

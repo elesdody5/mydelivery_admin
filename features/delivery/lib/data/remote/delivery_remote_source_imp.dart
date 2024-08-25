@@ -161,4 +161,11 @@ class DeliveryRemoteDataSourceImp implements DeliveryRemoteDataSource {
         await _deliveryApiService.updateQuickOrderDebt(quickOrderId, debt);
     return _getResultFromResponse(response);
   }
+
+  @override
+  Future<Result> updatedDeliveryAdminBlockState(String id, bool isAdminBlocked)  async{
+    var response =
+        await _deliveryApiService.updatedDeliveryAdminBlockState(id, isAdminBlocked);
+    return _getResultFromResponse(response);
+  }
 }

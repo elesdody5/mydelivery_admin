@@ -14,6 +14,7 @@ import 'package:dashboard/offers/offers_provider.dart';
 import 'package:dashboard/offers/offers_screen.dart';
 import 'package:dashboard/offer_details/offer_details_provider.dart';
 import 'package:dashboard/offer_details/offer_details_screen.dart';
+import 'package:dashboard/settings/settings_alert_dialog.dart';
 import 'package:dashboard/shop_details/shop_details_provider.dart';
 import 'package:dashboard/shop_details/shop_details_screen.dart';
 import 'package:dashboard/shops/shops_provider.dart';
@@ -259,5 +260,6 @@ List<GetPage> appPages = [
       value: QuickOrdersWithDebtsProvider(),
       child: const QuickOrdersWithDebtsScreen(),
     ),
-  )
+  ),
+  // GetPage(name: settingsDialog, page: SettingsAlertDialog(orderSettings: orderSettings, updateOrderSettings: updateOrderSettings))
 ];

@@ -29,7 +29,7 @@ class PasswordDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text("add_debts".tr),
+      title: Text("password".tr),
       content: FormBuilder(
           key: _fbKey,
           child: Column(

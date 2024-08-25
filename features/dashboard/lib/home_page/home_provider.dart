@@ -7,12 +7,14 @@ import 'package:dashboard/data/repository/repository.dart';
 import 'package:dashboard/data/repository/repository_imp.dart';
 import 'package:dashboard/domain/model/notification_message.dart';
 import 'package:core/model/order_settings.dart';
+import 'package:get/get_rx/get_rx.dart';
 
 class HomeProvider extends BaseProvider {
   final Repository _repository;
   OrderSettings? orderSettings;
   QuickOrder quickOrder = QuickOrder();
   NotificationMessage notificationMessage = NotificationMessage();
+  RxBool openSettings = RxBool(false);
 
   HomeProvider({Repository? repository})
       : _repository = repository ?? MainRepository();
@@ -71,7 +73,11 @@ class HomeProvider extends BaseProvider {
 
   void onPasswordEntered(String password, String destination) {
     if (orderSettings?.password == password) {
-      navigation.value = Destination(routeName: debtsScreen);
+      if (destination == settingsDialog) {
+        openSettings.value = true;
+      } else {
+        navigation.value = Destination(routeName: destination);
+      }
     } else {
       errorMessage.value = "password_not_match";
     }

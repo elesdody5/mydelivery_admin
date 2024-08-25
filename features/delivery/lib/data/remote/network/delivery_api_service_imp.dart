@@ -293,4 +293,15 @@ class DeliveryApiServiceImp implements DeliveryApiService {
 
     return ApiResponse(responseData: true);
   }
+
+  @override
+  updatedDeliveryAdminBlockState(String id, bool isAdminBlocked) async {
+    final response = await _dio.patch(userUrl,
+        queryParameters: {"userId": id}, data: {"adminBlocked": isAdminBlocked});
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print("error message is ${response.data['message']}");
+      return ApiResponse(errorMessage: response.data['message']);
+    }
+    return ApiResponse(responseData: true);
+  }
 }

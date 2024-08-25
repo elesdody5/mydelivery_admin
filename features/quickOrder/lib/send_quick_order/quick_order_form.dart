@@ -197,13 +197,14 @@ class QuickOrderForm extends StatelessWidget {
                           child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: TypeAheadField<Shop>(
+                                controller: _fromAddressController,
                                 builder: (context, controller, focus) =>
                                     TextField(
                                   focusNode: focus,
                                   autofocus: true,
                                   decoration:
                                       formInputDecoration(label: 'from'.tr),
-                                  controller: _fromAddressController,
+                                  controller: controller,
                                 ),
                                 onSelected: (Shop shop) {
                                   _fromAddressController.text = shop.name ?? "";
@@ -229,13 +230,14 @@ class QuickOrderForm extends StatelessWidget {
                           child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: TypeAheadField<PhoneContact>(
+                                controller: _fromPhoneController,
                                 builder: (context, controller, focus) =>
                                     TextField(
                                   focusNode: focus,
                                   autofocus: true,
                                   decoration:
                                       formInputDecoration(label: 'phone'.tr),
-                                  controller: _fromPhoneController,
+                                  controller: controller,
                                 ),
                                 onSelected: (PhoneContact contact) {
                                   _fromPhoneController.text = contact.number;
@@ -266,13 +268,14 @@ class QuickOrderForm extends StatelessWidget {
                           child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: TypeAheadField<Shop>(
+                                controller: _toAddressController,
                                 builder: (context, controller, focus) =>
                                     TextField(
                                   focusNode: focus,
                                   autofocus: true,
                                   decoration:
                                       formInputDecoration(label: 'to'.tr),
-                                  controller: _toAddressController,
+                                  controller: controller,
                                 ),
                                 onSelected: (Shop shop) {
                                   _toAddressController.text = shop.name ?? "";
@@ -298,13 +301,14 @@ class QuickOrderForm extends StatelessWidget {
                           child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: TypeAheadField<PhoneContact>(
+                                controller: _toPhoneController,
                                 builder: (context, controller, focus) =>
                                     TextField(
                                   focusNode: focus,
                                   autofocus: true,
                                   decoration:
                                       formInputDecoration(label: 'phone'.tr),
-                                  controller: _toPhoneController,
+                                  controller: controller,
                                 ),
                                 onSelected: (PhoneContact contact) {
                                   _toPhoneController.text = contact.number;

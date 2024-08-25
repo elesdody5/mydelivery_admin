@@ -1,7 +1,6 @@
 import 'package:core/base_provider.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
-import 'package:core/res.dart';
 import 'package:delivery/data/repository/delivery_repository.dart';
 import 'package:delivery/data/repository/delivery_repository_imp.dart';
 
@@ -14,6 +13,7 @@ class DeliveryDetailsProvider extends BaseProvider {
       : _repository = repository ?? DeliveryRepositoryImp();
   int coins = 0;
   bool isBlocked = false;
+  bool isAdminBlocked = false;
   bool isAddressHidden = false;
   User? delivery;
 
@@ -38,6 +38,7 @@ class DeliveryDetailsProvider extends BaseProvider {
       Result<User> result = await _repository.getRemoteUserDetails(deliveryId);
       if (result.succeeded()) {
         isBlocked = result.getDataIfSuccess().isBlocked;
+        isAdminBlocked = result.getDataIfSuccess().isAdminBlocked ?? false;
         notifyListeners();
       }
     }
@@ -61,6 +62,20 @@ class DeliveryDetailsProvider extends BaseProvider {
       isLoading.value = false;
       if (result.succeeded()) {
         this.isBlocked = isBlocked;
+      } else {
+        errorMessage.value = "update_profile_error_message";
+      }
+      notifyListeners();
+    }
+  }
+  Future<void> updateAdminBlockState(String? id, isAdminBlocked) async {
+    if (id != null) {
+      isLoading.value = true;
+      Result result =
+          await _repository.updatedDeliveryAdminBlockState(id, isAdminBlocked);
+      isLoading.value = false;
+      if (result.succeeded()) {
+        this.isAdminBlocked = isAdminBlocked;
       } else {
         errorMessage.value = "update_profile_error_message";
       }

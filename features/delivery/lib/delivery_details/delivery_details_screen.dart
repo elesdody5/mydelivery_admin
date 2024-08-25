@@ -187,6 +187,22 @@ class DeliveryDetailsScreen extends StatelessWidget {
                           provider.updateBlockState(delivery.id, value),
                     ),
                   ),
+                  ListTile(
+                    leading: const Icon(
+                      Icons.block,
+                      size: 20,
+                      color: Colors.red,
+                    ),
+                    title: Text(
+                      "Admin".tr,
+                      style: Get.textTheme.bodySmall,
+                    ),
+                    trailing: Switch(
+                      value: provider.isAdminBlocked,
+                      onChanged: (bool value) =>
+                          provider.updateAdminBlockState(delivery.id, value),
+                    ),
+                  ),
                   ExpansionTile(
                     expandedCrossAxisAlignment: CrossAxisAlignment.start,
                     title: Text("orders".tr),
