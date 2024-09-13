@@ -23,6 +23,8 @@ dependencies:
     path: features/vendor
   debts:
     path: features/debts
+  safe:
+    path: features/safe
 
   quickorder:
     path: features/quickOrder
