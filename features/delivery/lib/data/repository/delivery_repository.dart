@@ -62,10 +62,9 @@ abstract class DeliveryRepository {
   Future<Result> updatedDeliveryBlockStates(String id, bool isBlocked);
   Future<Result> updatedDeliveryAdminBlockState(String id, bool isAdminBlocked);
 
-  Future<Result> updateQuickOrdersStatusToDone(
+  Future<Result> settleQuickOrders(
       List<String> ordersId,
       deliveryId,
-      int totalOrders,
       double totalOrderMoney,
       double profitPercent);
 

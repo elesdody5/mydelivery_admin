@@ -273,6 +273,20 @@ class HomePage extends StatelessWidget {
               _openPasswordDialog(provider, debtsScreen);
             }),
             _buildTile(
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset("assets/images/cash-withdrawal.png"),
+                    Text("safe".tr,
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 24.0))
+                  ],
+                ), onTap: () async {
+              Get.toNamed(safeTransactionsRouteName);
+            }),
+            _buildTile(
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),

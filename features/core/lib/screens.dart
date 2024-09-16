@@ -37,3 +37,4 @@ const String debtsScreen ="/debts_screen";
 const String debtTransactionsScreen = "/debt_transactions_screen";
 const String deliveryQuickOrdersWithDebts = "/quick_orders_with_debts";
 const String settingsDialog = "/settings";
+const String safeTransactionsRouteName = "/safe_transactions";

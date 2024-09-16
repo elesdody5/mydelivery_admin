@@ -74,7 +74,7 @@ class DeliveredQuickOrdersScreen extends StatelessWidget {
         TextButton(
           onPressed: () {
             Get.back();
-            provider.updateOrdersStatusToDone(delivery.id ?? "");
+            provider.settleQuickOrders(delivery.id ?? "");
           },
           child: Text("yes".tr),
         ),

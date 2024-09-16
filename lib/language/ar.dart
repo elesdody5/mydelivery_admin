@@ -25,6 +25,7 @@ Map<String, String> arJson = {
   "delivery_picked_time": "تم الاستلام الساعة @hour ",
   "settings": "الاعدادات",
   "menu": "قائمة الاسعار",
+  "safe":"الخزنة",
   "empty_offer_message": "لايوجد عروض الان",
   "error_cancel_booking": "لايمكن الغاء الحجز فى نفس اليوم او بعد ميعاد الحجز",
   "edit_profile": "تعديل الملف الشخصى",
@@ -243,6 +244,8 @@ Map<String, String> arJson = {
   "office_percent": "نسبة المكتب",
   "add_custody": "اضافة عهدة",
   "custody": "عهدة",
+  "settle":"تصفية حساب",
+  "added_by":"تمت بواسطة",
   "do_you_to_remove_from_debts": "هل تريد حذف من عهدة الطيار",
   "feedback":"فيدباك",
   "feedback_message":

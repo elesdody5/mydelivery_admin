@@ -36,10 +36,10 @@ abstract class DeliveryApiService {
 
   Future<ApiResponse> updateDeliveryBlockStates(String id, bool isBlocked);
 
-  Future<ApiResponse<User>> updateOrders(
+  Future<ApiResponse<User>> settleQuickOrders(
+      String currentUserId,
       List<String> ordersId,
       String deliveryId,
-      int totalOrders,
       double totalOrdersMoney,
       double profitPercent);
 

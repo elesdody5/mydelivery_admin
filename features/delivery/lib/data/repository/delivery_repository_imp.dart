@@ -187,14 +187,11 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   }
 
   @override
-  Future<Result<User>> updateQuickOrdersStatusToDone(
-      List<String> ordersId,
-      deliveryId,
-      int totalOrders,
-      double totalOrdersMoney,
-      double profitPercent) {
-    return _remoteDataSource.updateQuickOrdersStatusToDone(
-        ordersId, deliveryId, totalOrders, totalOrdersMoney, profitPercent);
+  Future<Result<User>> settleQuickOrders(List<String> ordersId, deliveryId,
+      double totalOrdersMoney, double profitPercent) async {
+    var userId = await _sharedPreferencesManager.getAdminId();
+    return _remoteDataSource.settleQuickOrders(
+        userId ?? "", ordersId, deliveryId, totalOrdersMoney, profitPercent);
   }
 
   @override
@@ -241,8 +238,8 @@ class DeliveryRepositoryImp implements DeliveryRepository {
   }
 
   @override
-  Future<Result> updatedDeliveryAdminBlockState(String id, bool isAdminBlocked) {
+  Future<Result> updatedDeliveryAdminBlockState(
+      String id, bool isAdminBlocked) {
     return _remoteDataSource.updatedDeliveryAdminBlockState(id, isAdminBlocked);
-
   }
 }

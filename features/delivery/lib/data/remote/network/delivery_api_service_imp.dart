@@ -212,18 +212,17 @@ class DeliveryApiServiceImp implements DeliveryApiService {
   }
 
   @override
-  Future<ApiResponse<User>> updateOrders(
+  Future<ApiResponse<User>> settleQuickOrders(
+      String currentUserId,
       List<String> ordersId,
       String deliveryId,
-      int totalOrders,
       double totalOrdersMoney,
       double profitPercent) async {
-    final response = await _dio.patch(updateQuickOrders, queryParameters: {
-      "status": OrderStatus.done.enumToString(),
+    final response = await _dio.post(settleQuickOrdersUrl, queryParameters: {
       "deliveryId": deliveryId,
-      "totalOrders": totalOrders,
       "ordersTotalMoney": totalOrdersMoney,
-      "profit": profitPercent
+      "profit": profitPercent,
+      "userAddedId": currentUserId
     }, data: {
       "quickOrders": ordersId
     });
@@ -297,7 +296,8 @@ class DeliveryApiServiceImp implements DeliveryApiService {
   @override
   updatedDeliveryAdminBlockState(String id, bool isAdminBlocked) async {
     final response = await _dio.patch(userUrl,
-        queryParameters: {"userId": id}, data: {"adminBlocked": isAdminBlocked});
+        queryParameters: {"userId": id},
+        data: {"adminBlocked": isAdminBlocked});
     if (response.statusCode != 200 && response.statusCode != 201) {
       print("error message is ${response.data['message']}");
       return ApiResponse(errorMessage: response.data['message']);

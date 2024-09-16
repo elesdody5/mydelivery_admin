@@ -122,14 +122,14 @@ class DeliveryRemoteDataSourceImp implements DeliveryRemoteDataSource {
   }
 
   @override
-  Future<Result<User>> updateQuickOrdersStatusToDone(
+  Future<Result<User>> settleQuickOrders(
+      String currentUserId,
       List<String> ordersId,
       String deliveryId,
-      int totalOrders,
       double ordersMoney,
       double profitPercent) async {
-    var response = await _deliveryApiService.updateOrders(
-        ordersId, deliveryId, totalOrders, ordersMoney, profitPercent);
+    var response = await _deliveryApiService.settleQuickOrders(
+        currentUserId, ordersId, deliveryId, ordersMoney, profitPercent);
     return _getResultFromResponse(response);
   }
 
@@ -163,9 +163,10 @@ class DeliveryRemoteDataSourceImp implements DeliveryRemoteDataSource {
   }
 
   @override
-  Future<Result> updatedDeliveryAdminBlockState(String id, bool isAdminBlocked)  async{
-    var response =
-        await _deliveryApiService.updatedDeliveryAdminBlockState(id, isAdminBlocked);
+  Future<Result> updatedDeliveryAdminBlockState(
+      String id, bool isAdminBlocked) async {
+    var response = await _deliveryApiService.updatedDeliveryAdminBlockState(
+        id, isAdminBlocked);
     return _getResultFromResponse(response);
   }
 }

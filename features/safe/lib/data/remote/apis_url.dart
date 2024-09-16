@@ -1,0 +1,1 @@
+const safeTransactionsUrl = "/safeTransactions";

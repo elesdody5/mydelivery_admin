@@ -53,6 +53,8 @@ import 'package:quickorder/scheduled_quick_order/scheduled_quick_order_provider.
 import 'package:quickorder/scheduled_quick_order/scheduled_quick_order_screen.dart';
 import 'package:quickorder/send_quick_order/QuickOrderFormProvider.dart';
 import 'package:quickorder/send_quick_order/quick_order_form.dart';
+import 'package:safe/safe_transactions/safe_transactions_provider.dart';
+import 'package:safe/safe_transactions/safe_transactions_screen.dart';
 import 'package:user_profile/current_user_orders/all_current_user_orders.dart';
 import 'package:user_profile/current_user_orders/all_current_user_orders_provider.dart';
 import 'package:user_profile/deliverd_orders/all_delivered_orders_provider.dart';
@@ -259,6 +261,13 @@ List<GetPage> appPages = [
     page: () => ChangeNotifierProvider.value(
       value: QuickOrdersWithDebtsProvider(),
       child: const QuickOrdersWithDebtsScreen(),
+    ),
+  ),
+  GetPage(
+    name: safeTransactionsRouteName,
+    page: () => ChangeNotifierProvider.value(
+      value: SafeTransactionsProvider(),
+      child: const SafeTransactionsScreen(),
     ),
   ),
   // GetPage(name: settingsDialog, page: SettingsAlertDialog(orderSettings: orderSettings, updateOrderSettings: updateOrderSettings))

@@ -63,7 +63,7 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
 
   void getProfitPercent(){
     profitPercent =
-    -((totalPrice??0) * (orderSettings?.profitPercent ?? 0)/100).toDouble();
+    -((totalPrice??0) * (orderSettings?.profitPercent ?? 0)/100).toDouble().roundToDouble();
   }
 
   void getTotalPrice() {
@@ -97,14 +97,13 @@ class DeliveredQuickOrdersProvider extends BaseProvider {
         firstDay?.day == secondDay?.day;
   }
 
-  void updateOrdersStatusToDone(String deliveryId) async {
+  void settleQuickOrders(String deliveryId) async {
     isLoading.value = true;
     List<String> ordersIds =
         filteredOrders.map((order) => order.id ?? "").toList();
-    Result result = await _repository.updateQuickOrdersStatusToDone(
+    Result result = await _repository.settleQuickOrders(
         ordersIds,
         deliveryId,
-        ordersCount ?? 0,
         totalPrice?.toDouble() ?? 0,
         profitPercent ?? 0);
 
