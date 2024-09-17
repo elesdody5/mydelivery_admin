@@ -57,7 +57,6 @@ class QuickOrderForm extends StatelessWidget {
         text: message,
         onConfirmBtnTap: () {
           Get.back(result: quickOrder);
-          Get.back(result: quickOrder);
         });
   }
 
@@ -71,6 +70,20 @@ class QuickOrderForm extends StatelessWidget {
       _toPhoneController.text = quickOrder.endDestinationPhoneNumber ?? "";
       _descriptionController.text = quickOrder.description ?? "";
     }
+  }
+
+  bool saveAndValidate(QuickOrder quickOrder) {
+    if (_formKey.currentState?.validate() == true) {
+      _formKey.currentState?.save();
+      quickOrder.startDestinationPhoneNumber = _fromPhoneController.value.text;
+      quickOrder.address?.startDestination = _fromAddressController.value.text;
+
+      quickOrder.endDestinationPhoneNumber = _toPhoneController.value.text;
+      quickOrder.address?.endDestination = _toAddressController.value.text;
+
+      return true;
+    }
+    return false;
   }
 
   Future<void> _pickMinutes(QuickOrderFormProvider provider) async {
@@ -388,18 +401,7 @@ class QuickOrderForm extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(
                           onPressed: () {
-                            if (_formKey.currentState?.validate() == true) {
-                              _formKey.currentState?.save();
-                              provider.quickOrder.startDestinationPhoneNumber =
-                                  _fromPhoneController.value.text;
-                              provider.quickOrder.address?.startDestination =
-                                  _fromAddressController.value.text;
-
-                              provider.quickOrder.endDestinationPhoneNumber =
-                                  _toPhoneController.value.text;
-                              provider.quickOrder.address?.endDestination =
-                                  _toAddressController.value.text;
-
+                            if (saveAndValidate(provider.quickOrder)) {
                               provider.sendQuickOrder();
                             }
                           },
@@ -411,8 +413,7 @@ class QuickOrderForm extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: OutlinedButton(
                           onPressed: () {
-                            if (_formKey.currentState?.validate() == true) {
-                              _formKey.currentState?.save();
+                            if (saveAndValidate(provider.quickOrder)) {
                               _pickMinutes(provider);
                             }
                           },

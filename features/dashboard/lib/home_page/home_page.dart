@@ -57,10 +57,10 @@ class HomePage extends StatelessWidget {
                 labelStyle: const TextStyle(color: Colors.black),
                 onTap: () => Get.dialog(ChangeNotifierProvider.value(
                     value: CitiesDialogProvider(), child: CitiesDialog()))),
-            SpeedDialChild(
-                label: "Feedback",
-                labelStyle: const TextStyle(color: Colors.black),
-                onTap: () => Get.dialog(FeedbackMessageDialog())),
+            // SpeedDialChild(
+            //     label: "Feedback",
+            //     labelStyle: const TextStyle(color: Colors.black),
+            //     onTap: () => Get.dialog(FeedbackMessageDialog())),
             SpeedDialChild(
                 label: "send_notification".tr,
                 labelStyle: const TextStyle(color: Colors.black),

@@ -40,7 +40,6 @@ class DeliveredQuickOrdersScreen extends StatelessWidget {
         type: CoolAlertType.success,
         text: provider.successMessage.value?.tr,
         onConfirmBtnTap: () {
-          Get.back();
           Get.back(result: provider.delivery);
         });
   }

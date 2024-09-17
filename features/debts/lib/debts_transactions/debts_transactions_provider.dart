@@ -1,11 +1,8 @@
-import 'dart:ffi';
-
 import 'package:core/base_provider.dart';
 import 'package:core/domain/result.dart';
 import 'package:debts/data/debts_repository_imp.dart';
 import 'package:debts/domain/debts_repository.dart';
 import 'package:debts/domain/model/debts_transactions.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import '../domain/model/debt.dart';
 
@@ -31,11 +28,11 @@ class DebtsTransactionsProvider extends BaseProvider {
     }
   }
 
-  Future<void> addTransaction(
-      TransactionType type, double amount, String reason) async {
+  Future<void> addTransaction(TransactionType type, double amount,
+      String reason, String deliveryName) async {
     if (addToDebt(type, amount)) {
       isLoading.value = true;
-      await createTransaction(type, amount, reason);
+      await createTransaction(type, amount, reason, deliveryName);
       await _debtsRepository.updateDebt(debt);
       isLoading.value = false;
     } else {
@@ -72,13 +69,14 @@ class DebtsTransactionsProvider extends BaseProvider {
     }
   }
 
-  Future<void> createTransaction(
-      TransactionType type, double amount, String reason) async {
+  Future<void> createTransaction(TransactionType type, double amount,
+      String reason, String deliveryName) async {
     final debtTransaction = DebtTransaction(
         transactionType: type,
         amount: amount,
         reason: reason,
         debtId: debt.id,
+        deliveryName: deliveryName,
         createdAt: DateTime.now());
 
     Result result = await _debtsRepository.addDebtTransaction(debtTransaction);

@@ -49,7 +49,6 @@ class AddProductScreen extends StatelessWidget {
         type: CoolAlertType.success,
         text: message,
         onConfirmBtnTap: () {
-          Get.back();
           Get.back(result: provider.product);
         });
   }

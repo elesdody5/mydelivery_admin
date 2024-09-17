@@ -52,9 +52,14 @@ class DebtTransactionListItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              transaction.userAdded?.name ?? "",
-              style: const TextStyle(color: Colors.redAccent),
+              "${"added_by".tr}: ${transaction.userAdded?.name ?? ""}",
+              style: Get.textTheme.bodySmall,
             ),
+            if (transaction.deliveryName != null)
+              Text(
+                "${"delivery".tr}: ${transaction.deliveryName ?? ""}",
+                style: Get.textTheme.bodySmall,
+              ),
           ],
         ),
         trailing: Column(

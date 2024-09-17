@@ -4,17 +4,19 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
 
 class TransactionDialog extends StatelessWidget {
-  final Function(String, String) addTransaction;
+  final Function(String, String, String) addTransaction;
 
   TransactionDialog({Key? key, required this.addTransaction}) : super(key: key);
 
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _reasonController = TextEditingController();
+  final TextEditingController _deliveryController = TextEditingController();
 
   void _submit() {
     if (_priceController.text.isNotEmpty) {
       Get.back();
-      addTransaction(_priceController.text, _reasonController.text);
+      addTransaction(_priceController.text, _reasonController.text,
+          _deliveryController.text);
     }
   }
 
@@ -38,6 +40,13 @@ class TransactionDialog extends StatelessWidget {
               controller: _reasonController,
               keyboardType: TextInputType.text,
               decoration: formInputDecoration(label: 'reason'.tr),
+            ),
+            FormBuilderTextField(
+              name: 'delivery',
+              controller: _deliveryController,
+              keyboardType: TextInputType.text,
+              decoration: formInputDecoration(
+                  label: "${"delivery".tr} (${"optional".tr})"),
             ),
           ],
         ),

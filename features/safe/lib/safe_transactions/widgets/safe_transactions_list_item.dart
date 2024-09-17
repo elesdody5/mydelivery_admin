@@ -20,7 +20,7 @@ class SafeTransactionsListItem extends StatelessWidget {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: ListTile(
-        onTap: ()=>Get.dialog(SafeTransactionDetails(transaction: transaction)),
+        // onTap: ()=>Get.dialog(SafeTransactionDetails(transaction: transaction)),
         leading: UserAvatar(
             id: transaction.delivery?.id ?? "",
             imageUrl: transaction.delivery?.imageUrl),
