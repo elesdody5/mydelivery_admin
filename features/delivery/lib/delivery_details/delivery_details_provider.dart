@@ -37,8 +37,12 @@ class DeliveryDetailsProvider extends BaseProvider {
     if (deliveryId != null) {
       Result<User> result = await _repository.getRemoteUserDetails(deliveryId);
       if (result.succeeded()) {
-        isBlocked = result.getDataIfSuccess().isBlocked;
-        isAdminBlocked = result.getDataIfSuccess().isAdminBlocked ?? false;
+        isBlocked = result
+            .getDataIfSuccess()
+            .isBlocked;
+        isAdminBlocked = result
+            .getDataIfSuccess()
+            .isAdminBlocked ?? false;
         notifyListeners();
       }
     }
@@ -58,7 +62,7 @@ class DeliveryDetailsProvider extends BaseProvider {
     if (id != null) {
       isLoading.value = true;
       Result result =
-          await _repository.updatedDeliveryBlockStates(id, isBlocked);
+      await _repository.updatedDeliveryBlockStates(id, isBlocked);
       isLoading.value = false;
       if (result.succeeded()) {
         this.isBlocked = isBlocked;
@@ -68,11 +72,12 @@ class DeliveryDetailsProvider extends BaseProvider {
       notifyListeners();
     }
   }
+
   Future<void> updateAdminBlockState(String? id, isAdminBlocked) async {
     if (id != null) {
       isLoading.value = true;
       Result result =
-          await _repository.updatedDeliveryAdminBlockState(id, isAdminBlocked);
+      await _repository.updatedDeliveryAdminBlockState(id, isAdminBlocked);
       isLoading.value = false;
       if (result.succeeded()) {
         this.isAdminBlocked = isAdminBlocked;
@@ -87,7 +92,7 @@ class DeliveryDetailsProvider extends BaseProvider {
     if (id != null) {
       isLoading.value = true;
       Result result =
-          await _repository.updateAddressVisibilityState(id, isHidden);
+      await _repository.updateAddressVisibilityState(id, isHidden);
       isLoading.value = false;
       if (result.succeeded()) {
         isAddressHidden = isHidden;
@@ -98,8 +103,9 @@ class DeliveryDetailsProvider extends BaseProvider {
     }
   }
 
-  void updateTotalDeliveredOrder(User updatedDelivery) {
-    delivery = updatedDelivery;
+  void updateTotalDeliveredOrder() async {
+    var result = await _repository.getRemoteUserDetails(delivery?.id ?? "");
+    if(result.succeeded()) delivery = result.getDataIfSuccess();
     notifyListeners();
   }
 

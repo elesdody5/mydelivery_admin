@@ -22,4 +22,15 @@ class SafeService {
         .forEach((json) => transactions.add(SafeTransaction.fromJson(json)));
     return ApiResponse(responseData: (total, transactions));
   }
+
+  Future<ApiResponse<SafeTransaction>> addSafeTransaction(
+      SafeTransaction safeTransactions) async {
+    final response =
+        await _dio.post(safeTransactionsUrl, data: safeTransactions.toJson());
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print("error message is ${response.data['message']}");
+      return ApiResponse(errorMessage: response.data['message']);
+    }
+    return ApiResponse(responseData: SafeTransaction.fromJson(response.data["createdTransaction"]));
+  }
 }

@@ -10,7 +10,8 @@ class SafeTransactionsListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-        separatorBuilder: (_, __) => Divider(),
+        separatorBuilder: (_, __) => const Divider(),
+        padding: null,
         itemCount: transactions.length,
         itemBuilder: (context, index) => ListTile(
               title: SafeTransactionsListItem(transaction: transactions[index]),

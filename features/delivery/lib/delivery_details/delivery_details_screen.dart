@@ -234,9 +234,8 @@ class DeliveryDetailsScreen extends StatelessWidget {
   void openDeliveredOrdersScreen(
       User delivery, DeliveryDetailsProvider provider) async {
     try {
-      User updatedDelivery =
           await Get.toNamed(deliveryDeliveredOrdersScreen, arguments: delivery);
-      provider.updateTotalDeliveredOrder(updatedDelivery);
+      provider.updateTotalDeliveredOrder();
     } on Exception catch (e) {
       printError(info: e.toString());
     }

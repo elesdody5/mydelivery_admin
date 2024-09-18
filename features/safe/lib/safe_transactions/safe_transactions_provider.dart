@@ -23,4 +23,19 @@ class SafeTransactionsProvider extends BaseProvider {
       notifyListeners();
     }
   }
+
+  Future<void> addTransaction(
+      AddingType type, double amount, String reason) async {
+    final safeTransaction =
+        SafeTransaction(addingType: type, amount: amount, reason: reason);
+    isLoading.value = true;
+    Result<SafeTransaction> result =
+        await _safeRepository.addSafeTransaction(safeTransaction);
+    isLoading.value = false;
+    if (result.succeeded()) {
+      total = type == AddingType.adding ? total + amount : total - amount;
+      safeTransactions.insert(0, result.getDataIfSuccess());
+      notifyListeners();
+    }
+  }
 }

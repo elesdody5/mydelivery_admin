@@ -1,46 +1,81 @@
 import 'package:flutter/material.dart';
 import 'package:safe/domain/model/safe_transaction.dart';
 import 'package:get/get.dart';
-import 'package:safe/safe_transactions/widgets/safe_transaction_details.dart';
-import 'package:widgets/user_avatar.dart';
+import 'package:core/utils/utils.dart';
 
 class SafeTransactionsListItem extends StatelessWidget {
   final SafeTransaction transaction;
 
   const SafeTransactionsListItem({super.key, required this.transaction});
 
-  Color amountColor(AddingType? addingType) =>
-      addingType == AddingType.adding ? Colors.green : Colors.red;
+  IconData transactionIcon() {
+    return transaction.addingType == AddingType.adding
+        ? Icons.arrow_upward_outlined
+        : Icons.arrow_downward_outlined;
+  }
 
-  String sign(AddingType? addingType) =>
-      addingType == AddingType.adding ? "" : "-";
+  Color transactionColor() {
+    return transaction.addingType == AddingType.adding
+        ? Colors.green
+        : Colors.red;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      child: ListTile(
-        // onTap: ()=>Get.dialog(SafeTransactionDetails(transaction: transaction)),
-        leading: UserAvatar(
-            id: transaction.delivery?.id ?? "",
-            imageUrl: transaction.delivery?.imageUrl),
-        title: Text(transaction.delivery?.name ?? ""),
-        subtitle: Text(
-          "${"added_by".tr}: ${transaction.userAdded?.name ?? ""}",
-          style: Get.textTheme.bodySmall,
-          overflow: TextOverflow.clip,
+    return ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 0.0), // Adjust the horizontal padding
+        leading: Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+              shape: BoxShape.circle, color: Get.theme.primaryColor),
+          child: Icon(transactionIcon(), color: transactionColor()),
         ),
-        trailing: Column(
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "${sign(transaction.addingType)} ${transaction.amount?.toString() ?? ""}",
-              style: Get.textTheme.bodyMedium
-                  ?.copyWith(color: amountColor(transaction.addingType)),
+              transaction.createdAt?.customFormat() ?? "",
+              style: const TextStyle(fontSize: 16),
             ),
-            Text(transaction.transactionType?.name.toLowerCase().tr ?? "")
+            Text(
+              transaction.createdAt?.timeFormat() ?? "",
+              style: const TextStyle(fontSize: 12),
+            ),
           ],
         ),
-      ),
-    );
+        subtitle: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "${"added_by".tr}: ${transaction.userAdded?.name ?? ""}",
+              style: Get.textTheme.bodySmall,
+            ),
+            if (transaction.delivery?.name != null)
+              Text(
+                "${"delivery".tr}: ${transaction.delivery?.name ?? ""}",
+                style: Get.textTheme.bodySmall,
+              ),
+          ],
+        ),
+        trailing: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "${transaction.amount?.toString() ?? ""} ${"le".tr}",
+              style: TextStyle(color: transactionColor()),
+            ),
+            if (transaction.transactionType != null)
+              Text(
+                transaction.transactionType?.name.tr ?? "",
+              ),
+            if (transaction.reason != null)
+              Text(
+                transaction.reason?? "",
+              ),
+          ],
+        ));
   }
 }

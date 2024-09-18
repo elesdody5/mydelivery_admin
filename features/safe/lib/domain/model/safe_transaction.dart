@@ -1,6 +1,7 @@
 import 'package:core/domain/user.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+
 class SafeTransaction {
   String? id;
   num? amount;
@@ -10,6 +11,7 @@ class SafeTransaction {
   String? updatedAt;
   User? userAdded;
   User? delivery;
+  String? reason;
 
   SafeTransaction(
       {this.id,
@@ -18,20 +20,36 @@ class SafeTransaction {
       this.amount,
       this.transactionType,
       this.addingType,
-      this.createdAt});
+      this.createdAt,
+      this.reason});
 
   SafeTransaction.fromJson(Map<String, dynamic> json) {
     id = json["id"];
     amount = json['amount'];
-    userAdded = User.fromJson(json['user']);
-    delivery = User.fromJson(json['delivery']);
-    transactionType = TransactionType.values.firstWhere(
-        (e) => e.name.toLowerCase() == json['transactionType'].toLowerCase());
+    userAdded = json["user"] != null ? User.fromJson(json['user']) : null;
+    delivery =
+        json["delivery"] != null ? User.fromJson(json['delivery']) : null;
+    transactionType = json['transactionType'] != null
+        ? TransactionType.values.firstWhere((e) =>
+            e.name.toLowerCase() == json['transactionType'].toLowerCase())
+        : null;
     addingType = AddingType.values.firstWhere(
         (e) => e.name.toLowerCase() == json['addingType'].toLowerCase());
     createdAt = DateTime.parse(json['createdAt']);
     updatedAt = json['updatedAt'];
+    reason = json["reason"];
   }
+
+  Map<String, dynamic> toJson() => {
+
+        "amount": amount,
+        "user": userAdded?.id,
+        "delivery": delivery?.id,
+        "transactionType": transactionType?.name.capitalizeFirst,
+        "addingType": addingType?.name.capitalizeFirst,
+        "reason": reason
+      };
+
   String? get formattedTime {
     if (createdAt == null) return null;
     String formattedTime = DateFormat.jm().format(createdAt!);
