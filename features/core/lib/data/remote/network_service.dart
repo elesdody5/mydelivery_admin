@@ -36,7 +36,7 @@ class DioBuilder {
     return _dio!;
   }
 
-  static void addInterceptor(String token) {
-    _dio?.interceptors.add(TokenInterceptor(token: token));
+  static void addInterceptor(String? token, [String? cityId]) {
+    _dio?.interceptors.add(ApiInterceptor(token: token, cityId: cityId));
   }
 }

@@ -10,7 +10,7 @@ abstract class AuthApiService {
 
   Future<ApiResponse<String>> forgetPassword(String email);
 
-  void addInterceptor(String token);
+  void addInterceptor(String? token,[String? city]);
 
   Future<void> updateNotificationToken(
       String? userId, String? notificationToken);

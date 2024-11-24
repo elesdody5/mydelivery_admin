@@ -1,13 +1,15 @@
 import 'package:dio/dio.dart';
 
-class TokenInterceptor extends Interceptor {
+class ApiInterceptor extends Interceptor {
   final String? token;
+  final String? cityId;
 
-  TokenInterceptor({this.token});
+  ApiInterceptor({this.token, this.cityId});
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     if (token != null) options.headers['Authorization'] = 'Bearer $token';
+    if (cityId != null) options.headers['cityId'] = cityId!;
     return super.onRequest(options, handler);
   }
 }

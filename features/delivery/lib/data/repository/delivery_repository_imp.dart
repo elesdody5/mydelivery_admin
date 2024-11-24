@@ -3,6 +3,7 @@ import 'package:core/data/shared_preferences/user_manager_interface.dart';
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
+import 'package:core/domain/user_city.dart';
 import 'package:core/model/order.dart';
 import 'package:core/model/order_settings.dart';
 import 'package:core/model/order_status.dart';
@@ -242,4 +243,8 @@ class DeliveryRepositoryImp implements DeliveryRepository {
       String id, bool isAdminBlocked) {
     return _remoteDataSource.updatedDeliveryAdminBlockState(id, isAdminBlocked);
   }
+
+  @override
+  Future<Result<List<UserCity>>> getUserCities() =>
+      _remoteDataSource.getUserCities();
 }

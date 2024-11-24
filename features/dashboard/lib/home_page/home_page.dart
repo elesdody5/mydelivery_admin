@@ -276,7 +276,7 @@ class HomePage extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset("assets/images/cash-withdrawal.png"),
+                    Image.asset("assets/images/cash-withdrawal.webp"),
                     Text("safe".tr,
                         style: const TextStyle(
                             color: Colors.black,

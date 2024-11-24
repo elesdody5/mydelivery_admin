@@ -1,6 +1,7 @@
 import 'package:core/data/remote/network_service.dart';
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/user.dart';
+import 'package:core/domain/user_city.dart';
 import 'package:core/domain/user_type.dart';
 import 'package:core/model/order_status.dart';
 import 'package:core/model/response.dart';
@@ -303,5 +304,19 @@ class DeliveryApiServiceImp implements DeliveryApiService {
       return ApiResponse(errorMessage: response.data['message']);
     }
     return ApiResponse(responseData: true);
+  }
+
+  @override
+  Future<ApiResponse<List<UserCity>>> getUserCities() async{
+    final response = await _dio.get(userUrl);
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print("error message is ${response.data['message']}");
+      return ApiResponse(errorMessage: response.data['message']);
+    }
+    List<UserCity> cities = [];
+    response.data['cities']
+        .forEach((json) => cities.add(UserCity.fromJson(json)));
+
+    return ApiResponse(responseData: cities);
   }
 }

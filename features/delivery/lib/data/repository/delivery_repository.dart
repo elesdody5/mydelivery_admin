@@ -1,6 +1,7 @@
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
+import 'package:core/domain/user_city.dart';
 import 'package:core/model/order.dart';
 import 'package:core/model/order_settings.dart';
 import 'package:core/model/order_status.dart';
@@ -85,4 +86,6 @@ abstract class DeliveryRepository {
       String? deliveryId);
 
   Future<Result> updateQuickOrderDebt(String? quickOrderId, double debt);
+
+  Future<Result<List<UserCity>>>  getUserCities() ;
 }

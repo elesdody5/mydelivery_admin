@@ -15,8 +15,8 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
       : _apiService = apiService ?? AuthApiServiceImp();
 
   @override
-  void addInterceptor(String token) {
-    _apiService.addInterceptor(token);
+  void addInterceptor(String? token,[String? cityId]) {
+    _apiService.addInterceptor(token,cityId);
   }
 
   @override

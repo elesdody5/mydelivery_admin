@@ -32,7 +32,6 @@ class AuthApiServiceImp implements AuthApiService {
       String token = responseData['token'];
       UserType? type = stringToEnum(responseData['user']['userType']);
       User? user = User.fromJson(responseData['user']);
-      addInterceptor(token);
       return ApiResponse(
           responseData: LoginResponse(
               token: token, userType: type, user: user, userPhone: phone));
@@ -88,8 +87,8 @@ class AuthApiServiceImp implements AuthApiService {
   }
 
   @override
-  void addInterceptor(String token) {
-    DioBuilder.addInterceptor(token);
+  void addInterceptor(String? token,[String? cityId]) {
+    DioBuilder.addInterceptor(token,cityId);
   }
 
   @override

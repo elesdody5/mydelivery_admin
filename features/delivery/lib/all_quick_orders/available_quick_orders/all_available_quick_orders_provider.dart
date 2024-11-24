@@ -1,6 +1,8 @@
 import 'package:core/base_provider.dart';
+import 'package:core/domain/city.dart';
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
+import 'package:core/domain/user_city.dart';
 import 'package:delivery/data/repository/delivery_repository.dart';
 import 'package:delivery/data/repository/delivery_repository_imp.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -11,6 +13,7 @@ class AllAvailableQuickOrdersProvider extends BaseProvider {
   List<QuickOrder> filteredQuickOrders = [];
   final DeliveryRepository _repository;
   void Function(int)? updateAvailableQuickOrderCount;
+  UserCity? selectedCity;
 
   AllAvailableQuickOrdersProvider(
       {DeliveryRepository? repository, this.updateAvailableQuickOrderCount})
@@ -57,6 +60,12 @@ class AllAvailableQuickOrdersProvider extends BaseProvider {
       _orders[index] = quickOrder;
       filteredQuickOrders = [..._orders];
       notifyListeners();
+    }
+  }
+
+  void updateSelectedCity(UserCity? city) {
+    if (city != null) {
+      selectedCity = city;
     }
   }
 }

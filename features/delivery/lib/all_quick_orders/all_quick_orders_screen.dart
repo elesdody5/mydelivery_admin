@@ -7,6 +7,7 @@ import 'package:delivery/all_quick_orders/with_delivery_quick_orders/all_with_de
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:widgets/cities_dropdown_button.dart';
 
 import 'delivered_orders/all_delivered_orders_provider.dart';
 import 'delivered_orders/all_delivered_orders_screen.dart';
@@ -26,6 +27,7 @@ class AllQuickOrdersScreen extends StatelessWidget {
               title: Text(
                 "quick_order".tr,
               ),
+              // actions: [CitiesDropdownButton(onChanged: provider.updateSelectedCity, userCities: provider.cities)],
               bottom: TabBar(
                 tabs: [
                   Consumer<AllQuickOrdersProvider>(

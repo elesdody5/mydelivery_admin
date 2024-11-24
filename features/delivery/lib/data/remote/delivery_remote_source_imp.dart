@@ -1,6 +1,8 @@
+import 'package:core/domain/city.dart';
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
+import 'package:core/domain/user_city.dart';
 import 'package:core/model/http_exception.dart';
 import 'package:core/model/response.dart';
 import 'package:core/model/review.dart';
@@ -167,6 +169,13 @@ class DeliveryRemoteDataSourceImp implements DeliveryRemoteDataSource {
       String id, bool isAdminBlocked) async {
     var response = await _deliveryApiService.updatedDeliveryAdminBlockState(
         id, isAdminBlocked);
+    return _getResultFromResponse(response);
+  }
+
+  @override
+  Future<Result<List<UserCity>>> getUserCities()async {
+    var response =
+        await _deliveryApiService.getUserCities();
     return _getResultFromResponse(response);
   }
 }

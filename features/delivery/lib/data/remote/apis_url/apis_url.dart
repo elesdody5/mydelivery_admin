@@ -8,3 +8,4 @@ const String updateQuickOrders = "/quickOrders/updateMultipleQuickOrders";
 const String settleQuickOrdersUrl = "/quickOrders/settleDeliveryQuickOrders";
 const String deleteDeliveryFromQuickOrders = "/quickOrders/setDeliveryNull";
 const String reviewsUrl = "/reviews/deliveryReviews";
+const String citiesUrl = "/city";

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:core/domain/city.dart';
 import 'package:core/domain/user_type.dart';
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
@@ -15,6 +16,7 @@ class User {
   UserType? userType;
   String? latitude;
   String? longitude;
+  String? cityId;
   int? coins;
   bool isBlocked;
   bool? isAdminBlocked;
@@ -37,6 +39,7 @@ class User {
       this.totalOrders,
       this.accountBalance,
       this.totalOrdersMoney,
+      this.cityId,
       this.isBlocked = false});
 
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -54,7 +57,7 @@ class User {
       totalOrdersMoney: json['totalOrdersMoney'],
       isBlocked: json['blocked'] ?? false,
       isAdminBlocked: json['adminBlocked'] ?? false,
-  );
+      cityId: json["address"]?["city"],);
 
   Future<Map<String, dynamic>> toJsonWithImage() async {
     List<String>? mimeTypeData;
@@ -71,7 +74,7 @@ class User {
       'totalOrdersMoney': totalOrdersMoney,
       'accountBalance': accountBalance,
       "fullAddress": address,
-      "address": {'lattitude': latitude, "longitude": longitude},
+      "address": {'lattitude': latitude, "longitude": longitude,"city":cityId},
       "photo": imageFile != null
           ? await MultipartFile.fromFile(imageFile!.path,
               filename: imageFile?.path.split('/').last ?? "",
@@ -86,10 +89,11 @@ class User {
         'phone': phone,
         'userType': userType?.enmToString(),
         "fullAddress": address,
-        "address": {'lattitude': latitude, "longitude": longitude},
+        "address": {'lattitude': latitude, "longitude": longitude,"city":cityId},
         "photo": imageUrl,
         "score": coins,
         'totalOrders': totalOrders,
+        'city': cityId,
         'totalOrdersMoney': totalOrdersMoney,
         'accountBalance': accountBalance,
       };

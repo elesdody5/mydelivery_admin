@@ -1,5 +1,6 @@
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/user.dart';
+import 'package:core/domain/user_city.dart';
 import 'package:core/model/response.dart';
 import 'package:core/model/review.dart';
 
@@ -51,8 +52,9 @@ abstract class DeliveryApiService {
   Future<ApiResponse<List<QuickOrder>>> getDeliveryQuickOrdersWithDebts(
       String? deliveryId);
 
-  Future<ApiResponse> updateQuickOrderDebt(
-      String? quickOrderId, double debt);
+  Future<ApiResponse> updateQuickOrderDebt(String? quickOrderId, double debt);
 
-  updatedDeliveryAdminBlockState(String id, bool isAdminBlocked) ;
+  updatedDeliveryAdminBlockState(String id, bool isAdminBlocked);
+
+  Future<ApiResponse<List<UserCity>>> getUserCities();
 }

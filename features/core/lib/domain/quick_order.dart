@@ -28,6 +28,7 @@ class QuickOrder {
   int? price;
   num? debt;
   DateTime? deliveryPickedTime;
+  String? city;
 
   QuickOrder(
       {this.id,
@@ -46,6 +47,7 @@ class QuickOrder {
       this.deliveryPickedTime,
       this.price,
       this.debt,
+      this.city,
       this.recordFile,
       this.imageFile});
 
@@ -65,6 +67,7 @@ class QuickOrder {
       count: json['count'],
       imageUrl: json['photo'],
       audioUrl: json['audio'],
+      city: json['city'],
       dateTime: json["date"] != null ? DateTime.parse(json['date']) : null,
       deliveryPickedTime: json["withDeliveryTime"] != null
           ? DateTime.parse(json['withDeliveryTime'])
@@ -85,6 +88,7 @@ class QuickOrder {
       "user": user?.id,
       "description": description,
       "status": orderStatus?.enumToString(),
+      "city": city,
       "userPhone":
           "${startDestinationPhoneNumber ?? ""}/${endDestinationPhoneNumber ?? ""}",
       "count": count,

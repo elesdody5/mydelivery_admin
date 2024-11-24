@@ -1,6 +1,8 @@
+import 'package:core/domain/city.dart';
 import 'package:core/domain/quick_order.dart';
 import 'package:core/domain/result.dart';
 import 'package:core/domain/user.dart';
+import 'package:core/domain/user_city.dart';
 import 'package:core/model/review.dart';
 
 abstract class DeliveryRemoteDataSource {
@@ -42,8 +44,8 @@ abstract class DeliveryRemoteDataSource {
 
   Future<Result> removeQuickOrder(String? id);
 
-  Future<Result> updateDeliveryAccountBalance(String deliveryId,
-      double accountBalance);
+  Future<Result> updateDeliveryAccountBalance(
+      String deliveryId, double accountBalance);
 
   Future<Result<List<QuickOrder>>> getDeliveryQuickOrdersWithDebts(
       String? deliveryId);
@@ -51,4 +53,6 @@ abstract class DeliveryRemoteDataSource {
   Future<Result> updateQuickOrderDebt(String? quickOrderId, double debt);
 
   Future<Result> updatedDeliveryAdminBlockState(String id, bool isAdminBlocked);
+
+  Future<Result<List<UserCity>>> getUserCities();
 }

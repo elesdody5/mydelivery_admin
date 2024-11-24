@@ -34,7 +34,9 @@ class QuickOrderRepository implements Repository {
   @override
   Future<Result> sendQuickOrder(QuickOrder quickOrder) async {
     String? id = await _sharedPreferencesManager.getAdminId();
+    String? city = (await _sharedPreferencesManager.getAdminDetails())?.cityId;
     quickOrder.user = User(id: id);
+    quickOrder.city = city;
     Result result = await _remoteDataSource.sendQuickOrder(quickOrder);
 
     if (hasLocalIdAndSentSuccessfully(quickOrder, result)) {
