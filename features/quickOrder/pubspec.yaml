@@ -8,7 +8,7 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  android_alarm_manager_plus: ^4.0.4
+  android_alarm_manager_plus: ^4.0.7
 
   flutter:
     sdk: flutter

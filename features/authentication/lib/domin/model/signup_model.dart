@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:core/domain/city.dart';
 import 'package:core/domain/user_type.dart';
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
@@ -16,7 +17,7 @@ class SignUpModel {
   double? latitude;
   double? longitude;
   String? address;
-
+  String? cityId;
   File? imageFile;
 
   SignUpModel(
@@ -43,6 +44,7 @@ class SignUpModel {
       "userType": userType?.enmToString(),
       "phone": phone,
       "fullAddress": address,
+      "address": {'lattitude': latitude, "longitude": longitude,"city":cityId},
       "photo": imageFile != null
           ? await MultipartFile.fromFile(imageFile!.path,
               filename: imageFile?.path.split('/').last ?? "",

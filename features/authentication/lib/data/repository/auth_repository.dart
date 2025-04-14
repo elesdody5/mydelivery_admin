@@ -38,6 +38,7 @@ class AuthRepositoryImp implements AuthRepository {
 
   @override
   Future<Result<LoginResponse>> signUp(SignUpModel signUpModel) async {
+    signUpModel.cityId  = (await _userManager.getAdminDetails())?.cityId;
     Result<LoginResponse> loginResponse = await _remoteAuth.signUp(signUpModel);
     if (loginResponse.succeeded()) {
       var loginData = loginResponse.getDataIfSuccess();
